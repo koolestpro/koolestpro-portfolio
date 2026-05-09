@@ -17,3 +17,4 @@ steelkind-sample-brand-identity.html
 # Editor
 .vscode/
 *.code-workspace
+.claude/

@@ -1,0 +1,20 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(xargs ls -lh)",
+      "Bash(sort -k5 -rh)",
+      "Bash(gh auth *)",
+      "Bash(gh repo *)",
+      "Bash(git --version)",
+      "Bash(git config *)",
+      "Bash(git add *)",
+      "Bash(git rm *)",
+      "Bash(rm -rf /Users/mac/Downloads/replo-rebuilds/portfolio/.git && git rm --cached portfolio -q 2>/dev/null; git add portfolio/ && git status --short | head -5 && echo \"---TOTAL---\" && git status --short | wc -l)",
+      "Bash(git ls-tree *)",
+      "Bash(git update-index *)",
+      "Bash(xxd)",
+      "Bash(git read-tree *)",
+      "Bash(git commit -m ' *)"
+    ]
+  }
+}

@@ -146,11 +146,16 @@
     }
 
     @keyframes fade-up{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
-    .h-a0{animation:fade-up .6s var(--ease) .1s both}
-    .h-a1{animation:fade-up .7s var(--ease) .22s both}
-    .h-a2{animation:fade-up .65s var(--ease) .38s both}
-    .h-a3{animation:fade-up .6s var(--ease) .5s both}
-    .h-a4{animation:fade-up .6s var(--ease) .62s both}
+    @keyframes hero-in{from{opacity:0;transform:translateY(28px);filter:blur(5px)}to{opacity:1;transform:none;filter:blur(0px)}}
+    /* Hero elements start hidden — animations only trigger once hero-enter class is added */
+    .h-a0,.h-a1,.h-a2,.h-a3,.h-a4{opacity:0}
+    #hero.hero-enter .h-a0{animation:hero-in .85s var(--ease) 0.05s both}
+    #hero.hero-enter .h-a1{animation:hero-in .95s var(--ease) 0.22s both}
+    #hero.hero-enter .h-a2{animation:hero-in .9s  var(--ease) 0.42s both}
+    #hero.hero-enter .h-a3{animation:hero-in .85s var(--ease) 0.60s both}
+    #hero.hero-enter .h-a4{animation:hero-in .85s var(--ease) 0.76s both}
+    /* Hero inner content transition for scroll exit */
+    #hero .container{transition:opacity .08s linear,filter .08s linear,transform .08s linear;will-change:opacity,filter,transform}
 
     /* SERVICES */
     #services{background:var(--bg)}
@@ -337,6 +342,7 @@
     .hire-submit:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(240,237,232,.13)}
     .hire-submit:active{transform:none}
     .hire-submit.sent{background:rgba(61,214,140,.12);color:#3dd68c;border:1px solid rgba(61,214,140,.3);pointer-events:none;cursor:default}
+    @keyframes spin{to{transform:rotate(360deg)}}
     .hire-divider{display:flex;align-items:center;gap:12px;margin:8px 0;max-width:480px;margin-left:auto;margin-right:auto}
     .hire-divider span{font-family:var(--fm);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--subtle)}
     .hire-divider::before,.hire-divider::after{content:'';flex:1;height:1px;background:var(--border)}
@@ -802,7 +808,7 @@
         <a href="https://linkedin.com/in/koolestpro" target="_blank" rel="noopener" class="s-link" aria-label="LinkedIn">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
         </a>
-        <a href="https://twitter.com/koolestpro" target="_blank" rel="noopener" class="s-link" aria-label="Twitter/X">
+        <a href="https://x.com/RidwanA40675016" target="_blank" rel="noopener" class="s-link" aria-label="X (Twitter)">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
         </a>
         <a href="https://instagram.com/koolestpro" target="_blank" rel="noopener" class="s-link" aria-label="Instagram">
@@ -890,6 +896,11 @@
         pl.classList.add('exit');
         site.classList.add('visible');
         setTimeout(function(){ pl.style.display='none'; },600);
+        /* Trigger hero entry animations after preloader slides out */
+        setTimeout(function(){
+          var hero = document.getElementById('hero');
+          if(hero) hero.classList.add('hero-enter');
+        }, 120);
       },200);
     }
   },80);
@@ -928,9 +939,9 @@ const PROJECTS = [
       video:'images/exports/tapandrate-landing-mobile.mp4',
       experience:{ image:'images/exports/tapandrate.co.uk_pages_review-management-1_pb=0(Laptop).png', scrollEnd:'-70%' },
       mobileShots:[
-        {src:'images/exports/tapandrate.co.uk_pages_review-management-1_pb=0(iPhone 14 Pro Max).png', position:'top'},
-        {src:'images/exports/tapandrate.co.uk_pages_review-management-1_pb=0(iPhone 14 Pro Max).png', position:'center'},
-        {src:'images/exports/tapandrate.co.uk_pages_review-management-1_pb=0(iPhone 14 Pro Max).png', position:'bottom'}
+        {src:'images/exports/tapandrate-landing-mobile-1.png', position:'top'},
+        {src:'images/exports/tapandrate-landing-mobile-2.png', position:'center'},
+        {src:'images/exports/tapandrate-landing-mobile-3.png', position:'bottom'}
       ]
     },
     caseStudy:{
@@ -951,7 +962,7 @@ const PROJECTS = [
       video:'images/exports/champion-biotics-pdp-desktop.mp4',
       experience:{ image:'images/exports/champion-biotics-pdp-desktop.mp4' },
       mobileShots:[
-        {src:'images/exports/championbiotics-pdp-mobile.mp4'}
+        {src:'images/exports/champ.mp4'}
       ]
     },
     caseStudy:{
@@ -968,13 +979,21 @@ const PROJECTS = [
     url:'https://motherofmacros.com',
     media:{
       cover:'images/exports/motherofmacros-cover.avif',
-      hideMediaDetails:true
+      video: 'images/exports/motherofmacros-vid.mp4',
+      experience:{ image:'images/exports/motherofmacros-vid.mp4' },
+      mobileShots:[
+        {src:'images/exports/motherofmacros-mobile-1.png'},
+        {src:'images/exports/motherofmacros-mobile-1.png'},
+        {src:'images/exports/motherofmacros-mobile-1.png'}
+
+      ]
+      // hideMediaDetails:true
     },
     caseStudy:{
       headline:'A 5-step ordering flow that replaced a broken multi-page checkout',
       tools:['Shopify','Liquid','Custom JS','Custom CSS'],
       description:'Mother of Macros sells meal prep with a genuinely complex ordering model. Customers must meet a minimum order quantity, pick from multiple food types, and enter a zip code that determines both product pricing and delivery availability. The original flow required multiple page reloads to get through all of this — and dropped buyers at every step.',
-      decisions:['Compressed the entire ordering logic into a linear 5-step flow: plan type → meal selection → food preferences → zip code → cart — all without page reloads','Zip code validation placed at step 3, before the customer finalises their order, so delivery eligibility is confirmed early and not discovered as a rejection at checkout','Minimum order quantity surfaced visually at the meal selection step — not buried as a checkout error — so buyers understand the requirement before they invest time building their order'],
+      decisions:['Compressed the entire ordering logic into a linear 5-step flow: zip → plan type → food preferences (pick entree) → food preferences (pick clean cheatz) → summary — all without page reloads','Zip code validation placed at step 1, before the customer finalises their order, so delivery eligibility is confirmed early and not discovered as a rejection at checkout','Minimum order quantity surfaced visually at the meal selection step — not buried as a checkout error — so buyers understand the requirement before they invest time building their order'],
       result:'The 5-step flow turned a multi-page, friction-heavy process into something customers could complete without confusion or backtracking. Client confirmed the rebuild simplified checkout significantly compared to the previous experience.'
     }
   },
@@ -987,7 +1006,9 @@ const PROJECTS = [
       video:'images/exports/ishu-experience.mp4',
       experience:{ image:'images/exports/ishu-experience.mp4' },
       mobileShots:[
-        {src:'images/exports/ishu-cover.webp'}
+        {src:'images/exports/ishu-mobile-1.png'},
+        {src:'images/exports/ishu-mobile-1.png'},
+        {src:'images/exports/ishu-mobile-1.png'}
       ]
     },
     caseStudy:{
@@ -1030,8 +1051,8 @@ const PROJECTS = [
       experience:{ image:'images/exports/captain-skippers-laptop.png', scrollEnd:'-34%' },
       mobileShots:[
         {src:'images/exports/captain-skippers-mobile-1.png', position:'top', fit:'cover'},
-        {src:'images/exports/captain-skippers-mobile-1.png', position:'center', fit:'cover'},
-        {src:'images/exports/captain-skippers-mobile-1.png', position:'bottom', fit:'cover'}
+        {src:'images/exports/captain-skippers-mobile-2.png', position:'center', fit:'cover'},
+        {src:'images/exports/captain-skippers-mobile-3.png', position:'bottom', fit:'cover'}
       ]
     },
     caseStudy:{
@@ -1049,12 +1070,7 @@ const PROJECTS = [
     media:{
       cover:'images/exports/titanium-laptop-above-fold.png',
       video:'images/exports/titanium-video-laptop.mp4',
-      experience:{ image:'images/exports/titanium-laptop-full-page.png', scrollEnd:'-68%' },
-      mobileShots:[
-        {src:'images/exports/titanium-laptop-above-fold.png'},
-        {src:'images/exports/titanium-laptop-full-page.png', position:'center', fit:'cover'},
-        {src:'images/exports/titanium-laptop-full-page.png', position:'bottom', fit:'cover'}
-      ]
+      experience:{ image:'images/exports/titanium-laptop-full-page.png', scrollEnd:'-68%' }
     },
     caseStudy:{
       headline:'A full-page landing experience with strong visual hierarchy',
@@ -1071,7 +1087,11 @@ const PROJECTS = [
     media:{
       cover:'images/exports/kura-ad-preview.png',
       experience:{ type:'embed', embed:'../brands/kura/pages/kura-ad-01/index.html', image:'images/exports/kura-ad-preview.png' },
-      mobileShots:[]
+      mobileShots:[
+        {src:'images/exports/kura-ad-mobile-1.png'},
+        {src:'images/exports/kura-ad-mobile-2.png'},
+        {src:'images/exports/kura-ad-mobile-3.png'}
+      ]
     },
     caseStudy:{
       headline:'An advertorial that reads like journalism, converts like a sales page',
@@ -1088,7 +1108,11 @@ const PROJECTS = [
     media:{
       cover:'images/exports/kura-home-preview.png',
       experience:{ type:'embed', embed:'../brands/kura/pages/kura-hp-01/index.html', image:'images/exports/kura-home-preview.png' },
-      mobileShots:[]
+      mobileShots:[
+        {src:'images/exports/kura-hp-mobile-1.png'},
+        {src:'images/exports/kura-hp-mobile-2.png'},
+        {src:'images/exports/kura-hp-mobile-3.png'}
+      ]
     },
     caseStudy:{
       headline:'A brand homepage that earns trust before it sells',
@@ -1105,7 +1129,11 @@ const PROJECTS = [
     media:{
       cover:'images/exports/kura-listicle-preview.png',
       experience:{ type:'embed', embed:'../brands/kura/pages/kura-listicle-li03/index.html', image:'images/exports/kura-listicle-preview.png' },
-      mobileShots:[]
+      mobileShots:[
+        {src:'images/exports/kura-lis-03-mobile-1.png'},
+        {src:'images/exports/kura-lis-03-mobile-2.png'},
+        {src:'images/exports/kura-lis-03-mobile-3.png'}
+      ]
     },
     caseStudy:{
       headline:'A listicle that ranks #1 by design, not accident',
@@ -1124,36 +1152,26 @@ const CRO_CONCEPTS = [
     metric:'+18% ATC Rate',
     title:'Add-to-Cart Above the Fold',
     desc:'Moving the ATC button into the viewport on load — without scrolling — removes the most common conversion barrier on PDPs.',
-    analysis:'Most default Shopify themes push the buy box below an image gallery. By the time a buyer reaches the ATC button, intent has already peaked and started fading. Keeping price, key benefit bullets, and the ATC button visible on load captures the decision at peak interest.',
-    points:['ATC button position tested above vs below product description','Image gallery moved to a horizontal scroll or secondary view','Mobile layout tested separately — thumb reach distance matters'],
-    baImage:'images/exports/getfit-before-after.png',
-    gallery:[
-      {label:'Hero fix', src:'images/exports/eddiebauer-mobile-redesign-above-fold.png'},
-      {label:'Mobile PDP', src:'images/exports/kura-pdp-full-mobile.png'},
-      {label:'Desktop PDP', src:'images/exports/kura-pdp-full-laptop.png'}
-    ]
+    analysis:'The original GetFit NG page opened with the product name as the headline — "3 Strap Ruby - Red" — and buried the buy decision below size selectors. The rebuilt version leads with the outcome the buyer is already motivated by: "Flatten Your Lower Belly Instantly — No Gym Required." Stars, trust badges, and the CTA are all in view before a single scroll. The button copy was also rewritten from the generic "Add to Cart" to "Get Snatched Now" — language that mirrors how this buyer actually talks about the result they want.',
+    points:['Headline flipped from product name to outcome ("Flatten Your Lower Belly Instantly — No Gym Required")','CTA rewritten to match buyer vocabulary: "Get Snatched Now — Add to Cart"','Star rating and trust badges surfaced into the initial viewport — none required scrolling'],
+    baImage:'images/exports/getfit-before-after.png'
   },
   {
     id:'social-proof-sequencing',
     metric:'+24% Review Engagement',
     title:'Social Proof Sequencing',
     desc:'The order and placement of review cards throughout a PDP changes how much trust is built before the purchase decision.',
-    analysis:'Placing all reviews in a single block at the bottom of the page means most visitors never see them. Sequencing short reviews near the hero, ingredient-specific quotes near specs, and transformation reviews near the CTA creates trust at every scroll depth.',
-    points:['Star rating and quote placed directly below hero image','Category-specific reviews matched to relevant product sections','Transformation reviews positioned just before the primary CTA'],
-    baImage:'images/exports/eco-boutique-before-after.png',
-    gallery:[
-      {label:'Proof layout', src:'images/exports/eco-boutique-before-after.png'},
-      {label:'Trust section', src:'images/exports/eco-boutique-cro-guide.png'},
-      {label:'Mobile proof', src:'images/exports/captain-skippers-mobile-1.png'}
-    ]
+    analysis:'Eco Bio Boutique had 160 reviews, a 4.4-star rating, and a clinical study confirming 78% cellulite reduction. None of it was visible above the fold. The rebuilt page sequences three distinct proof types where they do the most work: the aggregate rating at the very top (social consensus), the clinical stat in the product block (authority), and a named review from "Anna Lisa V." placed directly above the CTA (specific, last-moment reassurance). The proof already existed. The page just wasn\'t using it.',
+    points:['4.4 stars from 160 reviews surfaced to the first visible line below the product title','Clinical stat pulled up from four scrolls deep: "78% meno cellulite — testato su 100 donne"','Named review from a real customer placed directly above the add-to-cart button'],
+    baImage:'images/exports/eco-boutique-before-after.png'
   },
   {
     id:'headline-clarity',
     metric:'-19% Bounce Rate',
     title:'Outcome-First Hero Headline',
     desc:"Rewriting headlines to lead with the customer outcome — not the product feature — reduces bounce rate and increases scroll depth.",
-    analysis:'Feature-first headlines ("Proprietary Ceramic Coating") answer a question nobody asked. Outcome-first headlines ("A surface that stays clean between uses") answer the implicit question every visitor has: "what does this do for me?" Switching the framing gets more people past the fold.',
-    points:['Headline A/B: feature ("500mg Omega-3") vs outcome ("Think clearer, move easier")','Subheadline carries the mechanism — credibility without leading with it','Social proof pulled up under the headline to reinforce the claim'],
+    analysis:'The original Eddie Bauer title — "Women\'s Everyday Short Sleeve Crewneck T Shirt" — is a product database label. It describes the object, not the experience. The rebuild adds a subheadline that does the copy job: "Lightweight. Breathable. Built for all-day ease — whether you\'re running errands or hitting the trail." This gives the buyer a use case to place themselves into before they even look at the price. The star rating was moved to the very first line — above the title — and the promo banner was removed from the decision zone entirely. It was competing with the purchase decision, not helping it.',
+    points:['Star rating moved to line one — above the product title, not below the variant selectors','Supporting subheadline added to translate spec into scenario: "Built for all-day ease"','Promo banner removed from the product area — it anchored attention to discount, not value'],
     baImage:'images/exports/eddiebauer-before-after.png'
   },
   {
@@ -1161,25 +1179,23 @@ const CRO_CONCEPTS = [
     metric:'+31% Purchase Intent',
     title:'Comparison Table as Decision Aid',
     desc:'A well-structured comparison table reduces decision fatigue by handling the "why not a competitor?" objection inline.',
-    analysis:"Buyers who reach a comparison table are already interested — they just need permission to buy. The table shouldn't be a feature list battle. It should frame the brand's advantages in terms of customer outcomes and eliminate the mental work of comparing alternatives.",
-    points:['Table rows organised by buyer concern, not product spec','Competitor column uses neutral language to avoid looking rigged','Table placed after the problem/solution section — not at the bottom'],
+    analysis:'Petticoat Fair had 1,500+ reviews and a 4.8 rating. Neither made it above the fold. The original title was set in all-caps with no supporting copy — "BREEZY PUFF SLEEVE SHIRT KELLY GREEN" — leaving buyers to evaluate a product with no description of who it\'s for or how it fits into their life. The rebuilt page moves the star count to line one, adds a product identity line ("Lightweight. Effortless. Designed for everyday comfort and style."), and surfaces three product attributes — "Breathable fabric", "Relaxed fit", "Easy styling" — as scannable tags. Buyers read those before they read anything else.',
+    points:['4.8 stars from 1,500+ reviews moved to the first visible element — previously invisible above fold','Product attribute tags added: "Breathable fabric", "Relaxed fit", "Easy styling" — scannable at a glance','Supporting subheadline added below the title so the product has a defined use case, not just a name'],
     baImage:'images/exports/petticoat-before-after.png'
   },
   {
+    /* TODO: Add before/after image for swipeable mobile gallery concept */
     id:'mobile-gallery',
     metric:'+44% Image Views',
     title:'Swipeable Mobile Gallery',
-    desc:'Replacing a vertical image stack with a swipeable gallery on mobile increases engagement with product visuals by a significant margin.',
-    analysis:"On mobile, vertical image stacks require deliberate scroll. Swipe gestures are intuitive and low-effort. Moving the gallery to a swipe-first layout — with a thumbnail strip below — increases the number of images viewed per session, which correlates directly with purchase confidence.",
-    points:['Primary image becomes a touch swipe target','Thumbnail strip below shows gallery depth (trust signal)','Dots or count indicator reduces anxiety about "how many images are there"']
+    desc:'Replacing a vertical image stack with a swipeable gallery on mobile increases engagement with product visuals by a significant margin.'
   },
   {
+    /* TODO: Add before/after image for ethical urgency & scarcity concept */
     id:'urgency-scarcity',
     metric:'+12% Same-Session Purchases',
     title:'Ethical Urgency & Scarcity',
-    desc:"Urgency and scarcity work — but only when they're real. Fake countdown timers destroy trust. Inventory-based scarcity converts without the blowback.",
-    analysis:'Inventory-level messaging ("Only 3 left in this size") triggers loss aversion without manufactured pressure. Paired with a recently viewed count or time-limited shipping window, it creates a real reason to buy now rather than leave and forget. The key: the signal must be verifiable.',
-    points:['Inventory count pulled from real stock level, not hard-coded','Shipping deadline calculated from real cutoff, shown in session','No countdown timer unless the discount is real and the deadline is real']
+    desc:"Urgency and scarcity work — but only when they're real. Fake countdown timers destroy trust. Inventory-based scarcity converts without the blowback."
   }
 ];
 
@@ -1241,25 +1257,23 @@ const croModalBody = document.getElementById('cro-modal-body');
 const croClose     = document.getElementById('cro-modal-close');
 
 function openCroModal(c){
-  const pts = c.points.map(function(p){ return '<div class="m-point">' + p + '</div>'; }).join('');
+  /* Determine if this concept has full written content */
+  const hasContent = !!(c.analysis && c.points && c.points.length);
+  const pts = hasContent ? c.points.map(function(p){ return '<div class="m-point">' + p + '</div>'; }).join('') : '';
   const baSection = c.baImage
     ? '<div class="ba-single"><img src="'+c.baImage+'" alt="'+c.title+' — before and after" loading="lazy"></div>'
-    : '<div class="ba-empty">Before / After image coming soon</div>';
-  const hasGallery = c.gallery && c.gallery.some(function(item){ return item.src; });
-  const galleryItems = hasGallery ? (c.gallery || []).map(function(item){
-    const visual = item.src ? '<img src="'+item.src+'" alt="'+item.label+'" loading="lazy">' : '<div class="d-placeholder">Add fix image</div>';
-    return '<div class="m-gallery-card">'+visual+'<span>'+item.label+'</span></div>';
-  }).join('') : '';
+    : ''; /* No placeholder for concepts without an image yet */
   croModalBody.innerHTML =
     '<span class="m-tag">CRO concept</span>' +
     '<h2 class="m-title">' + c.title + '</h2>' +
     '<div class="m-metric">' + c.metric + '</div>' +
     baSection +
-    '<span class="m-sec-lbl">Analysis</span>' +
-    '<p class="m-analysis">' + c.analysis + '</p>' +
-    '<span class="m-sec-lbl">Key changes</span>' +
-    '<div class="m-points">' + pts + '</div>' +
-    (hasGallery ? '<span class="m-sec-lbl">More fixes</span><div class="m-gallery">' + galleryItems + '</div>' : '');
+    (hasContent
+      ? '<span class="m-sec-lbl">Analysis</span>' +
+        '<p class="m-analysis">' + c.analysis + '</p>' +
+        '<span class="m-sec-lbl">Key changes</span>' +
+        '<div class="m-points">' + pts + '</div>'
+      : ''); /* Coming soon — no content rendered until image + copy are ready */
   croOverlay.classList.add('open');
   croOverlay.removeAttribute('aria-hidden');
   document.body.style.overflow='hidden';
@@ -1284,51 +1298,51 @@ croGrid.addEventListener('click', function(e){
 const SERVICE_DETAILS = {
   'cro-audit': {
     title:'CRO Audit & Strategy',
-    intro:'A structured teardown of your store, page, or funnel. The goal is to find where buyers hesitate, what needs to be fixed first, and what will have the clearest conversion impact.',
-    process:['You share the store URL, target product/page, key metrics, and any known concerns','I review the buyer journey across desktop and mobile, including above-fold clarity, offer, proof, friction, and checkout path','I prioritise the findings by impact and implementation effort','You receive a clear action plan with screenshots, notes, and recommended next steps'],
+    intro:'A structured review of your store, page, or funnel. The output is a clear picture of where buyers are hesitating, what to fix first, and what each fix is likely worth.',
+    process:['You share the store URL, the target product or page, your key metrics, and anything you already know is underperforming','I walk the buyer journey end-to-end — desktop and mobile — reviewing above-fold clarity, offer presentation, proof, friction, and checkout path','I rank findings by conversion impact and implementation effort, not by personal preference','You receive a written action plan with annotated screenshots and recommended next steps, ordered by priority'],
     tools:['Google Analytics','Hotjar','PageSpeed','Figma','Notion'],
-    deliverables:['Conversion audit document','Prioritised issue list','Annotated screenshots','Quick-win recommendations','Optional rebuild scope'],
-    questions:['Best when you know something is underperforming but need clarity on why','Works for PDPs, landing pages, homepages, advertorials, and full stores','Can be used before a redesign so the rebuild is based on evidence, not taste']
+    deliverables:['Conversion audit document','Prioritised issue list with impact notes','Annotated screenshots for each finding','Quick-win recommendations','Optional rebuild scope if issues need a build, not just a fix'],
+    questions:['Best when traffic exists but the numbers don\'t reflect it — you need to know why','Works across PDPs, landing pages, homepages, advertorials, and checkout flows','Often used before a redesign so the rebuild is based on evidence, not guesswork']
   },
   'shopify-store-design': {
     title:'Shopify Store Design',
-    intro:'A full Shopify design direction built around trust, product clarity, and buyer flow. This covers the user experience, page structure, and responsive layout before build.',
-    process:['We define the brand, audience, offer, page goals, and store sections','I map the key customer journey from first impression to checkout intent','I design the main pages and reusable section patterns in Figma','You review the design, then we refine before development or handoff'],
+    intro:'A full Shopify design built around how buyers actually move through a page — from first impression to purchase decision. Covers layout, section structure, and responsive behaviour before any code is written.',
+    process:['We define the brand, target buyer, product offer, page goals, and section priorities','I map the key customer journey: what they see first, what builds trust, where the decision happens','I design the main pages and reusable section patterns in Figma with mobile-first layout','You review, we refine, then the design is handed off for development or implemented directly in Replo'],
     tools:['Shopify','Figma','Replo','Liquid','Notion'],
-    deliverables:['Responsive page designs','Section structure','UX notes','Design-ready assets checklist','Build handoff or Replo implementation plan'],
-    questions:['Best for new stores or brands that need a stronger visual system','Designed with mobile-first buying behavior in mind','Can be paired with Replo or Shopify theme development']
+    deliverables:['Responsive page designs (mobile + desktop)','Section structure and layout rationale','UX annotation notes','Design-ready asset checklist','Build handoff or direct Replo implementation'],
+    questions:['Best for new stores and brands that need a visual system built around conversion, not just appearance','Every layout decision is mobile-first — most buyers are on their phones','Can be paired with Shopify Liquid development or Replo implementation after design approval']
   },
   'store-redesign': {
     title:'Store Redesign & Rebuild',
-    intro:'A conversion-led rebuild for stores that already exist but feel unclear, dated, slow, or difficult to buy from.',
-    process:['We audit the current store and identify the pages that matter most','I rebuild the information hierarchy, section order, proof flow, and mobile layout','The design is built in Replo, Shopify, or your preferred page system','We review, revise, test responsive states, and prepare for launch'],
+    intro:'A conversion-led rebuild for stores that already exist but aren\'t performing the way the product deserves — unclear hierarchy, outdated layout, too much friction between interest and purchase.',
+    process:['We start with a quick audit of the current store to identify which pages are losing the most buyers and why','I rebuild the information hierarchy, section order, proof flow, and mobile layout based on what the audit surfaced','The build is done in Replo, Shopify Liquid, or the system you\'re already on — no forced platform switch','We review across devices, run a responsive QA pass, and prepare the launch checklist together'],
     tools:['Shopify','Replo','Figma','Liquid','JavaScript','PageSpeed'],
-    deliverables:['Updated store/page build','Responsive QA pass','Launch checklist','Section editing guidance','Post-launch recommendations'],
-    questions:['Best when the brand already has traffic but the experience is holding it back','Focuses on clarity, trust, speed, and conversion paths','Can be scoped as one key page or a full store refresh']
+    deliverables:['Updated store or page build','Responsive QA pass','Launch checklist','Section editing guidance for your team','Post-launch recommendations'],
+    questions:['Best for stores with real traffic and a real product — where the page is the problem, not the offer','The focus is clarity, trust, mobile experience, and removing friction from the path to cart','Can be scoped to one high-traffic PDP or expanded to a full store refresh']
   },
   'custom-section-dev': {
     title:'Custom Section Dev',
-    intro:'Custom Shopify or Replo sections for layouts and interactions your theme does not provide out of the box.',
-    process:['You send the reference, design, or function needed','I define the editable content fields and responsive behavior','I build the section cleanly with reusable content controls','You test it, request revisions, and receive final usage notes'],
+    intro:'Custom Shopify or Replo sections built for layouts and interactions your current theme can\'t handle — without adding bloat, plugins, or code your team can\'t maintain.',
+    process:['You send the reference design, a Figma file, or describe the interaction you need','I define the editable content fields, responsive breakpoints, and any interaction logic','I build the section cleanly — schema-editable, mobile-responsive, no unnecessary dependencies','You test it in your store, request any revisions, and receive notes on how to use and update it'],
     tools:['Shopify','Liquid','Replo','HTML/CSS','JavaScript','VS Code'],
-    deliverables:['Custom section build','Editable fields/schema','Responsive styling','Install/use notes','Revision pass'],
-    questions:['Best for custom hero blocks, comparison sections, sticky CTAs, galleries, quizzes, and proof sections','Built so your team can update content without touching code','Can be added into a larger redesign workflow']
+    deliverables:['Custom section build','Editable content schema','Responsive styling across all breakpoints','Install and usage notes','One revision pass included'],
+    questions:['Common requests: sticky buy boxes, comparison tables, before/after reveals, custom gallery layouts, social proof strips, and quiz-style flows','Every section is built so your team can update text, images, and settings without touching code','Can be a standalone build or part of a larger redesign scope']
   },
   'static-ad-design': {
     title:'Static Ad Design',
-    intro:'Creative assets for paid and organic campaigns, designed to communicate the product quickly and make the next click feel obvious.',
-    process:['We define the offer, audience, pain point, and destination page','I create creative angles and layout options','You choose the strongest direction or request variations','Final assets are exported by size/platform'],
+    intro:'Ad creatives designed to stop the scroll, communicate the product in under two seconds, and make the next click feel like the obvious move.',
+    process:['We define the offer, target audience, core pain point, and the destination page the ad is sending traffic to','I develop creative angles and layout directions — before/after, benefit-led, proof-led, or problem-first','You select the strongest direction or request specific variations','Final files are exported in the sizes and formats needed for your platform'],
     tools:['Figma','Shopify','Google Analytics','Notion'],
-    deliverables:['Static ad creatives','Multiple hooks/angles','Platform-ready sizes','Source file or editable design where needed'],
-    questions:['Best for product launches, retargeting, offer campaigns, and social proof creatives','Can use before/after, benefit-led, founder-led, or product-led angles','Works best when paired with a strong landing page or PDP']
+    deliverables:['Static ad creatives (multiple hooks and angles)','Platform-ready export sizes','Source file or editable design on request','Usage notes for testing and iteration'],
+    questions:['Best for product launches, retargeting campaigns, seasonal offers, and social proof creatives','Angles available: before/after, benefit-led, founder-led, product-led, urgency-led','Works best when paired with a landing page or PDP that continues the ad\'s message — not just the homepage']
   },
   'email-template-design': {
     title:'Email Template Design',
-    intro:'Klaviyo-ready email templates that match the store experience and keep repeat buyers moving toward the next action.',
-    process:['We define the email type: welcome, launch, abandon cart, post-purchase, or campaign','I map the message hierarchy and CTA structure','I design the email template with reusable modules','You review, then the final template is prepared for Klaviyo or handoff'],
+    intro:'Klaviyo-ready email templates designed to feel like an extension of the store — not a generic blast. Built for scannability, clear hierarchy, and repeat purchase.',
+    process:['We define the email type: welcome series, product launch, abandoned cart, post-purchase, or campaign','I map the message hierarchy — what the reader sees first, where the CTA lands, what proof element closes','I design the template with reusable content modules so future sends take minutes, not hours','You review the design, request any changes, and receive the final file prepared for Klaviyo or developer handoff'],
     tools:['Klaviyo','Figma','Shopify','HTML/CSS'],
-    deliverables:['Email template design','Reusable content modules','CTA hierarchy','Image/export guidance','Klaviyo handoff notes'],
-    questions:['Best for brands that want emails to feel consistent with the store','Can support campaigns or lifecycle flows','Focused on clarity, scannability, and repeat purchase']
+    deliverables:['Email template design','Reusable content module system','CTA and proof hierarchy','Image export and sizing guide','Klaviyo handoff notes'],
+    questions:['Best for brands that want the email experience to match the quality of the store — not feel like a different product','Can be built for a single campaign type or a full lifecycle flow','If you\'re already on Klaviyo, I can work inside your existing account setup']
   }
 };
 
@@ -1689,28 +1703,86 @@ scrollInd.querySelectorAll('.si-item').forEach(function(a){
 
 /* ─── HIRE FORM ─────────────────────────────────────────────── */
 (function(){
-  const form   = document.getElementById('hire-form');
-  const submit = document.getElementById('hire-submit');
+  /*
+   * FORMSPREE SETUP — to receive leads directly in your inbox:
+   * 1. Go to https://formspree.io and sign in with sirridwan721@gmail.com
+   * 2. Click "New Form", name it "Portfolio Enquiry", confirm your email
+   * 3. Copy the form ID from the endpoint shown (looks like: xpwzrqlo)
+   * 4. Replace 'YOUR_FORM_ID' below with that ID — that's it.
+   *
+   * Until the ID is set, the form falls back to mailto: so nothing breaks.
+   */
+  var FORMSPREE_ID = 'xwvealbj';
+
+  var form   = document.getElementById('hire-form');
+  var submit = document.getElementById('hire-submit');
   if(!form) return;
+
+  var SUBMIT_SVG = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>';
+
+  function setLoading(on){
+    submit.disabled = on;
+    submit.innerHTML = on
+      ? '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" style="animation:spin .7s linear infinite"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg> Sending…'
+      : 'Send enquiry ' + SUBMIT_SVG;
+  }
+  function setSent(){
+    submit.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg> Sent — I\'ll be in touch';
+    submit.classList.add('sent');
+    setTimeout(function(){
+      submit.innerHTML = 'Send enquiry ' + SUBMIT_SVG;
+      submit.classList.remove('sent');
+      submit.disabled = false;
+      form.reset();
+    }, 4000);
+  }
+
   form.addEventListener('submit', function(e){
     e.preventDefault();
-    const name    = form.querySelector('#hf-name').value.trim();
-    const store   = form.querySelector('#hf-store').value.trim();
-    const project = form.querySelector('#hf-project').value;
-    const message = form.querySelector('#hf-message').value.trim();
+    var name    = form.querySelector('#hf-name').value.trim();
+    var store   = form.querySelector('#hf-store').value.trim();
+    var project = form.querySelector('#hf-project').value;
+    var message = form.querySelector('#hf-message').value.trim();
     if(!name || !project){ return; }
-    const subject = encodeURIComponent('Project enquiry from ' + name);
-    const body    = encodeURIComponent(
+
+    /* ── Formspree (preferred): fires when ID is set ── */
+    if(FORMSPREE_ID !== 'YOUR_FORM_ID'){
+      setLoading(true);
+      fetch('https://formspree.io/f/' + FORMSPREE_ID, {
+        method:'POST',
+        headers:{'Content-Type':'application/json','Accept':'application/json'},
+        body: JSON.stringify({
+          name:    name,
+          store:   store   || '(not provided)',
+          project: project,
+          message: message || '(no message)',
+          _subject:'New enquiry from ' + name + ' — ' + project,
+          _replyto: form.querySelector('#hf-email') ? form.querySelector('#hf-email').value : ''
+        })
+      })
+      .then(function(r){ return r.json(); })
+      .then(function(data){
+        if(data.ok || data.next){ setSent(); }
+        else { setLoading(false); alert('Something went wrong — please email me directly at sirridwan721@gmail.com'); }
+      })
+      .catch(function(){
+        setLoading(false);
+        alert('Network error — please email me directly at sirridwan721@gmail.com');
+      });
+      return;
+    }
+
+    /* ── Mailto fallback (until Formspree ID is set) ── */
+    var subject = encodeURIComponent('Project enquiry from ' + name);
+    var body    = encodeURIComponent(
       'Hi Ridwan,\n\n' +
-      'Name: ' + name + '\n' +
-      (store ? 'Store: ' + store + '\n' : '') +
-      'Project: ' + project + '\n' +
+      'Name: '    + name    + '\n' +
+      (store   ? 'Store: '   + store   + '\n' : '') +
+      'Project: ' + project  + '\n' +
       (message ? '\nMessage:\n' + message + '\n' : '\nI\'d like to discuss a project.')
     );
     window.location.href = 'mailto:sirridwan721@gmail.com?subject=' + subject + '&body=' + body;
-    submit.textContent = 'Enquiry sent ✓';
-    submit.classList.add('sent');
-    setTimeout(function(){ submit.innerHTML = 'Send enquiry <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>'; submit.classList.remove('sent'); form.reset(); }, 3000);
+    setSent();
   });
 })();
 
@@ -1740,15 +1812,30 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a){
 
       if(sec === hero){
         /* Hero: scale down as it scrolls off, reveal curved bottom */
-        var p = Math.max(0, Math.min(1, -rect.top / (secH * 0.6)));
+        var p = Math.max(0, Math.min(1, -rect.top / (secH * 0.65)));
+        var inner = sec.querySelector('.container');
         if(p > 0){
           var s = 1 - (1 - HERO_SCALE) * p;
-          var r = Math.round(20 * p);
+          var r = Math.round(24 * p);
           sec.style.transform  = 'scale(' + s.toFixed(4) + ')';
           sec.style.borderRadius = '0 0 ' + r + 'px ' + r + 'px';
+          /* Inner content: drift up, blur, and fade for premium exit */
+          if(inner){
+            var drift = -(p * 28).toFixed(1);
+            var blurVal = (p * 8).toFixed(1);
+            var fadeVal = (1 - p * 0.75).toFixed(3);
+            inner.style.transform = 'translateY(' + drift + 'px)';
+            inner.style.filter    = 'blur(' + blurVal + 'px)';
+            inner.style.opacity   = fadeVal;
+          }
         } else {
-          sec.style.transform  = '';
+          sec.style.transform    = '';
           sec.style.borderRadius = '';
+          if(inner){
+            inner.style.transform = '';
+            inner.style.filter    = '';
+            inner.style.opacity   = '';
+          }
         }
         return;
       }
