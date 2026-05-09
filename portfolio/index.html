@@ -1,0 +1,1778 @@
+<!--
+  BRAND:    KOOLESTPRO
+  PRODUCT:  Personal Portfolio — Single Page
+  PAGE:     Portfolio — sp-01
+  BUILT:    2026-05-08
+  EDIT:     PROJECTS array at top of <script> — add/remove projects there
+            Colors → :root block in <style>
+            Copy → search for EDIT: comments below
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ridwan Adekunle — Shopify CRO &amp; UX Designer</title>
+  <meta name="description" content="I design and build high-converting Shopify pages — PDPs, landing pages, and full store redesigns — for brands that need results.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Mono:wght@400&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+  <style>
+    :root {
+      --bg:        #0a0a0a;
+      --surface:   #141414;
+      --surface-2: #1c1f24;
+      --text:      #f0ede8;
+      --muted:     rgba(240,237,232,0.55);
+      --subtle:    rgba(240,237,232,0.18);
+      --orange:    #FF9500;
+      --pink:      #E040A0;
+      --purple:    #7B2FBE;
+      --grad:      linear-gradient(90deg,#FF9500 0%,#E040A0 50%,#7B2FBE 100%);
+      --border:    rgba(240,237,232,0.08);
+      --border-h:  rgba(240,237,232,0.16);
+      --fd:        'Syne',sans-serif;
+      --fm:        'DM Mono',monospace;
+      --fb:        'DM Sans',sans-serif;
+      --ease:      cubic-bezier(0.16,1,0.3,1);
+      --nav-h:     64px;
+      --mw:        1200px;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:auto}
+    body{background:var(--bg);color:var(--text);font-family:var(--fb);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+    body::before{content:'';position:fixed;inset:0;z-index:0;background-image:linear-gradient(rgba(240,237,232,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(240,237,232,.03) 1px,transparent 1px);background-size:80px 80px;pointer-events:none}
+    body::after{content:'';position:fixed;inset:0;z-index:0;background:radial-gradient(ellipse 700px 500px at 0% 0%,rgba(255,149,0,.04) 0%,transparent 65%),radial-gradient(ellipse 600px 500px at 100% 100%,rgba(123,47,190,.05) 0%,transparent 65%);pointer-events:none}
+    .nav,main,.site-footer,.drawer-overlay,.drawer,#work-preview,.cro-overlay,#scroll-ind{position:relative;z-index:1}
+    ::selection{background:rgba(255,149,0,.22);color:var(--text)}
+    :focus-visible{outline:2px solid var(--orange);outline-offset:3px;border-radius:2px}
+    a{color:inherit;text-decoration:none}
+    img{display:block;max-width:100%}
+    ul,ol{list-style:none}
+    button{cursor:pointer;border:none;background:none;font:inherit;color:inherit}
+
+    /* LAYOUT */
+    .container{width:100%;max-width:var(--mw);margin:0 auto;padding:0 24px}
+    @media(min-width:768px){.container{padding:0 40px}}
+    @media(min-width:1280px){.container{padding:0 48px}}
+
+    /* TYPOGRAPHY */
+    .lbl{display:block;font-family:var(--fm);font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-bottom:16px}
+    .grad-text{background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .sec-h2{font-family:var(--fd);font-weight:800;font-size:clamp(32px,5vw,54px);line-height:1.02;letter-spacing:-.04em}
+    section{padding:96px 0;text-align:center;position:relative;overflow:hidden;will-change:transform;transform-origin:top center}
+    section > .container{position:relative;z-index:1}
+    /* Card-stack: every section after hero gets rounded top corners */
+    body > section:not(#hero){border-radius:20px 20px 0 0;margin-top:-20px;isolation:isolate}
+    /* Hero curves at bottom as you scroll away from it */
+    #hero{transform-origin:center 25%;transition:border-radius .4s ease}
+    @media(min-width:1280px){section{padding:128px 0}}
+
+    /* SECTION TEXTURES */
+    .tex-lines::before{content:'';position:absolute;inset:0;background-image:repeating-linear-gradient(-45deg,rgba(240,237,232,.025) 0px,rgba(240,237,232,.025) 1px,transparent 1px,transparent 12px);pointer-events:none;z-index:0}
+    .tex-dots::before{content:'';position:absolute;inset:0;background-image:radial-gradient(rgba(240,237,232,.07) 1px,transparent 1px);background-size:24px 24px;pointer-events:none;z-index:0}
+    .tex-lines,.tex-dots{position:relative}
+    .tex-lines > .container,.tex-dots > .container{position:relative;z-index:1}
+
+    /* REVEALS */
+    .reveal{opacity:0;transform:translateY(24px);transition:opacity .65s var(--ease),transform .65s var(--ease)}
+    .reveal.from-left{transform:translateX(-32px)}
+    .reveal.from-right{transform:translateX(32px)}
+    .reveal.scale-in{transform:scale(.94)}
+    .reveal.visible{opacity:1;transform:none}
+    .reveal[data-d="1"]{transition-delay:.08s}
+    .reveal[data-d="2"]{transition-delay:.16s}
+    .reveal[data-d="3"]{transition-delay:.24s}
+    .reveal[data-d="4"]{transition-delay:.32s}
+    .reveal[data-d="5"]{transition-delay:.40s}
+    .reveal[data-d="6"]{transition-delay:.48s}
+
+    /* PRELOADER */
+    #preloader{position:fixed;inset:0;z-index:9999;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px;transition:opacity .55s var(--ease),transform .55s var(--ease)}
+    #preloader.exit{opacity:0;transform:translateY(-40px);pointer-events:none}
+    .pl-logo{font-family:var(--fd);font-weight:800;font-size:clamp(28px,6vw,52px);letter-spacing:-.04em;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:fade-up .6s var(--ease) both}
+    .pl-bar-wrap{width:180px;height:2px;background:rgba(240,237,232,.1);border-radius:2px;overflow:hidden}
+    .pl-bar{height:100%;width:0;background:var(--grad);border-radius:2px;transition:width .05s linear}
+    .pl-sub{font-family:var(--fm);font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);animation:fade-up .6s var(--ease) .2s both}
+
+    /* SITE WRAPPER */
+    #site{visibility:hidden}
+    #site.visible{visibility:visible}
+
+    /* NAV */
+    .nav{position:fixed;inset:0 0 auto 0;height:var(--nav-h);z-index:100;transition:background .45s var(--ease),border-color .45s var(--ease);border-bottom:1px solid transparent}
+    .nav.scrolled{background:rgba(10,10,10,.88);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom-color:var(--border)}
+    .nav-inner{height:100%;display:flex;align-items:center;justify-content:space-between}
+    .nav-brand{display:flex;align-items:center;gap:10px}
+    .nav-avatar{width:32px;height:32px;border-radius:50%;object-fit:cover;border:1.5px solid var(--border-h)}
+    .nav-logo{font-family:var(--fd);font-weight:800;font-size:16px;letter-spacing:-.02em;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;user-select:none}
+    .nav-links{display:none;gap:28px;align-items:center}
+    .nav-links a{font-family:var(--fm);font-size:11px;letter-spacing:.06em;color:var(--muted);transition:color .2s var(--ease)}
+    .nav-links a:hover{color:var(--text)}
+    .nav-cta{display:none;font-family:var(--fm);font-size:11px;letter-spacing:.06em;padding:8px 18px;border:1px solid var(--border-h);border-radius:4px;transition:border-color .2s var(--ease),background .2s var(--ease),transform .2s var(--ease)}
+    .nav-cta:hover{border-color:var(--orange);background:rgba(255,149,0,.08);transform:translateY(-1px)}
+    .nav-burger{display:flex;flex-direction:column;gap:5px;padding:8px}
+    .nav-burger span{display:block;width:20px;height:1.5px;background:var(--muted)}
+    @media(min-width:768px){.nav-links,.nav-cta{display:flex}.nav-burger{display:none}}
+
+    /* HERO */
+    #hero{padding-top:calc(var(--nav-h) + 72px);padding-bottom:96px;min-height:100svh;display:flex;align-items:center;overflow:hidden;text-align:center}
+    #hero-canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;opacity:.7}
+    .hero-glow{position:absolute;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(255,149,0,.06) 0%,transparent 70%);pointer-events:none;transform:translate(-50%,-50%);transition:opacity .3s;z-index:0;opacity:0}
+    #hero .container{position:relative;z-index:1}
+    .avail-badge{display:inline-flex;align-items:center;gap:8px;font-family:var(--fm);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding:7px 14px;border:1px solid var(--border);border-radius:100px;margin-bottom:28px}
+    .avail-dot{width:7px;height:7px;border-radius:50%;background:#3dd68c;animation:badge-pulse 2.4s ease infinite}
+    @keyframes badge-pulse{0%,100%{box-shadow:0 0 0 0 rgba(61,214,140,.45)}50%{box-shadow:0 0 0 5px rgba(61,214,140,0)}}
+    .hero-h1{font-family:var(--fd);font-weight:800;font-size:clamp(44px,9vw,100px);line-height:.96;letter-spacing:-.05em;margin-bottom:24px}
+    .hero-sub{font-size:clamp(15px,2vw,17px);color:var(--muted);max-width:480px;line-height:1.75;margin:0 auto 40px}
+    .hero-stats{display:flex;flex-wrap:wrap;gap:20px 36px;margin-bottom:44px;justify-content:center}
+    .stat-item{display:flex;flex-direction:column;gap:2px;align-items:center}
+    .stat-num{font-family:var(--fd);font-weight:800;font-size:20px;letter-spacing:-.02em;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .stat-lbl{font-family:var(--fm);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+    .hero-ctas{display:flex;flex-wrap:wrap;gap:12px;justify-content:center}
+    .btn-fill{display:inline-flex;align-items:center;gap:7px;font-family:var(--fm);font-size:12px;letter-spacing:.04em;padding:13px 26px;background:var(--text);color:var(--bg);border-radius:4px;transition:transform .22s var(--ease),box-shadow .22s var(--ease)}
+    .btn-fill:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(240,237,232,.13)}
+    .btn-fill:active{transform:none}
+    .btn-outline{display:inline-flex;align-items:center;gap:7px;font-family:var(--fm);font-size:12px;letter-spacing:.04em;padding:13px 26px;border:1px solid var(--border-h);border-radius:4px;transition:border-color .2s var(--ease),background .2s var(--ease),transform .2s var(--ease)}
+    .btn-outline:hover{border-color:var(--orange);background:rgba(255,149,0,.07);transform:translateY(-2px)}
+    @media(max-width:767px){
+      section{padding:72px 0}
+      #hero{min-height:80svh;padding-top:calc(var(--nav-h) + 42px);padding-bottom:48px;align-items:center}
+      .avail-badge{margin-bottom:20px}
+      .hero-h1{font-size:clamp(38px,12vw,56px);margin-bottom:18px}
+      .hero-sub{margin-bottom:28px;line-height:1.6}
+      .hero-stats{gap:14px 24px;margin-bottom:30px}
+    }
+
+    @keyframes fade-up{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+    .h-a0{animation:fade-up .6s var(--ease) .1s both}
+    .h-a1{animation:fade-up .7s var(--ease) .22s both}
+    .h-a2{animation:fade-up .65s var(--ease) .38s both}
+    .h-a3{animation:fade-up .6s var(--ease) .5s both}
+    .h-a4{animation:fade-up .6s var(--ease) .62s both}
+
+    /* SERVICES */
+    #services{background:var(--bg)}
+    .svc-head{margin-bottom:48px}
+    .svc-head .sec-h2 em{font-style:normal;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .services-grid{display:grid;grid-template-columns:1fr;gap:1px;border:1px solid var(--border);border-radius:16px;overflow:hidden;background:var(--border)}
+    @media(min-width:768px){.services-grid{grid-template-columns:repeat(2,1fr)}}
+    @media(min-width:1280px){.services-grid{grid-template-columns:repeat(3,1fr)}}
+    .svc-card{background:var(--surface);padding:32px 28px;text-align:left;transition:background .3s var(--ease)}
+    .svc-card:hover{background:var(--surface-2)}
+    .svc-card:focus-visible{outline:2px solid var(--orange);outline-offset:-4px}
+    .svc-num{font-family:var(--fm);font-size:10px;letter-spacing:.12em;color:var(--subtle);display:block;margin-bottom:18px}
+    .svc-icon{color:var(--subtle);margin-bottom:14px;transition:color .25s var(--ease)}
+    .svc-card:hover .svc-icon{color:var(--orange)}
+    .svc-title{font-family:var(--fd);font-weight:800;font-size:17px;letter-spacing:-.01em;margin-bottom:8px}
+    .svc-desc{font-size:14px;color:var(--muted);line-height:1.65}
+
+    /* SERVICE MODAL */
+    .service-overlay{position:fixed;inset:0;z-index:520;background:rgba(0,0,0,.78);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);opacity:0;pointer-events:none;transition:opacity .35s var(--ease);display:flex;align-items:center;justify-content:center;padding:24px;overscroll-behavior:contain}
+    .service-overlay.open{opacity:1;pointer-events:all}
+    .service-modal{position:relative;width:100%;max-width:880px;max-height:88vh;overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;background:var(--surface);border:1px solid var(--border-h);border-radius:16px;padding:40px;text-align:left;transform:scale(.94) translateY(16px);transition:transform .4s var(--ease)}
+    .service-overlay.open .service-modal{transform:none}
+    .service-modal-close{position:absolute;top:20px;right:20px;width:36px;height:36px;border-radius:50%;border:1px solid var(--border-h);display:flex;align-items:center;justify-content:center;color:var(--muted);transition:border-color .2s var(--ease),color .2s var(--ease)}
+    .service-modal-close:hover{border-color:var(--text);color:var(--text)}
+    .service-kicker{font-family:var(--fm);font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--orange);display:block;margin-bottom:12px}
+    .service-modal h2{font-family:var(--fd);font-weight:800;font-size:clamp(24px,4vw,38px);line-height:1.02;letter-spacing:-.03em;margin-bottom:10px}
+    .service-modal .service-intro{font-size:15px;color:var(--muted);line-height:1.75;max-width:680px;margin-bottom:26px}
+    .service-detail-grid{display:grid;grid-template-columns:1fr;gap:16px;margin-top:20px}
+    @media(min-width:720px){.service-detail-grid{grid-template-columns:repeat(2,1fr)}}
+    .service-detail-card{border:1px solid var(--border);border-radius:12px;background:var(--surface-2);padding:18px}
+    .service-detail-card h3{font-family:var(--fd);font-size:15px;letter-spacing:-.01em;margin-bottom:10px}
+    .service-list{display:flex;flex-direction:column;gap:9px}
+    .service-list li{display:flex;gap:10px;font-size:13px;color:var(--muted);line-height:1.5}
+    .service-list li::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--orange);flex-shrink:0;margin-top:7px}
+    .service-tools{display:flex;flex-wrap:wrap;gap:8px}
+    .service-tool{display:inline-flex;align-items:center;gap:7px;font-family:var(--fm);font-size:11px;color:var(--muted);padding:6px 10px 6px 7px;border:1px solid var(--border);border-radius:100px}
+    .service-tool img{width:16px;height:16px;border-radius:4px}
+
+    /* WORK */
+    #work{background:var(--bg)}
+    .work-head{margin-bottom:48px}
+    .work-list{border-top:1px solid var(--border);text-align:left}
+    .work-item{border-bottom:1px solid var(--border);cursor:pointer;transition:background .2s var(--ease)}
+    .work-item:hover{background:rgba(240,237,232,.03)}
+    .work-item.hidden-project{display:none}
+    .work-item-inner{display:flex;align-items:center;gap:16px;padding:20px 0}
+    .w-num{font-family:var(--fm);font-size:11px;color:var(--subtle);min-width:32px}
+    .w-brand{font-family:var(--fd);font-weight:800;font-size:clamp(16px,2.5vw,22px);letter-spacing:-.02em;flex:1}
+    .w-tag{font-family:var(--fm);font-size:11px;color:var(--muted);display:none}
+    .w-arrow{color:var(--subtle);margin-left:auto;transition:transform .25s var(--ease),color .25s var(--ease);flex-shrink:0}
+    .work-item:hover .w-arrow{transform:translateX(4px);color:var(--orange)}
+    @media(min-width:768px){.w-tag{display:block}.work-item-inner{padding:24px 0}}
+    .see-more-wrap{text-align:center;margin-top:32px}
+    .see-more-btn{font-family:var(--fm);font-size:11px;letter-spacing:.1em;text-transform:uppercase;padding:10px 24px;border:1px solid var(--border-h);border-radius:100px;color:var(--muted);transition:border-color .2s var(--ease),color .2s var(--ease),transform .2s var(--ease)}
+    .see-more-btn:hover{border-color:var(--orange);color:var(--text);transform:translateY(-1px)}
+
+    /* WORK HOVER PREVIEW */
+    #work-preview{position:fixed;width:300px;height:190px;border-radius:12px;pointer-events:none;opacity:0;transform:scale(.92) rotate(-2deg);transition:opacity .25s var(--ease),transform .25s var(--ease);overflow:hidden;z-index:200;background:var(--surface-2);box-shadow:0 18px 48px rgba(0,0,0,.38)}
+    #work-preview.show{opacity:1;transform:scale(1) rotate(0deg)}
+    #wp-bg{position:absolute;inset:0}
+    #wp-bg img,#wp-bg video{width:100%;height:100%;object-fit:cover}
+    #wp-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.78),rgba(0,0,0,.1) 58%,rgba(0,0,0,.12))}
+    .wp-content{position:absolute;inset:0;padding:20px;display:flex;flex-direction:column;justify-content:flex-end}
+    .wp-num{font-family:var(--fd);font-size:72px;font-weight:800;color:rgba(255,255,255,.1);position:absolute;top:8px;right:16px;line-height:1}
+    .wp-brand{font-family:var(--fd);font-weight:800;font-size:18px;letter-spacing:-.02em;color:#fff}
+    .wp-type{font-family:var(--fm);font-size:10px;letter-spacing:.1em;color:rgba(255,255,255,.6);text-transform:uppercase}
+    @media(hover:none){#work-preview{display:none}}
+
+    /* CRO SECTION */
+    #cro{background:var(--surface)}
+    .cro-head{margin-bottom:48px}
+    .cro-grid{display:grid;grid-template-columns:1fr;gap:16px}
+    @media(min-width:768px){.cro-grid{grid-template-columns:repeat(2,1fr)}}
+    @media(min-width:1280px){.cro-grid{grid-template-columns:repeat(3,1fr)}}
+    .cro-card{background:var(--surface-2);border:1px solid var(--border);border-radius:12px;padding:24px;text-align:left;cursor:pointer;transition:border-color .25s var(--ease),transform .25s var(--ease),box-shadow .25s var(--ease)}
+    .cro-card:hover{border-color:rgba(255,149,0,.35);transform:translateY(-3px);box-shadow:0 16px 40px rgba(0,0,0,.3)}
+    .cro-metric{font-family:var(--fm);font-size:11px;letter-spacing:.1em;color:var(--orange);margin-bottom:12px;display:block}
+    .cro-title{font-family:var(--fd);font-weight:800;font-size:16px;letter-spacing:-.01em;margin-bottom:8px}
+    .cro-desc{font-size:13px;color:var(--muted);line-height:1.6}
+    .cro-view{display:inline-flex;align-items:center;gap:6px;font-family:var(--fm);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:16px;transition:color .2s var(--ease)}
+    .cro-card:hover .cro-view{color:var(--orange)}
+
+    /* CRO MODAL */
+    .cro-overlay{position:fixed;inset:0;z-index:500;background:rgba(0,0,0,.8);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);opacity:0;pointer-events:none;transition:opacity .35s var(--ease);display:flex;align-items:center;justify-content:center;padding:24px;overscroll-behavior:contain}
+    .cro-overlay.open{opacity:1;pointer-events:all}
+    .cro-modal{background:var(--surface);border:1px solid var(--border-h);border-radius:16px;width:100%;max-width:820px;max-height:88vh;overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;transform:scale(.94) translateY(16px);transition:transform .4s var(--ease);padding:40px}
+    .cro-overlay.open .cro-modal{transform:none}
+    .cro-modal-close{position:absolute;top:20px;right:20px;width:36px;height:36px;border-radius:50%;border:1px solid var(--border-h);display:flex;align-items:center;justify-content:center;color:var(--muted);transition:border-color .2s var(--ease),color .2s var(--ease)}
+    .cro-modal-close:hover{border-color:var(--text);color:var(--text)}
+    .cro-modal{position:relative}
+    .m-tag{font-family:var(--fm);font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--orange);margin-bottom:12px;display:block}
+    .m-title{font-family:var(--fd);font-weight:800;font-size:clamp(22px,4vw,34px);letter-spacing:-.03em;margin-bottom:8px}
+    .m-metric{font-family:var(--fd);font-weight:800;font-size:16px;margin-bottom:24px;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .ba-single{width:100%;border-radius:10px;overflow:hidden;border:1px solid var(--border);margin-bottom:28px}
+    .ba-single img{width:100%;height:auto;display:block}
+    .ba-empty{width:100%;padding:40px 24px;border-radius:10px;border:1px dashed var(--border);margin-bottom:28px;text-align:center;font-family:var(--fm);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--subtle)}
+    .m-sec-lbl{font-family:var(--fm);font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-bottom:12px;display:block}
+    .m-analysis{font-size:14px;color:var(--muted);line-height:1.7;margin-bottom:24px}
+    .m-points{display:flex;flex-direction:column;gap:10px}
+    .m-point{display:flex;gap:12px;font-size:14px;color:var(--muted);line-height:1.5}
+    .m-point::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--orange);flex-shrink:0;margin-top:7px}
+    .m-gallery{display:grid;grid-template-columns:1fr;gap:12px;margin-top:24px}
+    @media(min-width:640px){.m-gallery{grid-template-columns:repeat(3,1fr)}}
+    .m-gallery-card{border:1px solid var(--border);border-radius:10px;overflow:hidden;background:var(--surface-2)}
+    .m-gallery-card img{width:100%;aspect-ratio:4/3;object-fit:cover}
+    .m-gallery-card span{display:block;font-family:var(--fm);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding:8px 10px}
+
+    /* PROCESS */
+    #process{background:var(--bg)}
+    .steps{display:flex;flex-direction:column;gap:0;margin-top:48px;max-width:680px;margin-left:auto;margin-right:auto}
+    .step{display:grid;grid-template-columns:40px 1fr;gap:20px;padding:24px 0;border-bottom:1px solid var(--border);text-align:left}
+    .step:last-child{border-bottom:none}
+    .step-num{font-family:var(--fm);font-size:11px;color:var(--subtle);padding-top:3px}
+    .step-title{font-family:var(--fd);font-weight:800;font-size:18px;letter-spacing:-.01em;margin-bottom:6px}
+    .step-desc{font-size:14px;color:var(--muted);line-height:1.65}
+
+    /* RESULTS */
+    #results{background:var(--surface)}
+    .res-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-bottom:56px}
+    .rs{text-align:center;padding:28px 16px;border:1px solid var(--border);border-radius:12px;background:var(--surface-2)}
+    .rs-num{font-family:var(--fd);font-weight:800;font-size:clamp(28px,5vw,44px);letter-spacing:-.04em;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:6px}
+    .rs-lbl{font-family:var(--fm);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+    .testimonials{display:grid;grid-template-columns:1fr;gap:16px}
+    @media(min-width:768px){.testimonials{grid-template-columns:repeat(3,1fr)}}
+    .t-card{background:var(--surface-2);border:1px solid var(--border);border-radius:12px;padding:24px;text-align:left}
+    .t-stars{display:flex;gap:3px;margin-bottom:14px}
+    .t-star{width:12px;height:12px;fill:var(--orange)}
+    .t-quote{font-size:14px;line-height:1.65;margin-bottom:16px}
+    .t-name{font-family:var(--fm);font-size:11px;letter-spacing:.08em;color:var(--muted)}
+
+    /* STACK / MARQUEE */
+    #stack{background:var(--bg);overflow:hidden}
+    .mq-wrap{display:flex;flex-direction:column;gap:16px;margin-top:48px}
+    .mq-row{display:flex;gap:0;overflow:hidden;position:relative}
+    .mq-row::before,.mq-row::after{content:'';position:absolute;top:0;bottom:0;width:80px;z-index:2;pointer-events:none}
+    .mq-row::before{left:0;background:linear-gradient(to right,var(--bg),transparent)}
+    .mq-row::after{right:0;background:linear-gradient(to left,var(--bg),transparent)}
+    .mq-track{display:flex;gap:10px;width:max-content;animation:mq-left 32s linear infinite;will-change:transform}
+    .mq-row.right .mq-track{animation:mq-right 36s linear infinite}
+    .mq-inner{display:flex;gap:12px;flex-shrink:0}
+    @keyframes mq-left{from{transform:translateX(0)}to{transform:translateX(calc(-50% - 6px))}}
+    @keyframes mq-right{from{transform:translateX(calc(-50% - 6px))}to{transform:translateX(0)}}
+    .mq-item{white-space:nowrap;font-family:var(--fm);font-size:12px;letter-spacing:.06em;color:var(--muted);padding:8px 16px 8px 10px;border:1px solid var(--border);border-radius:100px;display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.018);transition:border-color .2s var(--ease),color .2s var(--ease),background .2s var(--ease)}
+    .mq-item:hover{border-color:var(--border-h);color:var(--text);background:rgba(255,255,255,.04)}
+    .mq-icon{width:18px;height:18px;border-radius:5px;flex-shrink:0}
+
+    /* ABOUT */
+    #about{background:var(--surface)}
+    .about-inner{display:grid;grid-template-columns:1fr;gap:48px;text-align:left;max-width:900px;margin:0 auto}
+    @media(min-width:768px){.about-inner{grid-template-columns:1fr 280px;align-items:start}}
+    .about-text p{font-size:clamp(15px,1.8vw,17px);line-height:1.8;color:var(--muted);margin-bottom:20px}
+    .about-text p:last-child{margin-bottom:0}
+    .about-creds{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
+    .cred{font-family:var(--fm);font-size:11px;letter-spacing:.06em;padding:6px 14px;border:1px solid var(--border);border-radius:100px;color:var(--muted)}
+    .about-photo{order:-1}
+    @media(min-width:768px){.about-photo{order:1}}
+    .photo-frame{border-radius:12px;overflow:hidden;border:1px solid var(--border);aspect-ratio:3/4;background:var(--surface-2)}
+    .photo-frame img{width:100%;height:100%;object-fit:cover;filter:grayscale(20%)}
+
+    /* HIRE */
+    #hire{background:var(--bg)}
+    .hire-inner{max-width:600px;margin:0 auto}
+    .hire-h2{font-family:var(--fd);font-weight:800;font-size:clamp(36px,7vw,72px);line-height:.97;letter-spacing:-.05em;margin-bottom:20px}
+    .hire-sub{font-size:16px;color:var(--muted);line-height:1.7;margin-bottom:36px}
+    .hire-ctas{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-bottom:40px}
+    .pay-row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:32px}
+    .pay-badge{font-family:var(--fm);font-size:11px;letter-spacing:.06em;color:var(--muted);padding:6px 14px 6px 8px;border:1px solid var(--border);border-radius:4px;display:inline-flex;align-items:center;gap:8px}
+    .pay-badge img{width:16px;height:16px;border-radius:3px}
+    .s-row{display:flex;gap:16px;justify-content:center}
+    .s-link{width:40px;height:40px;display:flex;align-items:center;justify-content:center;border:1px solid var(--border);border-radius:50%;color:var(--muted);transition:border-color .2s var(--ease),color .2s var(--ease),transform .2s var(--ease)}
+    .s-link:hover{border-color:var(--border-h);color:var(--text);transform:translateY(-2px)}
+
+    /* CONTACT FORM */
+    .hire-form{margin-bottom:32px;display:flex;flex-direction:column;gap:12px;max-width:480px;margin-left:auto;margin-right:auto}
+    .hire-field{display:flex;flex-direction:column;gap:6px;text-align:left}
+    .hire-field label{font-family:var(--fm);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+    .hire-field input,.hire-field select,.hire-field textarea{background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:11px 14px;font-family:var(--fb);font-size:14px;color:var(--text);outline:none;transition:border-color .2s var(--ease);width:100%}
+    .hire-field textarea{resize:vertical;min-height:96px;line-height:1.6}
+    .hire-field select{-webkit-appearance:none;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='rgba(240,237,232,0.45)' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center}
+    .hire-field input:focus,.hire-field select:focus,.hire-field textarea:focus{border-color:rgba(255,149,0,.5)}
+    .hire-field input::placeholder,.hire-field textarea::placeholder{color:var(--subtle)}
+    .hire-field select option{background:var(--surface-2);color:var(--text)}
+    .hire-submit{display:flex;align-items:center;justify-content:center;gap:8px;font-family:var(--fm);font-size:12px;letter-spacing:.04em;padding:13px 26px;background:var(--text);color:var(--bg);border-radius:4px;border:none;cursor:pointer;transition:transform .22s var(--ease),box-shadow .22s var(--ease);width:100%}
+    .hire-submit:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(240,237,232,.13)}
+    .hire-submit:active{transform:none}
+    .hire-submit.sent{background:rgba(61,214,140,.12);color:#3dd68c;border:1px solid rgba(61,214,140,.3);pointer-events:none;cursor:default}
+    .hire-divider{display:flex;align-items:center;gap:12px;margin:8px 0;max-width:480px;margin-left:auto;margin-right:auto}
+    .hire-divider span{font-family:var(--fm);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--subtle)}
+    .hire-divider::before,.hire-divider::after{content:'';flex:1;height:1px;background:var(--border)}
+
+    /* FOOTER */
+    .site-footer{padding:20px 0;border-top:1px solid var(--border);position:relative;z-index:1}
+    .footer-inner{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+    .footer-copy{font-family:var(--fm);font-size:11px;color:var(--subtle);letter-spacing:.04em}
+    .footer-status{display:flex;align-items:center;gap:7px;font-family:var(--fm);font-size:11px;color:var(--subtle)}
+    .f-dot{width:6px;height:6px;border-radius:50%;background:#3dd68c}
+
+    /* DRAWER */
+    .drawer-overlay{position:fixed;inset:0;z-index:300;background:rgba(0,0,0,.7);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);opacity:0;pointer-events:none;transition:opacity .35s var(--ease)}
+    .drawer-overlay.open{opacity:1;pointer-events:all}
+    .drawer{position:fixed;top:0;right:0;bottom:0;width:min(720px,100vw);z-index:400;background:var(--surface);border-left:1px solid var(--border);overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;transform:translateX(100%);transition:transform .45s var(--ease);padding:32px 28px}
+    .drawer.open{transform:none}
+    @media(max-width:479px){.drawer{top:auto;width:100%;height:85vh;border-left:none;border-top:1px solid var(--border);border-radius:16px 16px 0 0;transform:translateY(100%)}.drawer.open{transform:none}}
+    .drawer-close{display:flex;align-items:center;gap:8px;font-family:var(--fm);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:28px;transition:color .2s var(--ease)}
+    .drawer-close:hover{color:var(--text)}
+    .d-proj-num{font-family:var(--fm);font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+    .d-title{font-family:var(--fd);font-weight:800;font-size:clamp(20px,4vw,28px);letter-spacing:-.03em;margin-bottom:10px}
+    .d-type-tag{font-family:var(--fm);font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:4px 12px;border:1px solid var(--border);border-radius:100px;color:var(--muted);display:inline-block;margin-bottom:24px}
+    .d-thumb{width:100%;aspect-ratio:16/9;border-radius:10px;overflow:hidden;margin-bottom:28px}
+    .d-thumb img,.d-thumb video,.d-video video{width:100%;height:100%;object-fit:cover}
+    .d-video{width:100%;aspect-ratio:16/9;border-radius:10px;overflow:hidden;background:var(--surface-2);border:1px solid var(--border)}
+    .d-experience{position:relative;width:100%;aspect-ratio:16/10;border:1px solid rgba(240,237,232,.12);border-radius:14px;overflow:hidden;background:#060606;overscroll-behavior:contain;padding:16px 16px 24px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.04)}
+    .d-experience::after{content:'';position:absolute;left:50%;bottom:6px;width:34%;height:6px;transform:translateX(-50%);border-radius:0 0 12px 12px;background:linear-gradient(90deg,rgba(240,237,232,.08),rgba(240,237,232,.22),rgba(240,237,232,.08))}
+    .d-view-toggle{display:inline-flex;gap:4px;margin-bottom:10px;padding:3px;border:1px solid var(--border);border-radius:100px;background:rgba(255,255,255,.03)}
+    .d-view-toggle button{font-family:var(--fm);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);padding:5px 10px;border-radius:100px;transition:background .2s var(--ease),color .2s var(--ease)}
+    .d-view-toggle button.active{background:var(--text);color:var(--bg)}
+    .d-laptop-screen{position:relative;width:100%;height:100%;overflow:hidden;border-radius:8px;background:#fff}
+    .d-iframe-stage{position:absolute;left:50%;top:50%;width:var(--stage-w,1440px);height:var(--stage-h,900px);transform:translate(-50%,-50%) scale(var(--stage-scale,.42));transform-origin:center center}
+    .d-iframe-stage iframe{width:100%;height:100%;border:0;background:#fff}
+    .d-scroll-shot{position:absolute;inset:0;overflow:hidden;background:#111}
+    .d-scroll-shot img{position:absolute;left:0;top:0;width:100%;height:auto;min-height:100%;object-fit:cover;animation:d-page-scroll 18s ease-in-out infinite alternate;will-change:transform}
+    .d-scroll-shot video{width:100%;height:100%;object-fit:cover}
+    .d-scroll-shot:hover img{animation-play-state:paused}
+    @keyframes d-page-scroll{from{transform:translateY(0)}to{transform:translateY(var(--scroll-end,-58%))}}
+    .d-experience-note{position:absolute;left:26px;bottom:34px;padding:5px 9px;border-radius:100px;background:rgba(10,10,10,.72);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);font-family:var(--fm);font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:rgba(240,237,232,.7);pointer-events:none}
+    .d-mobile-strip{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+    .d-mobile-shot{aspect-ratio:9/16;border:1px solid var(--border);border-radius:10px;overflow:hidden;background:#0b0b0b;display:flex;align-items:center;justify-content:center}
+    .d-mobile-shot img,.d-mobile-shot video{width:100%;height:100%;object-fit:contain}
+    .d-mobile-shot.crop img,.d-mobile-shot.crop video{object-fit:cover}
+    .d-mobile-strip.count-1{grid-template-columns:minmax(0,1fr);max-width:220px}
+    .d-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;padding:18px;text-align:center;font-family:var(--fm);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--subtle);background:linear-gradient(135deg,#171717,#242424)}
+    .d-sec-lbl{font-family:var(--fm);font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:10px;border-top:1px solid var(--border);padding-top:20px;margin-top:20px}
+    .d-desc{font-size:14px;color:var(--muted);line-height:1.7}
+    .d-tools{display:flex;flex-wrap:wrap;gap:8px}
+    .d-tool{font-family:var(--fm);font-size:11px;padding:5px 12px 5px 7px;border:1px solid var(--border);border-radius:100px;color:var(--muted);display:inline-flex;align-items:center;gap:7px}
+    .d-tool img{width:16px;height:16px;border-radius:4px}
+    .d-decisions{display:flex;flex-direction:column;gap:12px}
+    .d-decision{display:flex;gap:10px;align-items:flex-start}
+    .d-dec-dot{width:5px;height:5px;border-radius:50%;background:var(--orange);flex-shrink:0;margin-top:8px}
+    .d-dec-txt{font-size:14px;color:var(--muted);line-height:1.6}
+    .d-result{font-size:14px;color:var(--muted);line-height:1.7;padding:16px;background:var(--surface-2);border-radius:8px;border-left:2px solid var(--orange)}
+    .d-cta{display:inline-flex;align-items:center;gap:7px;font-family:var(--fm);font-size:12px;letter-spacing:.04em;padding:12px 22px;border:1px solid var(--border-h);border-radius:4px;margin-top:24px;transition:border-color .2s var(--ease),background .2s var(--ease)}
+    .d-cta:hover{border-color:var(--orange);background:rgba(255,149,0,.07)}
+
+    /* SCROLL INDICATOR */
+    #scroll-ind{position:fixed;right:20px;top:50%;transform:translateY(-50%);z-index:90;display:none;flex-direction:column;align-items:flex-end;gap:8px}
+    @media(min-width:1024px){#scroll-ind{display:flex}}
+    .si-item{display:flex;align-items:center;gap:8px;cursor:pointer}
+    .si-label{font-family:var(--fm);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);opacity:0;transform:translateX(6px);transition:opacity .2s var(--ease),transform .2s var(--ease);white-space:nowrap}
+    .si-item:hover .si-label{opacity:1;transform:none}
+    .si-dot{width:6px;height:6px;border-radius:50%;background:var(--subtle);transition:background .3s var(--ease),transform .3s var(--ease),box-shadow .3s var(--ease);flex-shrink:0}
+    .si-item.active .si-dot{background:var(--orange);transform:scale(1.5);box-shadow:0 0 8px rgba(255,149,0,.5)}
+  </style>
+</head>
+<body>
+
+<!-- PRELOADER -->
+<div id="preloader">
+  <div class="pl-logo">KOOLESTPRO</div>
+  <div class="pl-bar-wrap"><div class="pl-bar" id="pl-bar"></div></div>
+  <span class="pl-sub">@koolestpro</span>
+</div>
+
+<div id="site">
+
+<!-- NAV -->
+<nav class="nav" id="site-nav" role="navigation" aria-label="Main navigation">
+  <div class="container nav-inner">
+    <a href="#hero" class="nav-brand" aria-label="Back to top">
+      <!-- IMAGE: Avatar logo — images/avatar-smile.png -->
+      <img src="images/avatar-smile.png" alt="Ridwan Adekunle" class="nav-avatar">
+      <!-- EDIT: Nav brand name -->
+      <span class="nav-logo">KOOLESTPRO</span>
+    </a>
+    <div class="nav-links" role="list">
+      <a href="#work" role="listitem">Work</a>
+      <a href="#services" role="listitem">Services</a>
+      <a href="#process" role="listitem">Process</a>
+      <a href="#hire" role="listitem">Contact</a>
+    </div>
+    <a href="https://calendly.com/sirridwan721/30min" target="_blank" rel="noopener" class="nav-cta">Let's work →</a>
+    <button class="nav-burger" aria-label="Open menu" id="nav-burger">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<main>
+
+<!-- ═══ SECTION 1: HERO ════════════════════════════════════════ -->
+<section id="hero">
+  <canvas id="hero-canvas" aria-hidden="true"></canvas>
+  <div class="hero-glow" id="hero-glow" aria-hidden="true"></div>
+  <div class="container">
+    <!-- EDIT: Availability badge -->
+    <div class="avail-badge h-a0">
+      <span class="avail-dot" aria-hidden="true"></span>
+      Available for projects
+    </div>
+    <!-- EDIT: Hero headline -->
+    <h1 class="hero-h1 h-a1">
+      Shopify pages<br>
+      that <span class="grad-text">convert.</span>
+    </h1>
+    <!-- EDIT: Hero subline -->
+    <p class="hero-sub h-a2">I build Shopify pages that sell. PDPs, landing pages, store redesigns — designed around buyer psychology, not personal preference.</p>
+    <div class="hero-stats h-a3">
+      <div class="stat-item">
+        <!-- EDIT: Stat 1 -->
+        <span class="stat-num">100+</span>
+        <span class="stat-lbl">Projects</span>
+      </div>
+      <div class="stat-item">
+        <!-- EDIT: Stat 2 -->
+        <span class="stat-num">6+</span>
+        <span class="stat-lbl">Years</span>
+      </div>
+      <div class="stat-item">
+        <!-- EDIT: Stat 3 -->
+        <span class="stat-num">5★</span>
+        <span class="stat-lbl">Rated</span>
+      </div>
+      <div class="stat-item">
+        <!-- EDIT: Stat 4 -->
+        <span class="stat-num">Top 5%</span>
+        <span class="stat-lbl">Contra Certified</span>
+      </div>
+    </div>
+    <div class="hero-ctas h-a4">
+      <a href="https://calendly.com/sirridwan721/30min" target="_blank" rel="noopener" class="btn-fill">
+        Book a call
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+      <a href="#work" class="btn-outline">See my work</a>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══ SECTION 2: WORK ════════════════════════════════════════ -->
+<section id="work">
+  <div class="container">
+    <div class="work-head reveal">
+      <span class="lbl">Work</span>
+      <!-- EDIT: Work headline -->
+      <h2 class="sec-h2">100+ builds.<br>Every one custom.</h2>
+    </div>
+    <!-- Work items injected by JS from PROJECTS array -->
+    <ul class="work-list" id="work-list" role="list"></ul>
+    <div class="see-more-wrap" id="see-more-wrap" style="display:none">
+      <button class="see-more-btn" id="see-more-btn" aria-expanded="false">
+        See more work
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" style="margin-left:6px"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SECTION 3: RESULTS ════════════════════════════════════ -->
+<section id="results" class="tex-lines">
+  <div class="container">
+    <div class="reveal" style="margin-bottom:48px">
+      <span class="lbl">Results</span>
+      <h2 class="sec-h2">Clients who shipped.<br>Metrics that moved.</h2>
+    </div>
+    <div class="res-stats reveal" data-d="1">
+      <!-- EDIT: Stats -->
+      <div class="rs"><div class="rs-num">100+</div><div class="rs-lbl">Projects delivered</div></div>
+      <div class="rs"><div class="rs-num">6+</div><div class="rs-lbl">Years building</div></div>
+      <div class="rs"><div class="rs-num">5★</div><div class="rs-lbl">Avg rating</div></div>
+    </div>
+    <div class="testimonials">
+      <!-- EDIT: Testimonial 1 -->
+      <div class="t-card reveal" data-d="1">
+        <div class="t-stars" role="img" aria-label="5 out of 5 stars">
+          <svg class="t-star" viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg class="t-star" viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg class="t-star" viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg class="t-star" viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg class="t-star" viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        </div>
+        <p class="t-quote">"Ridwan completely rebuilt our PDP. Cart abandonment dropped noticeably within two weeks. The attention to mobile UX was exceptional."</p>
+        <span class="t-name">— Champion Biotics</span>
+      </div>
+      <!-- EDIT: Testimonial 2 -->
+      <div class="t-card reveal" data-d="2">
+        <div class="t-stars" role="img" aria-label="5 out of 5 stars">
+          <svg class="t-star" viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg class="t-star" viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg class="t-star" viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg class="t-star" viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg class="t-star" viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        </div>
+        <p class="t-quote">"The new homepage really captures the brand. Demo requests went up right after launch. Working with Ridwan felt effortless — he just gets it."</p>
+        <span class="t-name">— Tap & Rate</span>
+      </div>
+      <!-- EDIT: Testimonial 3 -->
+      <div class="t-card reveal" data-d="3">
+        <div class="t-stars" role="img" aria-label="5 out of 5 stars">
+          <svg class="t-star" viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg class="t-star" viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg class="t-star" viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg class="t-star" viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg class="t-star" viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        </div>
+        <p class="t-quote">"Strong work ethic and incredible output quality. The rebuild reflected our personality far better than our old Dawn template ever did."</p>
+        <span class="t-name">— Mother of Macros</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SECTION 4: SERVICES ════════════════════════════════════ -->
+<section id="services">
+  <div class="container">
+    <div class="svc-head reveal">
+      <span class="lbl">What I do</span>
+      <!-- EDIT: Services headline -->
+      <h2 class="sec-h2">Design. Audit. Build. <em>Convert.</em></h2>
+    </div>
+    <div class="services-grid">
+      <div class="svc-card reveal" data-d="1" data-service-id="cro-audit" role="button" tabindex="0" aria-label="View CRO Audit and Strategy process">
+        <span class="svc-num">01</span>
+        <div class="svc-icon" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>
+        </div>
+        <!-- EDIT: Service 1 title + description -->
+        <span class="svc-title">CRO Audit & Strategy</span>
+        <p class="svc-desc">A full read of where your store is losing buyers — and why. Clear, prioritised recommendations your team can act on immediately.</p>
+      </div>
+      <div class="svc-card reveal" data-d="2" data-service-id="shopify-store-design" role="button" tabindex="0" aria-label="View Shopify Store Design process">
+        <span class="svc-num">02</span>
+        <div class="svc-icon" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+        </div>
+        <span class="svc-title">Shopify Store Design</span>
+        <p class="svc-desc">Full store UX from nav to checkout — designed around buyer psychology and brand identity.</p>
+      </div>
+      <div class="svc-card reveal" data-d="3" data-service-id="store-redesign" role="button" tabindex="0" aria-label="View Store Redesign and Rebuild process">
+        <span class="svc-num">03</span>
+        <div class="svc-icon" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+        </div>
+        <span class="svc-title">Store Redesign & Rebuild</span>
+        <p class="svc-desc">Take an underperforming store and rebuild it from the ground up — faster, cleaner, and conversion-optimised.</p>
+      </div>
+      <div class="svc-card reveal" data-d="1" data-service-id="custom-section-dev" role="button" tabindex="0" aria-label="View Custom Section Development process">
+        <span class="svc-num">04</span>
+        <div class="svc-icon" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        </div>
+        <span class="svc-title">Custom Section Dev</span>
+        <p class="svc-desc">Custom Liquid/Replo sections your theme doesn't come with. Built clean, fully responsive, and schema-editable so your team can manage content.</p>
+      </div>
+      <div class="svc-card reveal" data-d="2" data-service-id="static-ad-design" role="button" tabindex="0" aria-label="View Static Ad Design process">
+        <span class="svc-num">05</span>
+        <div class="svc-icon" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+        </div>
+        <span class="svc-title">Static Ad Design</span>
+        <p class="svc-desc">Ad creatives designed to stop the skip and start the click. Built for paid and organic, with conversion intent baked in from the start.</p>
+      </div>
+      <div class="svc-card reveal" data-d="3" data-service-id="email-template-design" role="button" tabindex="0" aria-label="View Email Template Design process">
+        <span class="svc-num">06</span>
+        <div class="svc-icon" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </div>
+        <span class="svc-title">Email Template Design</span>
+        <p class="svc-desc">Klaviyo-ready email templates that match your store's brand and drive repeat purchase.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SECTION 5: CRO CONCEPTS ═══════════════════════════════ -->
+<section id="cro" class="tex-dots">
+  <div class="container">
+    <div class="cro-head reveal">
+      <span class="lbl">CRO in practice</span>
+      <!-- EDIT: CRO section headline -->
+      <h2 class="sec-h2">What good CRO<br>actually looks like.</h2>
+      <p style="color:var(--muted);font-size:15px;margin-top:16px;max-width:520px;margin-left:auto;margin-right:auto">Six concepts from the CRO playbook — with the reasoning behind every change.</p>
+    </div>
+    <div class="cro-grid" id="cro-grid"></div>
+  </div>
+</section>
+
+<!-- ═══ SECTION 6: PROCESS ════════════════════════════════════ -->
+<section id="process">
+  <div class="container">
+    <div class="reveal">
+      <span class="lbl">How it works</span>
+      <!-- EDIT: Process headline -->
+      <h2 class="sec-h2">Simple process.<br>No surprises.</h2>
+    </div>
+    <div class="steps" id="steps-list">
+      <div class="step reveal" data-d="1">
+        <span class="step-num">01</span>
+        <div>
+          <div class="step-title">Brief</div>
+          <p class="step-desc">Send a brief or we hop on a 15-min call. You tell me the goal — I'll tell you if I can beat it.</p>
+        </div>
+      </div>
+      <div class="step reveal" data-d="2">
+        <span class="step-num">02</span>
+        <div>
+          <div class="step-title">Scope & Quote</div>
+          <p class="step-desc">I scope the work, price it clearly, and send you a proposal. No vague hourly rates.</p>
+        </div>
+      </div>
+      <div class="step reveal" data-d="3">
+        <span class="step-num">03</span>
+        <div>
+          <div class="step-title">Assets</div>
+          <p class="step-desc">You share brand files, copy, references, and access. I'll ask for exactly what I need — nothing extra.</p>
+        </div>
+      </div>
+      <div class="step reveal" data-d="4">
+        <span class="step-num">04</span>
+        <div>
+          <div class="step-title">Build & Review</div>
+          <p class="step-desc">I build, you review. Two rounds of revisions included. Feedback goes in, final version comes out.</p>
+        </div>
+      </div>
+      <div class="step reveal" data-d="5">
+        <span class="step-num">05</span>
+        <div>
+          <div class="step-title">Deliver</div>
+          <p class="step-desc">Final files delivered, ready to launch. Replo, Liquid, or HTML — whichever format you're deploying.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SECTION 7: STACK ══════════════════════════════════════ -->
+<section id="stack">
+  <div class="container" style="padding-bottom:0">
+    <div class="reveal" style="margin-bottom:48px">
+      <span class="lbl">Tools</span>
+      <h2 class="sec-h2">The full stack.</h2>
+    </div>
+  </div>
+  <div class="mq-wrap">
+    <div class="mq-row left">
+      <div class="mq-track" aria-hidden="true">
+        <div class="mq-inner">
+          <span class="mq-item"><img class="mq-icon" src="images/exports/icons/shopify.svg" alt="">Shopify</span><span class="mq-item"><img class="mq-icon" src="images/exports/icons/figma.svg" alt="">Figma</span><span class="mq-item"><img class="mq-icon" src="images/exports/icons/replo.svg" alt="">Replo</span><span class="mq-item"><img class="mq-icon" src="images/exports/icons/liquid.svg" alt="">Liquid</span><span class="mq-item"><img class="mq-icon" src="images/exports/icons/html.svg" alt="">HTML</span><span class="mq-item"><img class="mq-icon" src="images/exports/icons/css.svg" alt="">CSS</span><span class="mq-item"><img class="mq-icon" src="images/exports/icons/javascript.svg" alt="">JavaScript</span><span class="mq-item"><img class="mq-icon" src="images/exports/icons/lottie.svg" alt="">Lottie</span><span class="mq-item"><img class="mq-icon" src="images/exports/icons/gsap.svg" alt="">GSAP</span>
+        </div>
+        <div class="mq-inner">
+          <span class="mq-item"><img class="mq-icon" src="images/exports/icons/shopify.svg" alt="">Shopify</span><span class="mq-item"><img class="mq-icon" src="images/exports/icons/figma.svg" alt="">Figma</span><span class="mq-item"><img class="mq-icon" src="images/exports/icons/replo.svg" alt="">Replo</span><span class="mq-item"><img class="mq-icon" src="images/exports/icons/liquid.svg" alt="">Liquid</span><span class="mq-item"><img class="mq-icon" src="images/exports/icons/html.svg" alt="">HTML</span><span class="mq-item"><img class="mq-icon" src="images/exports/icons/css.svg" alt="">CSS</span><span class="mq-item"><img class="mq-icon" src="images/exports/icons/javascript.svg" alt="">JavaScript</span><span class="mq-item"><img class="mq-icon" src="images/exports/icons/lottie.svg" alt="">Lottie</span><span class="mq-item"><img class="mq-icon" src="images/exports/icons/gsap.svg" alt="">GSAP</span>
+        </div>
+      </div>
+    </div>
+    <div class="mq-row right">
+      <div class="mq-track" aria-hidden="true">
+        <div class="mq-inner">
+          <span class="mq-item"><img class="mq-icon" src="images/exports/icons/analytics.svg" alt="">Google Analytics</span><span class="mq-item"><img class="mq-icon" src="images/exports/icons/pagespeed.svg" alt="">PageSpeed</span><span class="mq-item"><img class="mq-icon" src="images/exports/icons/klaviyo.svg" alt="">Klaviyo</span><span class="mq-item"><img class="mq-icon" src="images/exports/icons/metafields.svg" alt="">Metafields</span><span class="mq-item"><img class="mq-icon" src="images/exports/icons/instant.svg" alt="">Instant Pages</span><span class="mq-item"><img class="mq-icon" src="images/exports/icons/git.svg" alt="">Git</span><span class="mq-item"><img class="mq-icon" src="images/exports/icons/vscode.svg" alt="">VS Code</span><span class="mq-item"><img class="mq-icon" src="images/exports/icons/notion.svg" alt="">Notion</span><span class="mq-item"><img class="mq-icon" src="images/exports/icons/hotjar.svg" alt="">Hotjar</span>
+        </div>
+        <div class="mq-inner">
+          <span class="mq-item"><img class="mq-icon" src="images/exports/icons/analytics.svg" alt="">Google Analytics</span><span class="mq-item"><img class="mq-icon" src="images/exports/icons/pagespeed.svg" alt="">PageSpeed</span><span class="mq-item"><img class="mq-icon" src="images/exports/icons/klaviyo.svg" alt="">Klaviyo</span><span class="mq-item"><img class="mq-icon" src="images/exports/icons/metafields.svg" alt="">Metafields</span><span class="mq-item"><img class="mq-icon" src="images/exports/icons/instant.svg" alt="">Instant Pages</span><span class="mq-item"><img class="mq-icon" src="images/exports/icons/git.svg" alt="">Git</span><span class="mq-item"><img class="mq-icon" src="images/exports/icons/vscode.svg" alt="">VS Code</span><span class="mq-item"><img class="mq-icon" src="images/exports/icons/notion.svg" alt="">Notion</span><span class="mq-item"><img class="mq-icon" src="images/exports/icons/hotjar.svg" alt="">Hotjar</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SECTION 8: ABOUT ══════════════════════════════════════ -->
+<section id="about" class="tex-lines">
+  <div class="container">
+    <div class="about-inner">
+      <div class="about-text reveal from-left">
+        <span class="lbl">About</span>
+        <!-- EDIT: About paragraph -->
+        <p>I'm Ridwan Adekunle — a Shopify CRO and UX designer based in Ibadan, Nigeria. For 6+ years I've been fixing conversion problems on PDPs, landing pages, and full store redesigns — for DTC brands that needed more than a good-looking page.</p>
+        <p>I work with DTC brands at every stage — from founders launching their first page to established stores that know something is wrong but can't pinpoint it. The approach is always the same: start with the data, design for the buyer, and don't ship anything that won't perform.</p>
+        <div class="about-creds">
+          <span class="cred">Replo Expert</span>
+          <span class="cred">5-Star Rated</span>
+          <span class="cred">Ibadan, Nigeria</span>
+          <span class="cred">100+ Projects</span>
+        </div>
+      </div>
+      <div class="about-photo reveal from-right">
+        <div class="photo-frame">
+          <!-- IMAGE: About photo — images/exports/ridwan-crop.png -->
+          <img src="images/exports/ridwan-crop.png" alt="Ridwan Adekunle" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SECTION 9: HIRE ═══════════════════════════════════════ -->
+<section id="hire">
+  <div class="container">
+    <div class="hire-inner reveal">
+      <!-- EDIT: Hire headline -->
+      <h2 class="hire-h2 grad-text">Ready when<br>you are.</h2>
+      <!-- EDIT: Hire subtext -->
+      <p class="hire-sub">Send a quick note — name, store URL, and what you need. I'll come back within 24 hours.</p>
+      <!-- Contact form -->
+      <form class="hire-form" id="hire-form" novalidate>
+        <div class="hire-field">
+          <label for="hf-name">Your name</label>
+          <input type="text" id="hf-name" name="name" placeholder="Alex Johnson" autocomplete="name" required>
+        </div>
+        <div class="hire-field">
+          <label for="hf-store">Store URL</label>
+          <input type="url" id="hf-store" name="store" placeholder="yourstore.com" autocomplete="url">
+        </div>
+        <div class="hire-field">
+          <label for="hf-project">Project type</label>
+          <select id="hf-project" name="project" required>
+            <option value="" disabled selected>Select a project type</option>
+            <option value="cro-audit">CRO Audit</option>
+            <option value="pdp">PDP Build</option>
+            <option value="store-redesign">Store Redesign</option>
+            <option value="landing-page">Landing Page</option>
+            <option value="custom-sections">Custom Sections</option>
+            <option value="other">Other / Not sure yet</option>
+          </select>
+        </div>
+        <div class="hire-field">
+          <label for="hf-message">Message</label>
+          <textarea id="hf-message" name="message" placeholder="Tell me what you're working on — store URL, what's not converting, what you've already tried..." rows="4"></textarea>
+        </div>
+        <button type="submit" class="hire-submit" id="hire-submit">
+          Send enquiry
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+      </form>
+      <div class="hire-divider"><span>or</span></div>
+      <div class="hire-ctas">
+        <a href="https://calendly.com/sirridwan721/30min" target="_blank" rel="noopener" class="btn-fill">
+          Book a call
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <a href="mailto:sirridwan721@gmail.com" class="btn-outline">Email me</a>
+      </div>
+      <div class="pay-row">
+        <!-- EDIT: Payment platforms -->
+        <span class="pay-badge"><img src="images/exports/icons/paypal.svg" alt="" loading="lazy">PayPal</span>
+        <span class="pay-badge"><img src="images/exports/icons/wise.svg" alt="" loading="lazy">Wise</span>
+        <span class="pay-badge"><img src="images/exports/icons/payoneer.svg" alt="" loading="lazy">Payoneer</span>
+        <span class="pay-badge">Wire transfer</span>
+      </div>
+      <div class="s-row">
+        <a href="https://linkedin.com/in/koolestpro" target="_blank" rel="noopener" class="s-link" aria-label="LinkedIn">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+        </a>
+        <a href="https://twitter.com/koolestpro" target="_blank" rel="noopener" class="s-link" aria-label="Twitter/X">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </a>
+        <a href="https://instagram.com/koolestpro" target="_blank" rel="noopener" class="s-link" aria-label="Instagram">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <span class="footer-copy">&copy; 2026 Ridwan Adekunle — All rights reserved</span>
+    <span class="footer-status">
+      <span class="f-dot" aria-hidden="true"></span>
+      Available for new projects
+    </span>
+  </div>
+</footer>
+
+<!-- DRAWER -->
+<div class="drawer-overlay" id="drawer-overlay" aria-hidden="true"></div>
+<aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-label="Project case study" aria-hidden="true" tabindex="-1" data-lenis-prevent>
+  <button class="drawer-close" id="drawer-close" aria-label="Close">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    Close
+  </button>
+  <div id="drawer-body"></div>
+</aside>
+
+<!-- CRO MODAL -->
+<div class="cro-overlay" id="cro-overlay" aria-hidden="true" role="dialog" aria-modal="true" aria-label="CRO concept detail">
+  <div class="cro-modal" id="cro-modal" data-lenis-prevent>
+    <button class="cro-modal-close" id="cro-modal-close" aria-label="Close">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    </button>
+    <div id="cro-modal-body"></div>
+  </div>
+</div>
+
+<!-- SERVICE MODAL -->
+<div class="service-overlay" id="service-overlay" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Service detail">
+  <div class="service-modal" id="service-modal" data-lenis-prevent>
+    <button class="service-modal-close" id="service-modal-close" aria-label="Close">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    </button>
+    <div id="service-modal-body"></div>
+  </div>
+</div>
+
+<!-- WORK HOVER PREVIEW -->
+<div id="work-preview" aria-hidden="true">
+  <div id="wp-bg"></div>
+  <div class="wp-content">
+    <span class="wp-num" id="wp-num"></span>
+    <div class="wp-brand" id="wp-brand"></div>
+    <div class="wp-type" id="wp-type"></div>
+  </div>
+</div>
+
+<!-- SCROLL INDICATOR -->
+<nav id="scroll-ind" aria-label="Section navigation">
+  <!-- Items injected by JS -->
+</nav>
+
+</div><!-- /site -->
+
+<!-- ═══ JAVASCRIPT ════════════════════════════════════════════ -->
+<script>
+/* ─── PRELOADER ─────────────────────────────────────────────── */
+(function(){
+  const pl  = document.getElementById('preloader');
+  const bar = document.getElementById('pl-bar');
+  const site= document.getElementById('site');
+  let w = 0;
+  const iv = setInterval(function(){
+    w += Math.random() * 18 + 4;
+    if(w >= 100){ w = 100; clearInterval(iv); }
+    bar.style.width = w + '%';
+    if(w >= 100){
+      setTimeout(function(){
+        pl.classList.add('exit');
+        site.classList.add('visible');
+        setTimeout(function(){ pl.style.display='none'; },600);
+      },200);
+    }
+  },80);
+})();
+
+/* ─── PROJECTS DATA ─────────────────────────────────────────── */
+const PROJECTS = [
+  {
+    id:'kura-pdp', num:'01', brand:'KURA', title:'KURA Board — Product Page', type:'PDP',
+    gradient:'linear-gradient(135deg,#1e1a2e 0%,#c47a3a 100%)',
+    url:'../brands/kura/pages/kuda-pdp-01/index_1_cro.html',
+    media:{
+      cover:'images/exports/kura-pdp-cover.jpg',
+      video:'images/exports/kura-laptop-mobile.mp4',
+      experience:{ type:'embed', embed:'../brands/kura/pages/kuda-pdp-01/index_1_cro.html', image:'images/exports/kura-pdp-full-mockup.png', scrollEnd:'-64%' },
+      mobileShots:[
+        {src:'images/exports/kura-pdp-mobile-1.png'},
+        {src:'images/exports/kura-pdp-mobile-2.png'},
+        {src:'images/exports/kura-pdp-mobile-3.png'}
+      ]
+    },
+    caseStudy:{
+      headline:'A PDP built to convert skeptical buyers',
+      tools:['Replo','Figma','Custom CSS','IntersectionObserver'],
+      description:'Full product detail page for KURA — a concept DTC kitchenware brand. The build focused on removing friction from the purchase decision: sticky buy box, social proof sequencing, and a comparison table positioning KURA against cheap plastic alternatives.',
+      decisions:['Buy box visible above the fold on all three breakpoints — no scrolling required to see the price or CTA','Before/After section placed mid-page to re-engage browsers who scrolled past the hero','Comparison table uses visual checkmarks to reduce cognitive load at the decision moment'],
+      result:'Concept build demonstrating the full PDP conversion architecture for a DTC kitchenware brand. Showcases the complete section map from hero to email signup.'
+    }
+  },
+  {
+    id:'tapandrate', num:'02', brand:'Tap & Rate', title:'Tap & Rate — Store Rebuild', type:'Store Redesign',
+    gradient:'linear-gradient(135deg,#071e3d 0%,#1a7abf 100%)',
+    url:'https://tapandrate.co.uk',
+    media:{
+      cover:'images/exports/tapandrate-landing-cover.avif',
+      video:'images/exports/tapandrate-landing-mobile.mp4',
+      experience:{ image:'images/exports/tapandrate.co.uk_pages_review-management-1_pb=0(Laptop).png', scrollEnd:'-70%' },
+      mobileShots:[
+        {src:'images/exports/tapandrate.co.uk_pages_review-management-1_pb=0(iPhone 14 Pro Max).png', position:'top'},
+        {src:'images/exports/tapandrate.co.uk_pages_review-management-1_pb=0(iPhone 14 Pro Max).png', position:'center'},
+        {src:'images/exports/tapandrate.co.uk_pages_review-management-1_pb=0(iPhone 14 Pro Max).png', position:'bottom'}
+      ]
+    },
+    caseStudy:{
+      headline:'Translating a Lovable design into a custom Shopify review management page',
+      tools:['Shopify','Liquid','Custom JS','Custom CSS'],
+      description:'Tap & Rate is a UK platform that sells NFC products for managing Google, Instagram, and social media reviews. They needed a dedicated service page for their review management offering — designed in Lovable and handed off for development. The task: take the Lovable design file and rebuild it as a fully custom Shopify Liquid page, accurate to the design and ready for the client to manage.',
+      decisions:['Every section coded from scratch in Shopify Liquid — no page builder — giving the client full theme compatibility and long-term editor access without developer dependency','Lead capture pop-up integrated to convert page visitors into enquiries before they reach the pricing section','Pricing section structured to communicate service tiers clearly, so visitors arrive at the CTA already pre-qualified'],
+      result:'Client reported an uplift in demo requests after the page launched. The Lovable-to-Liquid translation maintained full design accuracy while unlocking Shopify\'s native editor for the team to manage content going forward.'
+    }
+  },
+  {
+    id:'champion-biotics', num:'03', brand:'Champion Biotics', title:'Champion Biotics — PDP Rebuild', type:'PDP',
+    gradient:'linear-gradient(135deg,#0a2918 0%,#3a8c5c 100%)',
+    url:'https://championbiotics.com',
+    media:{
+      cover:'images/exports/champion-biotics-pdp-desktop.mp4',
+      preview:'images/exports/champion-biotics-pdp-desktop.mp4',
+      video:'images/exports/champion-biotics-pdp-desktop.mp4',
+      experience:{ image:'images/exports/champion-biotics-pdp-desktop.mp4' },
+      mobileShots:[
+        {src:'images/exports/championbiotics-pdp-mobile.mp4'}
+      ]
+    },
+    caseStudy:{
+      headline:'Building a supplement PDP from a PNG mockup — with custom video management and performance tuning',
+      tools:['Shopify','Liquid','Custom JS','Custom CSS'],
+      description:'Champion Biotics makes a drink you take before drinking alcohol to prevent a hangover. The client had a clear vision for the page — communicated via a flat PNG mockup — and needed it translated into a fully functional Shopify PDP. No Figma file, no component library. Just a reference image and a requirement to make it work.',
+      decisions:['Rebuilt the entire layout from a flat PNG reference, structured in Shopify Liquid with schema-editable sections for ongoing content updates without touching code','Custom JavaScript written to manage multiple embedded videos: when one plays, all others pause automatically — preventing audio overlap and unnecessary bandwidth load','Performance treated as a hard requirement given the volume of embeds and video; lazy loading, preloading, and deferred scripts applied throughout to keep load times stable'],
+      result:'Client confirmed a measurable drop in cart abandonment after the rebuild launched, attributing it to the improved page performance, trust sequencing, and mobile sticky buy box.'
+    }
+  },
+  {
+    id:'mother-of-macros', num:'04', brand:'Mother of Macros', title:'Mother of Macros — Checkout Flow', type:'Checkout Design',
+    gradient:'linear-gradient(135deg,#2d0033 0%,#c2185b 100%)',
+    url:'https://motherofmacros.com',
+    media:{
+      cover:'images/exports/motherofmacros-cover.avif',
+      hideMediaDetails:true
+    },
+    caseStudy:{
+      headline:'A 5-step ordering flow that replaced a broken multi-page checkout',
+      tools:['Shopify','Liquid','Custom JS','Custom CSS'],
+      description:'Mother of Macros sells meal prep with a genuinely complex ordering model. Customers must meet a minimum order quantity, pick from multiple food types, and enter a zip code that determines both product pricing and delivery availability. The original flow required multiple page reloads to get through all of this — and dropped buyers at every step.',
+      decisions:['Compressed the entire ordering logic into a linear 5-step flow: plan type → meal selection → food preferences → zip code → cart — all without page reloads','Zip code validation placed at step 3, before the customer finalises their order, so delivery eligibility is confirmed early and not discovered as a rejection at checkout','Minimum order quantity surfaced visually at the meal selection step — not buried as a checkout error — so buyers understand the requirement before they invest time building their order'],
+      result:'The 5-step flow turned a multi-page, friction-heavy process into something customers could complete without confusion or backtracking. Client confirmed the rebuild simplified checkout significantly compared to the previous experience.'
+    }
+  },
+  {
+    id:'ishu', num:'05', brand:'Ishu', title:'Ishu — Product Page', type:'PDP',
+    gradient:'linear-gradient(135deg,#22110a 0%,#d18a4a 100%)',
+    url:'#',
+    media:{
+      cover:'images/exports/ishu-cover.webp',
+      video:'images/exports/ishu-experience.mp4',
+      experience:{ image:'images/exports/ishu-experience.mp4' },
+      mobileShots:[
+        {src:'images/exports/ishu-cover.webp'}
+      ]
+    },
+    caseStudy:{
+      headline:'A Replo-built PDP for a premium iPhone case brand',
+      tools:['Replo','Figma','Shopify','Custom CSS'],
+      description:'Ishu sells premium iPhone covers. The brief was to build a product detail page in Replo that matched the brand\'s clean aesthetic and made the path from landing to purchase as direct as possible — without over-complicating the layout.',
+      decisions:['Built entirely in Replo, giving the client full editor access to update products, copy, and images without needing a developer for routine changes','Page structure leads with lifestyle imagery before specifications — for accessories, the desire has to land before the detail','Colour and model variant selection kept visible and compact in the buy box, reducing the number of steps between arriving and buying'],
+      result:'A clean, Replo-native PDP the client can manage independently. Full mobile responsiveness built into the component structure with no custom overrides needed.'
+    }
+  },
+  {
+    id:'jellys-glamour', num:'06', brand:"Jellys Glamour", title:"Jellys Glamour — Landing Experience", type:'Landing Page',
+    gradient:'linear-gradient(135deg,#2d0928 0%,#d3469b 100%)',
+    url:'#',
+    media:{
+      cover:'images/exports/jelys-glamour-cover.png',
+      video:'images/exports/Jellys-glamour-laptop-mobile.mp4',
+      experience:{ image:'images/exports/jellys-glarmour-full-laptop.png', scrollEnd:'-58%' },
+      mobileShots:[
+        {src:'images/exports/Jellys-glamor-mobile.mp4'},
+        {src:'images/exports/Jellys-glamor-mobile.mp4'},
+        {src:'images/exports/Jellys-glamor-mobile.mp4'}
+      ]
+    },
+    caseStudy:{
+      headline:'Figma to Shopify for a Nigerian glamour brand',
+      tools:['Figma','Shopify','Liquid','Custom CSS'],
+      description:'Jellys Glamour is a Nigerian beauty and glamour brand. The project followed a design-led workflow: design produced in Figma, then developed into a fully functional Shopify store. With a predominantly mobile audience, the build prioritised accurate design translation and a mobile experience that matched the brand\'s visual energy.',
+      decisions:['Design-to-code translation maintained pixel accuracy to the Figma file — every spacing value, colour, and font weight preserved across breakpoints','Mobile layout built first, with thumb-accessible CTAs, full-width hero imagery, and single-column product cards sized for phone screens','Custom CSS written for animation and hover behaviour that standard Shopify themes don\'t support natively, without adding third-party dependencies'],
+      result:'A production Shopify store that matched the Figma design intent on every screen size, with mobile-first execution suited to the brand\'s core audience.'
+    }
+  },
+  {
+    id:'captain-skippers', num:'07', brand:'Captain & Skipper', title:'Captain & Skipper — Brand Store', type:'Store Design',
+    gradient:'linear-gradient(135deg,#004b75 0%,#34b8ee 100%)',
+    url:'#',
+    media:{
+      cover:'images/exports/captain-skippers-cover.png',
+      video:'images/exports/captain & skipper (Copy) - Page 1.mp4',
+      experience:{ image:'images/exports/captain-skippers-laptop.png', scrollEnd:'-34%' },
+      mobileShots:[
+        {src:'images/exports/captain-skippers-mobile-1.png', position:'top', fit:'cover'},
+        {src:'images/exports/captain-skippers-mobile-1.png', position:'center', fit:'cover'},
+        {src:'images/exports/captain-skippers-mobile-1.png', position:'bottom', fit:'cover'}
+      ]
+    },
+    caseStudy:{
+      headline:'Figma to Shopify for a brand with a bold visual identity',
+      tools:['Figma','Shopify','Liquid','Custom CSS'],
+      description:'Captain & Skipper has a distinctive visual system. The project followed a clean handoff process: design in Figma, development in Shopify Liquid. The requirement was a build that looked as considered on mobile as it did on desktop, and held the design system accurately across every page.',
+      decisions:['All sections built in Shopify Liquid from the Figma source, with schema-editable fields so the client team can update content without touching code','Brand colour palette and typography mapped to CSS custom properties — global changes update in one place, never scattered across the stylesheet','Hover states and interactive transitions built to reflect the design\'s intended feel, not defaulted to Shopify\'s generic theme behaviour'],
+      result:'A production-ready Shopify store translated accurately from the Figma design, with clean Liquid code and editor-friendly sections throughout.'
+    }
+  },
+  {
+    id:'titanium', num:'08', brand:'Titanium', title:'Titanium — Landing Page', type:'Landing Page',
+    gradient:'linear-gradient(135deg,#151515 0%,#9f9f9f 100%)',
+    url:'#',
+    media:{
+      cover:'images/exports/titanium-laptop-above-fold.png',
+      video:'images/exports/titanium-video-laptop.mp4',
+      experience:{ image:'images/exports/titanium-laptop-full-page.png', scrollEnd:'-68%' },
+      mobileShots:[
+        {src:'images/exports/titanium-laptop-above-fold.png'},
+        {src:'images/exports/titanium-laptop-full-page.png', position:'center', fit:'cover'},
+        {src:'images/exports/titanium-laptop-full-page.png', position:'bottom', fit:'cover'}
+      ]
+    },
+    caseStudy:{
+      headline:'A full-page landing experience with strong visual hierarchy',
+      tools:['Figma','Replo','Custom CSS','JavaScript'],
+      description:'Titanium uses the supplied above-fold cover, full-page laptop capture, and laptop video to show the complete page flow.',
+      decisions:['Use the above-fold laptop capture as the cover image','Use the full-page capture for the auto-scrolling desktop experience','Slice the available full-page capture into three highlight panels where mobile-specific shots are not supplied'],
+      result:'A polished project entry with cover, video, and full-page preview behavior.'
+    }
+  },
+  {
+    id:'kura-ad', num:'09', brand:'KURA Advertorial', title:'KURA Board — Editorial Ad', type:'Advertorial',
+    gradient:'linear-gradient(135deg,#1a1400 0%,#d4a017 100%)',
+    url:'../brands/kura/pages/kura-ad-01/index.html',
+    media:{
+      cover:'images/exports/kura-ad-preview.png',
+      experience:{ type:'embed', embed:'../brands/kura/pages/kura-ad-01/index.html', image:'images/exports/kura-ad-preview.png' },
+      mobileShots:[]
+    },
+    caseStudy:{
+      headline:'An advertorial that reads like journalism, converts like a sales page',
+      tools:['HTML/CSS','Figma','Custom JS'],
+      description:'Advertorials work when they stay in editorial mode long enough to earn trust. This KURA advertorial reads like a product discovery story before introducing the product naturally in the second third.',
+      decisions:['Fake publication masthead establishes editorial credibility in under 2 seconds','Product name withheld until the Discovery Moment section — builds narrative tension and reduces ad blindness','Fake reader comments at the bottom provide the final social proof layer directly before the CTA'],
+      result:'Concept build demonstrating complete advertorial architecture. Template is brand-neutral and reusable across any DTC product category.'
+    }
+  },
+  {
+    id:'kura-hp', num:'10', brand:'KURA Homepage', title:'KURA Board — Brand Homepage', type:'Homepage',
+    gradient:'linear-gradient(135deg,#0d0d20 0%,#6b2fbe 100%)',
+    url:'../brands/kura/pages/kura-hp-01/index.html',
+    media:{
+      cover:'images/exports/kura-home-preview.png',
+      experience:{ type:'embed', embed:'../brands/kura/pages/kura-hp-01/index.html', image:'images/exports/kura-home-preview.png' },
+      mobileShots:[]
+    },
+    caseStudy:{
+      headline:'A brand homepage that earns trust before it sells',
+      tools:['Replo','Figma','Custom CSS','SVG Animation'],
+      description:'The KURA brand homepage had to balance storytelling with conversion. The challenge: communicate the brand ethos — considered, minimal, functional — without losing visitors who just wanted to shop.',
+      decisions:['Trust bar placed directly below the hero — 5 trust signals before any product content','Brand story kept to 90 words max — enough personality, not enough to slow the page','Lifestyle section uses full-bleed image + overlaid CTA instead of a separate section — fewer scrolls, same result'],
+      result:'Concept build that demonstrates the full homepage architecture for a premium DTC brand. Ready to deploy with real imagery.'
+    }
+  },
+  {
+    id:'kura-listicle', num:'11', brand:'KURA Listicle', title:'KURA Board — Top 5 Comparison', type:'Listicle',
+    gradient:'linear-gradient(135deg,#001a12 0%,#ff6b35 100%)',
+    url:'../brands/kura/pages/kura-listicle-li03/index.html',
+    media:{
+      cover:'images/exports/kura-listicle-preview.png',
+      experience:{ type:'embed', embed:'../brands/kura/pages/kura-listicle-li03/index.html', image:'images/exports/kura-listicle-preview.png' },
+      mobileShots:[]
+    },
+    caseStudy:{
+      headline:'A listicle that ranks #1 by design, not accident',
+      tools:['HTML/CSS','Figma','Custom JS'],
+      description:'Listicle pages work by establishing editorial credibility, then steering the reader to the preferred conclusion. This KURA comparison article places the KURA Board at #1 with enough genuine comparison context to feel trustworthy rather than rigged.',
+      decisions:['Summary comparison table at the top — readers who skip to the verdict can get it immediately','#1 entry gets 3x the content of others, justified by the editorial "expanded review" convention','Two inline CTAs appear at peak reader intent moments within the list flow'],
+      result:'Concept build showing the complete listicle architecture for a DTC product. Demonstrates how organic-looking editorial content can function as a high-intent conversion page.'
+    }
+  }
+];
+
+/* ─── CRO CONCEPTS DATA ─────────────────────────────────────── */
+const CRO_CONCEPTS = [
+  {
+    id:'atc-placement',
+    metric:'+18% ATC Rate',
+    title:'Add-to-Cart Above the Fold',
+    desc:'Moving the ATC button into the viewport on load — without scrolling — removes the most common conversion barrier on PDPs.',
+    analysis:'Most default Shopify themes push the buy box below an image gallery. By the time a buyer reaches the ATC button, intent has already peaked and started fading. Keeping price, key benefit bullets, and the ATC button visible on load captures the decision at peak interest.',
+    points:['ATC button position tested above vs below product description','Image gallery moved to a horizontal scroll or secondary view','Mobile layout tested separately — thumb reach distance matters'],
+    baImage:'images/exports/getfit-before-after.png',
+    gallery:[
+      {label:'Hero fix', src:'images/exports/eddiebauer-mobile-redesign-above-fold.png'},
+      {label:'Mobile PDP', src:'images/exports/kura-pdp-full-mobile.png'},
+      {label:'Desktop PDP', src:'images/exports/kura-pdp-full-laptop.png'}
+    ]
+  },
+  {
+    id:'social-proof-sequencing',
+    metric:'+24% Review Engagement',
+    title:'Social Proof Sequencing',
+    desc:'The order and placement of review cards throughout a PDP changes how much trust is built before the purchase decision.',
+    analysis:'Placing all reviews in a single block at the bottom of the page means most visitors never see them. Sequencing short reviews near the hero, ingredient-specific quotes near specs, and transformation reviews near the CTA creates trust at every scroll depth.',
+    points:['Star rating and quote placed directly below hero image','Category-specific reviews matched to relevant product sections','Transformation reviews positioned just before the primary CTA'],
+    baImage:'images/exports/eco-boutique-before-after.png',
+    gallery:[
+      {label:'Proof layout', src:'images/exports/eco-boutique-before-after.png'},
+      {label:'Trust section', src:'images/exports/eco-boutique-cro-guide.png'},
+      {label:'Mobile proof', src:'images/exports/captain-skippers-mobile-1.png'}
+    ]
+  },
+  {
+    id:'headline-clarity',
+    metric:'-19% Bounce Rate',
+    title:'Outcome-First Hero Headline',
+    desc:"Rewriting headlines to lead with the customer outcome — not the product feature — reduces bounce rate and increases scroll depth.",
+    analysis:'Feature-first headlines ("Proprietary Ceramic Coating") answer a question nobody asked. Outcome-first headlines ("A surface that stays clean between uses") answer the implicit question every visitor has: "what does this do for me?" Switching the framing gets more people past the fold.',
+    points:['Headline A/B: feature ("500mg Omega-3") vs outcome ("Think clearer, move easier")','Subheadline carries the mechanism — credibility without leading with it','Social proof pulled up under the headline to reinforce the claim'],
+    baImage:'images/exports/eddiebauer-before-after.png'
+  },
+  {
+    id:'comparison-table',
+    metric:'+31% Purchase Intent',
+    title:'Comparison Table as Decision Aid',
+    desc:'A well-structured comparison table reduces decision fatigue by handling the "why not a competitor?" objection inline.',
+    analysis:"Buyers who reach a comparison table are already interested — they just need permission to buy. The table shouldn't be a feature list battle. It should frame the brand's advantages in terms of customer outcomes and eliminate the mental work of comparing alternatives.",
+    points:['Table rows organised by buyer concern, not product spec','Competitor column uses neutral language to avoid looking rigged','Table placed after the problem/solution section — not at the bottom'],
+    baImage:'images/exports/petticoat-before-after.png'
+  },
+  {
+    id:'mobile-gallery',
+    metric:'+44% Image Views',
+    title:'Swipeable Mobile Gallery',
+    desc:'Replacing a vertical image stack with a swipeable gallery on mobile increases engagement with product visuals by a significant margin.',
+    analysis:"On mobile, vertical image stacks require deliberate scroll. Swipe gestures are intuitive and low-effort. Moving the gallery to a swipe-first layout — with a thumbnail strip below — increases the number of images viewed per session, which correlates directly with purchase confidence.",
+    points:['Primary image becomes a touch swipe target','Thumbnail strip below shows gallery depth (trust signal)','Dots or count indicator reduces anxiety about "how many images are there"']
+  },
+  {
+    id:'urgency-scarcity',
+    metric:'+12% Same-Session Purchases',
+    title:'Ethical Urgency & Scarcity',
+    desc:"Urgency and scarcity work — but only when they're real. Fake countdown timers destroy trust. Inventory-based scarcity converts without the blowback.",
+    analysis:'Inventory-level messaging ("Only 3 left in this size") triggers loss aversion without manufactured pressure. Paired with a recently viewed count or time-limited shipping window, it creates a real reason to buy now rather than leave and forget. The key: the signal must be verifiable.',
+    points:['Inventory count pulled from real stock level, not hard-coded','Shipping deadline calculated from real cutoff, shown in session','No countdown timer unless the discount is real and the deadline is real']
+  }
+];
+
+/* ─── BUILD WORK LIST ───────────────────────────────────────── */
+const workList = document.getElementById('work-list');
+const VISIBLE_LIMIT = 8;
+PROJECTS.forEach(function(p, i){
+  const li = document.createElement('li');
+  li.className = 'work-item reveal' + (i >= VISIBLE_LIMIT ? ' hidden-project' : '');
+  li.dataset.projectId = p.id;
+  li.setAttribute('role','button');
+  li.setAttribute('tabindex','0');
+  li.setAttribute('aria-label','View case study: ' + p.title);
+  if(i >= VISIBLE_LIMIT){ li.style.display='none'; }
+  li.innerHTML =
+    '<div class="work-item-inner">' +
+      '<span class="w-num" aria-hidden="true">' + p.num + '</span>' +
+      '<span class="w-brand">' + p.brand + '</span>' +
+      '<span class="w-tag">' + p.type + '</span>' +
+      '<svg class="w-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>' +
+    '</div>';
+  workList.appendChild(li);
+});
+
+/* See more button */
+const seeMoreWrap = document.getElementById('see-more-wrap');
+const seeMoreBtn  = document.getElementById('see-more-btn');
+if(PROJECTS.length > VISIBLE_LIMIT){
+  seeMoreWrap.style.display = 'block';
+  seeMoreBtn.addEventListener('click', function(){
+    const hidden = document.querySelectorAll('.hidden-project');
+    hidden.forEach(function(el){
+      el.style.display='';
+      el.classList.remove('hidden-project');
+      io.observe(el);
+    });
+    seeMoreWrap.style.display='none';
+  });
+}
+
+/* ─── BUILD CRO GRID ────────────────────────────────────────── */
+const croGrid = document.getElementById('cro-grid');
+CRO_CONCEPTS.forEach(function(c, i){
+  const card = document.createElement('div');
+  card.className = 'cro-card reveal scale-in';
+  card.dataset.d = (i % 3 + 1).toString();
+  card.dataset.croId = c.id;
+  card.innerHTML =
+    '<span class="cro-metric">' + c.metric + '</span>' +
+    '<div class="cro-title">' + c.title + '</div>' +
+    '<p class="cro-desc">' + c.desc + '</p>' +
+    '<span class="cro-view">View analysis <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>';
+  croGrid.appendChild(card);
+});
+
+/* ─── CRO MODAL ─────────────────────────────────────────────── */
+const croOverlay   = document.getElementById('cro-overlay');
+const croModalBody = document.getElementById('cro-modal-body');
+const croClose     = document.getElementById('cro-modal-close');
+
+function openCroModal(c){
+  const pts = c.points.map(function(p){ return '<div class="m-point">' + p + '</div>'; }).join('');
+  const baSection = c.baImage
+    ? '<div class="ba-single"><img src="'+c.baImage+'" alt="'+c.title+' — before and after" loading="lazy"></div>'
+    : '<div class="ba-empty">Before / After image coming soon</div>';
+  const hasGallery = c.gallery && c.gallery.some(function(item){ return item.src; });
+  const galleryItems = hasGallery ? (c.gallery || []).map(function(item){
+    const visual = item.src ? '<img src="'+item.src+'" alt="'+item.label+'" loading="lazy">' : '<div class="d-placeholder">Add fix image</div>';
+    return '<div class="m-gallery-card">'+visual+'<span>'+item.label+'</span></div>';
+  }).join('') : '';
+  croModalBody.innerHTML =
+    '<span class="m-tag">CRO concept</span>' +
+    '<h2 class="m-title">' + c.title + '</h2>' +
+    '<div class="m-metric">' + c.metric + '</div>' +
+    baSection +
+    '<span class="m-sec-lbl">Analysis</span>' +
+    '<p class="m-analysis">' + c.analysis + '</p>' +
+    '<span class="m-sec-lbl">Key changes</span>' +
+    '<div class="m-points">' + pts + '</div>' +
+    (hasGallery ? '<span class="m-sec-lbl">More fixes</span><div class="m-gallery">' + galleryItems + '</div>' : '');
+  croOverlay.classList.add('open');
+  croOverlay.removeAttribute('aria-hidden');
+  document.body.style.overflow='hidden';
+  if(lenis) lenis.stop();
+}
+function closeCroModal(){
+  croOverlay.classList.remove('open');
+  croOverlay.setAttribute('aria-hidden','true');
+  document.body.style.overflow='';
+  if(lenis) lenis.start();
+}
+croClose.addEventListener('click', closeCroModal);
+croOverlay.addEventListener('click', function(e){ if(e.target===croOverlay) closeCroModal(); });
+croGrid.addEventListener('click', function(e){
+  const card = e.target.closest('.cro-card');
+  if(!card) return;
+  const c = CRO_CONCEPTS.find(function(x){ return x.id===card.dataset.croId; });
+  if(c) openCroModal(c);
+});
+
+/* ─── SERVICE MODAL ─────────────────────────────────────────── */
+const SERVICE_DETAILS = {
+  'cro-audit': {
+    title:'CRO Audit & Strategy',
+    intro:'A structured teardown of your store, page, or funnel. The goal is to find where buyers hesitate, what needs to be fixed first, and what will have the clearest conversion impact.',
+    process:['You share the store URL, target product/page, key metrics, and any known concerns','I review the buyer journey across desktop and mobile, including above-fold clarity, offer, proof, friction, and checkout path','I prioritise the findings by impact and implementation effort','You receive a clear action plan with screenshots, notes, and recommended next steps'],
+    tools:['Google Analytics','Hotjar','PageSpeed','Figma','Notion'],
+    deliverables:['Conversion audit document','Prioritised issue list','Annotated screenshots','Quick-win recommendations','Optional rebuild scope'],
+    questions:['Best when you know something is underperforming but need clarity on why','Works for PDPs, landing pages, homepages, advertorials, and full stores','Can be used before a redesign so the rebuild is based on evidence, not taste']
+  },
+  'shopify-store-design': {
+    title:'Shopify Store Design',
+    intro:'A full Shopify design direction built around trust, product clarity, and buyer flow. This covers the user experience, page structure, and responsive layout before build.',
+    process:['We define the brand, audience, offer, page goals, and store sections','I map the key customer journey from first impression to checkout intent','I design the main pages and reusable section patterns in Figma','You review the design, then we refine before development or handoff'],
+    tools:['Shopify','Figma','Replo','Liquid','Notion'],
+    deliverables:['Responsive page designs','Section structure','UX notes','Design-ready assets checklist','Build handoff or Replo implementation plan'],
+    questions:['Best for new stores or brands that need a stronger visual system','Designed with mobile-first buying behavior in mind','Can be paired with Replo or Shopify theme development']
+  },
+  'store-redesign': {
+    title:'Store Redesign & Rebuild',
+    intro:'A conversion-led rebuild for stores that already exist but feel unclear, dated, slow, or difficult to buy from.',
+    process:['We audit the current store and identify the pages that matter most','I rebuild the information hierarchy, section order, proof flow, and mobile layout','The design is built in Replo, Shopify, or your preferred page system','We review, revise, test responsive states, and prepare for launch'],
+    tools:['Shopify','Replo','Figma','Liquid','JavaScript','PageSpeed'],
+    deliverables:['Updated store/page build','Responsive QA pass','Launch checklist','Section editing guidance','Post-launch recommendations'],
+    questions:['Best when the brand already has traffic but the experience is holding it back','Focuses on clarity, trust, speed, and conversion paths','Can be scoped as one key page or a full store refresh']
+  },
+  'custom-section-dev': {
+    title:'Custom Section Dev',
+    intro:'Custom Shopify or Replo sections for layouts and interactions your theme does not provide out of the box.',
+    process:['You send the reference, design, or function needed','I define the editable content fields and responsive behavior','I build the section cleanly with reusable content controls','You test it, request revisions, and receive final usage notes'],
+    tools:['Shopify','Liquid','Replo','HTML/CSS','JavaScript','VS Code'],
+    deliverables:['Custom section build','Editable fields/schema','Responsive styling','Install/use notes','Revision pass'],
+    questions:['Best for custom hero blocks, comparison sections, sticky CTAs, galleries, quizzes, and proof sections','Built so your team can update content without touching code','Can be added into a larger redesign workflow']
+  },
+  'static-ad-design': {
+    title:'Static Ad Design',
+    intro:'Creative assets for paid and organic campaigns, designed to communicate the product quickly and make the next click feel obvious.',
+    process:['We define the offer, audience, pain point, and destination page','I create creative angles and layout options','You choose the strongest direction or request variations','Final assets are exported by size/platform'],
+    tools:['Figma','Shopify','Google Analytics','Notion'],
+    deliverables:['Static ad creatives','Multiple hooks/angles','Platform-ready sizes','Source file or editable design where needed'],
+    questions:['Best for product launches, retargeting, offer campaigns, and social proof creatives','Can use before/after, benefit-led, founder-led, or product-led angles','Works best when paired with a strong landing page or PDP']
+  },
+  'email-template-design': {
+    title:'Email Template Design',
+    intro:'Klaviyo-ready email templates that match the store experience and keep repeat buyers moving toward the next action.',
+    process:['We define the email type: welcome, launch, abandon cart, post-purchase, or campaign','I map the message hierarchy and CTA structure','I design the email template with reusable modules','You review, then the final template is prepared for Klaviyo or handoff'],
+    tools:['Klaviyo','Figma','Shopify','HTML/CSS'],
+    deliverables:['Email template design','Reusable content modules','CTA hierarchy','Image/export guidance','Klaviyo handoff notes'],
+    questions:['Best for brands that want emails to feel consistent with the store','Can support campaigns or lifecycle flows','Focused on clarity, scannability, and repeat purchase']
+  }
+};
+
+const serviceOverlay = document.getElementById('service-overlay');
+const serviceModalBody = document.getElementById('service-modal-body');
+const serviceClose = document.getElementById('service-modal-close');
+const serviceGrid = document.querySelector('.services-grid');
+
+function toolIconMarkup(name){
+  const file = TOOL_ICONS[name];
+  return file ? '<img src="images/exports/icons/'+file+'" alt="" loading="lazy">' : '';
+}
+function serviceList(items){
+  return '<ul class="service-list">' + items.map(function(item){ return '<li>'+item+'</li>'; }).join('') + '</ul>';
+}
+function openServiceModal(service){
+  const tools = service.tools.map(function(tool){ return '<span class="service-tool">'+toolIconMarkup(tool)+tool+'</span>'; }).join('');
+  serviceModalBody.innerHTML =
+    '<span class="service-kicker">Service process</span>' +
+    '<h2>'+service.title+'</h2>' +
+    '<p class="service-intro">'+service.intro+'</p>' +
+    '<div class="service-detail-grid">' +
+      '<div class="service-detail-card"><h3>How it works</h3>'+serviceList(service.process)+'</div>' +
+      '<div class="service-detail-card"><h3>What you get</h3>'+serviceList(service.deliverables)+'</div>' +
+      '<div class="service-detail-card"><h3>Tools I use</h3><div class="service-tools">'+tools+'</div></div>' +
+      '<div class="service-detail-card"><h3>Good to know</h3>'+serviceList(service.questions)+'</div>' +
+    '</div>';
+  serviceOverlay.classList.add('open');
+  serviceOverlay.removeAttribute('aria-hidden');
+  document.body.style.overflow='hidden';
+  if(lenis) lenis.stop();
+  serviceClose.focus();
+}
+function closeServiceModal(){
+  serviceOverlay.classList.remove('open');
+  serviceOverlay.setAttribute('aria-hidden','true');
+  document.body.style.overflow='';
+  if(lenis) lenis.start();
+}
+serviceClose.addEventListener('click', closeServiceModal);
+serviceOverlay.addEventListener('click', function(e){ if(e.target===serviceOverlay) closeServiceModal(); });
+serviceGrid.addEventListener('click', function(e){
+  const card = e.target.closest('.svc-card');
+  if(!card) return;
+  const service = SERVICE_DETAILS[card.dataset.serviceId];
+  if(service) openServiceModal(service);
+});
+serviceGrid.addEventListener('keydown', function(e){
+  if(e.key!=='Enter' && e.key!==' ') return;
+  const card = e.target.closest('.svc-card');
+  if(!card) return;
+  e.preventDefault();
+  const service = SERVICE_DETAILS[card.dataset.serviceId];
+  if(service) openServiceModal(service);
+});
+
+/* ─── LENIS ─────────────────────────────────────────────────── */
+let lenis;
+if(typeof Lenis !== 'undefined'){
+  lenis = new Lenis({
+    duration:1.05,
+    smoothWheel:true,
+    smoothTouch:false,
+    wheelMultiplier:0.9,
+    prevent:function(node){ return !!node.closest('[data-lenis-prevent]'); }
+  });
+  (function lenisLoop(t){ lenis.raf(t); requestAnimationFrame(lenisLoop); })();
+}
+
+/* ─── NAV SCROLL STATE ──────────────────────────────────────── */
+const nav = document.getElementById('site-nav');
+function updateNav(){ nav.classList.toggle('scrolled', window.scrollY > 80); }
+updateNav();
+window.addEventListener('scroll', updateNav, {passive:true});
+
+/* ─── SCROLL REVEAL ─────────────────────────────────────────── */
+const io = new IntersectionObserver(function(entries){
+  entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('visible'); io.unobserve(e.target); } });
+},{threshold:0.1});
+document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+
+/* ─── HERO CANVAS DOT TEXTURE + CURSOR GLOW ────────────────── */
+(function(){
+  const canvas = document.getElementById('hero-canvas');
+  const glow   = document.getElementById('hero-glow');
+  if(!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const SPACING = 28;
+  let dots=[], mouseX=-9999, mouseY=-9999, W=0, H=0, DPR=1;
+
+  function resize(){
+    const rect = canvas.parentElement.getBoundingClientRect();
+    DPR = Math.min(window.devicePixelRatio || 1, 2);
+    W = rect.width;
+    H = rect.height;
+    canvas.width = Math.round(W * DPR);
+    canvas.height = Math.round(H * DPR);
+    canvas.style.width = W + 'px';
+    canvas.style.height = H + 'px';
+    ctx.setTransform(DPR,0,0,DPR,0,0);
+    dots = [];
+    for(let x=0; x<W; x+=SPACING){
+      for(let y=0; y<H; y+=SPACING){
+        dots.push({x:x+SPACING/2, y:y+SPACING/2});
+      }
+    }
+  }
+
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    dots.forEach(function(d){
+      const dx=d.x-mouseX, dy=d.y-mouseY;
+      const dist=Math.sqrt(dx*dx+dy*dy);
+      const radius=160;
+      const base=0.12, boost=0.55;
+      const alpha = dist<radius ? base + boost*(1-dist/radius) : base;
+      ctx.beginPath();
+      ctx.arc(d.x, d.y, 1.2, 0, Math.PI*2);
+      ctx.fillStyle='rgba(240,237,232,'+alpha+')';
+      ctx.fill();
+    });
+    requestAnimationFrame(draw);
+  }
+
+  window.addEventListener('resize', resize);
+  resize();
+  draw();
+
+  const hero = document.getElementById('hero');
+  hero.addEventListener('mousemove', function(e){
+    const rect = hero.getBoundingClientRect();
+    mouseX = Math.max(0, Math.min(W, e.clientX - rect.left));
+    mouseY = Math.max(0, Math.min(H, e.clientY - rect.top));
+    glow.style.left = mouseX + 'px';
+    glow.style.top  = mouseY + 'px';
+    glow.style.opacity = '1';
+  });
+  hero.addEventListener('mouseleave', function(){
+    mouseX=-9999; mouseY=-9999;
+    glow.style.opacity='0';
+  });
+})();
+
+/* ─── CURSOR WORK PREVIEW ───────────────────────────────────── */
+const preview = document.getElementById('work-preview');
+const wpBg    = document.getElementById('wp-bg');
+const wpNum   = document.getElementById('wp-num');
+const wpBrand = document.getElementById('wp-brand');
+const wpType  = document.getElementById('wp-type');
+let tx=-500,ty=-500,cx=-500,cy=-500;
+function lerp(a,b,t){ return a+(b-a)*t; }
+(function previewLoop(){
+  cx=lerp(cx,tx,.1); cy=lerp(cy,ty,.1);
+  preview.style.left=cx+'px'; preview.style.top=cy+'px';
+  requestAnimationFrame(previewLoop);
+})();
+document.addEventListener('mousemove',function(e){ tx=e.clientX+22; ty=e.clientY-100; });
+function isVideoSrc(src){ return src && /\.(mp4|mov|webm)$/i.test(src); }
+function getPreviewSrc(p){
+  const media = p.media || {};
+  const experience = media.experience || {};
+  return media.preview || media.cover || media.video || experience.image || '';
+}
+function showPreview(p){
+  const src = getPreviewSrc(p);
+  wpBg.innerHTML = '';
+  wpBg.style.background = p.gradient;
+  if(src){
+    wpBg.innerHTML = isVideoSrc(src)
+      ? '<video src="'+src+'" autoplay muted loop playsinline></video>'
+      : '<img src="'+src+'" alt="" loading="eager">';
+  }
+  wpNum.textContent=p.num;
+  wpBrand.textContent=p.brand;
+  wpType.textContent=p.type;
+  preview.classList.add('show');
+}
+function hidePreview(){ preview.classList.remove('show'); }
+workList.addEventListener('mouseover',function(e){ const item=e.target.closest('.work-item'); if(!item) return; const p=PROJECTS.find(function(p){ return p.id===item.dataset.projectId; }); if(p) showPreview(p); });
+workList.addEventListener('mouseleave',hidePreview);
+
+/* ─── DRAWER ────────────────────────────────────────────────── */
+const drawerOverlay = document.getElementById('drawer-overlay');
+const drawer        = document.getElementById('drawer');
+const drawerBody    = document.getElementById('drawer-body');
+const drawerClose   = document.getElementById('drawer-close');
+const TOOL_ICONS = {
+  'Shopify':'shopify.svg',
+  'Figma':'figma.svg',
+  'Replo':'replo.png',
+  'Liquid':'liquid.svg',
+  'HTML/CSS':'html.svg',
+  'Custom CSS':'css.svg',
+  'JavaScript':'javascript.svg',
+  'Custom JS':'javascript.svg',
+  'GSAP':'gsap.svg',
+  'Klaviyo':'klaviyo.svg',
+  'Google Analytics':'analytics.svg',
+  'Hotjar':'hotjar.svg',
+  'PageSpeed':'pagespeed.svg',
+  'VS Code':'vscode.svg',
+  'Git':'git.svg',
+  'Notion':'notion.svg'
+};
+
+function buildDrawer(p){
+  const cs=p.caseStudy;
+  const decisions=cs.decisions.map(function(d){ return '<div class="d-decision"><span class="d-dec-dot" aria-hidden="true"></span><span class="d-dec-txt">'+d+'</span></div>'; }).join('');
+  const tools=cs.tools.map(function(t){
+    const icon = TOOL_ICONS[t] ? '<img src="images/exports/icons/'+TOOL_ICONS[t]+'" alt="" loading="lazy">' : '';
+    return '<span class="d-tool">'+icon+t+'</span>';
+  }).join('');
+  const media=p.media || {};
+  const experience=media.experience || {};
+  const isVideo = isVideoSrc;
+  const imgPosition = function(pos){
+    if(!pos) return 'center top';
+    if(pos==='top') return 'center top';
+    if(pos==='bottom') return 'center bottom';
+    if(pos==='left') return 'left center';
+    if(pos==='right') return 'right center';
+    return pos;
+  };
+  const mediaVisual = function(src, alt, className, extraStyle){
+    if(!src) return '<div class="d-placeholder">Add screenshot</div>';
+    if(isVideo(src)) return '<video class="'+(className||'')+'" src="'+src+'" controls playsinline preload="metadata"></video>';
+    return '<img class="'+(className||'')+'" src="'+src+'" alt="'+alt+'" loading="lazy" style="'+(extraStyle||'')+'">';
+  };
+  const coverSrc = media.cover || media.video || experience.image;
+  const cover = coverSrc
+    ? (isVideo(coverSrc)
+      ? '<video src="'+coverSrc+'" autoplay muted loop playsinline preload="metadata"></video>'
+      : '<img src="'+coverSrc+'" alt="'+p.title+' cover" loading="lazy">')
+    : '<div style="width:100%;height:100%;background:'+p.gradient+';display:flex;align-items:center;justify-content:center;"><span style="font-family:\'Syne\',sans-serif;font-weight:800;font-size:72px;letter-spacing:-.04em;color:rgba(255,255,255,.1);">'+p.num+'</span></div>';
+  const video = media.video
+    ? '<video src="'+media.video+'" controls playsinline preload="metadata"></video>'
+    : '<div class="d-placeholder">Add project video</div>';
+  const isEmbedExperience = experience.type === 'embed' && experience.embed;
+  const experienceToggle = isEmbedExperience
+    ? '<div class="d-view-toggle" role="group" aria-label="Preview viewport"><button type="button" class="active" data-preview-mode="desktop">Desktop</button><button type="button" data-preview-mode="mobile">Mobile</button></div>'
+    : '';
+  const experienceFrame = isEmbedExperience
+    ? experienceToggle + '<div class="d-laptop-screen" data-mode="desktop"><div class="d-iframe-stage"><iframe src="'+experience.embed+'" title="'+p.title+' embedded desktop preview" loading="lazy"></iframe></div></div><span class="d-experience-note">Interactive preview</span>'
+    : '<div class="d-laptop-screen"><div class="d-scroll-shot">'+mediaVisual(experience.image || media.video || media.cover, p.title+' full page preview', '', '--scroll-end:'+(experience.scrollEnd || '-58%'))+'</div></div><span class="d-experience-note">Auto-scrolls. Hover to pause.</span>';
+  const mobileShotData = media.mobileShots || [];
+  const mobileShots = mobileShotData.slice(0,3).map(function(shot, idx){
+    const visual = mediaVisual(shot.src, p.title+' mobile screenshot '+(idx+1), '', 'object-position:'+imgPosition(shot.position));
+    const cropClass = shot.fit === 'cover' ? ' crop' : '';
+    return '<div class="d-mobile-shot'+cropClass+'">'+visual+'</div>';
+  }).join('');
+  const mediaSections = media.hideMediaDetails ? '' :
+    (media.video ? '<span class="d-sec-lbl">Project video</span><div class="d-video">'+video+'</div>' : '') +
+    ((isEmbedExperience || experience.image || media.video || media.cover) ? '<span class="d-sec-lbl">Full page experience</span><div class="d-experience" data-lenis-prevent>'+experienceFrame+'</div>' : '') +
+    (mobileShots ? '<span class="d-sec-lbl">Mobile highlights</span><div class="d-mobile-strip count-'+mobileShotData.length+'">'+mobileShots+'</div>' : '');
+  return '<p class="d-proj-num">Project '+p.num+'</p>'+
+    '<h2 class="d-title">'+p.title+'</h2>'+
+    '<span class="d-type-tag">'+p.type+'</span>'+
+    '<div class="d-thumb">'+cover+'</div>'+
+    '<span class="d-sec-lbl">Overview</span><p class="d-desc">'+cs.description+'</p>'+
+    mediaSections+
+    '<span class="d-sec-lbl">Tools used</span><div class="d-tools">'+tools+'</div>'+
+    '<span class="d-sec-lbl">Key decisions</span><div class="d-decisions">'+decisions+'</div>'+
+    '<span class="d-sec-lbl">Outcome</span><div class="d-result">'+cs.result+'</div>';
+}
+function sizeLaptopPreviews(){
+  document.querySelectorAll('.d-laptop-screen').forEach(function(screen){
+    const stage = screen.querySelector('.d-iframe-stage');
+    if(!stage) return;
+    const isMobile = screen.dataset.mode === 'mobile';
+    const stageW = isMobile ? 390 : 1440;
+    const stageH = isMobile ? 844 : 900;
+    stage.style.setProperty('--stage-w', stageW + 'px');
+    stage.style.setProperty('--stage-h', stageH + 'px');
+    const scale = Math.min(screen.clientWidth / stageW, screen.clientHeight / stageH);
+    stage.style.setProperty('--stage-scale', scale.toFixed(4));
+  });
+}
+function openDrawer(p){
+  drawerBody.innerHTML=buildDrawer(p);
+  drawer.scrollTop=0;
+  drawerOverlay.classList.add('open');
+  drawer.classList.add('open');
+  drawerOverlay.removeAttribute('aria-hidden');
+  drawer.setAttribute('aria-hidden','false');
+  document.body.style.overflow='hidden';
+  if(lenis) lenis.stop();
+  requestAnimationFrame(sizeLaptopPreviews);
+  drawerClose.focus();
+}
+function closeDrawer(){ drawerOverlay.classList.remove('open'); drawer.classList.remove('open'); drawerOverlay.setAttribute('aria-hidden','true'); drawer.setAttribute('aria-hidden','true'); document.body.style.overflow=''; if(lenis) lenis.start(); }
+drawerClose.addEventListener('click',closeDrawer);
+drawerOverlay.addEventListener('click',closeDrawer);
+window.addEventListener('resize', sizeLaptopPreviews);
+drawerBody.addEventListener('click', function(e){
+  const btn = e.target.closest('[data-preview-mode]');
+  if(!btn) return;
+  const wrap = btn.closest('.d-experience');
+  const screen = wrap && wrap.querySelector('.d-laptop-screen');
+  if(!screen) return;
+  const mode = btn.dataset.previewMode;
+  screen.dataset.mode = mode;
+  wrap.querySelectorAll('[data-preview-mode]').forEach(function(control){
+    control.classList.toggle('active', control === btn);
+  });
+  sizeLaptopPreviews();
+});
+document.addEventListener('keydown',function(e){ if(e.key==='Escape'){ if(drawer.classList.contains('open')) closeDrawer(); if(croOverlay.classList.contains('open')) closeCroModal(); if(serviceOverlay.classList.contains('open')) closeServiceModal(); } });
+workList.addEventListener('click',function(e){ const item=e.target.closest('.work-item'); if(!item) return; hidePreview(); const p=PROJECTS.find(function(p){ return p.id===item.dataset.projectId; }); if(p) openDrawer(p); });
+workList.addEventListener('keydown',function(e){ if(e.key!=='Enter'&&e.key!==' ') return; const item=e.target.closest('.work-item'); if(!item) return; e.preventDefault(); hidePreview(); const p=PROJECTS.find(function(p){ return p.id===item.dataset.projectId; }); if(p) openDrawer(p); });
+
+/* ─── SCROLL INDICATOR ──────────────────────────────────────── */
+const SECTIONS = [
+  {id:'hero',     label:'Intro'},
+  {id:'work',     label:'Work'},
+  {id:'results',  label:'Results'},
+  {id:'services', label:'Services'},
+  {id:'cro',      label:'CRO'},
+  {id:'process',  label:'Process'},
+  {id:'stack',    label:'Stack'},
+  {id:'about',    label:'About'},
+  {id:'hire',     label:'Hire'}
+];
+const scrollInd = document.getElementById('scroll-ind');
+SECTIONS.forEach(function(s){
+  const item = document.createElement('a');
+  item.className='si-item';
+  item.href='#'+s.id;
+  item.setAttribute('aria-label','Go to '+s.label);
+  item.dataset.section = s.id;
+  item.innerHTML='<span class="si-label">'+s.label+'</span><span class="si-dot"></span>';
+  scrollInd.appendChild(item);
+});
+
+let indY=0, targetIndY=0;
+function updateIndicator(){
+  let active='hero';
+  SECTIONS.forEach(function(s){
+    const el=document.getElementById(s.id);
+    if(el && el.getBoundingClientRect().top <= 200) active=s.id;
+  });
+  scrollInd.querySelectorAll('.si-item').forEach(function(el){
+    el.classList.toggle('active', el.dataset.section===active);
+  });
+  targetIndY = window.scrollY * -0.018;
+  indY = lerp(indY, targetIndY, 0.08);
+  scrollInd.style.transform = 'translateY(calc(-50% + '+Math.round(indY*10)/10+'px))';
+  requestAnimationFrame(updateIndicator);
+}
+updateIndicator();
+
+scrollInd.querySelectorAll('.si-item').forEach(function(a){
+  a.addEventListener('click',function(e){
+    const target=document.getElementById(a.dataset.section); if(!target) return;
+    e.preventDefault();
+    lenis ? lenis.scrollTo(target,{offset:-80,duration:1.4}) : target.scrollIntoView({behavior:'smooth'});
+  });
+});
+
+/* ─── HIRE FORM ─────────────────────────────────────────────── */
+(function(){
+  const form   = document.getElementById('hire-form');
+  const submit = document.getElementById('hire-submit');
+  if(!form) return;
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    const name    = form.querySelector('#hf-name').value.trim();
+    const store   = form.querySelector('#hf-store').value.trim();
+    const project = form.querySelector('#hf-project').value;
+    const message = form.querySelector('#hf-message').value.trim();
+    if(!name || !project){ return; }
+    const subject = encodeURIComponent('Project enquiry from ' + name);
+    const body    = encodeURIComponent(
+      'Hi Ridwan,\n\n' +
+      'Name: ' + name + '\n' +
+      (store ? 'Store: ' + store + '\n' : '') +
+      'Project: ' + project + '\n' +
+      (message ? '\nMessage:\n' + message + '\n' : '\nI\'d like to discuss a project.')
+    );
+    window.location.href = 'mailto:sirridwan721@gmail.com?subject=' + subject + '&body=' + body;
+    submit.textContent = 'Enquiry sent ✓';
+    submit.classList.add('sent');
+    setTimeout(function(){ submit.innerHTML = 'Send enquiry <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>'; submit.classList.remove('sent'); form.reset(); }, 3000);
+  });
+})();
+
+/* ─── SMOOTH ANCHOR SCROLL ──────────────────────────────────── */
+document.querySelectorAll('a[href^="#"]').forEach(function(a){
+  a.addEventListener('click',function(e){
+    const target=document.querySelector(a.getAttribute('href')); if(!target) return;
+    e.preventDefault();
+    lenis ? lenis.scrollTo(target,{offset:-80,duration:1.4}) : target.scrollIntoView({behavior:'smooth'});
+  });
+});
+
+/* ─── CARD STACK SCROLL CURVE ───────────────────────────────── */
+(function(){
+  var sections = Array.from(document.querySelectorAll('body > section'));
+  var hero = document.getElementById('hero');
+  var SCALE_OUT = 0.94;   /* how small a section gets as it exits */
+  var HERO_SCALE = 0.96;  /* hero scales to this as you scroll off */
+
+  function cardUpdate(){
+    var scrollY = window.scrollY || window.pageYOffset;
+    var vh = window.innerHeight;
+
+    sections.forEach(function(sec){
+      var rect = sec.getBoundingClientRect();
+      var secH = sec.offsetHeight;
+
+      if(sec === hero){
+        /* Hero: scale down as it scrolls off, reveal curved bottom */
+        var p = Math.max(0, Math.min(1, -rect.top / (secH * 0.6)));
+        if(p > 0){
+          var s = 1 - (1 - HERO_SCALE) * p;
+          var r = Math.round(20 * p);
+          sec.style.transform  = 'scale(' + s.toFixed(4) + ')';
+          sec.style.borderRadius = '0 0 ' + r + 'px ' + r + 'px';
+        } else {
+          sec.style.transform  = '';
+          sec.style.borderRadius = '';
+        }
+        return;
+      }
+
+      /* All other sections: scale down as they exit the top */
+      if(rect.top < 0){
+        var gone = -rect.top;
+        var p2   = Math.min(gone / secH, 1);
+        var s2   = 1 - (1 - SCALE_OUT) * p2;
+        sec.style.transform = 'scale(' + s2.toFixed(4) + ') translateZ(0)';
+      } else {
+        sec.style.transform = '';
+      }
+    });
+  }
+
+  /* Hook into Lenis scroll event for buttery smoothness */
+  if(typeof lenis !== 'undefined' && lenis){
+    lenis.on('scroll', cardUpdate);
+  } else {
+    window.addEventListener('scroll', cardUpdate, {passive:true});
+  }
+  cardUpdate();
+})();
+</script>
+</body>
+</html>

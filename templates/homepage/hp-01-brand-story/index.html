@@ -1,0 +1,1894 @@
+<!--
+  BRAND:    KURA
+  PRODUCT:  The KURA Board
+  PAGE:     Homepage — hp-01-brand-story
+  BUILT:    2026-05-06
+  EDIT:     See CLAUDE.md → Editing Guide for how to modify this file
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- EDIT: Page title -->
+<title>KURA — Clean Surface. Clear Mind.</title>
+<meta name="description" content="The KURA Board — food-grade stainless steel cutting board. Non-porous, warp-proof, dishwasher safe. Built for cooks who take their kitchen seriously.">
+
+<!-- Preconnect for Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
+<!-- Preload hero image -->
+<link rel="preload" as="image" href="./images/lifestyle.jpg">
+
+<style>
+/* ══════════════════════════════════════════════════════════
+   DESIGN TOKENS — edit all brand values here
+   ══════════════════════════════════════════════════════════ */
+:root {
+  /* ── BRAND COLORS ── */
+  --slate:     #2B3445;   /* Primary / headlines */
+  --cream:     #F6EFE2;   /* Background */
+  --copper:    #C47A3A;   /* Accent / CTAs */
+  --silver:    #CDD3DC;   /* Borders / subtext */
+  --offblack:  #181820;   /* Body text */
+  --white:     #FFFFFF;
+  --muted:     #8B919E;
+
+  /* ── BRAND FONTS ── */
+  --font-display: 'Bebas Neue', sans-serif;
+  --font-serif:   'Cormorant Garamond', serif;
+  --font-body:    'DM Sans', sans-serif;
+
+  /* ── SPACING & SHAPE ── */
+  --radius-sm:     3px;
+  --radius-md:     6px;
+  --max-width:     1280px;
+  --section-v:     96px;
+  --section-v-mob: 56px;
+  --nav-h:         72px;
+}
+
+/* ══════════════════════════════════════════════════════════
+   RESET & BASE
+   ══════════════════════════════════════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--cream);
+  color: var(--offblack);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+img { display: block; max-width: 100%; }
+a { text-decoration: none; color: inherit; }
+button { cursor: pointer; border: none; background: none; font-family: inherit; }
+
+:focus-visible {
+  outline: 2px solid var(--copper);
+  outline-offset: 3px;
+}
+
+/* ══════════════════════════════════════════════════════════
+   TYPOGRAPHY HELPERS
+   ══════════════════════════════════════════════════════════ */
+.eyebrow {
+  font-family: var(--font-display);
+  font-size: 11px;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--copper);
+  margin-bottom: 12px;
+}
+
+.section-heading {
+  font-family: var(--font-serif);
+  font-size: clamp(32px, 4.5vw, 52px);
+  font-weight: 600;
+  color: var(--slate);
+  line-height: 1.1;
+}
+
+.section-heading-light {
+  font-family: var(--font-serif);
+  font-size: clamp(32px, 4.5vw, 52px);
+  font-weight: 600;
+  color: var(--cream);
+  line-height: 1.1;
+}
+
+/* ══════════════════════════════════════════════════════════
+   SCROLL FADE-IN ANIMATION
+   ══════════════════════════════════════════════════════════ */
+.fade-up {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.fade-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.fade-up.delay-1 { transition-delay: 0.1s; }
+.fade-up.delay-2 { transition-delay: 0.2s; }
+.fade-up.delay-3 { transition-delay: 0.3s; }
+.fade-up.delay-4 { transition-delay: 0.4s; }
+.fade-up.delay-5 { transition-delay: 0.5s; }
+
+/* ══════════════════════════════════════════════════════════
+   ANNOUNCEMENT BAR
+   ══════════════════════════════════════════════════════════ */
+.announce-bar {
+  background: var(--slate);
+  color: var(--cream);
+  text-align: center;
+  padding: 10px 20px;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 400;
+}
+.announce-bar span { color: var(--copper); }
+
+/* ══════════════════════════════════════════════════════════
+   NAVIGATION
+   ══════════════════════════════════════════════════════════ */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--cream);
+  border-bottom: 1px solid var(--silver);
+  height: var(--nav-h);
+  display: flex;
+  align-items: center;
+}
+
+.nav-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+/* EDIT: Logo text */
+.nav-logo {
+  font-family: var(--font-display);
+  font-size: 32px;
+  letter-spacing: 0.16em;
+  color: var(--slate);
+  line-height: 1;
+}
+
+.nav-links {
+  display: none;
+  list-style: none;
+  gap: 32px;
+}
+
+.nav-links a {
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--slate);
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--copper); }
+
+.nav-cta {
+  display: none;
+  background: var(--copper);
+  color: var(--cream);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 11px 24px;
+  border-radius: var(--radius-sm);
+  transition: background 0.2s;
+}
+.nav-cta:hover { background: var(--slate); }
+
+.nav-menu-btn {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 8px;
+}
+.nav-menu-btn span {
+  display: block;
+  width: 22px;
+  height: 1.5px;
+  background: var(--slate);
+  transition: all 0.3s;
+}
+
+@media (min-width: 768px) {
+  .nav-inner { padding: 0 32px; }
+  .nav-links { display: flex; }
+  .nav-cta { display: block; }
+  .nav-menu-btn { display: none; }
+}
+
+@media (min-width: 1280px) {
+  .nav-inner { padding: 0 48px; }
+}
+
+/* ══════════════════════════════════════════════════════════
+   SECTION 2: HERO
+   ══════════════════════════════════════════════════════════ */
+.hero {
+  background: var(--cream);
+  padding: var(--section-v-mob) 20px;
+  overflow: hidden;
+}
+
+.hero-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px;
+  align-items: center;
+}
+
+.hero-text {}
+
+.hero-stars {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.hero-stars-icons {
+  display: flex;
+  gap: 2px;
+}
+
+.star-svg {
+  width: 14px;
+  height: 14px;
+  fill: var(--copper);
+}
+
+.hero-stars-text {
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--muted);
+  letter-spacing: 0.04em;
+}
+
+/* EDIT: Hero headline */
+.hero-h1 {
+  font-family: var(--font-serif);
+  font-size: clamp(36px, 6vw, 72px);
+  font-weight: 600;
+  color: var(--slate);
+  line-height: 1.05;
+  margin-bottom: 20px;
+}
+
+.hero-h1 em {
+  font-weight: 300;
+  color: var(--copper);
+  font-style: italic;
+}
+
+/* EDIT: Hero subheadline */
+.hero-sub {
+  font-size: 16px;
+  font-weight: 300;
+  color: var(--offblack);
+  line-height: 1.75;
+  max-width: 480px;
+  margin-bottom: 36px;
+}
+
+.hero-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--copper);
+  color: var(--cream);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 15px 32px;
+  border-radius: var(--radius-sm);
+  transition: background 0.2s, transform 0.15s;
+  width: 100%;
+}
+.btn-primary:hover { background: var(--slate); }
+.btn-primary:active { transform: scale(0.98); }
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  color: var(--slate);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 14px 32px;
+  border: 1px solid var(--slate);
+  border-radius: var(--radius-sm);
+  transition: background 0.2s, color 0.2s;
+  width: 100%;
+}
+.btn-secondary:hover { background: var(--slate); color: var(--cream); }
+
+.hero-image-wrap {
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border-radius: var(--radius-md);
+}
+
+.hero-image-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+@media (min-width: 768px) {
+  .hero { padding: var(--section-v) 32px; }
+  .hero-actions { flex-direction: row; }
+  .btn-primary, .btn-secondary { width: auto; }
+}
+
+@media (min-width: 1280px) {
+  .hero { padding: var(--section-v) 48px; }
+  .hero-inner {
+    grid-template-columns: 1fr 1fr;
+    gap: 72px;
+  }
+  .hero-image-wrap { aspect-ratio: 3 / 4; }
+}
+
+/* ══════════════════════════════════════════════════════════
+   SECTION 3: TRUST BAR
+   ══════════════════════════════════════════════════════════ */
+.trust-bar {
+  background: var(--slate);
+  padding: 28px 20px;
+}
+
+.trust-bar-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.trust-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.trust-icon {
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(196,122,58,0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.trust-icon svg { width: 18px; height: 18px; stroke: var(--copper); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+
+.trust-label {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--cream);
+  line-height: 1.3;
+}
+
+@media (min-width: 768px) {
+  .trust-bar { padding: 32px; }
+  .trust-bar-inner { grid-template-columns: repeat(5, 1fr); gap: 0; }
+  .trust-item {
+    flex-direction: column;
+    text-align: center;
+    padding: 0 16px;
+    border-right: 1px solid rgba(205,211,220,0.15);
+  }
+  .trust-item:last-child { border-right: none; }
+}
+
+@media (min-width: 1280px) {
+  .trust-bar { padding: 36px 48px; }
+}
+
+/* ══════════════════════════════════════════════════════════
+   SECTION 4: BRAND STORY
+   ══════════════════════════════════════════════════════════ */
+.brand-story {
+  background: var(--white);
+  padding: var(--section-v-mob) 20px;
+}
+
+.brand-story-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px;
+  align-items: center;
+}
+
+.brand-story-text {}
+
+.brand-story-text .section-heading { margin-bottom: 20px; }
+
+.brand-story-body {
+  font-size: 16px;
+  font-weight: 300;
+  color: var(--offblack);
+  line-height: 1.8;
+  max-width: 520px;
+  margin-bottom: 28px;
+}
+
+.brand-story-pull {
+  font-family: var(--font-serif);
+  font-size: clamp(18px, 2.5vw, 24px);
+  font-style: italic;
+  font-weight: 300;
+  color: var(--slate);
+  border-left: 3px solid var(--copper);
+  padding-left: 24px;
+  line-height: 1.5;
+}
+
+.brand-story-image {
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border-radius: var(--radius-md);
+}
+
+.brand-story-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+}
+
+@media (min-width: 768px) {
+  .brand-story { padding: var(--section-v) 32px; }
+}
+
+@media (min-width: 1280px) {
+  .brand-story { padding: var(--section-v) 48px; }
+  .brand-story-inner {
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+  }
+  .brand-story-image { order: -1; aspect-ratio: 3 / 4; }
+}
+
+/* ══════════════════════════════════════════════════════════
+   SECTION 5: FEATURED PRODUCT
+   ══════════════════════════════════════════════════════════ */
+.featured-product {
+  background: var(--cream);
+  padding: var(--section-v-mob) 20px;
+}
+
+.featured-product-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px;
+  align-items: center;
+}
+
+.featured-product-badge {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  color: var(--copper);
+  border: 1px solid var(--copper);
+  padding: 5px 14px;
+  margin-bottom: 16px;
+}
+
+/* EDIT: Featured product heading */
+.featured-product-name {
+  font-family: var(--font-display);
+  font-size: clamp(40px, 6vw, 80px);
+  letter-spacing: 0.06em;
+  color: var(--slate);
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.featured-product-sub {
+  font-family: var(--font-serif);
+  font-size: clamp(18px, 2vw, 22px);
+  font-style: italic;
+  font-weight: 300;
+  color: var(--copper);
+  margin-bottom: 24px;
+}
+
+.featured-product-desc {
+  font-size: 15px;
+  font-weight: 300;
+  color: var(--offblack);
+  line-height: 1.75;
+  max-width: 480px;
+  margin-bottom: 28px;
+}
+
+.benefit-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 32px;
+}
+
+.benefit-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 14px;
+  color: var(--offblack);
+  font-weight: 400;
+}
+
+.benefit-check {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  margin-top: 1px;
+}
+
+.featured-price-row {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+/* EDIT: Price */
+.featured-price {
+  font-family: var(--font-display);
+  font-size: 40px;
+  letter-spacing: 0.04em;
+  color: var(--slate);
+}
+
+.featured-save {
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--copper);
+  background: rgba(196,122,58,0.1);
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
+}
+
+.featured-atc {
+  background: var(--copper);
+  color: var(--cream);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 16px 40px;
+  border-radius: var(--radius-sm);
+  transition: background 0.2s, transform 0.15s;
+  display: inline-block;
+}
+.featured-atc:hover { background: var(--slate); }
+.featured-atc:active { transform: scale(0.98); }
+
+.featured-product-image {
+  aspect-ratio: 1;
+  overflow: hidden;
+  background: var(--white);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px;
+}
+
+.featured-product-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+@media (min-width: 768px) {
+  .featured-product { padding: var(--section-v) 32px; }
+}
+
+@media (min-width: 1280px) {
+  .featured-product { padding: var(--section-v) 48px; }
+  .featured-product-inner {
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+  }
+}
+
+/* ══════════════════════════════════════════════════════════
+   SECTION 6: USE CASES / COLLECTION
+   ══════════════════════════════════════════════════════════ */
+.collection {
+  background: var(--slate);
+  padding: var(--section-v-mob) 20px;
+}
+
+.collection-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+.collection-header {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.collection-header .eyebrow { color: var(--copper); }
+.collection-header .section-heading { color: var(--cream); }
+
+.collection-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
+
+.collection-card {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(205,211,220,0.15);
+  overflow: hidden;
+  border-radius: var(--radius-md);
+  transition: border-color 0.3s;
+}
+.collection-card:hover { border-color: var(--copper); }
+
+.collection-card-img {
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+}
+
+.collection-card-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+.collection-card:hover .collection-card-img img { transform: scale(1.04); }
+
+.collection-card-body {
+  padding: 24px;
+}
+
+.collection-card-label {
+  font-family: var(--font-display);
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  color: var(--copper);
+  margin-bottom: 8px;
+}
+
+.collection-card-title {
+  font-family: var(--font-serif);
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--cream);
+  margin-bottom: 10px;
+  line-height: 1.2;
+}
+
+.collection-card-desc {
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--silver);
+  line-height: 1.7;
+  margin-bottom: 20px;
+}
+
+.collection-card-link {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--copper);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: gap 0.2s;
+}
+.collection-card:hover .collection-card-link { gap: 14px; }
+
+@media (min-width: 768px) {
+  .collection { padding: var(--section-v) 32px; }
+  .collection-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (min-width: 1280px) {
+  .collection { padding: var(--section-v) 48px; }
+}
+
+/* ══════════════════════════════════════════════════════════
+   SECTION 7: SOCIAL PROOF
+   ══════════════════════════════════════════════════════════ */
+.social-proof {
+  background: var(--white);
+  padding: var(--section-v-mob) 20px;
+}
+
+.social-proof-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+.social-proof-header {
+  text-align: center;
+  margin-bottom: 56px;
+}
+
+.social-proof-aggregate {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+
+.aggregate-stars {
+  display: flex;
+  gap: 3px;
+}
+
+.aggregate-stars svg { width: 20px; height: 20px; fill: var(--copper); }
+
+.aggregate-score {
+  font-family: var(--font-display);
+  font-size: 40px;
+  letter-spacing: 0.04em;
+  color: var(--slate);
+  line-height: 1;
+}
+
+.aggregate-count {
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--muted);
+  text-align: center;
+  letter-spacing: 0.04em;
+}
+
+.reviews-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
+
+.review-card {
+  border: 1px solid var(--silver);
+  padding: 28px;
+  background: var(--cream);
+}
+
+.review-stars {
+  display: flex;
+  gap: 2px;
+  margin-bottom: 14px;
+}
+.review-stars svg { width: 13px; height: 13px; fill: var(--copper); }
+
+/* EDIT: Review title */
+.review-title {
+  font-family: var(--font-serif);
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--slate);
+  margin-bottom: 10px;
+  line-height: 1.3;
+}
+
+/* EDIT: Review body */
+.review-body {
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--offblack);
+  line-height: 1.75;
+  margin-bottom: 16px;
+}
+
+/* EDIT: Reviewer name */
+.review-author {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+@media (min-width: 768px) {
+  .social-proof { padding: var(--section-v) 32px; }
+  .reviews-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (min-width: 1280px) {
+  .social-proof { padding: var(--section-v) 48px; }
+}
+
+/* ══════════════════════════════════════════════════════════
+   SECTION 8: BRAND PILLARS
+   ══════════════════════════════════════════════════════════ */
+.brand-pillars {
+  background: var(--cream);
+  padding: var(--section-v-mob) 20px;
+}
+
+.brand-pillars-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+.pillars-header {
+  text-align: center;
+  margin-bottom: 56px;
+}
+
+.pillars-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px;
+}
+
+.pillar-card {
+  border-top: 2px solid var(--copper);
+  padding-top: 28px;
+}
+
+.pillar-icon {
+  width: 44px;
+  height: 44px;
+  margin-bottom: 20px;
+}
+
+.pillar-icon svg { width: 44px; height: 44px; stroke: var(--slate); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+
+/* EDIT: Pillar title */
+.pillar-title {
+  font-family: var(--font-display);
+  font-size: 22px;
+  letter-spacing: 0.08em;
+  color: var(--slate);
+  margin-bottom: 12px;
+}
+
+/* EDIT: Pillar description */
+.pillar-desc {
+  font-size: 15px;
+  font-weight: 300;
+  color: var(--offblack);
+  line-height: 1.75;
+}
+
+@media (min-width: 768px) {
+  .brand-pillars { padding: var(--section-v) 32px; }
+  .pillars-grid { grid-template-columns: repeat(3, 1fr); gap: 48px; }
+}
+
+@media (min-width: 1280px) {
+  .brand-pillars { padding: var(--section-v) 48px; }
+}
+
+/* ══════════════════════════════════════════════════════════
+   SECTION 9: LIFESTYLE FULL-BLEED
+   ══════════════════════════════════════════════════════════ */
+.lifestyle-section {
+  position: relative;
+  overflow: hidden;
+  min-height: 480px;
+  display: flex;
+  align-items: center;
+}
+
+.lifestyle-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.lifestyle-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(27,36,53,0.85) 0%, rgba(27,36,53,0.55) 100%);
+}
+
+.lifestyle-content {
+  position: relative;
+  z-index: 2;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: var(--section-v-mob) 20px;
+  text-align: center;
+  width: 100%;
+}
+
+.lifestyle-content .eyebrow { color: var(--copper); margin-bottom: 16px; }
+
+/* EDIT: Lifestyle headline */
+.lifestyle-headline {
+  font-family: var(--font-serif);
+  font-size: clamp(36px, 6vw, 72px);
+  font-weight: 600;
+  color: var(--cream);
+  line-height: 1.1;
+  margin-bottom: 12px;
+}
+
+.lifestyle-headline em {
+  font-weight: 300;
+  font-style: italic;
+  color: var(--copper);
+}
+
+.lifestyle-sub {
+  font-size: 16px;
+  font-weight: 300;
+  color: rgba(246,239,226,0.8);
+  max-width: 480px;
+  margin: 0 auto 36px;
+  line-height: 1.75;
+}
+
+@media (min-width: 768px) {
+  .lifestyle-section { min-height: 600px; }
+  .lifestyle-content { padding: var(--section-v) 32px; }
+}
+
+@media (min-width: 1280px) {
+  .lifestyle-section { min-height: 700px; }
+  .lifestyle-content { padding: var(--section-v) 48px; }
+}
+
+/* ══════════════════════════════════════════════════════════
+   SECTION 10: EMAIL SIGNUP
+   ══════════════════════════════════════════════════════════ */
+.email-signup {
+  background: var(--offblack);
+  padding: var(--section-v-mob) 20px;
+}
+
+.email-signup-inner {
+  max-width: 640px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.email-signup .eyebrow { color: var(--copper); }
+
+/* EDIT: Email heading */
+.email-heading {
+  font-family: var(--font-serif);
+  font-size: clamp(28px, 4vw, 42px);
+  font-weight: 600;
+  color: var(--cream);
+  line-height: 1.15;
+  margin-bottom: 12px;
+}
+
+/* EDIT: Email subtext */
+.email-sub {
+  font-size: 15px;
+  font-weight: 300;
+  color: var(--muted);
+  margin-bottom: 32px;
+  line-height: 1.7;
+}
+
+.email-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.email-input-wrap {
+  position: relative;
+  flex: 1;
+}
+
+.email-input {
+  width: 100%;
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(205,211,220,0.2);
+  color: var(--cream);
+  font-family: var(--font-body);
+  font-size: 14px;
+  padding: 14px 20px;
+  border-radius: var(--radius-sm);
+  outline: none;
+  transition: border-color 0.2s;
+}
+.email-input::placeholder { color: rgba(205,211,220,0.4); }
+.email-input:focus { border-color: var(--copper); }
+
+.email-submit {
+  background: var(--copper);
+  color: var(--cream);
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 14px 32px;
+  border-radius: var(--radius-sm);
+  transition: background 0.2s;
+  cursor: pointer;
+  border: none;
+}
+.email-submit:hover { background: var(--slate); }
+
+.email-disclaimer {
+  font-size: 11px;
+  color: rgba(139,145,158,0.7);
+  margin-top: 14px;
+  line-height: 1.5;
+}
+
+@media (min-width: 768px) {
+  .email-signup { padding: var(--section-v) 32px; }
+  .email-form { flex-direction: row; }
+}
+
+@media (min-width: 1280px) {
+  .email-signup { padding: var(--section-v) 48px; }
+}
+
+/* ══════════════════════════════════════════════════════════
+   SECTION 11: FOOTER
+   ══════════════════════════════════════════════════════════ */
+.footer {
+  background: var(--slate);
+  padding: 56px 20px 32px;
+}
+
+.footer-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+.footer-top {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px;
+  margin-bottom: 48px;
+}
+
+.footer-brand {}
+
+.footer-logo {
+  font-family: var(--font-display);
+  font-size: 36px;
+  letter-spacing: 0.16em;
+  color: var(--cream);
+  line-height: 1;
+  margin-bottom: 12px;
+}
+
+.footer-tagline {
+  font-family: var(--font-serif);
+  font-size: 14px;
+  font-style: italic;
+  color: var(--silver);
+  margin-bottom: 20px;
+}
+
+.footer-brand-desc {
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--muted);
+  line-height: 1.75;
+  max-width: 300px;
+}
+
+.footer-nav-group {}
+
+.footer-nav-label {
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--copper);
+  margin-bottom: 16px;
+}
+
+.footer-nav-links {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.footer-nav-links a {
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--silver);
+  transition: color 0.2s;
+}
+.footer-nav-links a:hover { color: var(--cream); }
+
+.footer-social {
+  display: flex;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.footer-social a {
+  width: 36px;
+  height: 36px;
+  border: 1px solid rgba(205,211,220,0.2);
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.2s, background 0.2s;
+}
+.footer-social a:hover { border-color: var(--copper); background: rgba(196,122,58,0.1); }
+.footer-social svg { width: 16px; height: 16px; stroke: var(--silver); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+
+.footer-divider {
+  height: 1px;
+  background: rgba(205,211,220,0.12);
+  margin-bottom: 28px;
+}
+
+.footer-bottom {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.footer-copyright {
+  font-size: 12px;
+  color: var(--muted);
+  letter-spacing: 0.06em;
+}
+
+.footer-legal-links {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.footer-legal-links a {
+  font-size: 11px;
+  color: var(--muted);
+  transition: color 0.2s;
+}
+.footer-legal-links a:hover { color: var(--silver); }
+
+@media (min-width: 768px) {
+  .footer { padding: 72px 32px 40px; }
+  .footer-top { grid-template-columns: 2fr 1fr 1fr; }
+  .footer-bottom { flex-direction: row; justify-content: space-between; align-items: center; }
+}
+
+@media (min-width: 1280px) {
+  .footer { padding: 80px 48px 48px; }
+}
+
+</style>
+</head>
+<body>
+
+<!-- ═══ ANNOUNCEMENT BAR ══════════════════════════════════ -->
+<!-- EDIT: Announcement bar text -->
+<div class="announce-bar">
+  Free shipping on orders over $60 &nbsp;·&nbsp; <span>Use code KURA15</span> for 15% off your first order
+</div>
+
+<!-- ═══ SECTION 1: NAVIGATION ════════════════════════════ -->
+<nav class="nav" aria-label="Main navigation">
+  <div class="nav-inner">
+    <!-- EDIT: Brand logo text -->
+    <a href="/" class="nav-logo" aria-label="KURA — Home">KURA</a>
+    <ul class="nav-links">
+      <li><a href="#">The Board</a></li>
+      <li><a href="#">Why KURA</a></li>
+      <li><a href="#">Reviews</a></li>
+      <li><a href="#">Journal</a></li>
+    </ul>
+    <!-- EDIT: Nav CTA text and link -->
+    <a href="#featured-product" class="nav-cta">Shop Now</a>
+    <button class="nav-menu-btn" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+
+<!-- ═══ SECTION 2: HERO ══════════════════════════════════ -->
+<section class="hero">
+  <div class="hero-inner">
+
+    <div class="hero-text">
+      <!-- Hero stars -->
+      <div class="hero-stars fade-up">
+        <div class="hero-stars-icons" role="img" aria-label="4.8 out of 5 stars">
+          <svg class="star-svg" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1l1.85 3.75 4.15.6-3 2.92.71 4.13L8 10.27l-3.71 1.95.71-4.13L2 5.35l4.15-.6z"/></svg>
+          <svg class="star-svg" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1l1.85 3.75 4.15.6-3 2.92.71 4.13L8 10.27l-3.71 1.95.71-4.13L2 5.35l4.15-.6z"/></svg>
+          <svg class="star-svg" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1l1.85 3.75 4.15.6-3 2.92.71 4.13L8 10.27l-3.71 1.95.71-4.13L2 5.35l4.15-.6z"/></svg>
+          <svg class="star-svg" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1l1.85 3.75 4.15.6-3 2.92.71 4.13L8 10.27l-3.71 1.95.71-4.13L2 5.35l4.15-.6z"/></svg>
+          <svg class="star-svg" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1l1.85 3.75 4.15.6-3 2.92.71 4.13L8 10.27l-3.71 1.95.71-4.13L2 5.35l4.15-.6z"/></svg>
+        </div>
+        <span class="hero-stars-text">4.8 · 9,200+ Home Cooks</span>
+      </div>
+
+      <!-- EDIT: Hero headline -->
+      <h1 class="hero-h1 fade-up delay-1">
+        The Kitchen Board<br>Built to Stay<br><em>Genuinely Clean.</em>
+      </h1>
+
+      <!-- EDIT: Hero subheadline -->
+      <p class="hero-sub fade-up delay-2">
+        Food-grade stainless steel. 100% non-porous. Dishwasher safe. Built for home cooks who take hygiene seriously — and never want to replace a cutting board again.
+      </p>
+
+      <div class="hero-actions fade-up delay-3">
+        <!-- EDIT: Primary CTA -->
+        <a href="#featured-product" class="btn-primary">Shop The KURA Board</a>
+        <!-- EDIT: Secondary CTA -->
+        <a href="#how-it-works" class="btn-secondary">See How It Works</a>
+      </div>
+    </div>
+
+    <!-- IMAGE: Hero lifestyle — replace with images/lifestyle.jpg -->
+    <div class="hero-image-wrap fade-up delay-2">
+      <img
+        src="./images/lifestyle.jpg"
+        alt="Hands chopping fresh vegetables on The KURA Board in a bright modern kitchen"
+        loading="eager"
+        width="800"
+        height="600"
+      >
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ═══ SECTION 3: TRUST BAR ══════════════════════════════ -->
+<div class="trust-bar" aria-label="Trust signals">
+  <div class="trust-bar-inner">
+
+    <!-- EDIT: Trust signal 1 -->
+    <div class="trust-item fade-up">
+      <div class="trust-icon">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+          <circle cx="9" cy="7" r="4"/>
+          <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>
+        </svg>
+      </div>
+      <span class="trust-label">9,200+<br>Happy Kitchens</span>
+    </div>
+
+    <!-- EDIT: Trust signal 2 -->
+    <div class="trust-item fade-up delay-1">
+      <div class="trust-icon">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+        </svg>
+      </div>
+      <span class="trust-label">100%<br>Non-Porous Steel</span>
+    </div>
+
+    <!-- EDIT: Trust signal 3 -->
+    <div class="trust-item fade-up delay-2">
+      <div class="trust-icon">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <polyline points="20 6 9 17 4 12"/>
+        </svg>
+      </div>
+      <span class="trust-label">Dishwasher<br>Safe</span>
+    </div>
+
+    <!-- EDIT: Trust signal 4 -->
+    <div class="trust-item fade-up delay-3">
+      <div class="trust-icon">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+          <path d="M2 17l10 5 10-5M2 12l10 5 10-5"/>
+        </svg>
+      </div>
+      <span class="trust-label">Lifetime<br>Durability</span>
+    </div>
+
+    <!-- EDIT: Trust signal 5 -->
+    <div class="trust-item fade-up delay-4">
+      <div class="trust-icon">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="12" cy="12" r="10"/>
+          <polyline points="12 6 12 12 16 14"/>
+        </svg>
+      </div>
+      <span class="trust-label">30-Day<br>Guarantee</span>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ═══ SECTION 4: BRAND STORY ════════════════════════════ -->
+<section class="brand-story">
+  <div class="brand-story-inner">
+
+    <!-- IMAGE: Brand story — replace with images/brand-story.jpg -->
+    <div class="brand-story-image fade-up">
+      <img
+        src="./images/brand-story.jpg"
+        alt="A confident home cook holding The KURA Board in a warm, modern kitchen"
+        loading="lazy"
+        width="600"
+        height="800"
+      >
+    </div>
+
+    <div class="brand-story-text fade-up delay-2">
+      <!-- EDIT: Brand story eyebrow -->
+      <p class="eyebrow">Why KURA Exists</p>
+      <!-- EDIT: Brand story heading -->
+      <h2 class="section-heading">Built for cooks<br>who actually cook.</h2>
+
+      <!-- EDIT: Brand story body -->
+      <p class="brand-story-body">
+        KURA comes from two roots: the Japanese <em>kurasu</em> — to live well — and the Latin <em>cura</em> — care and precision. The name says everything about how this brand was built.
+      </p>
+      <p class="brand-story-body">
+        We looked at what home cooks were actually using — warped wooden boards, stained plastic surfaces, products that looked clean but weren't — and decided to build the board that should exist. Food-grade 304 stainless steel. Non-porous by nature. Genuinely clean, session after session.
+      </p>
+
+      <!-- EDIT: Brand story pull quote -->
+      <blockquote class="brand-story-pull">
+        "For home cooks who refuse to compromise on hygiene — the only board built to stay genuinely clean."
+      </blockquote>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ═══ SECTION 5: FEATURED PRODUCT ══════════════════════ -->
+<section class="featured-product" id="featured-product">
+  <div class="featured-product-inner">
+
+    <!-- IMAGE: Featured product — replace with images/product.png -->
+    <div class="featured-product-image fade-up">
+      <img
+        src="./images/product.png"
+        alt="The KURA Board — Food-Grade Stainless Steel Cutting Board"
+        loading="lazy"
+        width="600"
+        height="600"
+      >
+    </div>
+
+    <div class="fade-up delay-1">
+      <span class="featured-product-badge">Featured Product</span>
+      <!-- EDIT: Product name -->
+      <div class="featured-product-name">THE KURA BOARD</div>
+      <!-- EDIT: Product subtitle -->
+      <p class="featured-product-sub">Clean Surface. Clear Mind.</p>
+
+      <!-- EDIT: Product short description -->
+      <p class="featured-product-desc">
+        The last cutting board you'll ever buy. Engineered from food-grade 304 stainless steel — scratch-resistant, warp-proof, and cleaner than any wood or plastic board you've owned.
+      </p>
+
+      <ul class="benefit-list" aria-label="Product benefits">
+        <li class="benefit-item">
+          <svg class="benefit-check" viewBox="0 0 20 20" aria-hidden="true" fill="none">
+            <circle cx="10" cy="10" r="9" stroke="var(--copper)" stroke-width="1.5"/>
+            <polyline points="6,10 9,13 14,7" stroke="var(--copper)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <!-- EDIT: Benefit 1 -->
+          <span>Lasts a lifetime — never warps or cracks</span>
+        </li>
+        <li class="benefit-item">
+          <svg class="benefit-check" viewBox="0 0 20 20" aria-hidden="true" fill="none">
+            <circle cx="10" cy="10" r="9" stroke="var(--copper)" stroke-width="1.5"/>
+            <polyline points="6,10 9,13 14,7" stroke="var(--copper)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <!-- EDIT: Benefit 2 -->
+          <span>100% non-porous — no bacteria, no odors</span>
+        </li>
+        <li class="benefit-item">
+          <svg class="benefit-check" viewBox="0 0 20 20" aria-hidden="true" fill="none">
+            <circle cx="10" cy="10" r="9" stroke="var(--copper)" stroke-width="1.5"/>
+            <polyline points="6,10 9,13 14,7" stroke="var(--copper)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <!-- EDIT: Benefit 3 -->
+          <span>Dishwasher safe — clean in seconds</span>
+        </li>
+        <li class="benefit-item">
+          <svg class="benefit-check" viewBox="0 0 20 20" aria-hidden="true" fill="none">
+            <circle cx="10" cy="10" r="9" stroke="var(--copper)" stroke-width="1.5"/>
+            <polyline points="6,10 9,13 14,7" stroke="var(--copper)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <!-- EDIT: Benefit 4 -->
+          <span>Knife-friendly smooth surface</span>
+        </li>
+        <li class="benefit-item">
+          <svg class="benefit-check" viewBox="0 0 20 20" aria-hidden="true" fill="none">
+            <circle cx="10" cy="10" r="9" stroke="var(--copper)" stroke-width="1.5"/>
+            <polyline points="6,10 9,13 14,7" stroke="var(--copper)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <!-- EDIT: Benefit 5 -->
+          <span>Heat-resistant — doubles as a trivet</span>
+        </li>
+      </ul>
+
+      <div class="featured-price-row">
+        <!-- EDIT: Price -->
+        <span class="featured-price">$48.00</span>
+        <!-- EDIT: Save percentage -->
+        <span class="featured-save">Save 15%</span>
+      </div>
+
+      <!-- EDIT: ATC button text -->
+      <a href="#" class="featured-atc" id="featured-atc-btn">Add to Cart</a>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ═══ SECTION 6: USE CASES / COLLECTION ════════════════ -->
+<section class="collection">
+  <div class="collection-inner">
+
+    <div class="collection-header fade-up">
+      <!-- EDIT: Collection eyebrow -->
+      <p class="eyebrow">One Board. Every Kitchen.</p>
+      <!-- EDIT: Collection heading -->
+      <h2 class="section-heading-light">Made for How<br>You Actually Cook.</h2>
+    </div>
+
+    <div class="collection-grid">
+
+      <!-- EDIT: Use case card 1 -->
+      <div class="collection-card fade-up delay-1">
+        <!-- IMAGE: Use case 1 — replace with images/hero.jpg -->
+        <div class="collection-card-img">
+          <img src="./images/hero.jpg" alt="The KURA Board for daily meal preparation" loading="lazy" width="600" height="450">
+        </div>
+        <div class="collection-card-body">
+          <p class="collection-card-label">For the Daily Chef</p>
+          <h3 class="collection-card-title">Your everyday prep, elevated.</h3>
+          <p class="collection-card-desc">Four nights a week, fifty weeks a year. The KURA Board handles it all without warping, staining, or holding onto last night's garlic.</p>
+          <a href="#featured-product" class="collection-card-link" aria-label="Shop for daily prep">
+            Shop The Board
+            <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+              <path d="M3 8h10M9 4l4 4-4 4"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- EDIT: Use case card 2 -->
+      <div class="collection-card fade-up delay-2">
+        <!-- IMAGE: Use case 2 — replace with images/offer.png -->
+        <div class="collection-card-img">
+          <img src="./images/offer.png" alt="The KURA Board for family kitchen safety" loading="lazy" width="600" height="450">
+        </div>
+        <div class="collection-card-body">
+          <p class="collection-card-label">For the Family Kitchen</p>
+          <h3 class="collection-card-title">Raw meat. No cross-contamination. Zero stress.</h3>
+          <p class="collection-card-desc">Cooking for a family means trusting your surfaces. Non-porous steel leaves nowhere for bacteria to hide — dishwasher-clean, every single time.</p>
+          <a href="#featured-product" class="collection-card-link" aria-label="Shop for family kitchen">
+            Shop The Board
+            <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+              <path d="M3 8h10M9 4l4 4-4 4"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- EDIT: Use case card 3 -->
+      <div class="collection-card fade-up delay-3">
+        <!-- IMAGE: Use case 3 — replace with images/person.jpg -->
+        <div class="collection-card-img">
+          <img src="./images/person.jpg" alt="The KURA Board as a premium kitchen gift" loading="lazy" width="600" height="450">
+        </div>
+        <div class="collection-card-body">
+          <p class="collection-card-label">For the Perfect Gift</p>
+          <h3 class="collection-card-title">A gift that earns its place on the counter.</h3>
+          <p class="collection-card-desc">Housewarming. Wedding. Birthday. The KURA Board is the premium kitchen gift people actually use — every day, for years.</p>
+          <a href="#featured-product" class="collection-card-link" aria-label="Shop as a gift">
+            Shop The Board
+            <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+              <path d="M3 8h10M9 4l4 4-4 4"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══ SECTION 7: SOCIAL PROOF ═══════════════════════════ -->
+<section class="social-proof">
+  <div class="social-proof-inner">
+
+    <div class="social-proof-header fade-up">
+      <div class="social-proof-aggregate">
+        <div class="aggregate-stars" role="img" aria-label="4.8 out of 5 stars">
+          <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1l1.85 3.75 4.15.6-3 2.92.71 4.13L8 10.27l-3.71 1.95.71-4.13L2 5.35l4.15-.6z"/></svg>
+          <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1l1.85 3.75 4.15.6-3 2.92.71 4.13L8 10.27l-3.71 1.95.71-4.13L2 5.35l4.15-.6z"/></svg>
+          <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1l1.85 3.75 4.15.6-3 2.92.71 4.13L8 10.27l-3.71 1.95.71-4.13L2 5.35l4.15-.6z"/></svg>
+          <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1l1.85 3.75 4.15.6-3 2.92.71 4.13L8 10.27l-3.71 1.95.71-4.13L2 5.35l4.15-.6z"/></svg>
+          <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1l1.85 3.75 4.15.6-3 2.92.71 4.13L8 10.27l-3.71 1.95.71-4.13L2 5.35l4.15-.6z"/></svg>
+        </div>
+        <span class="aggregate-score">4.8</span>
+      </div>
+      <!-- EDIT: Review count -->
+      <p class="aggregate-count">Over 9,200 home cooks upgraded their kitchen already.</p>
+    </div>
+
+    <div class="reviews-grid">
+
+      <!-- EDIT: Review card 1 -->
+      <div class="review-card fade-up delay-1">
+        <div class="review-stars" role="img" aria-label="5 out of 5 stars">
+          <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1l1.85 3.75 4.15.6-3 2.92.71 4.13L8 10.27l-3.71 1.95.71-4.13L2 5.35l4.15-.6z"/></svg>
+          <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1l1.85 3.75 4.15.6-3 2.92.71 4.13L8 10.27l-3.71 1.95.71-4.13L2 5.35l4.15-.6z"/></svg>
+          <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1l1.85 3.75 4.15.6-3 2.92.71 4.13L8 10.27l-3.71 1.95.71-4.13L2 5.35l4.15-.6z"/></svg>
+          <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1l1.85 3.75 4.15.6-3 2.92.71 4.13L8 10.27l-3.71 1.95.71-4.13L2 5.35l4.15-.6z"/></svg>
+          <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1l1.85 3.75 4.15.6-3 2.92.71 4.13L8 10.27l-3.71 1.95.71-4.13L2 5.35l4.15-.6z"/></svg>
+        </div>
+        <p class="review-title">"So easy to clean"</p>
+        <p class="review-body">Threw out my old wooden board the same day this arrived. Wipes clean after raw chicken. I can't go back to anything else.</p>
+        <p class="review-author">James K. — Atlanta, Georgia</p>
+      </div>
+
+      <!-- EDIT: Review card 2 -->
+      <div class="review-card fade-up delay-2">
+        <div class="review-stars" role="img" aria-label="5 out of 5 stars">
+          <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1l1.85 3.75 4.15.6-3 2.92.71 4.13L8 10.27l-3.71 1.95.71-4.13L2 5.35l4.15-.6z"/></svg>
+          <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1l1.85 3.75 4.15.6-3 2.92.71 4.13L8 10.27l-3.71 1.95.71-4.13L2 5.35l4.15-.6z"/></svg>
+          <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1l1.85 3.75 4.15.6-3 2.92.71 4.13L8 10.27l-3.71 1.95.71-4.13L2 5.35l4.15-.6z"/></svg>
+          <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1l1.85 3.75 4.15.6-3 2.92.71 4.13L8 10.27l-3.71 1.95.71-4.13L2 5.35l4.15-.6z"/></svg>
+          <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1l1.85 3.75 4.15.6-3 2.92.71 4.13L8 10.27l-3.71 1.95.71-4.13L2 5.35l4.15-.6z"/></svg>
+        </div>
+        <p class="review-title">"Unbelievable quality"</p>
+        <p class="review-body">The size is perfect, the weight feels solid. Doesn't slide while I'm cutting. Worth every penny — this is now a kitchen essential in our house.</p>
+        <p class="review-author">Linda R. — Austin, Texas</p>
+      </div>
+
+      <!-- EDIT: Review card 3 -->
+      <div class="review-card fade-up delay-3">
+        <div class="review-stars" role="img" aria-label="5 out of 5 stars">
+          <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1l1.85 3.75 4.15.6-3 2.92.71 4.13L8 10.27l-3.71 1.95.71-4.13L2 5.35l4.15-.6z"/></svg>
+          <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1l1.85 3.75 4.15.6-3 2.92.71 4.13L8 10.27l-3.71 1.95.71-4.13L2 5.35l4.15-.6z"/></svg>
+          <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1l1.85 3.75 4.15.6-3 2.92.71 4.13L8 10.27l-3.71 1.95.71-4.13L2 5.35l4.15-.6z"/></svg>
+          <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1l1.85 3.75 4.15.6-3 2.92.71 4.13L8 10.27l-3.71 1.95.71-4.13L2 5.35l4.15-.6z"/></svg>
+          <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1l1.85 3.75 4.15.6-3 2.92.71 4.13L8 10.27l-3.71 1.95.71-4.13L2 5.35l4.15-.6z"/></svg>
+        </div>
+        <p class="review-title">"I was skeptical at first"</p>
+        <p class="review-body">Didn't think metal would work as a cutting board. But it's smooth, doesn't dull my knives, and it's the cleanest board I've ever owned. Bought two.</p>
+        <p class="review-author">Marcus T. — Chicago, Illinois</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══ SECTION 8: BRAND PILLARS ══════════════════════════ -->
+<section class="brand-pillars">
+  <div class="brand-pillars-inner">
+
+    <div class="pillars-header fade-up">
+      <!-- EDIT: Pillars eyebrow -->
+      <p class="eyebrow">The KURA Standard</p>
+      <!-- EDIT: Pillars heading -->
+      <h2 class="section-heading">Three Things We<br>Never Compromise On.</h2>
+    </div>
+
+    <div class="pillars-grid">
+
+      <!-- EDIT: Pillar 1 -->
+      <div class="pillar-card fade-up delay-1">
+        <div class="pillar-icon" aria-hidden="true">
+          <svg viewBox="0 0 44 44">
+            <circle cx="22" cy="22" r="16"/>
+            <path d="M22 14v8l5 3"/>
+          </svg>
+        </div>
+        <p class="pillar-title">Precision</p>
+        <p class="pillar-desc">Engineered for how cooks actually use a cutting board — not how engineers imagine they do. Every dimension, every surface finish, serves a purpose in the kitchen.</p>
+      </div>
+
+      <!-- EDIT: Pillar 2 -->
+      <div class="pillar-card fade-up delay-2">
+        <div class="pillar-icon" aria-hidden="true">
+          <svg viewBox="0 0 44 44">
+            <path d="M22 6l3.09 9.51L35 15.51l-8.18 5.97 3.09 9.51L22 25.5l-7.91 5.49 3.09-9.51L9 15.51l9.91.49z"/>
+          </svg>
+        </div>
+        <p class="pillar-title">Hygiene</p>
+        <p class="pillar-desc">Non-porous stainless steel leaves nowhere for bacteria to hide. Not in grooves. Not in grain. Not overnight. KURA stays genuinely clean — not just looking clean.</p>
+      </div>
+
+      <!-- EDIT: Pillar 3 -->
+      <div class="pillar-card fade-up delay-3">
+        <div class="pillar-icon" aria-hidden="true">
+          <svg viewBox="0 0 44 44">
+            <rect x="8" y="8" width="28" height="28" rx="2"/>
+            <path d="M8 20h28M20 8v28"/>
+          </svg>
+        </div>
+        <p class="pillar-title">Durability</p>
+        <p class="pillar-desc">Built to outlast every board you've ever replaced. No warping, no cracking, no staining. KURA is the last cutting board you'll ever need to buy.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══ SECTION 9: LIFESTYLE FULL-BLEED ══════════════════ -->
+<section class="lifestyle-section" id="how-it-works">
+  <!-- IMAGE: Lifestyle full-bleed — replace with images/lifestyle.jpg -->
+  <img
+    class="lifestyle-bg"
+    src="./images/lifestyle.jpg"
+    alt="The KURA Board in a warm, modern kitchen"
+    loading="lazy"
+    width="1440"
+    height="700"
+    aria-hidden="true"
+  >
+  <div class="lifestyle-overlay" aria-hidden="true"></div>
+
+  <div class="lifestyle-content">
+    <!-- EDIT: Lifestyle section eyebrow -->
+    <p class="eyebrow fade-up">A Kitchen You Can Trust</p>
+    <!-- EDIT: Lifestyle headline -->
+    <h2 class="lifestyle-headline fade-up delay-1">
+      Clean Surface.<br><em>Clear Mind.</em>
+    </h2>
+    <!-- EDIT: Lifestyle subtext -->
+    <p class="lifestyle-sub fade-up delay-2">
+      No guessing whether it's clean. No scrubbing. No replacing. Just a kitchen that's safe, every session — year after year.
+    </p>
+    <!-- EDIT: Lifestyle CTA -->
+    <a href="#featured-product" class="btn-primary fade-up delay-3" style="display:inline-flex; width:auto;">Shop The KURA Board</a>
+  </div>
+</section>
+
+
+<!-- ═══ SECTION 10: EMAIL SIGNUP ══════════════════════════ -->
+<section class="email-signup">
+  <div class="email-signup-inner">
+    <!-- EDIT: Email section eyebrow -->
+    <p class="eyebrow fade-up">Join the KURA Kitchen</p>
+    <!-- EDIT: Email heading -->
+    <h2 class="email-heading fade-up delay-1">Cook Smarter.<br>Shop Once.</h2>
+    <!-- EDIT: Email subtext -->
+    <p class="email-sub fade-up delay-2">
+      Join 9,200+ home cooks who upgraded their kitchen. Get early access to new products, recipes, and kitchen tips — no spam, ever.
+    </p>
+
+    <form class="email-form fade-up delay-3" onsubmit="handleEmailSubmit(event)">
+      <div class="email-input-wrap">
+        <!-- EDIT: Email placeholder -->
+        <input
+          type="email"
+          class="email-input"
+          placeholder="Your email address"
+          aria-label="Email address"
+          required
+        >
+      </div>
+      <!-- EDIT: Email submit button -->
+      <button type="submit" class="email-submit">Get Access</button>
+    </form>
+
+    <p class="email-disclaimer fade-up delay-4">
+      No spam. Unsubscribe at any time. Your kitchen, your inbox.
+    </p>
+  </div>
+</section>
+
+
+<!-- ═══ SECTION 11: FOOTER ════════════════════════════════ -->
+<footer class="footer">
+  <div class="footer-inner">
+
+    <div class="footer-top">
+      <div class="footer-brand">
+        <!-- EDIT: Footer logo -->
+        <div class="footer-logo">KURA</div>
+        <!-- EDIT: Footer tagline -->
+        <p class="footer-tagline">Clean Surface. Clear Mind.</p>
+        <!-- EDIT: Footer brand description -->
+        <p class="footer-brand-desc">
+          Premium stainless steel kitchen products built for home cooks who take hygiene seriously. One board. Zero bacteria. Zero regrets.
+        </p>
+        <div class="footer-social">
+          <!-- Instagram -->
+          <a href="#" aria-label="KURA on Instagram">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+              <circle cx="12" cy="12" r="4"/>
+              <circle cx="17.5" cy="6.5" r="0.5" fill="var(--silver)" stroke="none"/>
+            </svg>
+          </a>
+          <!-- TikTok -->
+          <a href="#" aria-label="KURA on TikTok">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/>
+            </svg>
+          </a>
+          <!-- Pinterest -->
+          <a href="#" aria-label="KURA on Pinterest">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 2C6.48 2 2 6.48 2 12c0 4.24 2.65 7.86 6.39 9.29-.09-.78-.17-1.98.04-2.83.18-.77 1.24-5.27 1.24-5.27s-.32-.63-.32-1.57c0-1.47.85-2.57 1.91-2.57.9 0 1.34.67 1.34 1.48 0 .9-.58 2.25-.87 3.5-.25 1.04.52 1.89 1.54 1.89 1.85 0 3.09-2.37 3.09-5.17 0-2.13-1.43-3.62-3.47-3.62-2.37 0-3.76 1.77-3.76 3.61 0 .71.27 1.48.62 1.9.07.08.08.15.06.23l-.23.95c-.04.14-.12.18-.27.11-1-.47-1.63-1.93-1.63-3.1 0-2.52 1.83-4.84 5.28-4.84 2.77 0 4.93 1.98 4.93 4.61 0 2.75-1.73 4.97-4.13 4.97-.81 0-1.57-.42-1.83-.91l-.5 1.85c-.18.69-.67 1.55-.99 2.08.75.23 1.54.35 2.36.35 5.52 0 10-4.48 10-10S17.52 2 12 2z"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <nav class="footer-nav-group" aria-label="Shop navigation">
+        <p class="footer-nav-label">Shop</p>
+        <ul class="footer-nav-links">
+          <li><a href="#">The KURA Board</a></li>
+          <li><a href="#">The KURA Board Pro</a></li>
+          <li><a href="#">The KURA Set</a></li>
+          <li><a href="#">Gift Cards</a></li>
+        </ul>
+      </nav>
+
+      <nav class="footer-nav-group" aria-label="Company navigation">
+        <p class="footer-nav-label">Company</p>
+        <ul class="footer-nav-links">
+          <li><a href="#">Our Story</a></li>
+          <li><a href="#">Journal</a></li>
+          <li><a href="#">Reviews</a></li>
+          <li><a href="#">Contact</a></li>
+          <li><a href="#">FAQ</a></li>
+        </ul>
+      </nav>
+    </div>
+
+    <div class="footer-divider"></div>
+
+    <div class="footer-bottom">
+      <!-- EDIT: Copyright year and brand -->
+      <p class="footer-copyright">© 2026 KURA Kitchen. All rights reserved.</p>
+      <div class="footer-legal-links">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+        <a href="#">Shipping Policy</a>
+        <a href="#">Refund Policy</a>
+      </div>
+    </div>
+
+  </div>
+</footer>
+
+
+<!-- ══════════════════════════════════════════════════════════
+     JAVASCRIPT
+     ══════════════════════════════════════════════════════════ -->
+<script>
+/* ── Scroll Fade-In (IntersectionObserver) ── */
+(function() {
+  const els = document.querySelectorAll('.fade-up');
+  const observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  els.forEach(function(el) { observer.observe(el); });
+
+  /* Make hero elements visible immediately (above fold) */
+  document.querySelectorAll('.hero .fade-up').forEach(function(el) {
+    setTimeout(function() { el.classList.add('visible'); }, 100);
+  });
+})();
+
+/* ── ATC Button Feedback ── */
+(function() {
+  var atcBtn = document.getElementById('featured-atc-btn');
+  if (!atcBtn) return;
+  atcBtn.addEventListener('click', function(e) {
+    e.preventDefault();
+    var orig = atcBtn.textContent;
+    atcBtn.textContent = 'Added to Cart';
+    atcBtn.style.background = 'var(--slate)';
+    setTimeout(function() {
+      atcBtn.textContent = orig;
+      atcBtn.style.background = '';
+    }, 2000);
+  });
+})();
+
+/* ── Email Form Feedback ── */
+function handleEmailSubmit(e) {
+  e.preventDefault();
+  var btn = e.target.querySelector('.email-submit');
+  var input = e.target.querySelector('.email-input');
+  btn.textContent = 'You\'re In';
+  btn.style.background = 'var(--slate)';
+  input.value = '';
+  setTimeout(function() {
+    btn.textContent = 'Get Access';
+    btn.style.background = '';
+  }, 3000);
+}
+
+/* ── Mobile Nav Toggle ── */
+(function() {
+  var menuBtn = document.querySelector('.nav-menu-btn');
+  var navLinks = document.querySelector('.nav-links');
+  if (!menuBtn || !navLinks) return;
+  menuBtn.addEventListener('click', function() {
+    var isOpen = navLinks.style.display === 'flex';
+    navLinks.style.display = isOpen ? '' : 'flex';
+    navLinks.style.flexDirection = 'column';
+    navLinks.style.position = 'absolute';
+    navLinks.style.top = '72px';
+    navLinks.style.left = '0';
+    navLinks.style.right = '0';
+    navLinks.style.background = 'var(--cream)';
+    navLinks.style.padding = '20px';
+    navLinks.style.borderBottom = '1px solid var(--silver)';
+    navLinks.style.zIndex = '99';
+    menuBtn.setAttribute('aria-expanded', !isOpen);
+  });
+})();
+</script>
+
+</body>
+</html>

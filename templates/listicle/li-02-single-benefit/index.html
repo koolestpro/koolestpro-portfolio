@@ -1,0 +1,1910 @@
+<!--
+  BRAND:    [BRAND NAME]
+  PRODUCT:  [PRODUCT NAME]
+  PAGE:     Listicle — li-02-single-benefit
+  BUILT:    2026-05-05
+  EDIT:     See CLAUDE.md → Editing Guide for how to modify this file
+-->
+<!--
+  ══════════════════════════════════════════════════════════════════════
+  CONFIGURATION GUIDE — Read before editing
+  ══════════════════════════════════════════════════════════════════════
+
+  HERO VARIANT — change the class on the hero <section>:
+    Image hero (default):    class="hero hero--image"
+    Typography-only hero:    class="hero hero--text-only"
+    Split hero:              class="hero hero--split"
+
+  REASON COUNT — delete entire REASON blocks as needed:
+    3 reasons: keep S3.1, S3.2, S3.3 — delete S3.4 and S3.5
+    4 reasons: keep S3.1 through S3.4 — delete S3.5
+    5 reasons: keep all (default)
+    Tip: move the INLINE CTA STRIP after S3.1 for 3-reason layouts
+
+  OPTIONAL SECTIONS — marked with [OPTIONAL SECTION] comments:
+    S2  Trust Bar         — remove if brand trust is already established
+    S4  Inline CTA Strip  — remove for cold/educational traffic
+    S6  Comparison Table  — remove if no competitive angle needed
+    S7  Offer Strip       — remove if no discount/urgency campaign
+    S8  Embedded Buy Box  — remove if product needs off-page purchase
+    S10 Brand Story       — remove for pure product-led pages
+
+  TOKENS — search and replace all [BRACKET] placeholders with real content
+  See BUILD-NOTES.md for the full token reference list.
+  ══════════════════════════════════════════════════════════════════════
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- EDIT: Page title -->
+  <title>[ARTICLE HEADLINE] — [BRAND NAME]</title>
+
+  <!-- Performance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+  <!-- IMAGE: Hero — preloaded for performance -->
+  <link rel="preload" as="image" href="./images/hero.jpg">
+
+  <style>
+
+/* ═══════════════════════════════════════════════════════════════════
+   DESIGN TOKENS — replace per brand identity
+   ═══════════════════════════════════════════════════════════════════ */
+:root {
+  /* ── BRAND COLORS — replace per brand identity ── */
+  --color-primary:      #1E2832;   /* [PRIMARY COLOR] */
+  --color-accent:       #C47A3A;   /* [ACCENT / CTA COLOR] */
+  --color-accent-hover: #A85F25;
+  --color-bg:           #FAFAF8;   /* [BACKGROUND COLOR] */
+  --color-surface:      #FFFFFF;
+  --color-surface-2:    #F4F1EC;   /* [WARM SURFACE COLOR] */
+  --color-text:         #181820;   /* [BODY TEXT COLOR] */
+  --color-muted:        #6B7280;   /* [MUTED TEXT COLOR] */
+  --color-border:       #E5E7EB;   /* [BORDER COLOR] */
+  --color-pro:          #16A34A;
+  --color-con:          #DC2626;
+
+  /* ── BRAND FONTS — replace per brand identity ── */
+  --font-display: 'Bebas Neue', sans-serif;          /* [DISPLAY FONT] */
+  --font-serif:   'Cormorant Garamond', serif;       /* [SERIF FONT] */
+  --font-body:    'DM Sans', sans-serif;             /* [BODY FONT] */
+
+  /* ── LAYOUT ── */
+  --max-width:        1100px;
+  --max-width-narrow: 760px;
+  --radius-sm:        4px;
+  --radius-md:        8px;
+  --radius-lg:        14px;
+  --section-v:        80px;
+  --section-v-mob:    48px;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   RESET & BASE
+   ═══════════════════════════════════════════════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  -webkit-font-smoothing: antialiased;
+}
+img { display: block; max-width: 100%; height: auto; }
+button, input { font-family: inherit; }
+a { color: inherit; text-decoration: none; }
+
+/* ═══════════════════════════════════════════════════════════════════
+   UTILITIES
+   ═══════════════════════════════════════════════════════════════════ */
+.container {
+  width: 100%;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 20px;
+}
+.container--narrow {
+  max-width: var(--max-width-narrow);
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 28px;
+  border: none;
+  border-radius: var(--radius-md);
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+  text-decoration: none;
+}
+.btn:active { transform: scale(0.98); }
+.btn--primary { background-color: var(--color-accent); color: #fff; }
+.btn--primary:hover { background-color: var(--color-accent-hover); }
+.btn--light { background-color: #fff; color: var(--color-primary); }
+.btn--light:hover { background-color: var(--color-surface-2); }
+.btn--large { padding: 18px 40px; font-size: 16px; border-radius: var(--radius-lg); }
+.btn--full { width: 100%; }
+
+/* Stars */
+.stars {
+  display: inline-flex;
+  gap: 2px;
+  vertical-align: middle;
+}
+.star {
+  width: 16px;
+  height: 16px;
+  fill: var(--color-accent);
+  flex-shrink: 0;
+}
+
+/* Eyebrow badge */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.eyebrow--light {
+  background-color: rgba(255,255,255,0.18);
+  color: #fff;
+  border: 1px solid rgba(255,255,255,0.3);
+}
+.eyebrow--dark {
+  background-color: var(--color-surface-2);
+  color: var(--color-primary);
+  border: 1px solid var(--color-border);
+}
+.eyebrow--accent {
+  background-color: var(--color-accent);
+  color: #fff;
+}
+
+/* Scroll fade-in */
+.fade-in {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.fade-in.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   S1 HERO
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* ── IMAGE HERO (default) */
+.hero {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: 440px;
+  overflow: hidden;
+  background-color: var(--color-primary);
+}
+.hero__bg {
+  position: absolute;
+  inset: 0;
+}
+.hero__bg-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.38;
+}
+.hero__content {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  padding: var(--section-v-mob) 20px;
+  text-align: center;
+  color: #fff;
+}
+.hero__eyebrow-row { margin-bottom: 16px; }
+.hero__stars-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 14px;
+  font-size: 14px;
+  color: rgba(255,255,255,0.8);
+}
+.hero__stars-row strong { color: #fff; }
+.hero__headline {
+  font-family: var(--font-display);
+  font-size: 38px;
+  line-height: 1.05;
+  letter-spacing: 0.01em;
+  color: #fff;
+  margin-bottom: 14px;
+  max-width: 680px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.hero__sub {
+  font-size: 16px;
+  line-height: 1.65;
+  color: rgba(255,255,255,0.78);
+  max-width: 520px;
+  margin: 0 auto 28px;
+}
+/* Hero children stagger on load */
+.hero__content > * {
+  animation: hero-rise 0.7s ease both;
+}
+.hero__eyebrow-row  { animation-delay: 0.05s; }
+.hero__stars-row    { animation-delay: 0.15s; }
+.hero__headline     { animation-delay: 0.25s; }
+.hero__sub          { animation-delay: 0.35s; }
+.hero__cta-row      { animation-delay: 0.45s; }
+@keyframes hero-rise {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── TEXT-ONLY HERO */
+.hero--text-only {
+  background-color: var(--color-surface-2);
+  min-height: auto;
+}
+.hero--text-only .hero__bg { display: none; }
+.hero--text-only .hero__content { color: var(--color-text); }
+.hero--text-only .hero__headline { color: var(--color-primary); }
+.hero--text-only .hero__sub { color: var(--color-muted); }
+.hero--text-only .hero__stars-row { color: var(--color-muted); }
+.hero--text-only .hero__stars-row strong { color: var(--color-text); }
+.hero--text-only .eyebrow--light {
+  background-color: var(--color-primary);
+  color: #fff;
+  border-color: var(--color-primary);
+}
+
+/* ── SPLIT HERO */
+.hero--split { display: block; min-height: auto; }
+.hero--split .hero__bg {
+  position: relative;
+  height: 280px;
+}
+.hero--split .hero__bg-img { opacity: 1; }
+.hero--split .hero__content {
+  background-color: var(--color-primary);
+  text-align: left;
+  padding: 40px 20px;
+}
+.hero--split .hero__headline { color: #fff; margin-left: 0; margin-right: 0; }
+.hero--split .hero__sub { color: rgba(255,255,255,0.78); margin-left: 0; }
+.hero--split .hero__stars-row { justify-content: flex-start; }
+
+/* ═══════════════════════════════════════════════════════════════════
+   S2 TRUST BAR [OPTIONAL]
+   ═══════════════════════════════════════════════════════════════════ */
+.trust-bar {
+  overflow: hidden;
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+  padding: 13px 0;
+  background-color: var(--color-surface);
+}
+.trust-bar__track {
+  display: flex;
+  gap: 48px;
+  width: max-content;
+  animation: trust-scroll 28s linear infinite;
+}
+.trust-bar:hover .trust-bar__track { animation-play-state: paused; }
+@keyframes trust-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.trust-signal {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-text);
+}
+.trust-signal svg { flex-shrink: 0; stroke: var(--color-accent); }
+
+/* ═══════════════════════════════════════════════════════════════════
+   S3 REASONS
+   ═══════════════════════════════════════════════════════════════════ */
+.reason {
+  padding: var(--section-v-mob) 0;
+  background-color: var(--color-surface);
+}
+.reason--alt { background-color: var(--color-surface-2); }
+
+.reason__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px;
+  align-items: center;
+}
+/* Mobile: image always above, text below */
+.reason__image { order: 0; }
+.reason__body  { order: 1; }
+
+.reason__num {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 88px;
+  line-height: 0.9;
+  color: var(--color-accent);
+  opacity: 0.22;
+  margin-bottom: -10px;
+  letter-spacing: -0.02em;
+  user-select: none;
+}
+.reason__headline {
+  font-family: var(--font-display);
+  font-size: 28px;
+  line-height: 1.1;
+  letter-spacing: 0.02em;
+  color: var(--color-primary);
+  margin-bottom: 14px;
+}
+.reason__copy {
+  font-size: 16px;
+  line-height: 1.72;
+  color: var(--color-text);
+  margin-bottom: 20px;
+}
+.reason__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-accent);
+  letter-spacing: 0.02em;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: gap 0.2s ease;
+}
+.reason__link:hover { gap: 10px; }
+.reason__link svg { flex-shrink: 0; transition: transform 0.2s ease; }
+.reason__link:hover svg { transform: translateX(3px); }
+
+.reason__img-wrap {
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  background-color: var(--color-border);
+}
+.reason__img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.45s ease;
+}
+.reason__img-wrap:hover img { transform: scale(1.04); }
+
+/* ═══════════════════════════════════════════════════════════════════
+   S4 INLINE CTA STRIP [OPTIONAL]
+   ═══════════════════════════════════════════════════════════════════ */
+.cta-strip {
+  background-color: var(--color-primary);
+  padding: 44px 20px;
+  text-align: center;
+}
+.cta-strip__headline {
+  font-family: var(--font-display);
+  font-size: 30px;
+  letter-spacing: 0.02em;
+  color: #fff;
+  margin-bottom: 8px;
+}
+.cta-strip__sub {
+  font-size: 15px;
+  line-height: 1.55;
+  color: rgba(255,255,255,0.72);
+  margin-bottom: 22px;
+  max-width: 420px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.cta-strip__note {
+  margin-top: 12px;
+  font-size: 12px;
+  color: rgba(255,255,255,0.5);
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   S5 PULL QUOTE
+   ═══════════════════════════════════════════════════════════════════ */
+.pull-quote {
+  background-color: var(--color-primary);
+  padding: var(--section-v-mob) 20px;
+  text-align: center;
+}
+.pull-quote__mark {
+  font-family: var(--font-serif);
+  font-size: 72px;
+  line-height: 0.65;
+  color: var(--color-accent);
+  display: block;
+  margin-bottom: 18px;
+  user-select: none;
+}
+.pull-quote__text {
+  font-family: var(--font-serif);
+  font-size: 22px;
+  font-style: italic;
+  line-height: 1.55;
+  color: #fff;
+  max-width: 620px;
+  margin: 0 auto 20px;
+}
+.pull-quote__author {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   S6 COMPARISON [OPTIONAL]
+   ═══════════════════════════════════════════════════════════════════ */
+.comparison {
+  padding: var(--section-v-mob) 20px;
+  background-color: var(--color-surface);
+}
+.comparison__label {
+  text-align: center;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin-bottom: 8px;
+}
+.comparison__heading {
+  font-family: var(--font-display);
+  font-size: 30px;
+  letter-spacing: 0.02em;
+  color: var(--color-primary);
+  text-align: center;
+  margin-bottom: 32px;
+}
+.comparison__table-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  max-width: var(--max-width-narrow);
+  margin: 0 auto;
+}
+.comparison__table {
+  width: 100%;
+  min-width: 460px;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+.comparison__table thead {
+  background-color: var(--color-primary);
+  color: #fff;
+}
+.comparison__table th {
+  padding: 14px 16px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  font-size: 13px;
+  text-transform: uppercase;
+  text-align: center;
+}
+.comparison__table th:first-child { text-align: left; }
+.comparison__table td {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--color-border);
+  text-align: center;
+  vertical-align: middle;
+}
+.comparison__table td:first-child { text-align: left; font-weight: 500; }
+.comparison__table tbody tr:last-child td { border-bottom: none; }
+.comparison__table tbody tr:nth-child(even) td { background-color: var(--color-bg); }
+.comparison__yes { color: var(--color-pro); }
+.comparison__yes svg { stroke: var(--color-pro); }
+.comparison__no  { color: var(--color-con); }
+.comparison__no  svg { stroke: var(--color-con); }
+
+/* ═══════════════════════════════════════════════════════════════════
+   S7 OFFER STRIP [OPTIONAL]
+   ═══════════════════════════════════════════════════════════════════ */
+.offer-strip {
+  background-color: var(--color-accent);
+  padding: 44px 20px;
+  text-align: center;
+}
+.offer-strip__eyebrow {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.78);
+  margin-bottom: 8px;
+}
+.offer-strip__headline {
+  font-family: var(--font-display);
+  font-size: 38px;
+  letter-spacing: 0.02em;
+  color: #fff;
+  margin-bottom: 14px;
+}
+.offer-strip__code {
+  display: inline-block;
+  background-color: rgba(255,255,255,0.18);
+  border: 1.5px dashed rgba(255,255,255,0.55);
+  border-radius: var(--radius-md);
+  padding: 9px 22px;
+  font-family: 'Courier New', monospace;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: #fff;
+  margin-bottom: 18px;
+}
+.offer-strip__note {
+  font-size: 13px;
+  color: rgba(255,255,255,0.7);
+  margin-top: 12px;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   S8 EMBEDDED BUY BOX [OPTIONAL]
+   ═══════════════════════════════════════════════════════════════════ */
+.buy-box {
+  padding: var(--section-v-mob) 0;
+  background-color: var(--color-surface-2);
+}
+.buy-box__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px;
+}
+.buy-box__img-wrap {
+  aspect-ratio: 1 / 1;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+}
+.buy-box__img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.buy-box__stars-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+  font-size: 13px;
+  color: var(--color-muted);
+}
+.buy-box__name {
+  font-family: var(--font-display);
+  font-size: 30px;
+  letter-spacing: 0.02em;
+  color: var(--color-primary);
+  margin-bottom: 12px;
+}
+.buy-box__price-row {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.buy-box__price {
+  font-size: 28px;
+  font-weight: 600;
+  color: var(--color-primary);
+}
+.buy-box__compare {
+  font-size: 16px;
+  color: var(--color-muted);
+  text-decoration: line-through;
+}
+
+/* Quantity stepper */
+.qty-row {
+  display: flex;
+  align-items: stretch;
+  margin-bottom: 14px;
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-md);
+  width: fit-content;
+  overflow: hidden;
+  background-color: var(--color-surface);
+}
+.qty-btn {
+  width: 44px;
+  height: 46px;
+  border: none;
+  background-color: var(--color-surface);
+  cursor: pointer;
+  font-size: 20px;
+  font-weight: 400;
+  color: var(--color-text);
+  transition: background-color 0.15s;
+  line-height: 1;
+}
+.qty-btn:hover { background-color: var(--color-bg); }
+.qty-display {
+  width: 52px;
+  text-align: center;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--color-text);
+  border-left: 1px solid var(--color-border);
+  border-right: 1px solid var(--color-border);
+  line-height: 46px;
+  display: block;
+  user-select: none;
+}
+
+/* ATC button */
+.buy-box__atc {
+  display: block;
+  width: 100%;
+  padding: 17px 24px;
+  background-color: var(--color-accent);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-md);
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  margin-bottom: 16px;
+}
+.buy-box__atc:hover { background-color: var(--color-accent-hover); }
+.buy-box__atc.atc-success { background-color: var(--color-pro); }
+
+/* Trust row below ATC */
+.buy-box__trust-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 20px;
+  margin-bottom: 20px;
+}
+.buy-box__trust-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--color-muted);
+}
+.buy-box__trust-item svg { flex-shrink: 0; }
+
+/* Buy box accordion */
+.bb-accordion { border-top: 1px solid var(--color-border); }
+.bb-trigger {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 0;
+  border: none;
+  border-bottom: 1px solid var(--color-border);
+  background: none;
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text);
+  cursor: pointer;
+  text-align: left;
+}
+.bb-trigger svg { flex-shrink: 0; transition: transform 0.25s ease; }
+.bb-trigger[aria-expanded="true"] svg { transform: rotate(180deg); }
+.bb-panel {
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--color-muted);
+  padding: 12px 0 14px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   S9 REVIEW CARDS
+   ═══════════════════════════════════════════════════════════════════ */
+.reviews {
+  padding: var(--section-v-mob) 0;
+  background-color: var(--color-bg);
+}
+.reviews__headline {
+  font-family: var(--font-display);
+  font-size: 30px;
+  letter-spacing: 0.02em;
+  color: var(--color-primary);
+  text-align: center;
+  margin-bottom: 32px;
+}
+.reviews__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+.review-card {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 22px;
+}
+.review-card__top {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+.review-card__avatar {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  object-fit: cover;
+  background-color: var(--color-border);
+  flex-shrink: 0;
+}
+.review-card__meta { flex: 1; min-width: 0; }
+.review-card__name {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text);
+  line-height: 1.3;
+}
+.review-card__verified {
+  font-size: 11px;
+  color: var(--color-pro);
+  font-weight: 500;
+}
+.review-card__title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: 6px;
+}
+.review-card__body {
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--color-muted);
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   S10 BRAND STORY [OPTIONAL]
+   ═══════════════════════════════════════════════════════════════════ */
+.brand-story {
+  padding: var(--section-v-mob) 0;
+  background-color: var(--color-primary);
+}
+.brand-story__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px;
+}
+.brand-story__img-wrap {
+  aspect-ratio: 4 / 5;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background-color: rgba(255,255,255,0.08);
+}
+.brand-story__img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.brand-story__content {
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.brand-story__eyebrow {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin-bottom: 12px;
+}
+.brand-story__headline {
+  font-family: var(--font-display);
+  font-size: 32px;
+  letter-spacing: 0.02em;
+  color: #fff;
+  margin-bottom: 16px;
+}
+.brand-story__copy {
+  font-size: 16px;
+  line-height: 1.72;
+  color: rgba(255,255,255,0.78);
+  margin-bottom: 28px;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   S11 FINAL CTA
+   ═══════════════════════════════════════════════════════════════════ */
+.final-cta {
+  padding: var(--section-v-mob) 20px;
+  background-color: var(--color-surface-2);
+  text-align: center;
+}
+.final-cta__headline {
+  font-family: var(--font-display);
+  font-size: 34px;
+  letter-spacing: 0.02em;
+  color: var(--color-primary);
+  margin-bottom: 10px;
+}
+.final-cta__sub {
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--color-muted);
+  max-width: 480px;
+  margin: 0 auto 28px;
+}
+.final-cta__guarantee {
+  margin-top: 14px;
+  font-size: 13px;
+  color: var(--color-muted);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.final-cta__guarantee svg { flex-shrink: 0; stroke: var(--color-pro); }
+
+/* ═══════════════════════════════════════════════════════════════════
+   S12 FAQ
+   ═══════════════════════════════════════════════════════════════════ */
+.faq {
+  padding: var(--section-v-mob) 0;
+  background-color: var(--color-surface);
+}
+.faq__headline {
+  font-family: var(--font-display);
+  font-size: 30px;
+  letter-spacing: 0.02em;
+  color: var(--color-primary);
+  text-align: center;
+  margin-bottom: 28px;
+}
+.faq__list {
+  max-width: 680px;
+  margin: 0 auto;
+}
+.faq__item { border-bottom: 1px solid var(--color-border); }
+.faq__trigger {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 0;
+  border: none;
+  background: none;
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--color-text);
+  text-align: left;
+  cursor: pointer;
+}
+.faq__trigger svg {
+  flex-shrink: 0;
+  margin-left: 12px;
+  transition: transform 0.25s ease;
+}
+.faq__trigger[aria-expanded="true"] svg { transform: rotate(180deg); }
+.faq__panel {
+  font-size: 15px;
+  line-height: 1.72;
+  color: var(--color-muted);
+  padding-bottom: 18px;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   FOOTER
+   ═══════════════════════════════════════════════════════════════════ */
+.site-footer {
+  padding: 32px 20px;
+  background-color: var(--color-primary);
+  text-align: center;
+}
+.site-footer__brand {
+  font-family: var(--font-display);
+  font-size: 22px;
+  letter-spacing: 0.06em;
+  color: #fff;
+  margin-bottom: 10px;
+}
+.site-footer__links {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+  margin-bottom: 16px;
+}
+.site-footer__links a {
+  font-size: 12px;
+  color: rgba(255,255,255,0.45);
+  transition: color 0.2s;
+}
+.site-footer__links a:hover { color: rgba(255,255,255,0.82); }
+.site-footer__copy {
+  font-size: 12px;
+  color: rgba(255,255,255,0.3);
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   RESPONSIVE — TABLET 768px+
+   ═══════════════════════════════════════════════════════════════════ */
+@media (min-width: 768px) {
+  .hero { min-height: 520px; }
+  .hero__headline { font-size: 54px; }
+  .hero__sub { font-size: 17px; }
+
+  .hero--split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+  .hero--split .hero__bg { height: auto; min-height: 380px; }
+  .hero--split .hero__content { padding: var(--section-v) 48px; }
+
+  .reviews__grid { grid-template-columns: repeat(3, 1fr); }
+  .brand-story__grid { grid-template-columns: 1fr 1fr; align-items: center; }
+  .buy-box__grid { grid-template-columns: 1fr 1fr; align-items: start; }
+
+  .pull-quote__text { font-size: 24px; }
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   RESPONSIVE — DESKTOP 1024px+
+   ═══════════════════════════════════════════════════════════════════ */
+@media (min-width: 1024px) {
+  .hero { min-height: 580px; }
+  .hero__headline { font-size: 66px; }
+
+  /* Alternating reason layout */
+  .reason__grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 72px;
+  }
+  /* Odd reasons: text left, image right */
+  .reason--odd .reason__body  { order: 0; }
+  .reason--odd .reason__image { order: 1; }
+  /* Even reasons: image left, text right */
+  .reason--even .reason__body  { order: 1; }
+  .reason--even .reason__image { order: 0; }
+
+  .reason { padding: var(--section-v) 0; }
+  .reason__headline { font-size: 34px; }
+  .reason__num { font-size: 112px; }
+
+  .pull-quote { padding: var(--section-v) 20px; }
+  .pull-quote__text { font-size: 27px; }
+
+  .comparison { padding: var(--section-v) 20px; }
+  .buy-box { padding: var(--section-v) 0; }
+  .reviews { padding: var(--section-v) 0; }
+  .brand-story { padding: var(--section-v) 0; }
+  .final-cta { padding: var(--section-v) 20px; }
+  .final-cta__headline { font-size: 44px; }
+  .faq { padding: var(--section-v) 0; }
+  .cta-strip__headline { font-size: 36px; }
+}
+
+/* Focus visible */
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+  </style>
+</head>
+<body>
+
+<!-- ═══ SECTION 1: HERO ══════════════════════════════════════════════════ -->
+<!--
+  Hero variants:
+  Image hero (default):  class="hero hero--image"
+  Typography only:       class="hero hero--text-only"
+  Split layout:          class="hero hero--split"
+-->
+<section class="hero hero--image">
+
+  <!-- IMAGE: Hero background — replace with images/hero.jpg (1440×680, object-fit cover) -->
+  <div class="hero__bg">
+    <img
+      src="images/hero.jpg"
+      alt="[PRODUCT NAME] lifestyle"
+      class="hero__bg-img"
+      loading="eager">
+  </div>
+
+  <div class="hero__content container">
+
+    <!-- EDIT: Hero eyebrow badge -->
+    <div class="hero__eyebrow-row">
+      <span class="eyebrow eyebrow--light">[HERO EYEBROW]</span>
+    </div>
+
+    <!-- EDIT: Star aggregate rating -->
+    <div class="hero__stars-row">
+      <span role="img" aria-label="[STAR COUNT] out of 5 stars" class="stars">
+        <svg class="star" viewBox="0 0 24 24" aria-hidden="true" width="16" height="16"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        <svg class="star" viewBox="0 0 24 24" aria-hidden="true" width="16" height="16"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        <svg class="star" viewBox="0 0 24 24" aria-hidden="true" width="16" height="16"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        <svg class="star" viewBox="0 0 24 24" aria-hidden="true" width="16" height="16"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        <svg class="star" viewBox="0 0 24 24" aria-hidden="true" width="16" height="16"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+      </span>
+      <!-- EDIT: Star count + review count -->
+      <span><strong>[STAR COUNT]</strong> &bull; [REVIEW COUNT]</span>
+    </div>
+
+    <!-- EDIT: Article headline -->
+    <h1 class="hero__headline">[REASON COUNT] REASONS [ARTICLE HEADLINE]</h1>
+
+    <!-- EDIT: Subheadline -->
+    <p class="hero__sub">[ARTICLE SUBHEADLINE]</p>
+
+    <!-- EDIT: Optional hero CTA — remove if traffic needs education before CTA -->
+    <div class="hero__cta-row">
+      <a href="[PRODUCT URL]" class="btn btn--primary btn--large">[HERO CTA TEXT]</a>
+    </div>
+
+  </div>
+</section>
+<!-- END S1: HERO -->
+
+
+<!-- ═══ SECTION 2: TRUST BAR ═══ [OPTIONAL — remove if not needed] ══════ -->
+<section class="trust-bar" aria-label="Trust signals">
+  <!-- Duplicate trust signals below for seamless CSS marquee loop -->
+  <div class="trust-bar__track" aria-hidden="true">
+
+    <!-- First set -->
+    <span class="trust-signal">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
+      <!-- EDIT: Trust signal 1 -->
+      [TRUST SIGNAL 1]
+    </span>
+    <span class="trust-signal">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      <!-- EDIT: Trust signal 2 -->
+      [TRUST SIGNAL 2]
+    </span>
+    <span class="trust-signal">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="1" y="3" width="15" height="13"/><path d="M16 8h4l3 5v3h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+      <!-- EDIT: Trust signal 3 -->
+      [TRUST SIGNAL 3]
+    </span>
+    <span class="trust-signal">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      <!-- EDIT: Trust signal 4 -->
+      [TRUST SIGNAL 4]
+    </span>
+    <span class="trust-signal">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
+      <!-- EDIT: Trust signal 5 -->
+      [TRUST SIGNAL 5]
+    </span>
+
+    <!-- Duplicate set for seamless loop -->
+    <span class="trust-signal" aria-hidden="true">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
+      [TRUST SIGNAL 1]
+    </span>
+    <span class="trust-signal" aria-hidden="true">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      [TRUST SIGNAL 2]
+    </span>
+    <span class="trust-signal" aria-hidden="true">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="1" y="3" width="15" height="13"/><path d="M16 8h4l3 5v3h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+      [TRUST SIGNAL 3]
+    </span>
+    <span class="trust-signal" aria-hidden="true">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      [TRUST SIGNAL 4]
+    </span>
+    <span class="trust-signal" aria-hidden="true">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
+      [TRUST SIGNAL 5]
+    </span>
+
+  </div>
+</section>
+<!-- END OPTIONAL SECTION: TRUST BAR -->
+
+
+<!-- ═══ SECTION 3.1: REASON 01 ══════════════════════════════════════════ -->
+<section class="reason reason--odd">
+  <div class="container">
+    <div class="reason__grid fade-in">
+
+      <div class="reason__body">
+        <!-- EDIT: Reason 01 number label -->
+        <span class="reason__num" aria-hidden="true">01</span>
+        <!-- EDIT: Reason 01 headline -->
+        <h2 class="reason__headline">[REASON 1 HEADLINE]</h2>
+        <!-- EDIT: Reason 01 body copy -->
+        <p class="reason__copy">[REASON 1 BODY]</p>
+        <!-- EDIT: Reason 01 CTA link -->
+        <a href="[PRODUCT URL]" class="reason__link">
+          [REASON 1 CTA]
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+
+      <div class="reason__image">
+        <!-- IMAGE: Reason 01 — replace with images/reason-1.jpg (800×600) -->
+        <div class="reason__img-wrap">
+          <img
+            src="images/reason-1.jpg"
+            alt="[REASON 1 HEADLINE]"
+            loading="lazy">
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+<!-- END S3.1: REASON 01 -->
+
+
+<!-- ═══ SECTION 3.2: REASON 02 ══════════════════════════════════════════ -->
+<section class="reason reason--even reason--alt">
+  <div class="container">
+    <div class="reason__grid fade-in">
+
+      <div class="reason__body">
+        <span class="reason__num" aria-hidden="true">02</span>
+        <!-- EDIT: Reason 02 headline -->
+        <h2 class="reason__headline">[REASON 2 HEADLINE]</h2>
+        <!-- EDIT: Reason 02 body copy -->
+        <p class="reason__copy">[REASON 2 BODY]</p>
+        <!-- EDIT: Reason 02 CTA link -->
+        <a href="[PRODUCT URL]" class="reason__link">
+          [REASON 2 CTA]
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+
+      <div class="reason__image">
+        <!-- IMAGE: Reason 02 — replace with images/reason-2.jpg (800×600) -->
+        <div class="reason__img-wrap">
+          <img
+            src="images/reason-2.jpg"
+            alt="[REASON 2 HEADLINE]"
+            loading="lazy">
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+<!-- END S3.2: REASON 02 -->
+
+
+<!-- ═══ SECTION 4: INLINE CTA STRIP ═══ [OPTIONAL — remove if cold traffic] -->
+<section class="cta-strip fade-in">
+  <div class="container">
+    <!-- EDIT: CTA strip headline -->
+    <p class="cta-strip__headline">[REASON COUNT] REASONS IN. STILL ON THE FENCE?</p>
+    <!-- EDIT: CTA strip subheadline -->
+    <p class="cta-strip__sub">[ARTICLE SUBHEADLINE]</p>
+    <!-- EDIT: CTA strip button -->
+    <a href="[PRODUCT URL]" class="btn btn--light btn--large">[HERO CTA TEXT]</a>
+    <!-- EDIT: Risk-reversal note below button -->
+    <p class="cta-strip__note">[GUARANTEE TEXT]</p>
+  </div>
+</section>
+<!-- END OPTIONAL SECTION: INLINE CTA STRIP -->
+
+
+<!-- ═══ SECTION 3.3: REASON 03 ══════════════════════════════════════════ -->
+<section class="reason reason--odd">
+  <div class="container">
+    <div class="reason__grid fade-in">
+
+      <div class="reason__body">
+        <span class="reason__num" aria-hidden="true">03</span>
+        <!-- EDIT: Reason 03 headline -->
+        <h2 class="reason__headline">[REASON 3 HEADLINE]</h2>
+        <!-- EDIT: Reason 03 body copy -->
+        <p class="reason__copy">[REASON 3 BODY]</p>
+        <!-- EDIT: Reason 03 CTA link -->
+        <a href="[PRODUCT URL]" class="reason__link">
+          [REASON 3 CTA]
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+
+      <div class="reason__image">
+        <!-- IMAGE: Reason 03 — replace with images/reason-3.jpg (800×600) -->
+        <div class="reason__img-wrap">
+          <img
+            src="images/reason-3.jpg"
+            alt="[REASON 3 HEADLINE]"
+            loading="lazy">
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+<!-- END S3.3: REASON 03 -->
+
+
+<!-- ═══ SECTION 3.4: REASON 04 ═══ [OPTIONAL — remove for 3-reason layout] -->
+<section class="reason reason--even reason--alt">
+  <div class="container">
+    <div class="reason__grid fade-in">
+
+      <div class="reason__body">
+        <span class="reason__num" aria-hidden="true">04</span>
+        <!-- EDIT: Reason 04 headline -->
+        <h2 class="reason__headline">[REASON 4 HEADLINE]</h2>
+        <!-- EDIT: Reason 04 body copy -->
+        <p class="reason__copy">[REASON 4 BODY]</p>
+        <!-- EDIT: Reason 04 CTA link -->
+        <a href="[PRODUCT URL]" class="reason__link">
+          [REASON 4 CTA]
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+
+      <div class="reason__image">
+        <!-- IMAGE: Reason 04 — replace with images/reason-4.jpg (800×600) -->
+        <div class="reason__img-wrap">
+          <img
+            src="images/reason-4.jpg"
+            alt="[REASON 4 HEADLINE]"
+            loading="lazy">
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+<!-- END OPTIONAL SECTION: REASON 04 -->
+
+
+<!-- ═══ SECTION 3.5: REASON 05 ═══ [OPTIONAL — remove for 3 or 4-reason layout] -->
+<section class="reason reason--odd">
+  <div class="container">
+    <div class="reason__grid fade-in">
+
+      <div class="reason__body">
+        <span class="reason__num" aria-hidden="true">05</span>
+        <!-- EDIT: Reason 05 headline -->
+        <h2 class="reason__headline">[REASON 5 HEADLINE]</h2>
+        <!-- EDIT: Reason 05 body copy -->
+        <p class="reason__copy">[REASON 5 BODY]</p>
+        <!-- EDIT: Reason 05 CTA link -->
+        <a href="[PRODUCT URL]" class="reason__link">
+          [REASON 5 CTA]
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+
+      <div class="reason__image">
+        <!-- IMAGE: Reason 05 — replace with images/reason-5.jpg (800×600) -->
+        <div class="reason__img-wrap">
+          <img
+            src="images/reason-5.jpg"
+            alt="[REASON 5 HEADLINE]"
+            loading="lazy">
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+<!-- END OPTIONAL SECTION: REASON 05 -->
+
+
+<!-- ═══ SECTION 5: PULL QUOTE ════════════════════════════════════════════ -->
+<section class="pull-quote fade-in" aria-label="Customer testimonial">
+  <div class="container--narrow">
+    <!-- Decorative quotation mark -->
+    <span class="pull-quote__mark" aria-hidden="true">&ldquo;</span>
+    <!-- EDIT: Pull quote text -->
+    <blockquote class="pull-quote__text">[PULL QUOTE]</blockquote>
+    <!-- EDIT: Pull quote author -->
+    <p class="pull-quote__author">— [PULL QUOTE AUTHOR]</p>
+  </div>
+</section>
+<!-- END S5: PULL QUOTE -->
+
+
+<!-- ═══ SECTION 6: COMPARISON ═══ [OPTIONAL — remove if no competitive angle] -->
+<section class="comparison fade-in">
+  <div class="container">
+    <!-- EDIT: Section eyebrow -->
+    <p class="comparison__label">Why We Win</p>
+    <!-- EDIT: Section heading -->
+    <h2 class="comparison__heading">SEE HOW [BRAND NAME] STACKS UP</h2>
+
+    <div class="comparison__table-wrap">
+      <table class="comparison__table">
+        <thead>
+          <tr>
+            <!-- EDIT: Column labels -->
+            <th scope="col">Feature</th>
+            <th scope="col">[COMPARISON COL 1 LABEL]</th>
+            <th scope="col">[COMPARISON COL 2 LABEL]</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- EDIT: Comparison feature rows (6 rows) -->
+          <tr>
+            <td>[COMPARISON FEATURE 1]</td>
+            <td class="comparison__yes">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-label="Yes" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
+            </td>
+            <td class="comparison__no">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-label="No" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12"/></svg>
+            </td>
+          </tr>
+          <tr>
+            <td>[COMPARISON FEATURE 2]</td>
+            <td class="comparison__yes">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
+            </td>
+            <td class="comparison__no">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12"/></svg>
+            </td>
+          </tr>
+          <tr>
+            <td>[COMPARISON FEATURE 3]</td>
+            <td class="comparison__yes">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
+            </td>
+            <td class="comparison__no">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12"/></svg>
+            </td>
+          </tr>
+          <tr>
+            <td>[COMPARISON FEATURE 4]</td>
+            <td class="comparison__yes">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
+            </td>
+            <td class="comparison__no">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12"/></svg>
+            </td>
+          </tr>
+          <tr>
+            <td>[COMPARISON FEATURE 5]</td>
+            <td class="comparison__yes">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
+            </td>
+            <td class="comparison__no">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12"/></svg>
+            </td>
+          </tr>
+          <tr>
+            <td>[COMPARISON FEATURE 6]</td>
+            <td class="comparison__yes">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
+            </td>
+            <td class="comparison__no">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12"/></svg>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</section>
+<!-- END OPTIONAL SECTION: COMPARISON -->
+
+
+<!-- ═══ SECTION 7: OFFER STRIP ═══ [OPTIONAL — remove if no discount campaign] -->
+<section class="offer-strip fade-in">
+  <div class="container">
+    <!-- EDIT: Offer eyebrow -->
+    <p class="offer-strip__eyebrow">Limited Time Offer</p>
+    <!-- EDIT: Offer headline -->
+    <h2 class="offer-strip__headline">[OFFER HEADLINE]</h2>
+    <!-- EDIT: Discount code -->
+    <div class="offer-strip__code">[DISCOUNT CODE]</div>
+    <!-- EDIT: Offer CTA -->
+    <a href="[PRODUCT URL]" class="btn btn--light btn--large">[DISCOUNT AMOUNT] — [HERO CTA TEXT]</a>
+    <!-- EDIT: Offer deadline -->
+    <p class="offer-strip__note">[OFFER DEADLINE]</p>
+  </div>
+</section>
+<!-- END OPTIONAL SECTION: OFFER STRIP -->
+
+
+<!-- ═══ SECTION 8: EMBEDDED BUY BOX ═══ [OPTIONAL — remove if off-page purchase] -->
+<section class="buy-box fade-in">
+  <div class="container">
+
+    <div class="buy-box__grid">
+
+      <!-- Product image -->
+      <div>
+        <!-- IMAGE: Buy box product image — replace with images/product.jpg (600×600) -->
+        <div class="buy-box__img-wrap">
+          <img
+            src="images/product.jpg"
+            alt="[PRODUCT NAME]"
+            loading="lazy">
+        </div>
+      </div>
+
+      <!-- Product details -->
+      <div class="buy-box__details">
+
+        <!-- EDIT: Stars aggregate -->
+        <div class="buy-box__stars-row">
+          <span role="img" aria-label="[STAR COUNT] out of 5 stars" class="stars">
+            <svg class="star" viewBox="0 0 24 24" aria-hidden="true" width="15" height="15"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg class="star" viewBox="0 0 24 24" aria-hidden="true" width="15" height="15"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg class="star" viewBox="0 0 24 24" aria-hidden="true" width="15" height="15"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg class="star" viewBox="0 0 24 24" aria-hidden="true" width="15" height="15"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg class="star" viewBox="0 0 24 24" aria-hidden="true" width="15" height="15"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          </span>
+          <!-- EDIT: Review count -->
+          <span>[REVIEW COUNT]</span>
+        </div>
+
+        <!-- EDIT: Product name -->
+        <h2 class="buy-box__name">[PRODUCT NAME]</h2>
+
+        <!-- EDIT: Price -->
+        <div class="buy-box__price-row">
+          <span class="buy-box__price">[PRICE]</span>
+          <span class="buy-box__compare">[COMPARE PRICE]</span>
+        </div>
+
+        <!-- Quantity stepper -->
+        <div class="qty-row" role="group" aria-label="Quantity">
+          <button class="qty-btn qty-minus" aria-label="Decrease quantity">&minus;</button>
+          <span class="qty-display" aria-live="polite">1</span>
+          <button class="qty-btn qty-plus" aria-label="Increase quantity">+</button>
+        </div>
+
+        <!-- EDIT: ATC button text -->
+        <button class="buy-box__atc" aria-label="Add [PRODUCT NAME] to cart">[HERO CTA TEXT]</button>
+
+        <!-- Trust signals -->
+        <div class="buy-box__trust-row">
+          <span class="buy-box__trust-item">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            <!-- EDIT: Trust item 1 -->
+            [GUARANTEE TEXT]
+          </span>
+          <span class="buy-box__trust-item">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="1" y="3" width="15" height="13"/><path d="M16 8h4l3 5v3h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+            <!-- EDIT: Trust item 2 (e.g. "Free shipping over $X") -->
+            [TRUST SIGNAL 3]
+          </span>
+          <span class="buy-box__trust-item">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
+            <!-- EDIT: Trust item 3 -->
+            [TRUST SIGNAL 1]
+          </span>
+        </div>
+
+        <!-- Accordions -->
+        <div class="bb-accordion">
+
+          <!-- Accordion 1: Ingredients / Details -->
+          <button class="bb-trigger" aria-expanded="false" aria-controls="bb-panel-1">
+            <!-- EDIT: Accordion 1 label -->
+            Product Details
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="bb-panel" id="bb-panel-1" hidden>
+            <!-- EDIT: Accordion 1 content -->
+            [REASON 1 BODY]
+          </div>
+
+          <!-- Accordion 2: How to use -->
+          <button class="bb-trigger" aria-expanded="false" aria-controls="bb-panel-2">
+            <!-- EDIT: Accordion 2 label -->
+            How to Use
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="bb-panel" id="bb-panel-2" hidden>
+            <!-- EDIT: Accordion 2 content -->
+            [REASON 2 BODY]
+          </div>
+
+          <!-- Accordion 3: Guarantee -->
+          <button class="bb-trigger" aria-expanded="false" aria-controls="bb-panel-3">
+            <!-- EDIT: Accordion 3 label -->
+            Our Guarantee
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="bb-panel" id="bb-panel-3" hidden>
+            <!-- EDIT: Accordion 3 content -->
+            [GUARANTEE TEXT]
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+<!-- END OPTIONAL SECTION: EMBEDDED BUY BOX -->
+
+
+<!-- ═══ SECTION 9: REVIEW CARDS ══════════════════════════════════════════ -->
+<section class="reviews fade-in">
+  <div class="container">
+
+    <!-- EDIT: Reviews headline -->
+    <h2 class="reviews__headline">WHAT CUSTOMERS ARE SAYING</h2>
+
+    <div class="reviews__grid">
+
+      <!-- Review 1 -->
+      <article class="review-card">
+        <div class="review-card__top">
+          <!-- IMAGE: Reviewer 1 avatar — replace with images/review-1.jpg (80×80 circular) -->
+          <img
+            src="images/review-1.jpg"
+            alt="[REVIEWER NAME 1]"
+            class="review-card__avatar"
+            loading="lazy">
+          <div class="review-card__meta">
+            <!-- EDIT: Reviewer 1 name -->
+            <p class="review-card__name">[REVIEWER NAME 1]</p>
+            <p class="review-card__verified">Verified Buyer</p>
+          </div>
+          <span role="img" aria-label="5 out of 5 stars" class="stars">
+            <svg class="star" viewBox="0 0 24 24" aria-hidden="true" width="14" height="14"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg class="star" viewBox="0 0 24 24" aria-hidden="true" width="14" height="14"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg class="star" viewBox="0 0 24 24" aria-hidden="true" width="14" height="14"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg class="star" viewBox="0 0 24 24" aria-hidden="true" width="14" height="14"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg class="star" viewBox="0 0 24 24" aria-hidden="true" width="14" height="14"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          </span>
+        </div>
+        <!-- EDIT: Review 1 title -->
+        <p class="review-card__title">[REVIEW TITLE 1]</p>
+        <!-- EDIT: Review 1 body -->
+        <p class="review-card__body">[REVIEW BODY 1]</p>
+      </article>
+
+      <!-- Review 2 -->
+      <article class="review-card">
+        <div class="review-card__top">
+          <!-- IMAGE: Reviewer 2 avatar — replace with images/review-2.jpg (80×80 circular) -->
+          <img
+            src="images/review-2.jpg"
+            alt="[REVIEWER NAME 2]"
+            class="review-card__avatar"
+            loading="lazy">
+          <div class="review-card__meta">
+            <!-- EDIT: Reviewer 2 name -->
+            <p class="review-card__name">[REVIEWER NAME 2]</p>
+            <p class="review-card__verified">Verified Buyer</p>
+          </div>
+          <span role="img" aria-label="5 out of 5 stars" class="stars">
+            <svg class="star" viewBox="0 0 24 24" aria-hidden="true" width="14" height="14"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg class="star" viewBox="0 0 24 24" aria-hidden="true" width="14" height="14"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg class="star" viewBox="0 0 24 24" aria-hidden="true" width="14" height="14"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg class="star" viewBox="0 0 24 24" aria-hidden="true" width="14" height="14"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg class="star" viewBox="0 0 24 24" aria-hidden="true" width="14" height="14"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          </span>
+        </div>
+        <!-- EDIT: Review 2 title -->
+        <p class="review-card__title">[REVIEW TITLE 2]</p>
+        <!-- EDIT: Review 2 body -->
+        <p class="review-card__body">[REVIEW BODY 2]</p>
+      </article>
+
+      <!-- Review 3 -->
+      <article class="review-card">
+        <div class="review-card__top">
+          <!-- IMAGE: Reviewer 3 avatar — replace with images/review-3.jpg (80×80 circular) -->
+          <img
+            src="images/review-3.jpg"
+            alt="[REVIEWER NAME 3]"
+            class="review-card__avatar"
+            loading="lazy">
+          <div class="review-card__meta">
+            <!-- EDIT: Reviewer 3 name -->
+            <p class="review-card__name">[REVIEWER NAME 3]</p>
+            <p class="review-card__verified">Verified Buyer</p>
+          </div>
+          <span role="img" aria-label="5 out of 5 stars" class="stars">
+            <svg class="star" viewBox="0 0 24 24" aria-hidden="true" width="14" height="14"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg class="star" viewBox="0 0 24 24" aria-hidden="true" width="14" height="14"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg class="star" viewBox="0 0 24 24" aria-hidden="true" width="14" height="14"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg class="star" viewBox="0 0 24 24" aria-hidden="true" width="14" height="14"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg class="star" viewBox="0 0 24 24" aria-hidden="true" width="14" height="14"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          </span>
+        </div>
+        <!-- EDIT: Review 3 title -->
+        <p class="review-card__title">[REVIEW TITLE 3]</p>
+        <!-- EDIT: Review 3 body -->
+        <p class="review-card__body">[REVIEW BODY 3]</p>
+      </article>
+
+    </div>
+  </div>
+</section>
+<!-- END S9: REVIEW CARDS -->
+
+
+<!-- ═══ SECTION 10: BRAND STORY ═══ [OPTIONAL — remove for pure product pages] -->
+<section class="brand-story fade-in">
+  <div class="container">
+    <div class="brand-story__grid">
+
+      <div class="brand-story__image">
+        <!-- IMAGE: Brand story / founder image — replace with images/founder.jpg (600×700) -->
+        <div class="brand-story__img-wrap">
+          <img
+            src="images/founder.jpg"
+            alt="The [BRAND NAME] team"
+            loading="lazy">
+        </div>
+      </div>
+
+      <div class="brand-story__content">
+        <!-- EDIT: Brand story eyebrow -->
+        <p class="brand-story__eyebrow">[BRAND STORY EYEBROW]</p>
+        <!-- EDIT: Brand story headline -->
+        <h2 class="brand-story__headline">[BRAND STORY HEADLINE]</h2>
+        <!-- EDIT: Brand story copy -->
+        <p class="brand-story__copy">[BRAND STORY BODY]</p>
+        <!-- EDIT: Brand story CTA -->
+        <a href="[PRODUCT URL]" class="btn btn--primary">[BRAND STORY CTA]</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+<!-- END OPTIONAL SECTION: BRAND STORY -->
+
+
+<!-- ═══ SECTION 11: FINAL CTA ════════════════════════════════════════════ -->
+<section class="final-cta fade-in">
+  <!-- EDIT: Final CTA headline -->
+  <h2 class="final-cta__headline">[FINAL CTA HEADLINE]</h2>
+  <!-- EDIT: Final CTA subheadline -->
+  <p class="final-cta__sub">[FINAL CTA SUBHEAD]</p>
+  <!-- EDIT: Final CTA button -->
+  <a href="[PRODUCT URL]" class="btn btn--primary btn--large">[HERO CTA TEXT]</a>
+  <!-- EDIT: Guarantee line below CTA -->
+  <p class="final-cta__guarantee">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+    [GUARANTEE TEXT]
+  </p>
+</section>
+<!-- END S11: FINAL CTA -->
+
+
+<!-- ═══ SECTION 12: FAQ ═══════════════════════════════════════════════════ -->
+<section class="faq fade-in">
+  <div class="container">
+
+    <!-- EDIT: FAQ headline -->
+    <h2 class="faq__headline">FREQUENTLY ASKED QUESTIONS</h2>
+
+    <div class="faq__list">
+
+      <!-- FAQ 1 -->
+      <div class="faq__item">
+        <button class="faq__trigger" aria-expanded="false" aria-controls="faq-panel-1">
+          <!-- EDIT: FAQ question 1 -->
+          [FAQ Q 1]
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="faq__panel" id="faq-panel-1" hidden>
+          <!-- EDIT: FAQ answer 1 -->
+          [FAQ A 1]
+        </div>
+      </div>
+
+      <!-- FAQ 2 -->
+      <div class="faq__item">
+        <button class="faq__trigger" aria-expanded="false" aria-controls="faq-panel-2">
+          <!-- EDIT: FAQ question 2 -->
+          [FAQ Q 2]
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="faq__panel" id="faq-panel-2" hidden>
+          <!-- EDIT: FAQ answer 2 -->
+          [FAQ A 2]
+        </div>
+      </div>
+
+      <!-- FAQ 3 -->
+      <div class="faq__item">
+        <button class="faq__trigger" aria-expanded="false" aria-controls="faq-panel-3">
+          <!-- EDIT: FAQ question 3 -->
+          [FAQ Q 3]
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="faq__panel" id="faq-panel-3" hidden>
+          <!-- EDIT: FAQ answer 3 -->
+          [FAQ A 3]
+        </div>
+      </div>
+
+      <!-- FAQ 4 -->
+      <div class="faq__item">
+        <button class="faq__trigger" aria-expanded="false" aria-controls="faq-panel-4">
+          <!-- EDIT: FAQ question 4 -->
+          [FAQ Q 4]
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="faq__panel" id="faq-panel-4" hidden>
+          <!-- EDIT: FAQ answer 4 -->
+          [FAQ A 4]
+        </div>
+      </div>
+
+      <!-- FAQ 5 -->
+      <div class="faq__item">
+        <button class="faq__trigger" aria-expanded="false" aria-controls="faq-panel-5">
+          <!-- EDIT: FAQ question 5 -->
+          [FAQ Q 5]
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="faq__panel" id="faq-panel-5" hidden>
+          <!-- EDIT: FAQ answer 5 -->
+          [FAQ A 5]
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+<!-- END S12: FAQ -->
+
+
+<!-- ═══ SECTION 13: FOOTER ════════════════════════════════════════════════ -->
+<footer class="site-footer">
+  <!-- EDIT: Brand name in footer -->
+  <p class="site-footer__brand">[BRAND NAME]</p>
+  <nav class="site-footer__links" aria-label="Footer navigation">
+    <!-- EDIT: Footer links -->
+    <a href="[PRODUCT URL]">Shop</a>
+    <a href="#">Privacy Policy</a>
+    <a href="#">Terms of Service</a>
+    <a href="#">Contact</a>
+  </nav>
+  <!-- EDIT: Copyright year and brand name -->
+  <p class="site-footer__copy">&copy; 2025 [BRAND NAME]. All rights reserved.</p>
+</footer>
+<!-- END S13: FOOTER -->
+
+
+<script>
+/* ─────────────────────────────────────────────────────────
+   IntersectionObserver — scroll fade-in
+   ───────────────────────────────────────────────────────── */
+(function () {
+  'use strict';
+
+  var observer = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.10 });
+
+  document.querySelectorAll('.fade-in').forEach(function (el) {
+    observer.observe(el);
+  });
+
+  /* ─────────────────────────────────────────────────────────
+     FAQ Accordion — one open at a time
+     ───────────────────────────────────────────────────────── */
+  var faqTriggers = document.querySelectorAll('.faq__trigger');
+
+  faqTriggers.forEach(function (trigger) {
+    trigger.addEventListener('click', function () {
+      var isExpanded = trigger.getAttribute('aria-expanded') === 'true';
+
+      // Close all
+      faqTriggers.forEach(function (t) {
+        t.setAttribute('aria-expanded', 'false');
+        var panel = document.getElementById(t.getAttribute('aria-controls'));
+        if (panel) panel.hidden = true;
+      });
+
+      // Open clicked if it was closed
+      if (!isExpanded) {
+        trigger.setAttribute('aria-expanded', 'true');
+        var panel = document.getElementById(trigger.getAttribute('aria-controls'));
+        if (panel) panel.hidden = false;
+      }
+    });
+  });
+
+  /* ─────────────────────────────────────────────────────────
+     Buy Box Accordion — one open at a time
+     ───────────────────────────────────────────────────────── */
+  var bbTriggers = document.querySelectorAll('.bb-trigger');
+
+  bbTriggers.forEach(function (trigger) {
+    trigger.addEventListener('click', function () {
+      var isExpanded = trigger.getAttribute('aria-expanded') === 'true';
+
+      bbTriggers.forEach(function (t) {
+        t.setAttribute('aria-expanded', 'false');
+        var panel = document.getElementById(t.getAttribute('aria-controls'));
+        if (panel) panel.hidden = true;
+      });
+
+      if (!isExpanded) {
+        trigger.setAttribute('aria-expanded', 'true');
+        var panel = document.getElementById(trigger.getAttribute('aria-controls'));
+        if (panel) panel.hidden = false;
+      }
+    });
+  });
+
+  /* ─────────────────────────────────────────────────────────
+     ATC Button — click feedback
+     ───────────────────────────────────────────────────────── */
+  var atcBtn = document.querySelector('.buy-box__atc');
+  if (atcBtn) {
+    var atcOriginal = atcBtn.textContent;
+    atcBtn.addEventListener('click', function () {
+      atcBtn.textContent = 'Added to Cart';
+      atcBtn.classList.add('atc-success');
+      setTimeout(function () {
+        atcBtn.textContent = atcOriginal;
+        atcBtn.classList.remove('atc-success');
+      }, 2000);
+    });
+  }
+
+  /* ─────────────────────────────────────────────────────────
+     Quantity Stepper
+     ───────────────────────────────────────────────────────── */
+  document.querySelectorAll('.qty-row').forEach(function (row) {
+    var display = row.querySelector('.qty-display');
+    row.querySelector('.qty-minus').addEventListener('click', function () {
+      var val = parseInt(display.textContent, 10);
+      if (val > 1) display.textContent = val - 1;
+    });
+    row.querySelector('.qty-plus').addEventListener('click', function () {
+      display.textContent = parseInt(display.textContent, 10) + 1;
+    });
+  });
+
+}());
+</script>
+
+</body>
+</html>

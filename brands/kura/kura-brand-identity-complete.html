@@ -1,0 +1,1370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KURA — Brand Identity</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=DM+Sans:wght@300;400;500&family=Bebas+Neue&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --slate:    #2B3445;
+    --cream:    #F6EFE2;
+    --copper:   #C47A3A;
+    --silver:   #CDD3DC;
+    --offblack: #181820;
+    --white:    #FFFFFF;
+    --muted:    #8B919E;
+  }
+
+  body {
+    background: var(--cream);
+    color: var(--offblack);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  /* ─── COVER ───────────────────────────────────── */
+  .cover {
+    background: var(--slate);
+    color: var(--cream);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 80px 40px;
+    position: relative;
+    overflow: hidden;
+  }
+  .cover::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 70% 30%, rgba(196,122,58,0.12) 0%, transparent 60%),
+                radial-gradient(ellipse at 20% 80%, rgba(205,211,220,0.08) 0%, transparent 50%);
+  }
+  .cover-eyebrow {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--copper);
+    margin-bottom: 28px;
+    position: relative;
+  }
+  .cover-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(100px, 18vw, 200px);
+    letter-spacing: 0.12em;
+    line-height: 1;
+    color: var(--cream);
+    position: relative;
+    margin-bottom: 8px;
+  }
+  .cover-tagline {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 22px;
+    color: var(--silver);
+    letter-spacing: 0.04em;
+    margin-bottom: 48px;
+    position: relative;
+  }
+  .cover-divider {
+    width: 60px;
+    height: 1px;
+    background: var(--copper);
+    margin: 0 auto 48px;
+    position: relative;
+  }
+  .cover-meta {
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    position: relative;
+  }
+
+  /* ─── SECTION WRAPPER ─────────────────────────── */
+  .section {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 80px 40px;
+  }
+  .section + .section { border-top: 1px solid var(--silver); }
+
+  .section-label {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--copper);
+    margin-bottom: 12px;
+  }
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(32px, 5vw, 54px);
+    font-weight: 600;
+    color: var(--slate);
+    line-height: 1.1;
+    margin-bottom: 40px;
+  }
+
+  /* ─── BRAND OVERVIEW ─────────────────────────── */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: start;
+  }
+  @media (max-width: 700px) { .two-col { grid-template-columns: 1fr; } }
+
+  .brand-name-display {
+    background: var(--slate);
+    color: var(--cream);
+    padding: 48px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    min-height: 280px;
+  }
+  .brand-name-display .logo-word {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 96px;
+    letter-spacing: 0.14em;
+    line-height: 1;
+    color: var(--cream);
+  }
+  .brand-name-display .logo-tagline {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 15px;
+    color: var(--silver);
+    margin-top: 12px;
+    letter-spacing: 0.06em;
+  }
+  .brand-name-display .logo-rule {
+    width: 40px; height: 1px;
+    background: var(--copper);
+    margin: 14px auto;
+  }
+
+  .brand-detail-block { display: flex; flex-direction: column; gap: 28px; }
+  .detail-item {}
+  .detail-item h4 {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+  .detail-item p {
+    font-size: 16px;
+    color: var(--offblack);
+    line-height: 1.5;
+  }
+  .detail-item p strong {
+    color: var(--slate);
+    font-weight: 500;
+  }
+
+  /* ─── COLORS ─────────────────────────────────── */
+  .color-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 16px;
+  }
+  @media (max-width: 700px) { .color-grid { grid-template-columns: repeat(3, 1fr); } }
+
+  .color-chip {}
+  .color-swatch {
+    width: 100%;
+    aspect-ratio: 1;
+    border-radius: 4px;
+    margin-bottom: 12px;
+    border: 1px solid rgba(0,0,0,0.06);
+  }
+  .color-name {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--offblack);
+    margin-bottom: 2px;
+  }
+  .color-role {
+    font-size: 11px;
+    color: var(--muted);
+    margin-bottom: 4px;
+  }
+  .color-hex {
+    font-size: 11px;
+    color: var(--muted);
+    font-family: monospace;
+    letter-spacing: 0.04em;
+  }
+
+  /* ─── TYPOGRAPHY ─────────────────────────────── */
+  .type-specimen { display: flex; flex-direction: column; gap: 40px; }
+  .type-row {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 32px;
+    align-items: start;
+    padding-bottom: 40px;
+    border-bottom: 1px solid var(--silver);
+  }
+  .type-row:last-child { border-bottom: none; padding-bottom: 0; }
+  .type-meta h4 {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--copper);
+    margin-bottom: 6px;
+  }
+  .type-meta p { font-size: 12px; color: var(--muted); line-height: 1.6; }
+  .type-sample {}
+  .sample-display {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 56px;
+    font-weight: 600;
+    color: var(--slate);
+    line-height: 1.05;
+    margin-bottom: 8px;
+  }
+  .sample-display.bebas {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 72px;
+    letter-spacing: 0.08em;
+  }
+  .sample-display.dm {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 18px;
+    font-weight: 300;
+    letter-spacing: 0.01em;
+    line-height: 1.7;
+  }
+  .sample-label {
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  /* ─── VOICE & TONE ───────────────────────────── */
+  .voice-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+  @media (max-width: 700px) { .voice-grid { grid-template-columns: 1fr; } }
+  .voice-card {
+    padding: 28px;
+    border: 1px solid var(--silver);
+  }
+  .voice-card.do { border-color: var(--copper); }
+  .voice-card.dont { border-color: #D0D0D0; }
+  .voice-card h4 {
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .voice-card.do h4 { color: var(--copper); }
+  .voice-card.dont h4 { color: var(--muted); }
+  .voice-card ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .voice-card li { font-size: 14px; line-height: 1.5; color: var(--offblack); padding-left: 16px; position: relative; }
+  .voice-card li::before { content: ''; position: absolute; left: 0; top: 8px; width: 6px; height: 6px; border-radius: 50%; }
+  .voice-card.do li::before { background: var(--copper); }
+  .voice-card.dont li::before { background: var(--silver); }
+
+  /* ─── POSITIONING ─────────────────────────────── */
+  .position-block {
+    background: var(--slate);
+    color: var(--cream);
+    padding: 56px;
+    text-align: center;
+  }
+  .position-block .eyebrow {
+    font-size: 10px;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--copper);
+    margin-bottom: 20px;
+  }
+  .position-block blockquote {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(24px, 4vw, 40px);
+    font-weight: 300;
+    font-style: italic;
+    line-height: 1.4;
+    color: var(--cream);
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  .position-block .rule { width: 48px; height: 1px; background: var(--copper); margin: 28px auto; }
+
+  /* ─── PERSONA ─────────────────────────────────── */
+  .persona-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  @media (max-width: 700px) { .persona-grid { grid-template-columns: 1fr; } }
+  .persona-card {
+    padding: 28px 24px;
+    border-top: 3px solid var(--copper);
+    background: var(--white);
+  }
+  .persona-card h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--slate);
+    margin-bottom: 4px;
+  }
+  .persona-card .role {
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 16px;
+  }
+  .persona-card p { font-size: 13px; line-height: 1.65; color: #444; }
+
+  /* ─── PRODUCT NAMING ─────────────────────────── */
+  .naming-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .naming-table th {
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-align: left;
+    padding: 12px 16px;
+    border-bottom: 2px solid var(--slate);
+  }
+  .naming-table td {
+    padding: 16px 16px;
+    border-bottom: 1px solid var(--silver);
+    font-size: 14px;
+    color: var(--offblack);
+    vertical-align: top;
+  }
+  .naming-table td:first-child {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px;
+    letter-spacing: 0.08em;
+    color: var(--slate);
+  }
+  .naming-table tr.hero td { background: rgba(196,122,58,0.06); }
+  .tag {
+    display: inline-block;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 2px;
+    background: var(--copper);
+    color: #fff;
+    margin-left: 8px;
+    vertical-align: middle;
+  }
+
+  /* ─── STORE GUIDELINES ────────────────────────── */
+  .guideline-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+  @media (max-width: 700px) { .guideline-grid { grid-template-columns: 1fr; } }
+  .guideline-card {
+    padding: 28px;
+    background: var(--white);
+    border-left: 3px solid var(--slate);
+  }
+  .guideline-card h4 {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--slate);
+    margin-bottom: 10px;
+    letter-spacing: 0.02em;
+  }
+  .guideline-card p, .guideline-card li {
+    font-size: 13px;
+    color: #555;
+    line-height: 1.65;
+  }
+  .guideline-card ul { list-style: none; display: flex; flex-direction: column; gap: 6px; padding: 0; }
+  .guideline-card li::before { content: '—  '; color: var(--copper); }
+
+  /* ─── FOOTER ─────────────────────────────────── */
+  .doc-footer {
+    background: var(--offblack);
+    color: var(--muted);
+    text-align: center;
+    padding: 40px;
+    font-size: 12px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+  .doc-footer span { color: var(--copper); }
+</style>
+</head>
+<body>
+
+<!-- ═══ COVER ═══════════════════════════════════════════ -->
+<div class="cover">
+  <p class="cover-eyebrow">Brand Identity Document · 2026</p>
+  <div class="cover-logo">KURA</div>
+  <div class="cover-divider"></div>
+  <p class="cover-tagline">Clean Surface. Clear Mind.</p>
+  <p class="cover-meta">Stainless Steel Kitchen Products &nbsp;·&nbsp; Dropship Brand</p>
+</div>
+
+
+<!-- ═══ BRAND OVERVIEW ═══════════════════════════════════ -->
+<div class="section">
+  <p class="section-label">01 — Brand Overview</p>
+  <h2 class="section-title">The Brand at a Glance</h2>
+  <div class="two-col">
+    <div class="brand-name-display">
+      <div class="logo-word">KURA</div>
+      <div class="logo-rule"></div>
+      <div class="logo-tagline">Clean Surface. Clear Mind.</div>
+    </div>
+    <div class="brand-detail-block">
+      <div class="detail-item">
+        <h4>Brand Name</h4>
+        <p><strong>KURA</strong> — derived from the Japanese verb <em>kurasu</em> (to live well) and the Latin <em>cura</em> (care, precision). It signals a brand that takes kitchen hygiene seriously without being clinical or cold.</p>
+      </div>
+      <div class="detail-item">
+        <h4>Hero Product Name</h4>
+        <p><strong>The KURA Board</strong> — clean, ownable, memorable. Later SKUs can follow: The KURA Board Pro, The KURA Rack, The KURA Mat.</p>
+      </div>
+      <div class="detail-item">
+        <h4>Brand Category</h4>
+        <p>Premium Kitchen Essentials — positioned above Amazon generics, below luxury cookware brands. The sweet spot where quality meets everyday use.</p>
+      </div>
+      <div class="detail-item">
+        <h4>Tagline</h4>
+        <p><strong>"Clean Surface. Clear Mind."</strong> — speaks to both the functional benefit (hygiene) and the emotional payoff (peace of mind in the kitchen).</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══ BRAND POSITIONING ════════════════════════════════ -->
+<div style="background: var(--slate); color: var(--cream);">
+  <div style="max-width:1100px; margin:0 auto; padding:80px 40px;">
+    <div class="position-block" style="background:transparent; padding:0;">
+      <p class="eyebrow">02 — Positioning Statement</p>
+      <div class="rule"></div>
+      <blockquote>
+        "For home cooks who refuse to compromise on hygiene, KURA makes the only cutting board built to stay genuinely clean — not just look clean — session after session, year after year."
+      </blockquote>
+      <div class="rule"></div>
+      <p style="font-size:13px; color:var(--silver); letter-spacing:0.05em; max-width:600px; margin:0 auto; line-height:1.8;">
+        KURA sits between the disposable plastic boards from mass retailers and the overpriced artisan wooden boards from boutique stores. It wins on hygiene, durability, and simplicity — for people who actually cook.
+      </p>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══ TARGET PERSONAS ══════════════════════════════════ -->
+<div class="section">
+  <p class="section-label">03 — Target Customer</p>
+  <h2 class="section-title">Who Buys KURA</h2>
+  <div class="persona-grid">
+    <div class="persona-card">
+      <h3>The Home Chef</h3>
+      <p class="role">Primary Buyer · Ages 28–45</p>
+      <p>Cooks 4–6 times per week. Takes food seriously — follows recipe creators, owns good knives, keeps a clean kitchen. Tired of replacing warped boards and worrying about bacteria. Will spend more for something that actually lasts.</p>
+    </div>
+    <div class="persona-card">
+      <h3>The Practical Parent</h3>
+      <p class="role">Secondary Buyer · Ages 30–50</p>
+      <p>Cooking for a family means raw meat, cross-contamination risks, and constant cleanup. They don't need a fancy product — they need one that they can trust is genuinely clean when it comes out of the dishwasher. KURA solves that.</p>
+    </div>
+    <div class="persona-card">
+      <h3>The Gifter</h3>
+      <p class="role">Seasonal Buyer · All Ages</p>
+      <p>Looking for a housewarming, wedding, or birthday gift that feels premium without being cliché. A cutting board they've never seen before, packaged well, with a clear purpose. KURA earns this buyer with good branding alone.</p>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══ COLORS ═══════════════════════════════════════════ -->
+<div class="section" style="background: var(--white);">
+  <p class="section-label">04 — Color System</p>
+  <h2 class="section-title">Brand Palette</h2>
+  <div class="color-grid">
+    <div class="color-chip">
+      <div class="color-swatch" style="background:#2B3445;"></div>
+      <div class="color-name">Deep Slate</div>
+      <div class="color-role">Primary / Headlines</div>
+      <div class="color-hex">#2B3445</div>
+    </div>
+    <div class="color-chip">
+      <div class="color-swatch" style="background:#F6EFE2; border:1px solid #ddd;"></div>
+      <div class="color-name">Warm Cream</div>
+      <div class="color-role">Background / Base</div>
+      <div class="color-hex">#F6EFE2</div>
+    </div>
+    <div class="color-chip">
+      <div class="color-swatch" style="background:#C47A3A;"></div>
+      <div class="color-name">Burnished Copper</div>
+      <div class="color-role">Accent / CTAs</div>
+      <div class="color-hex">#C47A3A</div>
+    </div>
+    <div class="color-chip">
+      <div class="color-swatch" style="background:#CDD3DC;"></div>
+      <div class="color-name">Cool Silver</div>
+      <div class="color-role">Borders / Subtext</div>
+      <div class="color-hex">#CDD3DC</div>
+    </div>
+    <div class="color-chip">
+      <div class="color-swatch" style="background:#181820;"></div>
+      <div class="color-name">Off-Black</div>
+      <div class="color-role">Body Text</div>
+      <div class="color-hex">#181820</div>
+    </div>
+  </div>
+
+  <div style="margin-top:48px; padding:40px; background:var(--slate); color:var(--cream); display:flex; gap:40px; flex-wrap:wrap; align-items:center;">
+    <div>
+      <p style="font-size:10px; letter-spacing:0.3em; text-transform:uppercase; color:var(--copper); margin-bottom:12px;">Color Rationale</p>
+      <p style="font-size:14px; line-height:1.75; max-width:680px; color:var(--silver);">
+        <strong style="color:var(--cream);">Deep Slate</strong> grounds the brand in professionalism and kitchen steel.
+        <strong style="color:var(--cream);"> Warm Cream</strong> keeps it from feeling cold or clinical — this is a home, not a lab.
+        <strong style="color:var(--cream);"> Burnished Copper</strong> adds warmth, premium feel, and a nod to quality cookware. It replaces the generic orange of the template with something more intentional.
+        <strong style="color:var(--cream);"> Cool Silver</strong> echoes the actual product material.
+      </p>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══ TYPOGRAPHY ════════════════════════════════════════ -->
+<div class="section">
+  <p class="section-label">05 — Typography</p>
+  <h2 class="section-title">Type System</h2>
+  <div class="type-specimen">
+
+    <div class="type-row">
+      <div class="type-meta">
+        <h4>Display / Hero</h4>
+        <p>Bebas Neue<br>Use for: Logo, section badges, stat numbers, bold callouts. All caps. Tracked wide.</p>
+      </div>
+      <div class="type-sample">
+        <div class="sample-display bebas" style="color:var(--slate);">THE KURA BOARD</div>
+        <div class="sample-label">Bebas Neue · All Caps · Letter-spacing 0.08em</div>
+      </div>
+    </div>
+
+    <div class="type-row">
+      <div class="type-meta">
+        <h4>Editorial / Serif</h4>
+        <p>Cormorant Garamond<br>Use for: Section headings, pull quotes, testimonial headlines, product name in context. Mix upright and italic.</p>
+      </div>
+      <div class="type-sample">
+        <div class="sample-display" style="color:var(--slate);">Clean Surface.<br><em style="font-weight:300; color:var(--copper);">Clear Mind.</em></div>
+        <div class="sample-label">Cormorant Garamond · 600 + 300 Italic · Mixed weight pairing</div>
+      </div>
+    </div>
+
+    <div class="type-row">
+      <div class="type-meta">
+        <h4>Body / UI</h4>
+        <p>DM Sans<br>Use for: Body copy, bullet points, product specs, FAQ answers, navigation, buttons. Clean and neutral — lets the display fonts breathe.</p>
+      </div>
+      <div class="type-sample">
+        <div class="sample-display dm" style="color:var(--offblack);">
+          Our stainless steel cutting boards are engineered from food-grade 304 steel — non-porous, warp-proof, and dishwasher safe. Built for cooks who take their kitchen seriously.
+        </div>
+        <div class="sample-label">DM Sans · 300 weight · 1.7 line-height</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div style="margin-top:48px; padding:32px; border:1px solid var(--silver);">
+    <p style="font-size:10px; letter-spacing:0.3em; text-transform:uppercase; color:var(--muted); margin-bottom:16px;">Google Fonts Import (Free)</p>
+    <code style="font-size:13px; color:var(--slate); line-height:1.9; display:block;">
+      @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap');
+    </code>
+  </div>
+</div>
+
+
+<!-- ═══ PRODUCT NAMING ════════════════════════════════════ -->
+<div class="section" style="background:var(--white);">
+  <p class="section-label">06 — Product Line Naming</p>
+  <h2 class="section-title">The KURA Product Family</h2>
+  <p style="margin-bottom:32px; color:#555; max-width:640px; line-height:1.75;">
+    KURA should scale beyond a single SKU. Here's the naming system for the full product range — all consistent, all ownable, all tied back to the core brand idea of clean, precise kitchen prep.
+  </p>
+  <table class="naming-table">
+    <thead>
+      <tr>
+        <th>Product Name</th>
+        <th>SKU Type</th>
+        <th>Tagline / Pitch</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="hero">
+        <td>The KURA Board <span class="tag">Hero SKU</span></td>
+        <td>Stainless Steel Cutting Board (Medium)</td>
+        <td>The board that never lies. Non-porous, warp-proof, clean every time.</td>
+      </tr>
+      <tr>
+        <td>The KURA Board Pro</td>
+        <td>Stainless Steel Cutting Board (Large/XL)</td>
+        <td>For cooks who don't cut corners. Bigger surface, same uncompromising hygiene.</td>
+      </tr>
+      <tr>
+        <td>The KURA Set</td>
+        <td>Bundle: Board + Knife Sharpener or Mat</td>
+        <td>Everything your prep station needs. Nothing it doesn't.</td>
+      </tr>
+      <tr>
+        <td>The KURA Rack</td>
+        <td>Stainless Board Drying/Storage Rack</td>
+        <td>Clean board. Clean counter. Total control.</td>
+      </tr>
+      <tr>
+        <td>The KURA Mat</td>
+        <td>Non-slip silicone board mat</td>
+        <td>Stays put so you can focus on what matters.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
+<!-- ═══ VOICE & TONE ═══════════════════════════════════════ -->
+<div class="section">
+  <p class="section-label">07 — Voice & Tone</p>
+  <h2 class="section-title">How KURA Speaks</h2>
+  <p style="margin-bottom:32px; color:#555; max-width:680px; line-height:1.75;">
+    KURA is confident but not arrogant. Direct but never cold. The brand speaks like a knowledgeable friend who happens to know a lot about kitchen hygiene — not a salesperson, not a laboratory report.
+  </p>
+  <div class="voice-grid">
+    <div class="voice-card do">
+      <h4>✓ KURA Does Say</h4>
+      <ul>
+        <li>Short sentences. Punchy. No fluff.</li>
+        <li>"Your old board is making you sick." — lead with the problem.</li>
+        <li>"One board. Zero bacteria. Zero regrets." — benefit stacking.</li>
+        <li>Specific numbers: 304 steel, 0.7mm thick, dishwasher safe.</li>
+        <li>Warm but factual — never clinical, never gimmicky.</li>
+        <li>"Built for cooks who take their kitchen seriously."</li>
+      </ul>
+    </div>
+    <div class="voice-card dont">
+      <h4>✗ KURA Never Says</h4>
+      <ul>
+        <li>"Premium quality product for discerning customers…" — generic filler.</li>
+        <li>Exclamation marks overload: "Amazing!!! Best board ever!!!"</li>
+        <li>Vague claims without substance: "revolutionary", "game-changing".</li>
+        <li>Over-technical jargon without payoff.</li>
+        <li>Anything that sounds like it was written by committee.</li>
+        <li>Begging for the sale: "Don't miss out! Limited time!!!"</li>
+      </ul>
+    </div>
+  </div>
+
+  <div style="margin-top:32px; padding:36px; background:var(--slate); color:var(--cream);">
+    <p style="font-size:10px; letter-spacing:0.3em; text-transform:uppercase; color:var(--copper); margin-bottom:20px;">Brand Voice in One Line</p>
+    <p style="font-family:'Cormorant Garamond', serif; font-size:28px; font-style:italic; color:var(--cream); line-height:1.4;">
+      "Precise. Warm. Uncompromising."
+    </p>
+  </div>
+</div>
+
+
+<!-- ═══ STORE GUIDELINES ═══════════════════════════════════ -->
+<div class="section" style="background:var(--white);">
+  <p class="section-label">08 — Shopify Store Guidelines</p>
+  <h2 class="section-title">Brand Rules for the Store</h2>
+  <div class="guideline-grid">
+    <div class="guideline-card">
+      <h4>Logo Usage</h4>
+      <ul>
+        <li>Logo is "KURA" in Bebas Neue, tracked wide (letter-spacing: 0.14em)</li>
+        <li>On light backgrounds: Deep Slate (#2B3445)</li>
+        <li>On dark backgrounds: Warm Cream (#F6EFE2)</li>
+        <li>Never stretch, rotate, recolor, or add a drop shadow</li>
+        <li>Minimum size: 80px wide for digital</li>
+      </ul>
+    </div>
+    <div class="guideline-card">
+      <h4>Button Style</h4>
+      <ul>
+        <li>Primary CTA: Burnished Copper background (#C47A3A), Cream text</li>
+        <li>Secondary CTA: Deep Slate background, Cream text</li>
+        <li>Font: DM Sans 500, letter-spacing 0.1em, all caps</li>
+        <li>Border-radius: 4px max — KURA is sharp, not bubbly</li>
+        <li>No gradient buttons, no glow effects</li>
+      </ul>
+    </div>
+    <div class="guideline-card">
+      <h4>Image Direction</h4>
+      <ul>
+        <li>Clean, bright lifestyle shots — modern kitchen settings</li>
+        <li>Show the product in actual use: chopping, rinsing, drying</li>
+        <li>Real kitchens > studio product shots where possible</li>
+        <li>Avoid: dark moody food photography (wrong category)</li>
+        <li>Avoid: stock photo hands on generic white backgrounds</li>
+      </ul>
+    </div>
+    <div class="guideline-card">
+      <h4>Replo Template Mapping</h4>
+      <ul>
+        <li>Replace orange (#E87B35) with Copper (#C47A3A)</li>
+        <li>Keep the cream background — it's already on-brand</li>
+        <li>Keep the navy/slate — it matches Deep Slate closely</li>
+        <li>Replace all hair product icons with kitchen icons</li>
+        <li>Use Bebas Neue for all section badges and labels</li>
+      </ul>
+    </div>
+    <div class="guideline-card">
+      <h4>Review Strategy</h4>
+      <ul>
+        <li>Reviewer names: use real-sounding, diverse names + city</li>
+        <li>Review titles: specific outcomes, not vague praise</li>
+        <li>Body: mention a real problem they had before, then the fix</li>
+        <li>Don't fake reviews — use Judge.me or Loox to collect real ones</li>
+        <li>Placeholder copy is for launch only — replace within 30 days</li>
+      </ul>
+    </div>
+    <div class="guideline-card">
+      <h4>SEO & Store Name</h4>
+      <ul>
+        <li>Store name: KURA Kitchen or KURA Home</li>
+        <li>Meta title format: The KURA Board — [Benefit] | KURA Kitchen</li>
+        <li>Target keywords: stainless steel cutting board, non-porous cutting board, hygienic cutting board kitchen</li>
+        <li>Handle: /products/the-kura-board</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══ IMAGE PROMPTS ════════════════════════════════════ -->
+<div class="section" style="background:var(--slate); color:var(--cream);">
+  <p class="section-label" style="color:var(--copper);">09 — AI Image Generation</p>
+  <h2 class="section-title" style="color:var(--cream);">Product Photography Prompts</h2>
+  <p style="color:var(--silver); max-width:660px; line-height:1.8; margin-bottom:40px; font-size:14px;">
+    Use these prompts in Midjourney, DALL·E 3, or Ideogram. Each is tuned to KURA's visual direction — 
+    clean, warm kitchen environment, editorial product photography, cool steel against warm cream and natural light. 
+    Select all text inside a prompt box to copy it.
+  </p>
+
+  <style>
+    .prompt-block {
+      border: 1px solid rgba(205,211,220,0.2);
+      margin-bottom: 20px;
+      background: rgba(255,255,255,0.04);
+    }
+    .prompt-header {
+      padding: 16px 24px;
+      border-bottom: 1px solid rgba(205,211,220,0.15);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .prompt-num {
+      font-size: 10px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--copper);
+    }
+    .prompt-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 18px;
+      letter-spacing: 0.08em;
+      color: var(--cream);
+    }
+    .prompt-body { padding: 20px 24px; }
+    .prompt-text {
+      font-size: 13px;
+      line-height: 1.75;
+      color: var(--silver);
+      background: rgba(0,0,0,0.25);
+      padding: 16px 20px;
+      margin-bottom: 12px;
+      user-select: all;
+      cursor: text;
+      font-family: 'DM Sans', sans-serif;
+      border-left: 2px solid var(--copper);
+    }
+    .prompt-use {
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--copper);
+    }
+    .copy-btn-kura {
+      background: transparent;
+      border: 1px solid rgba(196,122,58,0.5);
+      color: var(--copper);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      padding: 7px 16px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .copy-btn-kura:hover { background: var(--copper); color: var(--cream); }
+    .modifier-box {
+      margin-top: 40px;
+      border: 1px solid rgba(196,122,58,0.3);
+      padding: 28px;
+    }
+    .modifier-box .mod-label {
+      font-size: 10px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--copper);
+      margin-bottom: 16px;
+    }
+    .modifier-box .mod-text {
+      font-size: 13px;
+      color: var(--silver);
+      background: rgba(0,0,0,0.25);
+      padding: 14px 18px;
+      line-height: 1.7;
+      font-family: 'DM Sans', sans-serif;
+      user-select: all;
+      cursor: text;
+    }
+  </style>
+
+  <div class="prompt-block">
+    <div class="prompt-header">
+      <span class="prompt-num">Image 01</span>
+      <span class="prompt-title">HERO PRODUCT SHOT</span>
+      <button class="copy-btn-kura" onclick="copyPrompt(this)">Copy</button>
+    </div>
+    <div class="prompt-body">
+      <div class="prompt-text">Product photography of a brushed stainless steel cutting board on a smooth dark concrete kitchen countertop. The board reflects soft overhead studio light. A single sharp chef's knife rests diagonally on the board. Background is deep charcoal with soft natural bokeh. Shot on a full-frame camera, 85mm lens, f/2.0 shallow depth of field. The steel surface catches a gradient of warm light. Minimalist composition. Commercial advertising quality. No people. No food. Warm cream and copper tones in the ambient light.</div>
+      <p class="prompt-use">→ Use as: Primary product image · Page hero · Gallery image 1</p>
+    </div>
+  </div>
+
+  <div class="prompt-block">
+    <div class="prompt-header">
+      <span class="prompt-num">Image 02</span>
+      <span class="prompt-title">EASY CLEAN / RINSE SHOT</span>
+      <button class="copy-btn-kura" onclick="copyPrompt(this)">Copy</button>
+    </div>
+    <div class="prompt-body">
+      <div class="prompt-text">Close-up hands rinsing a stainless steel cutting board under a sleek matte black kitchen faucet. Water beads and flows cleanly off the non-porous steel surface. Background shows a blurred modern kitchen with warm natural light from a window. The hands are clean and relaxed — not scrubbing, just rinsing. The steel looks pristine. Soft warm ambient lighting. Food photography aesthetic. The scene communicates effortless hygiene. Slightly elevated angle, 50mm equivalent.</div>
+      <p class="prompt-use">→ Use as: Gallery image 2 · "Easy to Clean" feature section · Hygiene hook image</p>
+    </div>
+  </div>
+
+  <div class="prompt-block">
+    <div class="prompt-header">
+      <span class="prompt-num">Image 03</span>
+      <span class="prompt-title">ACTIVE PREP / LIFESTYLE</span>
+      <button class="copy-btn-kura" onclick="copyPrompt(this)">Copy</button>
+    </div>
+    <div class="prompt-body">
+      <div class="prompt-text">Editorial food photography — a pair of hands chopping fresh colourful vegetables (capsicum, cherry tomatoes, fresh herbs) on a large brushed stainless steel cutting board on a light marble kitchen counter. Natural window light from the left creates gentle shadows. A quality chef's knife is mid-chop. Background is softly blurred — wooden cabinets, greenery, bright morning kitchen. 45-degree overhead angle. The steel board looks pristine despite active prep. Warm editorial tones. Vibrant vegetables contrast with cool steel.</div>
+      <p class="prompt-use">→ Use as: Gallery image 3 · Hero section background · Lifestyle proof image</p>
+    </div>
+  </div>
+
+  <div class="prompt-block">
+    <div class="prompt-header">
+      <span class="prompt-num">Image 04</span>
+      <span class="prompt-title">THE VILLAIN — OLD BOARD</span>
+      <button class="copy-btn-kura" onclick="copyPrompt(this)">Copy</button>
+    </div>
+    <div class="prompt-body">
+      <div class="prompt-text">Macro photography of a worn, stained, cracked wooden cutting board. Deep knife grooves visible across the surface. Dark staining from raw meat juices trapped in the grooves. The wood grain is rough and porous. Dramatic side-lighting emphasises the texture and damage. Slightly desaturated, cool colour grade — clinical, unappealing. Shot directly overhead. No people. The board communicates old, unhygienic, untrustworthy. This is the problem image.</div>
+      <p class="prompt-use">→ Use as: "THE PROBLEM" section image · Before/villain photo · Contrast with hero product</p>
+    </div>
+  </div>
+
+  <div class="prompt-block">
+    <div class="prompt-header">
+      <span class="prompt-num">Image 05</span>
+      <span class="prompt-title">SIZE LINEUP / FLAT LAY</span>
+      <button class="copy-btn-kura" onclick="copyPrompt(this)">Copy</button>
+    </div>
+    <div class="prompt-body">
+      <div class="prompt-text">Three stainless steel cutting boards arranged by size from smallest to largest, laid perfectly flat on a clean warm cream linen surface. All boards are brushed stainless steel with a consistent grain direction. Shot directly overhead — perfect flat lay composition. Even, diffused studio lighting, no harsh shadows. Minimal props: a single sprig of herbs and a small linen tag beside each board. Clean, catalogue-style photography. Cream and silver tones only.</div>
+      <p class="prompt-use">→ Use as: Gallery image 4 · Size variant selector visual · Specs section image</p>
+    </div>
+  </div>
+
+  <div class="prompt-block">
+    <div class="prompt-header">
+      <span class="prompt-num">Image 06</span>
+      <span class="prompt-title">TESTIMONIAL / LIFESTYLE PERSON</span>
+      <button class="copy-btn-kura" onclick="copyPrompt(this)">Copy</button>
+    </div>
+    <div class="prompt-body">
+      <div class="prompt-text">Candid lifestyle photo of a confident woman in her mid-30s, wearing a simple linen apron, holding a stainless steel cutting board vertically in a bright modern home kitchen. She is smiling naturally — not posed. Warm window light behind her. Kitchen background slightly blurred — cream walls, plants, open shelves. The steel board catches the ambient light. Shot on 50mm lens, f/2.2. Warm, editorial, relatable. Not stock-photo-stiff. Looks like a real home cook who found something she loves.</div>
+      <p class="prompt-use">→ Use as: Social proof section · Testimonial anchor image · Trust-building lifestyle shot</p>
+    </div>
+  </div>
+
+  <div class="modifier-box">
+    <p class="mod-label">Universal Style Modifier — Add to any prompt above</p>
+    <div class="mod-text">Color palette: cool brushed steel, warm cream, soft copper light. Editorial commercial photography. Produced for a premium kitchen brand. Clean compositions, no clutter. No plastic props. Warm natural light preferred over harsh studio flash. --ar 4:3 --style raw --q 2</div>
+  </div>
+</div>
+
+
+<!-- ═══ PAGE COPY ═════════════════════════════════════════ -->
+<div class="section" style="background:var(--white);">
+  <p class="section-label">10 — Replo Page Copy</p>
+  <h2 class="section-title">Full Product Page Copy</h2>
+  <p style="color:#555; max-width:660px; line-height:1.75; margin-bottom:40px; font-size:14px;">
+    Complete copy for all 13 sections of the Replo PDP template, written in the KURA voice — 
+    precise, warm, uncompromising. Click any section header to expand it.
+  </p>
+
+  <style>
+    .copy-accordion {
+      border: 1px solid var(--silver);
+      margin-bottom: 12px;
+    }
+    .copy-acc-header {
+      padding: 18px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      background: var(--cream);
+      border-bottom: 1px solid transparent;
+      transition: background 0.2s;
+    }
+    .copy-acc-header:hover { background: #EDE6D8; }
+    .copy-acc-header.open {
+      background: var(--slate);
+      border-bottom: 1px solid rgba(205,211,220,0.2);
+    }
+    .copy-acc-header h4 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 18px;
+      letter-spacing: 0.08em;
+      color: var(--slate);
+    }
+    .copy-acc-header.open h4 { color: var(--cream); }
+    .copy-acc-header .acc-toggle {
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--copper);
+    }
+    .copy-acc-body {
+      display: none;
+      padding: 24px;
+      background: var(--white);
+      border-top: none;
+    }
+    .copy-acc-body.open { display: block; }
+    .copy-field {
+      margin-bottom: 16px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--silver);
+    }
+    .copy-field:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+    .copy-field-label {
+      font-size: 9px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--copper);
+      margin-bottom: 8px;
+    }
+    .copy-field p {
+      font-size: 14px;
+      line-height: 1.7;
+      color: var(--offblack);
+    }
+    .copy-field p em { color: var(--slate); font-style: italic; }
+  </style>
+
+  <!-- S1 -->
+  <div class="copy-accordion">
+    <div class="copy-acc-header" onclick="accToggle(this)">
+      <h4>Section 1 — Hero / Product Block</h4>
+      <span class="acc-toggle">Expand ↓</span>
+    </div>
+    <div class="copy-acc-body">
+      <div class="copy-field">
+        <p class="copy-field-label">Star Rating Line</p>
+        <p>⭐⭐⭐⭐⭐ (4.8) 9,200+ Reviews from Home Cooks Who Never Looked Back</p>
+      </div>
+      <div class="copy-field">
+        <p class="copy-field-label">Short Intro (Bold — above feature paragraphs)</p>
+        <p>The last cutting board you'll ever buy. Built from food-grade stainless steel — scratch-resistant, warp-proof, and cleaner than any wood or plastic board you've owned.</p>
+      </div>
+      <div class="copy-field">
+        <p class="copy-field-label">Feature Para 1 — DURABLE</p>
+        <p>DURABLE: Engineered to resist scratches, dents, and stains. The KURA Board withstands heavy daily use without warping, swelling, or deteriorating — even after years in a busy kitchen.</p>
+      </div>
+      <div class="copy-field">
+        <p class="copy-field-label">Feature Para 2 — SANITARY</p>
+        <p>SANITARY: Stainless steel is 100% non-porous — it never absorbs bacteria, odors, or food residue. Unlike wood or plastic that harbors germs in grooves, the KURA Board stays hygienically clean with every wash.</p>
+      </div>
+      <div class="copy-field">
+        <p class="copy-field-label">Feature Para 3 — KNIFE-FRIENDLY</p>
+        <p>KNIFE-FRIENDLY: The smooth surface reduces drag for cleaner, more precise cuts — and keeps your blade edges sharper for longer. No rough grain dulling your knives after every chop.</p>
+      </div>
+      <div class="copy-field">
+        <p class="copy-field-label">Feature Para 4 — VERSATILE</p>
+        <p>VERSATILE: Slice, dice, chop, and debone. Heat-resistant enough to double as a trivet for hot pans straight from the stovetop. Works for meat, fish, vegetables, bread — whatever's on your menu.</p>
+      </div>
+      <div class="copy-field">
+        <p class="copy-field-label">Product Specs Block</p>
+        <p>Product Name: The KURA Board<br>Material: Food-Grade 304 Stainless Steel<br>Sizes: 39×28cm / 34×23cm / 30×46cm · Thickness: 0.7mm<br>Package: 1× Stainless Steel Cutting Board</p>
+      </div>
+      <div class="copy-field">
+        <p class="copy-field-label">5 Checkmark Bullets</p>
+        <p>✅ Lasts a lifetime — never warps or cracks<br>✅ 100% non-porous — no bacteria, no odors<br>✅ Dishwasher safe — clean in seconds<br>✅ Knife-friendly smooth surface<br>✅ Heat-resistant — doubles as a trivet</p>
+      </div>
+      <div class="copy-field">
+        <p class="copy-field-label">Price + Variant Label</p>
+        <p>$48.00 · SAVE 15%<br>Choose your Size: 34×23cm — Medium</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- S2 -->
+  <div class="copy-accordion">
+    <div class="copy-acc-header" onclick="accToggle(this)">
+      <h4>Section 2 — Why KURA?</h4>
+      <span class="acc-toggle">Expand ↓</span>
+    </div>
+    <div class="copy-acc-body">
+      <div class="copy-field">
+        <p class="copy-field-label">Section Heading</p>
+        <p>WHY THE KURA BOARD?</p>
+      </div>
+      <div class="copy-field">
+        <p class="copy-field-label">5 Bullets (same as Section 1)</p>
+        <p>✅ Lasts a lifetime — never warps or cracks · ✅ 100% non-porous · ✅ Dishwasher safe · ✅ Knife-friendly · ✅ Heat-resistant trivet</p>
+      </div>
+      <div class="copy-field">
+        <p class="copy-field-label">Featured Review Card</p>
+        <p>⭐⭐⭐⭐⭐ <em>"Game changer in my kitchen"</em><br>"I've had wooden boards that cracked and plastic ones that stained. The KURA Board does none of that. Bought the large size — it handles everything. Easiest board I've ever cleaned."<br>— Sarah M., Houston, Texas</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- S3 -->
+  <div class="copy-accordion">
+    <div class="copy-acc-header" onclick="accToggle(this)">
+      <h4>Section 3 — The Problem (Villain Block)</h4>
+      <span class="acc-toggle">Expand ↓</span>
+    </div>
+    <div class="copy-acc-body">
+      <div class="copy-field">
+        <p class="copy-field-label">Label Badge</p>
+        <p>THE PROBLEM</p>
+      </div>
+      <div class="copy-field">
+        <p class="copy-field-label">Headline</p>
+        <p>YOUR OLD CUTTING BOARD IS MAKING YOU SICK</p>
+      </div>
+      <div class="copy-field">
+        <p class="copy-field-label">Body Paragraph</p>
+        <p>That wooden board on your counter? It's a bacteria magnet. Every cut opens a new groove — and those grooves trap raw meat juices, onion residue, and mold that no amount of scrubbing fully removes. Plastic boards are worse. They warp, stain, and shed tiny particles into your food. You clean them. You think they're clean. They're not.</p>
+      </div>
+      <div class="copy-field">
+        <p class="copy-field-label">CTA Link Line</p>
+        <p>But what if one upgrade could fix all of that, permanently… <em>click here to see how</em></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- S4 -->
+  <div class="copy-accordion">
+    <div class="copy-acc-header" onclick="accToggle(this)">
+      <h4>Section 4 — The Hero (Solution Block)</h4>
+      <span class="acc-toggle">Expand ↓</span>
+    </div>
+    <div class="copy-acc-body">
+      <div class="copy-field">
+        <p class="copy-field-label">Label Badge</p>
+        <p>THE UPGRADE</p>
+      </div>
+      <div class="copy-field">
+        <p class="copy-field-label">Headline</p>
+        <p>MEET THE KURA BOARD</p>
+      </div>
+      <div class="copy-field">
+        <p class="copy-field-label">One-Liner</p>
+        <p>One board. Zero bacteria. Zero warping. Zero regrets.</p>
+      </div>
+      <div class="copy-field">
+        <p class="copy-field-label">6 Benefit Tiles (Icon · Label)</p>
+        <p>🦠 ZERO BACTERIA BUILDUP<br>✨ SCRATCH RESISTANT SURFACE<br>🍽️ DISHWASHER SAFE<br>🔥 HEAT RESISTANT TRIVET<br>🔪 KEEPS KNIVES SHARP<br>♾️ LASTS A LIFETIME</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- S5 -->
+  <div class="copy-accordion">
+    <div class="copy-acc-header" onclick="accToggle(this)">
+      <h4>Section 5 — Before / After Proof</h4>
+      <span class="acc-toggle">Expand ↓</span>
+    </div>
+    <div class="copy-acc-body">
+      <div class="copy-field">
+        <p class="copy-field-label">Pull Quote Headline</p>
+        <p>"I couldn't believe how much cleaner my kitchen prep became"</p>
+      </div>
+      <div class="copy-field">
+        <p class="copy-field-label">Image Notes (internal)</p>
+        <p>Before: Stained, warped wooden board with visible knife grooves (use Image Prompt 04)<br>After: Clean KURA Board after months of daily use (use Image Prompt 01 or 03)</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- S6 -->
+  <div class="copy-accordion">
+    <div class="copy-acc-header" onclick="accToggle(this)">
+      <h4>Section 6 — How It Works (3 Steps)</h4>
+      <span class="acc-toggle">Expand ↓</span>
+    </div>
+    <div class="copy-acc-body">
+      <div class="copy-field">
+        <p class="copy-field-label">Section Heading</p>
+        <p>3 SIMPLE STEPS TO A CLEANER, SAFER KITCHEN</p>
+      </div>
+      <div class="copy-field">
+        <p class="copy-field-label">Step 1 — PLACE & PREP</p>
+        <p>Lay your KURA Board flat on any surface. The smooth steel stays stable — no rocking, no slipping. Start chopping immediately. No prep needed.</p>
+      </div>
+      <div class="copy-field">
+        <p class="copy-field-label">Step 2 — RINSE & GO</p>
+        <p>When you're done, rinse under the tap or put it in the dishwasher. No soaking, no scrubbing, no odor. Clean in seconds — every time.</p>
+      </div>
+      <div class="copy-field">
+        <p class="copy-field-label">Step 3 — COOK WITH CONFIDENCE</p>
+        <p>No bacteria hiding in grooves. No stains setting overnight. Just a clean, safe surface waiting for you — session after session, year after year.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- S7 -->
+  <div class="copy-accordion">
+    <div class="copy-acc-header" onclick="accToggle(this)">
+      <h4>Section 7 — Social Proof / Reviews</h4>
+      <span class="acc-toggle">Expand ↓</span>
+    </div>
+    <div class="copy-acc-body">
+      <div class="copy-field">
+        <p class="copy-field-label">Stat Headline</p>
+        <p>OVER 9,000+ HOME COOKS UPGRADED THEIR KITCHEN ALREADY</p>
+      </div>
+      <div class="copy-field">
+        <p class="copy-field-label">Review 1</p>
+        <p>⭐⭐⭐⭐⭐ <em>"So easy to clean"</em><br>"Threw out my old wooden board the same day this arrived. Wipes clean after raw chicken. I can't go back." — James K., Atlanta, Georgia</p>
+      </div>
+      <div class="copy-field">
+        <p class="copy-field-label">Review 2</p>
+        <p>⭐⭐⭐⭐⭐ <em>"Unbelievable quality"</em><br>"The size is perfect, the weight feels solid. Doesn't slide while I'm cutting. Worth every penny — this is a kitchen essential." — Linda R., Austin, Texas</p>
+      </div>
+      <div class="copy-field">
+        <p class="copy-field-label">Review 3</p>
+        <p>⭐⭐⭐⭐⭐ <em>"I was skeptical at first"</em><br>"I didn't think metal would work as a cutting board. But it's smooth, doesn't dull my knives, and it's the cleanest board I've ever owned." — Marcus T., Chicago, Illinois</p>
+      </div>
+      <div class="copy-field">
+        <p class="copy-field-label">Review 4</p>
+        <p>⭐⭐⭐⭐⭐ <em>"Works exactly as described"</em><br>"Zero scratches, zero warping, no smell. I've already ordered a second one as a gift." — Patricia O., New York, New York</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- S8 -->
+  <div class="copy-accordion">
+    <div class="copy-acc-header" onclick="accToggle(this)">
+      <h4>Section 8 — Mid-Page CTA Strip</h4>
+      <span class="acc-toggle">Expand ↓</span>
+    </div>
+    <div class="copy-acc-body">
+      <div class="copy-field">
+        <p class="copy-field-label">Button Text</p>
+        <p>GET 15% OFF — ADD TO CART</p>
+      </div>
+      <div class="copy-field">
+        <p class="copy-field-label">Trust Line</p>
+        <p>🔒 Secure Checkout Guaranteed</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- S9 -->
+  <div class="copy-accordion">
+    <div class="copy-acc-header" onclick="accToggle(this)">
+      <h4>Section 9 — Trust Stats (3 Circles)</h4>
+      <span class="acc-toggle">Expand ↓</span>
+    </div>
+    <div class="copy-acc-body">
+      <div class="copy-field">
+        <p class="copy-field-label">Stat 1 — 98%</p>
+        <p>of our customers say it's the easiest kitchen surface they've ever cleaned</p>
+      </div>
+      <div class="copy-field">
+        <p class="copy-field-label">Stat 2 — 94%</p>
+        <p>noticed a meaningful improvement in their kitchen hygiene within the first week</p>
+      </div>
+      <div class="copy-field">
+        <p class="copy-field-label">Stat 3 — 97%</p>
+        <p>of buyers say they would never go back to a wooden or plastic board</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- S10 -->
+  <div class="copy-accordion">
+    <div class="copy-acc-header" onclick="accToggle(this)">
+      <h4>Section 10 — Comparison Table</h4>
+      <span class="acc-toggle">Expand ↓</span>
+    </div>
+    <div class="copy-acc-body">
+      <div class="copy-field">
+        <p class="copy-field-label">Headline</p>
+        <p>WHY CHOOSE KURA OVER OTHERS? 👀</p>
+      </div>
+      <div class="copy-field">
+        <p class="copy-field-label">Column Headers</p>
+        <p>US (KURA) ✅ · OTHERS ❌</p>
+      </div>
+      <div class="copy-field">
+        <p class="copy-field-label">Comparison Rows</p>
+        <p>Never warps or cracks ✅ ❌<br>100% non-porous — no bacteria ✅ ❌<br>Dishwasher safe ✅ ❌<br>Lifetime durability ✅ ❌<br>Heat-resistant trivet use ✅ ❌</p>
+      </div>
+      <div class="copy-field">
+        <p class="copy-field-label">Right-Side Review 1</p>
+        <p>⭐⭐⭐⭐⭐ <em>"Tried everything"</em><br>"I've had bamboo, plastic, marble — nothing comes close. The only board I've recommended to my whole family." — Rebecca A., Dallas, Texas</p>
+      </div>
+      <div class="copy-field">
+        <p class="copy-field-label">Right-Side Review 2</p>
+        <p>⭐⭐⭐⭐⭐ <em>"My knives thank me"</em><br>"I noticed my knives staying sharper since I switched. Smooth without being slippery. Genuinely impressed." — Anthony D., Seattle, Washington</p>
+      </div>
+      <div class="copy-field">
+        <p class="copy-field-label">Right-Side Review 3</p>
+        <p>⭐⭐⭐⭐⭐ <em>"Best kitchen purchase this year"</em><br>"Simple. Clean. Durable. I use it daily and it looks brand new. This is what a cutting board should be." — Michelle S., Miami, Florida</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- S11 -->
+  <div class="copy-accordion">
+    <div class="copy-acc-header" onclick="accToggle(this)">
+      <h4>Section 11 — FAQs (8 Questions)</h4>
+      <span class="acc-toggle">Expand ↓</span>
+    </div>
+    <div class="copy-acc-body">
+      <div class="copy-field"><p class="copy-field-label">Q1</p><p><strong>Will this board dull my knives?</strong><br>No. The smooth 304 stainless steel surface is gentler on knife edges than most plastic and glass boards. Your blades stay sharper for longer.</p></div>
+      <div class="copy-field"><p class="copy-field-label">Q2</p><p><strong>Is stainless steel safe for food prep?</strong><br>Absolutely. Food-grade 304 stainless steel is the same material used in professional restaurant kitchens worldwide. Non-toxic, non-porous, fully safe.</p></div>
+      <div class="copy-field"><p class="copy-field-label">Q3</p><p><strong>Can I put it in the dishwasher?</strong><br>Yes. 100% dishwasher safe. Or rinse by hand — either way, it's clean in seconds.</p></div>
+      <div class="copy-field"><p class="copy-field-label">Q4</p><p><strong>Will it scratch easily?</strong><br>It's scratch-resistant for normal kitchen use. Light surface marks may appear over heavy use, but they don't affect hygiene or performance.</p></div>
+      <div class="copy-field"><p class="copy-field-label">Q5</p><p><strong>Does it slide around on the counter?</strong><br>We recommend a damp kitchen towel or silicone mat underneath for extra stability during heavy chopping.</p></div>
+      <div class="copy-field"><p class="copy-field-label">Q6</p><p><strong>Which size should I get?</strong><br>Medium (34×23cm) for everyday prep. Large (39×28cm) for families or bigger cuts. XL (30×46cm) for serious home cooks who need full range of motion.</p></div>
+      <div class="copy-field"><p class="copy-field-label">Q7</p><p><strong>How do I remove odors or stains?</strong><br>A quick rinse is usually enough. For stubborn residue, dish soap and a sponge removes everything. Stainless steel doesn't absorb odors.</p></div>
+      <div class="copy-field"><p class="copy-field-label">Q8</p><p><strong>Can I use it as a trivet?</strong><br>Yes. Heat-resistant — safe for hot pots and pans directly from the stovetop or oven.</p></div>
+    </div>
+  </div>
+
+  <!-- S12 -->
+  <div class="copy-accordion">
+    <div class="copy-acc-header" onclick="accToggle(this)">
+      <h4>Section 12 — Trust Pillars</h4>
+      <span class="acc-toggle">Expand ↓</span>
+    </div>
+    <div class="copy-acc-body">
+      <div class="copy-field">
+        <p class="copy-field-label">Section Headline</p>
+        <p>WHY 9,200+ HOME COOKS TRUST KURA</p>
+      </div>
+      <div class="copy-field">
+        <p class="copy-field-label">Pillar 1 — 🌿 FOOD-GRADE SAFE</p>
+        <p>Certified 304 stainless steel — free from coatings, chemicals, or additives. Safe for every type of food prep, every time.</p>
+      </div>
+      <div class="copy-field">
+        <p class="copy-field-label">Pillar 2 — 💬 PROVEN TO WORK</p>
+        <p>Tested in real kitchens by real home cooks. Our customers use it daily and come back for more. Over 9,200 five-star reviews.</p>
+      </div>
+      <div class="copy-field">
+        <p class="copy-field-label">Pillar 3 — ✨ BUILT TO LAST</p>
+        <p>Unlike wood or plastic boards that degrade in months, the KURA Board looks and performs like new for years. One purchase. Zero replacements.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- S13 -->
+  <div class="copy-accordion">
+    <div class="copy-acc-header" onclick="accToggle(this)">
+      <h4>Section 13 — Email Signup Footer</h4>
+      <span class="acc-toggle">Expand ↓</span>
+    </div>
+    <div class="copy-acc-body">
+      <div class="copy-field">
+        <p class="copy-field-label">Heading</p>
+        <p>Join the KURA Kitchen Community</p>
+      </div>
+      <div class="copy-field">
+        <p class="copy-field-label">Subtext</p>
+        <p>Get exclusive deals, new product drops, and kitchen tips straight to your inbox.</p>
+      </div>
+      <div class="copy-field">
+        <p class="copy-field-label">Input Placeholder</p>
+        <p>Enter your email address</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══ FOOTER ════════════════════════════════════════════ -->
+<div class="doc-footer">
+  <span>KURA</span> — Brand Identity Document &nbsp;·&nbsp; 2026 &nbsp;·&nbsp; Confidential
+</div>
+
+<script>
+  function accToggle(header) {
+    const body = header.nextElementSibling;
+    const isOpen = body.classList.contains('open');
+    body.classList.toggle('open');
+    header.classList.toggle('open');
+    header.querySelector('.acc-toggle').textContent = isOpen ? 'Expand ↓' : 'Collapse ↑';
+  }
+
+  function copyPrompt(btn) {
+    const block = btn.closest('.prompt-block');
+    const text = block.querySelector('.prompt-text').textContent.trim();
+    navigator.clipboard.writeText(text).then(() => {
+      const orig = btn.textContent;
+      btn.textContent = 'Copied ✓';
+      setTimeout(() => btn.textContent = orig, 2000);
+    });
+  }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KURA — Social Media Templates</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --slate:    #2B3445;
+  --cream:    #F6EFE2;
+  --copper:   #C47A3A;
+  --silver:   #CDD3DC;
+  --offblack: #181820;
+  --muted:    #8B919E;
+  --white:    #FFFFFF;
+}
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: #1A1A22;
+  color: var(--cream);
+  padding: 40px;
+  font-size: 14px;
+}
+h1 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 48px;
+  letter-spacing: 0.1em;
+  color: var(--cream);
+  margin-bottom: 8px;
+}
+.page-sub {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 18px;
+  color: var(--silver);
+  margin-bottom: 60px;
+}
+
+/* ─── TEMPLATE SECTION ──────────────────── */
+.template-section {
+  margin-bottom: 80px;
+}
+.template-label {
+  font-size: 9px;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--copper);
+  margin-bottom: 8px;
+}
+.template-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 32px;
+  font-weight: 600;
+  color: var(--cream);
+  margin-bottom: 6px;
+}
+.template-dims {
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: 0.1em;
+  margin-bottom: 32px;
+}
+.template-grid {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
+
+/* ─── CANVAS FRAME ──────────────────────── */
+.canvas-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: flex-start;
+}
+.canvas-variant-label {
+  font-size: 9px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.canvas-frame {
+  box-shadow: 0 8px 40px rgba(0,0,0,0.5);
+  display: block;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+/* ─── INSTAGRAM SQUARE 1080×1080 (display at 360px) ─ */
+.ig-square {
+  width: 360px;
+  height: 360px;
+  position: relative;
+  font-family: 'DM Sans', sans-serif;
+}
+
+/* ─── INSTAGRAM STORY 1080×1920 (display at 270px×480px) ─ */
+.ig-story {
+  width: 270px;
+  height: 480px;
+  position: relative;
+}
+
+/* ─── LINKEDIN BANNER 1584×396 (display at 660×165) ─ */
+.li-banner {
+  width: 660px;
+  height: 165px;
+  position: relative;
+}
+
+/* ─── K-MARK INLINE ─────────────────────── */
+.k-mark-svg { display: block; }
+
+/* ─── DOWNLOAD ROW ──────────────────────── */
+.dl-row { display: flex; gap: 12px; margin-top: 20px; }
+.dl-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid rgba(196,122,58,0.5);
+  background: transparent;
+  color: var(--copper);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.dl-btn:hover { background: var(--copper); color: var(--cream); }
+
+/* ─── CAPTION BOX ───────────────────────── */
+.caption-box {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(205,211,220,0.15);
+  border-left: 2px solid var(--copper);
+  padding: 20px 24px;
+  margin-top: 20px;
+  max-width: 500px;
+}
+.caption-box p { font-size: 12px; color: var(--silver); line-height: 1.8; }
+.caption-box .hashtags { color: var(--copper); margin-top: 10px; font-size: 11px; }
+</style>
+</head>
+<body>
+
+<h1>KURA Social Templates</h1>
+<p class="page-sub">Ready-to-use layouts · Instagram · LinkedIn · Story</p>
+
+
+<!-- ═══ 01 — INSTAGRAM SQUARE ═══════════════ -->
+<div class="template-section">
+  <p class="template-label">Template 01</p>
+  <h2 class="template-title">Instagram Square Post</h2>
+  <p class="template-dims">1080 × 1080 px · Displayed at 360 × 360 px</p>
+
+  <div class="template-grid">
+
+    <!-- Variant A: Product Hero (Slate) -->
+    <div class="canvas-wrap">
+      <span class="canvas-variant-label">A · Product Hero · Dark</span>
+      <div class="canvas-frame">
+        <svg width="360" height="360" viewBox="0 0 360 360" xmlns="http://www.w3.org/2000/svg">
+          <!-- Background -->
+          <rect width="360" height="360" fill="#2B3445"/>
+          <!-- Subtle radial warm glow -->
+          <radialGradient id="glow1" cx="75%" cy="25%" r="60%">
+            <stop offset="0%" stop-color="#C47A3A" stop-opacity="0.12"/>
+            <stop offset="100%" stop-color="#C47A3A" stop-opacity="0"/>
+          </radialGradient>
+          <rect width="360" height="360" fill="url(#glow1)"/>
+
+          <!-- Geometric accent lines (top-right) -->
+          <line x1="280" y1="0" x2="360" y2="80" stroke="#C47A3A" stroke-width="1" stroke-opacity="0.4"/>
+          <line x1="310" y1="0" x2="360" y2="50" stroke="#C47A3A" stroke-width="0.5" stroke-opacity="0.25"/>
+
+          <!-- Copper rule top -->
+          <rect x="0" y="0" width="360" height="3" fill="#C47A3A"/>
+
+          <!-- K-mark icon (top left, small) -->
+          <g transform="translate(28, 28) scale(0.145)">
+            <rect x="20" y="20" width="22" height="162" fill="#F6EFE2"/>
+            <polygon points="42,74 42,101 142,40 142,20" fill="#F6EFE2"/>
+            <polygon points="42,101 42,128 142,182 142,162" fill="#F6EFE2"/>
+            <rect x="20" y="196" width="122" height="5" fill="#C47A3A"/>
+          </g>
+
+          <!-- KURA wordmark small (top) -->
+          <text x="60" y="52" font-family="'Bebas Neue', Impact, sans-serif" font-size="22" letter-spacing="3.5" fill="#F6EFE2">KURA</text>
+
+          <!-- Large statement text -->
+          <text x="28" y="168" font-family="'Bebas Neue', Impact, sans-serif" font-size="64" letter-spacing="2" fill="#F6EFE2">CLEAN</text>
+          <text x="28" y="228" font-family="'Bebas Neue', Impact, sans-serif" font-size="64" letter-spacing="2" fill="#C47A3A">SURFACE.</text>
+          <text x="28" y="288" font-family="'Bebas Neue', Impact, sans-serif" font-size="64" letter-spacing="2" fill="#F6EFE2">CLEAR MIND.</text>
+
+          <!-- Copper divider -->
+          <rect x="28" y="302" width="60" height="2" fill="#C47A3A"/>
+
+          <!-- Sub-copy -->
+          <text x="28" y="326" font-family="'DM Sans', Arial, sans-serif" font-size="11" fill="#CDD3DC" letter-spacing="0.5">Stainless Steel Cutting Boards</text>
+          <text x="28" y="344" font-family="'DM Sans', Arial, sans-serif" font-size="11" fill="#8B919E" letter-spacing="0.5">Non-porous · Dishwasher Safe · Built to Last</text>
+
+          <!-- Copper rule bottom -->
+          <rect x="0" y="357" width="360" height="3" fill="#C47A3A"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Variant B: Lifestyle (Cream) -->
+    <div class="canvas-wrap">
+      <span class="canvas-variant-label">B · Feature Callout · Light</span>
+      <div class="canvas-frame">
+        <svg width="360" height="360" viewBox="0 0 360 360" xmlns="http://www.w3.org/2000/svg">
+          <!-- Background -->
+          <rect width="360" height="360" fill="#F6EFE2"/>
+
+          <!-- Geometric grid lines (subtle) -->
+          <line x1="0" y1="120" x2="360" y2="120" stroke="#CDD3DC" stroke-width="0.5"/>
+          <line x1="0" y1="240" x2="360" y2="240" stroke="#CDD3DC" stroke-width="0.5"/>
+          <line x1="120" y1="0" x2="120" y2="360" stroke="#CDD3DC" stroke-width="0.5"/>
+          <line x1="240" y1="0" x2="240" y2="360" stroke="#CDD3DC" stroke-width="0.5"/>
+
+          <!-- Copper square accent (bottom right) -->
+          <rect x="236" y="236" width="124" height="124" fill="#C47A3A" opacity="0.08"/>
+
+          <!-- K-mark icon (large, center-left) -->
+          <g transform="translate(36, 80) scale(0.36)">
+            <rect x="20" y="20" width="22" height="162" fill="#2B3445"/>
+            <polygon points="42,74 42,101 142,40 142,20" fill="#2B3445"/>
+            <polygon points="42,101 42,128 142,182 142,162" fill="#2B3445"/>
+            <rect x="20" y="196" width="122" height="5" fill="#C47A3A"/>
+          </g>
+
+          <!-- Content right side -->
+          <text x="120" y="120" font-family="'Bebas Neue', Impact, sans-serif" font-size="13" letter-spacing="2.5" fill="#8B919E">THE KURA BOARD</text>
+          <rect x="120" y="130" width="40" height="2" fill="#C47A3A"/>
+
+          <!-- Stat -->
+          <text x="120" y="192" font-family="'Bebas Neue', Impact, sans-serif" font-size="80" letter-spacing="-1" fill="#2B3445">304</text>
+          <text x="122" y="218" font-family="'DM Sans', Arial, sans-serif" font-size="11" fill="#8B919E" letter-spacing="0.5">Food-Grade Stainless Steel</text>
+
+          <!-- Feature pills -->
+          <rect x="120" y="240" width="120" height="26" rx="2" fill="#2B3445"/>
+          <text x="130" y="257" font-family="'DM Sans', Arial, sans-serif" font-size="10" fill="#F6EFE2" letter-spacing="0.5" font-weight="500">Non-Porous Surface</text>
+
+          <rect x="120" y="272" width="104" height="26" rx="2" fill="#2B3445"/>
+          <text x="130" y="289" font-family="'DM Sans', Arial, sans-serif" font-size="10" fill="#F6EFE2" letter-spacing="0.5" font-weight="500">Dishwasher Safe</text>
+
+          <rect x="120" y="304" width="110" height="26" rx="2" fill="#C47A3A"/>
+          <text x="130" y="321" font-family="'DM Sans', Arial, sans-serif" font-size="10" fill="#FFFFFF" letter-spacing="0.5" font-weight="500">Zero Bacteria Buildup</text>
+
+          <!-- KURA wordmark bottom left -->
+          <text x="36" y="344" font-family="'Bebas Neue', Impact, sans-serif" font-size="24" letter-spacing="3.5" fill="#2B3445">KURA</text>
+
+          <!-- Copper rule bottom -->
+          <rect x="0" y="357" width="360" height="3" fill="#C47A3A"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Variant C: Review / Social Proof -->
+    <div class="canvas-wrap">
+      <span class="canvas-variant-label">C · Social Proof · Dark</span>
+      <div class="canvas-frame">
+        <svg width="360" height="360" viewBox="0 0 360 360" xmlns="http://www.w3.org/2000/svg">
+          <rect width="360" height="360" fill="#181820"/>
+          <!-- Top copper band -->
+          <rect x="0" y="0" width="360" height="3" fill="#C47A3A"/>
+
+          <!-- Large quote mark -->
+          <text x="22" y="120" font-family="Georgia, serif" font-size="160" fill="#2B3445">"</text>
+
+          <!-- Review stars -->
+          <text x="28" y="80" font-family="Arial, sans-serif" font-size="18" fill="#C47A3A">★★★★★</text>
+
+          <!-- Review text -->
+          <foreignObject x="28" y="95" width="304" height="140">
+            <div xmlns="http://www.w3.org/1999/xhtml" style="font-family:'DM Sans',Arial,sans-serif; font-size:15px; line-height:1.65; color:#F6EFE2; font-weight:300;">
+              "I threw out my old wooden board the same day this arrived. Wipes clean after raw chicken. I can't go back."
+            </div>
+          </foreignObject>
+
+          <!-- Attribution -->
+          <rect x="28" y="244" width="32" height="2" fill="#C47A3A"/>
+          <text x="28" y="268" font-family="'DM Sans', Arial, sans-serif" font-size="12" fill="#CDD3DC" font-weight="500">— James K., Atlanta, GA</text>
+          <text x="28" y="285" font-family="'DM Sans', Arial, sans-serif" font-size="10" fill="#8B919E" letter-spacing="0.5">Verified Purchase · The KURA Board</text>
+
+          <!-- K-mark bottom right -->
+          <g transform="translate(296, 296) scale(0.1)">
+            <rect x="20" y="20" width="22" height="162" fill="#F6EFE2"/>
+            <polygon points="42,74 42,101 142,40 142,20" fill="#F6EFE2"/>
+            <polygon points="42,101 42,128 142,182 142,162" fill="#F6EFE2"/>
+            <rect x="20" y="196" width="122" height="5" fill="#C47A3A"/>
+          </g>
+          <text x="248" y="348" font-family="'Bebas Neue', Impact, sans-serif" font-size="14" letter-spacing="2.5" fill="#F6EFE2">KURA</text>
+
+          <rect x="0" y="357" width="360" height="3" fill="#C47A3A"/>
+        </svg>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="caption-box">
+    <p><strong style="color:var(--cream);">Caption template (Variant A):</strong><br>
+    Your cutting board is lying to you. 🧫 Wood and plastic trap bacteria in every cut. The KURA Board — food-grade 304 stainless steel — stays genuinely clean session after session. Non-porous. Dishwasher safe. Built to last a lifetime.<br><br>
+    Shop the link in bio → The KURA Board</p>
+    <div class="hashtags">#KURABoard #StainlessSteelCuttingBoard #CleanKitchen #KitchenEssentials #HomeChef #HygienicKitchen #CuttingBoard #KitchenUpgrade #FoodPrep #CookingTips</div>
+  </div>
+</div>
+
+
+<!-- ═══ 02 — INSTAGRAM STORY ════════════════ -->
+<div class="template-section">
+  <p class="template-label">Template 02</p>
+  <h2 class="template-title">Instagram Story</h2>
+  <p class="template-dims">1080 × 1920 px · Displayed at 270 × 480 px</p>
+
+  <div class="template-grid">
+
+    <!-- Story A: CTA Story -->
+    <div class="canvas-wrap">
+      <span class="canvas-variant-label">A · Hero CTA</span>
+      <div class="canvas-frame">
+        <svg width="270" height="480" viewBox="0 0 270 480" xmlns="http://www.w3.org/2000/svg">
+          <rect width="270" height="480" fill="#2B3445"/>
+          <!-- Warm glow -->
+          <radialGradient id="glow2" cx="50%" cy="30%" r="70%">
+            <stop offset="0%" stop-color="#C47A3A" stop-opacity="0.18"/>
+            <stop offset="100%" stop-color="#C47A3A" stop-opacity="0"/>
+          </radialGradient>
+          <rect width="270" height="480" fill="url(#glow2)"/>
+
+          <!-- Top bar -->
+          <rect x="0" y="0" width="270" height="3" fill="#C47A3A"/>
+
+          <!-- K-mark (large, centered top half) -->
+          <g transform="translate(98, 60) scale(0.47)">
+            <rect x="20" y="20" width="22" height="162" fill="#F6EFE2"/>
+            <polygon points="42,74 42,101 142,40 142,20" fill="#F6EFE2"/>
+            <polygon points="42,101 42,128 142,182 142,162" fill="#F6EFE2"/>
+            <rect x="20" y="196" width="122" height="5" fill="#C47A3A"/>
+          </g>
+
+          <!-- KURA wordmark -->
+          <text x="135" y="190" font-family="'Bebas Neue', Impact, sans-serif" font-size="52" letter-spacing="7" fill="#F6EFE2" text-anchor="middle">KURA</text>
+
+          <!-- Divider -->
+          <rect x="95" y="200" width="80" height="1" fill="#C47A3A"/>
+
+          <!-- Tagline -->
+          <text x="135" y="224" font-family="Georgia, serif" font-style="italic" font-size="13" fill="#CDD3DC" text-anchor="middle">Clean Surface. Clear Mind.</text>
+
+          <!-- Statement -->
+          <text x="135" y="290" font-family="'Bebas Neue', Impact, sans-serif" font-size="38" letter-spacing="1" fill="#F6EFE2" text-anchor="middle">ONE BOARD.</text>
+          <text x="135" y="328" font-family="'Bebas Neue', Impact, sans-serif" font-size="38" letter-spacing="1" fill="#C47A3A" text-anchor="middle">ZERO BACTERIA.</text>
+          <text x="135" y="366" font-family="'Bebas Neue', Impact, sans-serif" font-size="38" letter-spacing="1" fill="#F6EFE2" text-anchor="middle">ZERO REGRETS.</text>
+
+          <!-- CTA button -->
+          <rect x="40" y="400" width="190" height="44" rx="3" fill="#C47A3A"/>
+          <text x="135" y="427" font-family="'DM Sans', Arial, sans-serif" font-size="12" font-weight="500" letter-spacing="1.5" fill="#FFFFFF" text-anchor="middle">SHOP NOW</text>
+
+          <!-- Swipe up hint -->
+          <text x="135" y="465" font-family="'DM Sans', Arial, sans-serif" font-size="9" fill="#8B919E" letter-spacing="1" text-anchor="middle">SWIPE UP TO SHOP</text>
+          <text x="135" y="476" font-family="Arial, sans-serif" font-size="8" fill="#C47A3A" text-anchor="middle">↑</text>
+
+          <rect x="0" y="477" width="270" height="3" fill="#C47A3A"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Story B: Problem/Solution -->
+    <div class="canvas-wrap">
+      <span class="canvas-variant-label">B · Problem → Solution</span>
+      <div class="canvas-frame">
+        <svg width="270" height="480" viewBox="0 0 270 480" xmlns="http://www.w3.org/2000/svg">
+          <rect width="270" height="480" fill="#F6EFE2"/>
+          <rect x="0" y="0" width="270" height="3" fill="#C47A3A"/>
+
+          <!-- KURA small top -->
+          <g transform="translate(18, 14) scale(0.1)">
+            <rect x="20" y="20" width="22" height="162" fill="#2B3445"/>
+            <polygon points="42,74 42,101 142,40 142,20" fill="#2B3445"/>
+            <polygon points="42,101 42,128 142,182 142,162" fill="#2B3445"/>
+            <rect x="20" y="196" width="122" height="5" fill="#C47A3A"/>
+          </g>
+          <text x="38" y="36" font-family="'Bebas Neue', Impact, sans-serif" font-size="16" letter-spacing="2.5" fill="#2B3445">KURA</text>
+
+          <!-- THE PROBLEM block (top half) -->
+          <rect x="18" y="60" width="234" height="185" fill="#2B3445"/>
+          <text x="28" y="84" font-family="'DM Sans', Arial, sans-serif" font-size="8" letter-spacing="2" fill="#C47A3A">THE PROBLEM</text>
+          <text x="28" y="116" font-family="'Bebas Neue', Impact, sans-serif" font-size="36" letter-spacing="1" fill="#F6EFE2">YOUR BOARD</text>
+          <text x="28" y="148" font-family="'Bebas Neue', Impact, sans-serif" font-size="36" letter-spacing="1" fill="#F6EFE2">IS MAKING</text>
+          <text x="28" y="180" font-family="'Bebas Neue', Impact, sans-serif" font-size="36" letter-spacing="1" fill="#C47A3A">YOU SICK.</text>
+          <foreignObject x="28" y="192" width="210" height="48">
+            <div xmlns="http://www.w3.org/1999/xhtml" style="font-family:'DM Sans',Arial,sans-serif; font-size:10px; line-height:1.6; color:#CDD3DC; font-weight:300;">
+              Wood and plastic trap bacteria in every groove. No amount of scrubbing fully removes it.
+            </div>
+          </foreignObject>
+
+          <!-- THE SOLUTION block (bottom half) -->
+          <text x="18" y="278" font-family="'DM Sans', Arial, sans-serif" font-size="8" letter-spacing="2" fill="#C47A3A">THE UPGRADE</text>
+          <text x="18" y="308" font-family="'Bebas Neue', Impact, sans-serif" font-size="36" letter-spacing="1" fill="#2B3445">THE KURA</text>
+          <text x="18" y="340" font-family="'Bebas Neue', Impact, sans-serif" font-size="36" letter-spacing="1" fill="#2B3445">BOARD.</text>
+
+          <!-- Feature check list -->
+          <text x="24" y="370" font-family="'DM Sans', Arial, sans-serif" font-size="11" fill="#2B3445">✓ 100% Non-Porous Steel</text>
+          <text x="24" y="390" font-family="'DM Sans', Arial, sans-serif" font-size="11" fill="#2B3445">✓ Dishwasher Safe · Zero Odor</text>
+          <text x="24" y="410" font-family="'DM Sans', Arial, sans-serif" font-size="11" fill="#2B3445">✓ Lasts a Lifetime</text>
+
+          <!-- CTA -->
+          <rect x="18" y="428" width="234" height="36" rx="3" fill="#C47A3A"/>
+          <text x="135" y="451" font-family="'DM Sans', Arial, sans-serif" font-size="11" font-weight="500" letter-spacing="1.5" fill="#FFFFFF" text-anchor="middle">SHOP THE KURA BOARD</text>
+
+          <rect x="0" y="477" width="270" height="3" fill="#C47A3A"/>
+        </svg>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ═══ 03 — LINKEDIN BANNER ════════════════ -->
+<div class="template-section">
+  <p class="template-label">Template 03</p>
+  <h2 class="template-title">LinkedIn Profile Banner</h2>
+  <p class="template-dims">1584 × 396 px · Displayed at 660 × 165 px</p>
+
+  <div class="canvas-wrap">
+    <span class="canvas-variant-label">Brand / Founder Banner</span>
+    <div class="canvas-frame">
+      <svg width="660" height="165" viewBox="0 0 660 165" xmlns="http://www.w3.org/2000/svg">
+        <rect width="660" height="165" fill="#2B3445"/>
+        <!-- Warm gradient right -->
+        <linearGradient id="liBg" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#2B3445"/>
+          <stop offset="70%" stop-color="#2B3445"/>
+          <stop offset="100%" stop-color="#1e2530"/>
+        </linearGradient>
+        <rect width="660" height="165" fill="url(#liBg)"/>
+        <!-- Copper accent glow right -->
+        <radialGradient id="liGlow" cx="90%" cy="50%" r="40%">
+          <stop offset="0%" stop-color="#C47A3A" stop-opacity="0.15"/>
+          <stop offset="100%" stop-color="#C47A3A" stop-opacity="0"/>
+        </radialGradient>
+        <rect width="660" height="165" fill="url(#liGlow)"/>
+
+        <!-- Left: K-mark + wordmark -->
+        <g transform="translate(40, 32) scale(0.46)">
+          <rect x="20" y="20" width="22" height="162" fill="#F6EFE2"/>
+          <polygon points="42,74 42,101 142,40 142,20" fill="#F6EFE2"/>
+          <polygon points="42,101 42,128 142,182 142,162" fill="#F6EFE2"/>
+          <rect x="20" y="196" width="122" height="5" fill="#C47A3A"/>
+        </g>
+
+        <text x="120" y="76" font-family="'Bebas Neue', Impact, sans-serif" font-size="44" letter-spacing="6" fill="#F6EFE2">KURA</text>
+        <text x="122" y="96" font-family="Georgia, serif" font-style="italic" font-size="13" fill="#CDD3DC">Clean Surface. Clear Mind.</text>
+
+        <!-- Vertical divider -->
+        <rect x="288" y="30" width="1" height="105" fill="rgba(205,211,220,0.2)"/>
+
+        <!-- Right: brand statement -->
+        <text x="312" y="62" font-family="'Bebas Neue', Impact, sans-serif" font-size="22" letter-spacing="2" fill="#C47A3A">Premium Kitchen Essentials</text>
+        <text x="312" y="90" font-family="'Bebas Neue', Impact, sans-serif" font-size="32" letter-spacing="1.5" fill="#F6EFE2">STAINLESS STEEL</text>
+        <text x="312" y="118" font-family="'Bebas Neue', Impact, sans-serif" font-size="32" letter-spacing="1.5" fill="#F6EFE2">CUTTING BOARDS</text>
+
+        <!-- Feature tags -->
+        <rect x="312" y="130" width="78" height="20" rx="2" fill="rgba(196,122,58,0.2)"/>
+        <text x="320" y="144" font-family="'DM Sans', Arial, sans-serif" font-size="9" fill="#C47A3A" letter-spacing="0.5" font-weight="500">Non-Porous</text>
+
+        <rect x="398" y="130" width="70" height="20" rx="2" fill="rgba(196,122,58,0.2)"/>
+        <text x="406" y="144" font-family="'DM Sans', Arial, sans-serif" font-size="9" fill="#C47A3A" letter-spacing="0.5" font-weight="500">Dishwasher Safe</text>
+
+        <rect x="476" y="130" width="80" height="20" rx="2" fill="rgba(196,122,58,0.2)"/>
+        <text x="484" y="144" font-family="'DM Sans', Arial, sans-serif" font-size="9" fill="#C47A3A" letter-spacing="0.5" font-weight="500">Zero Bacteria</text>
+
+        <!-- Copper accent lines (right) -->
+        <line x1="616" y1="0" x2="660" y2="44" stroke="#C47A3A" stroke-width="1" stroke-opacity="0.35"/>
+        <line x1="636" y1="0" x2="660" y2="24" stroke="#C47A3A" stroke-width="0.5" stroke-opacity="0.2"/>
+        <line x1="596" y1="165" x2="660" y2="101" stroke="#C47A3A" stroke-width="1" stroke-opacity="0.35"/>
+
+        <!-- Bottom copper line -->
+        <rect x="0" y="162" width="660" height="3" fill="#C47A3A"/>
+      </svg>
+    </div>
+  </div>
+
+  <div class="caption-box" style="max-width:660px;">
+    <p><strong style="color:var(--cream);">LinkedIn post template:</strong><br>
+    Most cutting boards look clean. They're not.<br><br>
+    We built KURA for home cooks who actually care about what goes into their food — not just how their kitchen looks. Food-grade 304 stainless steel. Non-porous. Dishwasher safe. The board that's genuinely clean every single time.<br><br>
+    One upgrade. Zero compromises.</p>
+    <div class="hashtags">#KURA #KitchenEssentials #FoodSafety #HomeCooking #StainlessSteel #Ecommerce #ProductDesign</div>
+  </div>
+</div>
+
+
+<!-- ═══ FOOTER ════════════════════════════════ -->
+<div style="border-top:1px solid rgba(205,211,220,0.15); padding-top:32px; margin-top:40px; display:flex; justify-content:space-between; font-size:11px; letter-spacing:0.15em; text-transform:uppercase; color:var(--muted);">
+  <span><span style="color:var(--copper);">KURA</span> Social Templates · 2026</span>
+  <span>All assets 1080×1080 / 1080×1920 / 1584×396 — scale viewBox proportionally</span>
+</div>
+
+</body>
+</html>

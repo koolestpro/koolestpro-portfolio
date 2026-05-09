@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48">
+  <rect width="48" height="48" rx="10" fill="#4285F4"/>
+  <!-- Speedometer arc -->
+  <path d="M24 32 A12 12 0 0 1 12.7 20.5" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" opacity="0.5"/>
+  <path d="M12.7 20.5 A12 12 0 0 1 24 16" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" opacity="0.7"/>
+  <path d="M24 16 A12 12 0 0 1 35.3 20.5" fill="none" stroke="#34A853" stroke-width="3" stroke-linecap="round"/>
+  <!-- Needle -->
+  <line x1="24" y1="32" x2="31" y2="19" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/>
+  <circle cx="24" cy="32" r="2.5" fill="#fff"/>
+</svg>

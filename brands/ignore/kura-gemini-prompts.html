@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KURA — Gemini AI Prompts</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --slate:    #2B3445;
+  --cream:    #F6EFE2;
+  --copper:   #C47A3A;
+  --silver:   #CDD3DC;
+  --offblack: #181820;
+  --muted:    #8B919E;
+  --white:    #FFFFFF;
+}
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--offblack);
+  color: var(--cream);
+  line-height: 1.6;
+}
+
+/* ─── COVER ─────────────────────────────── */
+.cover {
+  background: var(--slate);
+  padding: 72px 56px 56px;
+  position: relative;
+  overflow: hidden;
+}
+.cover::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 80% 20%, rgba(196,122,58,0.14) 0%, transparent 60%);
+}
+.cover-eyebrow {
+  font-size: 9px;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--copper);
+  margin-bottom: 20px;
+  position: relative;
+}
+.cover-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 60px;
+  letter-spacing: 0.1em;
+  color: var(--cream);
+  line-height: 1;
+  position: relative;
+}
+.cover-sub {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 20px;
+  color: var(--silver);
+  margin-top: 10px;
+  margin-bottom: 40px;
+  position: relative;
+}
+.cover-desc {
+  font-size: 14px;
+  color: var(--silver);
+  max-width: 600px;
+  line-height: 1.8;
+  position: relative;
+}
+.cover-desc strong { color: var(--cream); }
+
+/* ─── SECTION ────────────────────────────── */
+.section {
+  padding: 56px;
+  border-top: 1px solid rgba(205,211,220,0.1);
+}
+.section-label {
+  font-size: 9px;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--copper);
+  margin-bottom: 6px;
+}
+.section-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 38px;
+  font-weight: 600;
+  color: var(--cream);
+  margin-bottom: 8px;
+  line-height: 1.1;
+}
+.section-desc {
+  font-size: 13px;
+  color: var(--silver);
+  max-width: 680px;
+  line-height: 1.8;
+  margin-bottom: 36px;
+}
+
+/* ─── PROMPT CARD ────────────────────────── */
+.prompt-card {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(205,211,220,0.12);
+  margin-bottom: 20px;
+  transition: border-color 0.2s;
+}
+.prompt-card:hover { border-color: rgba(196,122,58,0.35); }
+.prompt-header {
+  padding: 16px 24px;
+  border-bottom: 1px solid rgba(205,211,220,0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+.prompt-num {
+  font-size: 9px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--copper);
+  flex-shrink: 0;
+}
+.prompt-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 18px;
+  letter-spacing: 0.06em;
+  color: var(--cream);
+  flex: 1;
+}
+.prompt-use {
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  text-align: right;
+  flex-shrink: 0;
+}
+.prompt-body { padding: 20px 24px; }
+.prompt-text {
+  font-size: 13px;
+  line-height: 1.8;
+  color: var(--silver);
+  background: rgba(0,0,0,0.3);
+  border-left: 2px solid var(--copper);
+  padding: 16px 20px;
+  margin-bottom: 14px;
+  cursor: pointer;
+  user-select: all;
+  font-family: 'DM Sans', sans-serif;
+  transition: background 0.15s;
+}
+.prompt-text:hover { background: rgba(196,122,58,0.06); }
+.prompt-text:active { background: rgba(196,122,58,0.12); }
+.prompt-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.prompt-tag {
+  display: inline-block;
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 2px;
+  background: rgba(196,122,58,0.15);
+  color: var(--copper);
+  margin-right: 8px;
+}
+.copy-btn {
+  background: transparent;
+  border: 1px solid rgba(196,122,58,0.4);
+  color: var(--copper);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  padding: 7px 16px;
+  cursor: pointer;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+.copy-btn:hover { background: var(--copper); color: var(--cream); }
+.copy-btn.copied { background: var(--copper); color: var(--cream); }
+
+/* ─── MODIFIER BOX ───────────────────────── */
+.modifier-box {
+  border: 1px solid rgba(196,122,58,0.3);
+  background: rgba(196,122,58,0.05);
+  padding: 28px;
+  margin-top: 8px;
+}
+.modifier-label {
+  font-size: 9px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--copper);
+  margin-bottom: 14px;
+}
+.modifier-text {
+  font-size: 12px;
+  color: var(--silver);
+  background: rgba(0,0,0,0.25);
+  border-left: 2px solid var(--copper);
+  padding: 14px 18px;
+  line-height: 1.75;
+  cursor: pointer;
+  user-select: all;
+}
+
+/* ─── TIPS BOX ───────────────────────────── */
+.tips-box {
+  background: rgba(43,52,69,0.6);
+  border: 1px solid rgba(205,211,220,0.1);
+  padding: 28px;
+  margin-top: 40px;
+}
+.tips-box h4 {
+  font-size: 9px;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--copper);
+  margin-bottom: 16px;
+}
+.tips-box ul { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+.tips-box li { font-size: 13px; color: var(--silver); padding-left: 18px; position: relative; line-height: 1.6; }
+.tips-box li::before { content: '—'; position: absolute; left: 0; color: var(--copper); }
+.tips-box li strong { color: var(--cream); }
+
+/* ─── FOOTER ─────────────────────────────── */
+.doc-footer {
+  background: rgba(0,0,0,0.4);
+  border-top: 1px solid rgba(205,211,220,0.08);
+  padding: 32px 56px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.doc-footer span { color: var(--copper); }
+</style>
+</head>
+<body>
+
+<!-- ═══ COVER ═══════════════════════════════ -->
+<div class="cover">
+  <p class="cover-eyebrow">AI Generation Prompts · Gemini ImageFX / Imagen 3 · 2026</p>
+  <div class="cover-title">KURA<br>Gemini Prompts</div>
+  <div class="cover-sub">Logo · Brand Theme · Product Photography · Social Ads</div>
+  <div class="cover-rule" style="width:48px; height:1px; background:var(--copper); margin:0 0 32px;"></div>
+  <p class="cover-desc">
+    This document contains carefully engineered prompts for generating KURA brand assets using
+    <strong>Google Gemini ImageFX</strong> (Imagen 3). Each prompt is tuned to the brand's
+    visual identity — cool brushed steel, warm cream, burnished copper, editorial minimalism.
+    <br><br>
+    <strong>How to use:</strong> Click any prompt box to select it, then copy and paste into
+    Gemini ImageFX at <strong>labs.google/imagesfx</strong>. Append the Universal Style Modifier
+    at the end of any prompt for maximum brand consistency.
+  </p>
+</div>
+
+
+<!-- ═══ 01 — LOGO CONCEPTS ═══════════════════ -->
+<div class="section">
+  <p class="section-label">01 — Logo Concepts</p>
+  <h2 class="section-title">Logo &amp; Wordmark Generation</h2>
+  <p class="section-desc">
+    Use these prompts to generate visual inspiration for KURA logo concepts, lettermark treatments,
+    and brand mark ideas. Best results in Gemini ImageFX with Imagen 3. Generate multiple variations
+    and refine the ones that feel truest to the brand.
+  </p>
+
+  <div class="prompt-card">
+    <div class="prompt-header">
+      <span class="prompt-num">Logo 01</span>
+      <span class="prompt-title">Geometric K Lettermark — Primary</span>
+      <span class="prompt-use">Logo icon · Favicon · Brand mark</span>
+    </div>
+    <div class="prompt-body">
+      <div class="prompt-text" onclick="copyText(this)">Minimalist geometric lettermark logo design for a premium kitchen brand. A bold, condensed sans-serif letter "K" constructed from clean rectangular geometry — a vertical stem and two diagonal arms meeting at a precise midpoint. The letterform is built from straight lines only, no curves. Below the K, a thin horizontal copper-colored accent rule. Color palette: deep navy-slate (#2B3445) on a warm cream background (#F6EFE2). The K has consistent stroke weight throughout. Negative space is generous. The design feels Japanese in its restraint — precise, intentional, uncluttered. Flat vector design. No drop shadows. No gradients. High resolution logo concept on white background. Commercial brand identity quality.</div>
+      <div class="prompt-footer">
+        <div>
+          <span class="prompt-tag">Gemini ImageFX</span>
+          <span class="prompt-tag">Imagen 3</span>
+          <span class="prompt-tag">Logo</span>
+        </div>
+        <button class="copy-btn" onclick="copyPromptBtn(this)">Copy Prompt</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="prompt-card">
+    <div class="prompt-header">
+      <span class="prompt-num">Logo 02</span>
+      <span class="prompt-title">KURA Wordmark — Bold Condensed</span>
+      <span class="prompt-use">Wordmark · Header logo</span>
+    </div>
+    <div class="prompt-body">
+      <div class="prompt-text" onclick="copyText(this)">Premium brand wordmark design for "KURA" — a kitchen products company. The word is set in a bold, wide-tracked, condensed display typeface similar to Bebas Neue or Impact. All capital letters. Letter-spacing is generous (around 15% of em). The letterforms are geometric, clean, with flat terminals. Below the word "KURA", a thin burnished copper colored horizontal rule extends the full width of the wordmark. Below the rule, in small italic serif (like Cormorant Garamond), the tagline "Clean Surface. Clear Mind." Primary color: deep navy-slate. Background: warm off-white cream. The overall composition is elegant and minimal — a luxury kitchen brand that means business. Flat vector graphic, no gradients, no shadows. Top-quality commercial brand identity.</div>
+      <div class="prompt-footer">
+        <div>
+          <span class="prompt-tag">Gemini ImageFX</span>
+          <span class="prompt-tag">Wordmark</span>
+        </div>
+        <button class="copy-btn" onclick="copyPromptBtn(this)">Copy Prompt</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="prompt-card">
+    <div class="prompt-header">
+      <span class="prompt-num">Logo 03</span>
+      <span class="prompt-title">Emblem / Seal Variant</span>
+      <span class="prompt-use">Packaging · Stamp · Wax seal</span>
+    </div>
+    <div class="prompt-body">
+      <div class="prompt-text" onclick="copyText(this)">Circular emblem / brand seal design for a premium kitchen brand named KURA. The emblem contains: the letter K as a bold geometric centerpiece, surrounded by a thin circular border. Along the top arc of the circle, the text "KURA KITCHEN" in small condensed capitals with wide letter-spacing. Along the bottom arc, "EST. 2026" or "CLEAN SURFACE · CLEAR MIND". The design has the gravitas of a heritage brand seal combined with Japanese minimalist restraint. Materials suggest stainless steel engraving — clean edges, no gradients. Colors: deep slate navy and burnished copper only. The seal works both as a standalone emblem and as a wax seal impression. Flat vector, white background, professional commercial identity design.</div>
+      <div class="prompt-footer">
+        <div>
+          <span class="prompt-tag">Gemini ImageFX</span>
+          <span class="prompt-tag">Emblem</span>
+          <span class="prompt-tag">Packaging</span>
+        </div>
+        <button class="copy-btn" onclick="copyPromptBtn(this)">Copy Prompt</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="prompt-card">
+    <div class="prompt-header">
+      <span class="prompt-num">Logo 04</span>
+      <span class="prompt-title">Full Brand Identity Sheet</span>
+      <span class="prompt-use">Brand overview · Presentation</span>
+    </div>
+    <div class="prompt-body">
+      <div class="prompt-text" onclick="copyText(this)">Professional brand identity design sheet for a premium kitchen brand called KURA. Show: a geometric K lettermark (geometric, condensed, with copper accent rule), the wordmark "KURA" in bold condensed type, color palette swatches in deep navy-slate, warm cream, burnished copper, and cool silver. The layout is clean and editorial — like a Swiss branding agency's design presentation. Typography is minimal and precise. Everything is organized on a warm cream background with slim slate dividers. The brand feels like it lives between Japanese kitchen precision and Scandinavian home aesthetic. Vector-quality illustration, no photographs. Commercial brand identity presentation quality.</div>
+      <div class="prompt-footer">
+        <div>
+          <span class="prompt-tag">Gemini ImageFX</span>
+          <span class="prompt-tag">Brand Sheet</span>
+        </div>
+        <button class="copy-btn" onclick="copyPromptBtn(this)">Copy Prompt</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══ 02 — BRAND THEME / MOOD ══════════════ -->
+<div class="section">
+  <p class="section-label">02 — Brand Theme &amp; Mood</p>
+  <h2 class="section-title">Visual Identity &amp; Mood Board</h2>
+  <p class="section-desc">
+    Use these prompts to generate brand mood imagery, background textures, and visual identity assets
+    that set the overall aesthetic tone for KURA across your Shopify store and social media.
+  </p>
+
+  <div class="prompt-card">
+    <div class="prompt-header">
+      <span class="prompt-num">Theme 01</span>
+      <span class="prompt-title">Brand Mood Board</span>
+      <span class="prompt-use">Store design reference · Social theme</span>
+    </div>
+    <div class="prompt-body">
+      <div class="prompt-text" onclick="copyText(this)">Editorial mood board for a premium stainless steel kitchen brand. The overall aesthetic is: cool brushed metal surfaces, warm cream and linen textures, burnished copper accents, clean modern kitchen environments. Visual references: Japanese knife-making workshops, Scandinavian kitchen design, high-end culinary magazines. Color palette: deep navy-slate, warm cream (#F6EFE2), burnished copper, cool silver — the exact colors of brushed 304 stainless steel. The mood is "precise warmth" — professional without being clinical, premium without being cold. Flat lay arrangements of kitchen tools on cream linen. Negative space is used generously. Editorial photography aesthetic. Moody but warm. No plastic. No clutter. Commercial brand photography quality.</div>
+      <div class="prompt-footer">
+        <div>
+          <span class="prompt-tag">Gemini ImageFX</span>
+          <span class="prompt-tag">Mood Board</span>
+        </div>
+        <button class="copy-btn" onclick="copyPromptBtn(this)">Copy Prompt</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="prompt-card">
+    <div class="prompt-header">
+      <span class="prompt-num">Theme 02</span>
+      <span class="prompt-title">Brushed Steel Texture / Background</span>
+      <span class="prompt-use">Website bg · Social template bg</span>
+    </div>
+    <div class="prompt-body">
+      <div class="prompt-text" onclick="copyText(this)">Close-up macro texture photograph of brushed 304 stainless steel surface. The grain runs perfectly horizontal across the entire frame. Warm studio lighting creates a gradient of soft light across the steel — bright on the left, softly dimming to the right. The reflection is blurred and golden, suggesting warm kitchen ambient light without being visible as a specific object. The overall tone is cool silver with warm highlights. Ultra-high detail, almost tactile. The steel looks pristine and hygienic. Shot on a medium format camera. No fingerprints, no scratches, no imperfections. This is what a KURA board surface looks like up close. Suitable as a website background texture or product detail shot.</div>
+      <div class="prompt-footer">
+        <div>
+          <span class="prompt-tag">Gemini ImageFX</span>
+          <span class="prompt-tag">Texture</span>
+          <span class="prompt-tag">Background</span>
+        </div>
+        <button class="copy-btn" onclick="copyPromptBtn(this)">Copy Prompt</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="prompt-card">
+    <div class="prompt-header">
+      <span class="prompt-num">Theme 03</span>
+      <span class="prompt-title">Packaging Design Concept</span>
+      <span class="prompt-use">Product packaging · Unboxing · Gift</span>
+    </div>
+    <div class="prompt-body">
+      <div class="prompt-text" onclick="copyText(this)">Premium product packaging design for KURA — a stainless steel cutting board brand. A flat lay shot of minimalist kraft-and-slate packaging: a sturdy rigid box with a deep navy-slate lid, the "KURA" wordmark embossed in copper-foil on the front, a thin copper-colored ribbon closure. Inside visible: cream tissue paper, the stainless steel board gleaming against the warm packaging. The unboxing experience feels like a premium gift. Simple, clean. No over-designed graphics — just the brand name and material details. Shot on a warm cream linen surface with soft window light from the left. Editorial product photography. Perfect as a Shopify lifestyle image and Instagram unboxing content.</div>
+      <div class="prompt-footer">
+        <div>
+          <span class="prompt-tag">Gemini ImageFX</span>
+          <span class="prompt-tag">Packaging</span>
+        </div>
+        <button class="copy-btn" onclick="copyPromptBtn(this)">Copy Prompt</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="prompt-card">
+    <div class="prompt-header">
+      <span class="prompt-num">Theme 04</span>
+      <span class="prompt-title">Linen &amp; Steel Flat Lay</span>
+      <span class="prompt-use">Instagram post bg · Website section</span>
+    </div>
+    <div class="prompt-body">
+      <div class="prompt-text" onclick="copyText(this)">Minimalist overhead flat lay photograph. A large brushed stainless steel cutting board centered on a warm cream linen surface. Alongside the board: a single sharp chef's knife, a small sprig of fresh rosemary, and two halved lemons casting soft shadows. The arrangement is precise but feels natural. Warm diffused natural window light from the upper-left. No harsh shadows. Color palette: cool silver steel, warm cream linen, bright lemon yellow, deep green herbs. The composition has generous negative space — the board is the hero. Editorial food photography aesthetic. Shot directly overhead with a wide-angle lens. Commercial kitchen brand photography. Suitable as a Shopify homepage hero image or Instagram post.</div>
+      <div class="prompt-footer">
+        <div>
+          <span class="prompt-tag">Gemini ImageFX</span>
+          <span class="prompt-tag">Flat Lay</span>
+          <span class="prompt-tag">Instagram</span>
+        </div>
+        <button class="copy-btn" onclick="copyPromptBtn(this)">Copy Prompt</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══ 03 — PRODUCT PHOTOGRAPHY ═════════════ -->
+<div class="section">
+  <p class="section-label">03 — Product Photography</p>
+  <h2 class="section-title">Product &amp; Lifestyle Shots</h2>
+  <p class="section-desc">
+    Shopify-ready product photography prompts. Use these for hero images, gallery images,
+    and feature section visuals on your product page. Generate multiple versions for A/B testing.
+  </p>
+
+  <div class="prompt-card">
+    <div class="prompt-header">
+      <span class="prompt-num">Product 01</span>
+      <span class="prompt-title">Hero Product Shot — Dark Background</span>
+      <span class="prompt-use">PDP hero · Gallery image 1</span>
+    </div>
+    <div class="prompt-body">
+      <div class="prompt-text" onclick="copyText(this)">Commercial product photography of a brushed stainless steel cutting board. The board sits on a smooth dark charcoal concrete kitchen countertop. Soft overhead studio lighting creates a gentle gradient across the steel surface — catching warm highlights without being harsh. A single sharp chef's knife rests diagonally across the board. Background: deep charcoal with subtle bokeh. Full-frame camera, 85mm lens, f/2.0 shallow depth of field. The steel surface reflects a gradient of warm golden ambient light from off-screen kitchen pendant lights. Minimalist composition with generous negative space. No people, no food. The board is the only subject. Warm cream and copper tones in the ambient light reflections. Commercial advertising quality. Suitable for premium e-commerce product page.</div>
+      <div class="prompt-footer">
+        <div>
+          <span class="prompt-tag">Gemini ImageFX</span>
+          <span class="prompt-tag">Product Shot</span>
+          <span class="prompt-tag">Shopify</span>
+        </div>
+        <button class="copy-btn" onclick="copyPromptBtn(this)">Copy Prompt</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="prompt-card">
+    <div class="prompt-header">
+      <span class="prompt-num">Product 02</span>
+      <span class="prompt-title">Rinse / Easy Clean Shot</span>
+      <span class="prompt-use">Feature section · Gallery image 2</span>
+    </div>
+    <div class="prompt-body">
+      <div class="prompt-text" onclick="copyText(this)">Close-up lifestyle photograph: clean hands rinsing a large brushed stainless steel cutting board under a sleek matte-black kitchen faucet. Water beads perfectly and flows cleanly off the non-porous steel surface — showing its resistance to moisture absorption. Background: blurred modern kitchen, warm natural window light, plants visible softly out of focus. The hands are relaxed and unhurried, not scrubbing — just rinsing. The steel board looks pristine. Soft warm ambient lighting. Editorial food photography aesthetic. 50mm lens equivalent, slightly elevated angle. The overall impression: effortless hygiene. Commercial product photography quality, suitable for Shopify feature section illustrating "Easy to Clean" benefit.</div>
+      <div class="prompt-footer">
+        <div>
+          <span class="prompt-tag">Gemini ImageFX</span>
+          <span class="prompt-tag">Lifestyle</span>
+          <span class="prompt-tag">Feature Section</span>
+        </div>
+        <button class="copy-btn" onclick="copyPromptBtn(this)">Copy Prompt</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="prompt-card">
+    <div class="prompt-header">
+      <span class="prompt-num">Product 03</span>
+      <span class="prompt-title">Active Prep — Lifestyle in Use</span>
+      <span class="prompt-use">Gallery image 3 · Homepage hero bg</span>
+    </div>
+    <div class="prompt-body">
+      <div class="prompt-text" onclick="copyText(this)">Editorial food photography: hands mid-chop on a large brushed stainless steel cutting board. Chopping colourful fresh vegetables — bright capsicum, cherry tomatoes, fresh herbs — on a light marble kitchen counter. Natural window light from the left creates gentle, flattering shadows. A quality chef's knife caught in motion, mid-slice. Background softly blurred: warm wooden cabinets, green plants, open kitchen shelving. 45-degree overhead angle. The stainless steel cutting board looks clean and pristine despite active prep work — key detail. Vibrant vegetables contrast beautifully with the cool silver steel. Warm editorial colour tones. Commercial lifestyle photography for a premium kitchen brand. Suitable as Shopify hero or social media content.</div>
+      <div class="prompt-footer">
+        <div>
+          <span class="prompt-tag">Gemini ImageFX</span>
+          <span class="prompt-tag">Lifestyle</span>
+          <span class="prompt-tag">Hero</span>
+        </div>
+        <button class="copy-btn" onclick="copyPromptBtn(this)">Copy Prompt</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="prompt-card">
+    <div class="prompt-header">
+      <span class="prompt-num">Product 04</span>
+      <span class="prompt-title">The Villain — Old Board (Problem Image)</span>
+      <span class="prompt-use">Problem section · Before image</span>
+    </div>
+    <div class="prompt-body">
+      <div class="prompt-text" onclick="copyText(this)">Macro photography of a heavily used, deteriorated wooden cutting board. Deep knife grooves criss-cross the surface. Dark staining from raw meat juices absorbed into the porous wood grain. Dried food residue trapped in the grooves. The wood is rough, warped slightly at the edges. Dramatic raking side-lighting from the left emphasises every groove, stain, and imperfection. Slightly desaturated, cool colour grade — clinical and unappealing. Directly overhead composition. No people, no other props. The board communicates: old, unhygienic, untrustworthy. This is the "before" image — the problem that KURA solves. Commercial advertising photography. Suitable for Shopify problem/solution section and comparison content.</div>
+      <div class="prompt-footer">
+        <div>
+          <span class="prompt-tag">Gemini ImageFX</span>
+          <span class="prompt-tag">Problem / Before</span>
+        </div>
+        <button class="copy-btn" onclick="copyPromptBtn(this)">Copy Prompt</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="prompt-card">
+    <div class="prompt-header">
+      <span class="prompt-num">Product 05</span>
+      <span class="prompt-title">Size Lineup — Flat Lay</span>
+      <span class="prompt-use">Gallery image · Variant selector · Specs section</span>
+    </div>
+    <div class="prompt-body">
+      <div class="prompt-text" onclick="copyText(this)">Clean catalogue product photography: three brushed stainless steel cutting boards arranged by size — small, medium, large — laid flat on a warm cream linen background. All three boards are perfectly parallel, sorted from smallest (top left) to largest (bottom right). The brushed grain direction is identical on all three boards. Shot directly overhead with perfectly even, diffused studio lighting — no harsh shadows. Minimal props: one small sprig of herbs beside each board to suggest scale, and a thin kraft paper label. Cream and silver colour palette only. Serene, minimal, Scandi kitchen aesthetic. Catalogue product photography quality. Suitable for size selection visuals on a Shopify product page and size comparison content.</div>
+      <div class="prompt-footer">
+        <div>
+          <span class="prompt-tag">Gemini ImageFX</span>
+          <span class="prompt-tag">Product Range</span>
+          <span class="prompt-tag">Catalogue</span>
+        </div>
+        <button class="copy-btn" onclick="copyPromptBtn(this)">Copy Prompt</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══ 04 — SOCIAL AD CREATIVES ═════════════ -->
+<div class="section">
+  <p class="section-label">04 — Social Ad Creatives</p>
+  <h2 class="section-title">Instagram &amp; Facebook Ad Images</h2>
+  <p class="section-desc">
+    Conversion-focused ad creative prompts. Each is designed to stop the scroll with a clear
+    visual hook and communicate a single compelling idea about KURA.
+  </p>
+
+  <div class="prompt-card">
+    <div class="prompt-header">
+      <span class="prompt-num">Ad 01</span>
+      <span class="prompt-title">Scroll-Stopper — Split Contrast</span>
+      <span class="prompt-use">Instagram feed ad · Facebook carousel</span>
+    </div>
+    <div class="prompt-body">
+      <div class="prompt-text" onclick="copyText(this)">Split-screen social media advertisement image. Left half: a close-up of a dirty, bacteria-stained wooden cutting board with deep knife grooves — desaturated, clinical, unappealing lighting. Right half: a pristine brushed stainless steel cutting board gleaming under warm studio light — clean, premium, almost beautiful. A thin burnished copper vertical line divides the two halves exactly in the centre. At the top in bold condensed type: "STILL USING THAT?". At the bottom in bold condensed type: "MEET THE KURA BOARD." The overall design is striking and contrasted. Square format (1:1), suitable for Instagram feed ads. Commercial advertising photography and typography. High-contrast, immediately legible at thumbnail size.</div>
+      <div class="prompt-footer">
+        <div>
+          <span class="prompt-tag">Gemini ImageFX</span>
+          <span class="prompt-tag">Instagram Ad</span>
+          <span class="prompt-tag">Before/After</span>
+        </div>
+        <button class="copy-btn" onclick="copyPromptBtn(this)">Copy Prompt</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="prompt-card">
+    <div class="prompt-header">
+      <span class="prompt-num">Ad 02</span>
+      <span class="prompt-title">Testimonial Ad — Social Proof</span>
+      <span class="prompt-use">Instagram story ad · Retargeting</span>
+    </div>
+    <div class="prompt-body">
+      <div class="prompt-text" onclick="copyText(this)">Premium social media testimonial advertisement. Deep navy-slate background (#2B3445). Five gold star rating at the top. A large quotation mark in muted copper. The review text in a clean white italic serif font, medium size: "I threw out my old wooden board the day this arrived. Wipes clean after raw chicken. Best kitchen purchase I've made all year." Below the review: the reviewer name in small condensed caps. Bottom of the image: the KURA brand wordmark in cream on the left, and "Shop Now →" CTA button in burnished copper on the right. The overall design is editorial and premium — feels like a real publication quote, not a cheap ad. Vertical story format (9:16). Suitable for Instagram and Facebook story retargeting ads.</div>
+      <div class="prompt-footer">
+        <div>
+          <span class="prompt-tag">Gemini ImageFX</span>
+          <span class="prompt-tag">Story Ad</span>
+          <span class="prompt-tag">Social Proof</span>
+        </div>
+        <button class="copy-btn" onclick="copyPromptBtn(this)">Copy Prompt</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="prompt-card">
+    <div class="prompt-header">
+      <span class="prompt-num">Ad 03</span>
+      <span class="prompt-title">Feature Callout — Benefit Ad</span>
+      <span class="prompt-use">Facebook feed ad · Prospecting</span>
+    </div>
+    <div class="prompt-body">
+      <div class="prompt-text" onclick="copyText(this)">Bold, graphic social media advertisement for a premium kitchen brand. Warm cream background (#F6EFE2). Left half: a large, dramatically lit close-up of a brushed stainless steel cutting board surface — the grain texture fills the image edge to edge, catching warm light. Right half: bold condensed typography stack (Bebas Neue style): "ZERO BACTERIA." on the first line in deep navy, then "ZERO WARPING." on the second line in deep navy, then "ZERO REGRETS." on the third line in burnished copper (#C47A3A). Below the typography: a thin copper divider line, then "The KURA Board — Shop Now" in small condensed text. Square 1:1 format. Editorial and premium. High contrast between the warm cream, cool steel, and copper typography. Commercial advertising quality, suitable for Facebook feed ads.</div>
+      <div class="prompt-footer">
+        <div>
+          <span class="prompt-tag">Gemini ImageFX</span>
+          <span class="prompt-tag">Facebook Ad</span>
+          <span class="prompt-tag">Feature Callout</span>
+        </div>
+        <button class="copy-btn" onclick="copyPromptBtn(this)">Copy Prompt</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+<!-- ═══ UNIVERSAL MODIFIER ════════════════════ -->
+<div class="section">
+  <p class="section-label">Universal Style Modifier</p>
+  <h2 class="section-title">Append to Any Prompt</h2>
+  <p class="section-desc">Add this to the end of any prompt above for maximum brand consistency across all generated assets.</p>
+
+  <div class="modifier-box">
+    <p class="modifier-label">→ Add this to every prompt</p>
+    <div class="modifier-text" onclick="copyText(this)">Brand color palette: cool brushed stainless steel (#CDD3DC), warm cream background (#F6EFE2), deep navy-slate (#2B3445), burnished copper accents (#C47A3A). Visual style: editorial commercial photography, premium kitchen brand, clean compositions with generous negative space, warm natural or studio lighting preferred over harsh flash. No plastic props. No clutter. No stock photo aesthetic. The feeling should be: Japanese precision meets Scandinavian warmth. Photorealistic, high resolution, commercial advertising quality. Suitable for use on a premium e-commerce product page.</div>
+  </div>
+
+  <div class="modifier-box" style="margin-top:16px;">
+    <p class="modifier-label">→ For Gemini ImageFX aspect ratios</p>
+    <div class="modifier-text" onclick="copyText(this)">Aspect ratio guidance:
+— Instagram Square post: 1:1 (1080×1080)
+— Instagram Story / Reel: 9:16 (1080×1920)
+— Facebook Feed Ad: 1.91:1 (1200×628) or 1:1 (1080×1080)
+— LinkedIn Banner: 4:1 (1584×396)
+— Shopify product image: 1:1 (2000×2000) minimum
+— Hero image (wide): 16:9 (1920×1080)
+
+In Gemini ImageFX: select your desired aspect ratio before generating. Run 4 variations per prompt, then refine the best one with follow-up edits.</div>
+  </div>
+</div>
+
+
+<!-- ═══ PRO TIPS ═══════════════════════════════ -->
+<div class="section">
+  <p class="section-label">Pro Tips</p>
+  <h2 class="section-title">Getting the Best Results</h2>
+
+  <div class="tips-box">
+    <h4>Gemini ImageFX Workflow Tips</h4>
+    <ul>
+      <li><strong>Run 4 variations</strong> per prompt — Gemini generates multiple outputs. The best result is rarely the first one.</li>
+      <li><strong>Click to select all</strong> the prompt text (each box is selectable by clicking), then copy with Ctrl/Cmd+C.</li>
+      <li><strong>Add the Universal Modifier</strong> at the end of every prompt for brand consistency across your asset library.</li>
+      <li><strong>Be specific about lighting:</strong> Specify "warm window light from left" or "diffused overhead studio light" — lighting direction dramatically changes the mood.</li>
+      <li><strong>Edit iteratively:</strong> After generating, use Gemini's inpainting to edit specific areas (e.g., "make the board larger", "change the background to cream"). This is faster than re-prompting from scratch.</li>
+      <li><strong>For logo concepts:</strong> Use the Logo prompts with Gemini's image generation, then recreate the best concept as a clean SVG using the kura-icon.svg file as your base. AI-generated logos are inspiration, not final production files.</li>
+      <li><strong>For product shots:</strong> If you get the composition right but the colors are off, use a follow-up prompt: "Adjust the color balance — warmer cream tones in the background, cooler steel tones on the board surface."</li>
+      <li><strong>Batch your sessions:</strong> Generate all 6 product photography prompts in one sitting so your entire gallery has consistent lighting and tone.</li>
+    </ul>
+  </div>
+</div>
+
+
+<!-- ═══ FOOTER ════════════════════════════════ -->
+<div class="doc-footer">
+  <span><span>KURA</span> Gemini Prompts · 2026 · Confidential</span>
+  <span>Use in Gemini ImageFX at labs.google/imagesfx</span>
+</div>
+
+<script>
+function copyText(el) {
+  const text = el.innerText || el.textContent;
+  navigator.clipboard.writeText(text.trim()).then(() => {
+    const orig = el.style.borderLeftColor;
+    el.style.borderLeftColor = '#F6EFE2';
+    setTimeout(() => { el.style.borderLeftColor = orig; }, 800);
+  });
+}
+
+function copyPromptBtn(btn) {
+  const card = btn.closest('.prompt-card');
+  const promptText = card.querySelector('.prompt-text');
+  const text = (promptText.innerText || promptText.textContent).trim();
+  navigator.clipboard.writeText(text).then(() => {
+    const orig = btn.textContent;
+    btn.textContent = 'Copied ✓';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.textContent = orig;
+      btn.classList.remove('copied');
+    }, 2200);
+  });
+}
+</script>
+
+</body>
+</html>

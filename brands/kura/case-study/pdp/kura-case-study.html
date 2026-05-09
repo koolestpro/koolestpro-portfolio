@@ -1,0 +1,2178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kura Board, Case Study</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,700;0,9..144,900;1,9..144,300;1,9..144,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --cream:    #F4ECD8;
+    --cream-lt: #FAF5EC;
+    --navy:     #1A1A2C;
+    --navy-mid: #2C2C42;
+    --orange:   #C4622D;
+    --orange-lt:#D97842;
+    --warm-wt:  #FDFAF4;
+    --text-sec: rgba(26,26,44,0.55);
+    --border:   rgba(26,26,44,0.10);
+    --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
+    --font-display: 'Bebas Neue', sans-serif;
+    --font-serif:   'Cormorant Garamond', serif;
+    --font-body:    'DM Sans', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--warm-wt);
+    color: var(--navy);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection { background: var(--orange); color: #fff; }
+
+  /* ── TYPOGRAPHY ── */
+  .display {
+    font-family: var(--font-display);
+    font-weight: 900;
+    line-height: 0.92;
+    letter-spacing: 0.03em;
+  }
+
+  .serif { font-family: var(--font-serif); }
+
+  h2 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    letter-spacing: 0.025em;
+    line-height: 1.05;
+  }
+
+  h3 {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    line-height: 1.2;
+  }
+
+  p { line-height: 1.7; color: rgba(26,26,44,0.75); }
+
+  .label {
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--orange);
+  }
+
+  /* ── LAYOUT ── */
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 48px; }
+  .container--wide { max-width: 1400px; margin: 0 auto; padding: 0 48px; }
+
+  /* ── COVER ── */
+  .cover {
+    background: var(--navy);
+    min-height: 100vh;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cover__grain {
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    opacity: 0.5;
+    pointer-events: none;
+  }
+
+  .cover__nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 32px 64px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .cover__nav-logo {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 1.1rem;
+    color: var(--cream);
+    letter-spacing: 0.02em;
+  }
+
+  .cover__nav-tag {
+    font-size: 0.68rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(244,236,216,0.45);
+  }
+
+  .cover__body {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    padding: 0 64px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .cover__body_left img {
+    height: 50vh;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;  
+  }
+
+  .cover__eyebrow {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 32px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .cover__eyebrow::before {
+    content: '';
+    display: inline-block;
+    width: 32px;
+    height: 1px;
+    background: var(--orange);
+  }
+
+  .cover__title {
+    font-size: clamp(72px, 9vw, 130px);
+    color: var(--cream);
+    margin-bottom: 0;
+  }
+
+  .cover__title-italic {
+    font-style: italic;
+    font-weight: 300;
+    color: rgba(244,236,216,0.5);
+  }
+
+  .cover__subtitle {
+    margin-top: 40px;
+    max-width: 560px;
+    font-size: 1.1rem;
+    color: rgba(244,236,216,0.6);
+    line-height: 1.65;
+    font-weight: 300;
+  }
+
+  .cover__accent-line {
+    position: absolute;
+    right: 64px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1px;
+    height: 240px;
+    background: linear-gradient(to bottom, transparent, var(--orange), transparent);
+    opacity: 0.5;
+  }
+
+  .cover__footer {
+    padding: 32px 64px;
+    display: flex;
+    gap: 64px;
+    border-top: 1px solid rgba(244,236,216,0.08);
+    position: relative;
+    z-index: 2;
+  }
+
+  .cover__stat { }
+  .cover__stat-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(244,236,216,0.35);
+    margin-bottom: 4px;
+  }
+
+  .cover__stat-value {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 700;
+    color: rgba(244,236,216,0.85);
+    letter-spacing: 0.01em;
+  }
+
+  .cover__scroll-hint {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(244,236,216,0.25);
+  }
+
+  .cover__scroll-line {
+    width: 48px;
+    height: 1px;
+    background: rgba(244,236,216,0.2);
+  }
+
+  /* ── OVERVIEW ── */
+  .overview {
+    background: var(--cream);
+    padding: 80px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .overview__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+  }
+
+  .overview__cell {
+    background: var(--cream);
+    padding: 40px 36px;
+  }
+
+  .overview__cell-label {
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-sec);
+    margin-bottom: 16px;
+  }
+
+  .overview__cell-value {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--navy);
+    letter-spacing: 0.02em;
+    line-height: 1.25;
+    margin-bottom: 8px;
+  }
+
+  .overview__cell-sub {
+    font-size: 0.8rem;
+    color: var(--text-sec);
+    line-height: 1.5;
+  }
+
+  /* ── SECTION SHELL ── */
+  .section {
+    padding: 120px 0;
+  }
+
+  .section--dark {
+    background: var(--navy);
+    color: var(--cream);
+  }
+
+  .section--dark p { color: rgba(244,236,216,0.6); }
+  .section--dark h2 { color: var(--cream); }
+  .section--dark h3 { color: var(--cream); }
+  .section--dark .label { color: var(--orange-lt); }
+
+  .section--cream {
+    background: var(--cream-lt);
+  }
+
+  .section__header {
+    margin-bottom: 72px;
+  }
+
+  .section__header .label {
+    margin-bottom: 16px;
+    display: block;
+  }
+
+  .section__header h2 {
+    font-size: clamp(40px, 4vw, 60px);
+    margin-bottom: 20px;
+  }
+
+  .section__header p {
+    font-size: 1.05rem;
+    max-width: 580px;
+  }
+
+  /* ── BRIEF ── */
+  .brief {
+    padding: 160px 0;
+    background: var(--warm-wt);
+  }
+
+  .brief__inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 120px;
+    align-items: start;
+  }
+
+  .brief__statement {
+    font-family: var(--font-display);
+    font-size: clamp(32px, 3.5vw, 50px);
+    font-weight: 700;
+    letter-spacing: 0.025em;
+    line-height: 1.1;
+    color: var(--navy);
+  }
+
+  .brief__statement em {
+    font-style: italic;
+    font-weight: 300;
+    color: var(--orange);
+  }
+
+  .brief__details { padding-top: 8px; }
+
+  .brief__detail-row {
+    display: flex;
+    gap: 24px;
+    padding: 24px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .brief__detail-row:first-child { border-top: 1px solid var(--border); }
+
+  .brief__detail-key {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-sec);
+    min-width: 100px;
+    padding-top: 2px;
+  }
+
+  .brief__detail-val {
+    font-size: 0.95rem;
+    color: var(--navy);
+    line-height: 1.5;
+  }
+
+  /* ── BRAND IDENTITY (20%) ── */
+  .brand {
+    background: var(--navy);
+    padding: 120px 0;
+    overflow: hidden;
+  }
+
+  .brand__grid {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 80px;
+    align-items: start;
+    margin-top: 72px;
+  }
+
+  .brand__colors { }
+
+  .brand__colors-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-bottom: 32px;
+  }
+
+  .brand__swatch {
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .brand__swatch-color {
+    height: 72px;
+    border-radius: 4px 4px 0 0;
+  }
+
+  .brand__swatch-info {
+    padding: 10px 12px;
+    background: rgba(244,236,216,0.04);
+    border: 1px solid rgba(244,236,216,0.08);
+    border-top: none;
+    border-radius: 0 0 4px 4px;
+  }
+
+  .brand__swatch-name {
+    font-size: 0.68rem;
+    font-weight: 600;
+    color: rgba(244,236,216,0.6);
+    letter-spacing: 0.05em;
+    display: block;
+    margin-bottom: 2px;
+  }
+
+  .brand__swatch-hex {
+    font-size: 0.65rem;
+    color: rgba(244,236,216,0.3);
+    font-family: monospace;
+  }
+
+  .brand__type-showcase {
+    border: 1px solid rgba(244,236,216,0.08);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .brand__type-row {
+    padding: 28px 32px;
+    border-bottom: 1px solid rgba(244,236,216,0.06);
+    display: flex;
+    align-items: baseline;
+    gap: 24px;
+  }
+
+  .brand__type-row:last-child { border-bottom: none; }
+
+  .brand__type-meta {
+    font-size: 0.62rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(244,236,216,0.25);
+    min-width: 110px;
+    flex-shrink: 0;
+  }
+
+  .brand__type-sample { color: var(--cream); }
+
+  .brand__type-display {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 2.8rem;
+    letter-spacing: 0.035em;
+    line-height: 1;
+  }
+
+  .brand__type-heading {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.5rem;
+    letter-spacing: 0.02em;
+  }
+
+  .brand__type-body {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    color: rgba(244,236,216,0.65);
+    line-height: 1.65;
+  }
+
+  .brand__type-cta {
+    background: var(--orange);
+    color: #fff;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    font-size: 0.8rem;
+    letter-spacing: 0.05em;
+    padding: 10px 20px;
+    border-radius: 3px;
+    display: inline-block;
+    text-transform: uppercase;
+  }
+
+  /* ── PAGE ARCHITECTURE ── */
+  .architecture {
+    padding: 120px 0;
+    background: var(--cream-lt);
+  }
+
+  .arch__flow {
+    margin-top: 72px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .arch__step {
+    display: grid;
+    grid-template-columns: 60px 1fr auto;
+    gap: 32px;
+    align-items: start;
+    padding: 32px 0;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+  }
+
+  .arch__step:first-child { border-top: 1px solid var(--border); }
+
+  .arch__step-num {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    font-weight: 900;
+    color: rgba(26,26,44,0.08);
+    letter-spacing: 0.05em;
+    line-height: 1;
+    padding-top: 4px;
+  }
+
+  .arch__step-body { }
+
+  .arch__step-title {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    font-size: 1rem;
+    color: var(--navy);
+    margin-bottom: 8px;
+  }
+
+  .arch__step-desc {
+    font-size: 0.875rem;
+    color: var(--text-sec);
+    line-height: 1.55;
+    max-width: 560px;
+  }
+
+  .arch__step-tag {
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 6px 12px;
+    border-radius: 100px;
+    white-space: nowrap;
+    align-self: center;
+  }
+
+  .tag--cro { background: rgba(196,98,45,0.12); color: var(--orange); }
+  .tag--trust { background: rgba(26,26,44,0.08); color: var(--navy); }
+  .tag--agitate { background: rgba(196,98,45,0.18); color: #8B3A14; }
+  .tag--proof { background: rgba(50,150,100,0.1); color: #1A6644; }
+  .tag--convert { background: var(--orange); color: #fff; }
+
+  .arch__connector {
+    width: 1px;
+    height: 24px;
+    background: var(--border);
+    margin-left: 29px;
+  }
+
+  /* ── DESIGN DEEP DIVE ── */
+  .deep-dive {
+    padding: 120px 0;
+  }
+
+  .deep-dive--alt {
+    background: var(--cream-lt);
+  }
+
+  .dive__layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+    margin-top: 72px;
+  }
+
+  .dive__layout--reverse {
+    direction: rtl;
+  }
+
+  .dive__layout--reverse > * {
+    direction: ltr;
+  }
+
+  .dive__layout--wide {
+    grid-template-columns: 1.2fr 1fr;
+  }
+
+  .dive__visual { }
+
+  .dive__mockup {
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    background: var(--cream);
+    position: relative;
+  }
+
+  .dive__mockup-bar {
+    background: rgba(26,26,44,0.04);
+    padding: 10px 16px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .dive__mockup-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--border);
+  }
+
+  .dive__mockup-url {
+    flex: 1;
+    height: 8px;
+    background: var(--border);
+    border-radius: 4px;
+    margin: 0 8px;
+    max-width: 180px;
+  }
+
+  /* Hero mockup */
+  .hero-mock {
+    padding: 24px;
+  }
+
+  .hero-mock__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+
+  .hero-mock__img {
+    background: linear-gradient(135deg, #DDD5C0 0%, #C8BDA8 100%);
+    border-radius: 4px;
+    aspect-ratio: 4/3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .hero-mock__img-main {
+    background: linear-gradient(135deg, #C8BDA8 0%, #B0A690 100%);
+    border-radius: 4px;
+    aspect-ratio: 3/2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 8px;
+  }
+
+  .hero-mock__img-thumbs {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+  }
+
+  .hero-mock__thumb {
+    background: linear-gradient(135deg, #DDD5C0 0%, #C8BDA8 100%);
+    border-radius: 3px;
+    aspect-ratio: 1;
+  }
+
+  .hero-mock__details { }
+
+  .hero-mock__stars {
+    color: var(--orange);
+    font-size: 0.75rem;
+    margin-bottom: 6px;
+    letter-spacing: 2px;
+  }
+
+  .hero-mock__title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--navy);
+    letter-spacing: 0.02em;
+    margin-bottom: 10px;
+    line-height: 1.2;
+  }
+
+  .hero-mock__price-row {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    margin-bottom: 14px;
+  }
+
+  .hero-mock__price-new {
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--orange);
+  }
+
+  .hero-mock__price-old {
+    font-size: 0.8rem;
+    text-decoration: line-through;
+    color: var(--text-sec);
+  }
+
+  .hero-mock__badge-row {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-bottom: 14px;
+  }
+
+  .hero-mock__badge {
+    font-size: 0.6rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    padding: 4px 8px;
+    border-radius: 2px;
+    background: rgba(26,26,44,0.06);
+    color: var(--text-sec);
+    text-transform: uppercase;
+  }
+
+  .hero-mock__cta {
+    width: 100%;
+    background: var(--orange);
+    color: white;
+    border: none;
+    padding: 12px 16px;
+    border-radius: 3px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    text-align: center;
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  .hero-mock__sub-cta {
+    width: 100%;
+    border: 1.5px solid var(--border);
+    background: transparent;
+    color: var(--text-sec);
+    padding: 10px 16px;
+    border-radius: 3px;
+    font-size: 0.7rem;
+    font-weight: 500;
+    text-align: center;
+    display: block;
+  }
+
+  /* Section mockups */
+  .mock-section {
+    padding: 24px;
+  }
+
+  .mock-section__label {
+    font-size: 0.6rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 8px;
+  }
+
+  .mock-section__headline {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    font-weight: 900;
+    color: var(--navy);
+    letter-spacing: 0.025em;
+    line-height: 1.05;
+    margin-bottom: 12px;
+  }
+
+  .mock-section__body {
+    font-size: 0.72rem;
+    color: var(--text-sec);
+    line-height: 1.55;
+    margin-bottom: 16px;
+  }
+
+  .mock-image {
+    border-radius: 6px;
+    width: 100%;
+  }
+
+  /* Agitation mock */
+  .agit-mock {
+    padding: 24px;
+    background: var(--cream);
+  }
+
+  .agit-mock__img {
+    width: 100%;
+    aspect-ratio: 16/9;
+    background: linear-gradient(135deg, #4a3520, #2a1a0a);
+    border-radius: 6px;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .agit-mock__img-cracks {
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 15px,
+      rgba(0,0,0,0.15) 15px,
+      rgba(0,0,0,0.15) 16px
+    ),
+    repeating-linear-gradient(
+      -45deg,
+      transparent,
+      transparent 20px,
+      rgba(0,0,0,0.1) 20px,
+      rgba(0,0,0,0.1) 21px
+    );
+  }
+
+  .agit-mock__img-text {
+    font-family: var(--font-display);
+    font-size: 0.55rem;
+    color: rgba(255,255,255,0.2);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    z-index: 1;
+  }
+
+  /* Features mock */
+  .features-mock { padding: 20px; }
+
+  .features-mock__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+
+  .features-mock__item {
+    background: rgba(26,26,44,0.04);
+    border-radius: 6px;
+    padding: 14px;
+    text-align: center;
+  }
+
+  .features-mock__icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: rgba(196,98,45,0.12);
+    margin: 0 auto 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .features-mock__icon-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--orange);
+  }
+
+  .features-mock__label {
+    font-size: 0.62rem;
+    font-weight: 600;
+    color: var(--navy);
+    letter-spacing: 0.02em;
+  }
+
+  /* Social proof mock */
+  .proof-mock {
+    padding: 20px;
+    background: var(--navy);
+  }
+
+  .proof-mock__num {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    font-weight: 900;
+    color: var(--cream);
+    letter-spacing: 0.04em;
+    margin-bottom: 4px;
+  }
+
+  .proof-mock__label {
+    font-size: 0.7rem;
+    color: rgba(244,236,216,0.45);
+    margin-bottom: 20px;
+  }
+
+  .proof-mock__reviews {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .proof-mock__review {
+    background: rgba(244,236,216,0.05);
+    border: 1px solid rgba(244,236,216,0.08);
+    border-radius: 6px;
+    padding: 12px;
+  }
+
+  .proof-mock__review-stars {
+    color: var(--orange);
+    font-size: 0.55rem;
+    letter-spacing: 2px;
+    margin-bottom: 6px;
+  }
+
+  .proof-mock__review-text {
+    font-size: 0.6rem;
+    color: rgba(244,236,216,0.55);
+    line-height: 1.5;
+  }
+
+  .proof-mock__review-name {
+    font-size: 0.58rem;
+    font-weight: 600;
+    color: rgba(244,236,216,0.35);
+    margin-top: 8px;
+  }
+
+  /* Comparison mock */
+  .compare-mock { padding: 20px; }
+
+  .compare-mock__table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.7rem;
+  }
+
+  .compare-mock__table th {
+    padding: 10px 12px;
+    text-align: left;
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .compare-mock__table th:first-child { color: var(--text-sec); }
+  .compare-mock__table th.kura { color: var(--orange); background: rgba(196,98,45,0.06); }
+  .compare-mock__table th.rest { color: var(--text-sec); }
+
+  .compare-mock__table td {
+    padding: 9px 12px;
+    border-top: 1px solid var(--border);
+    color: var(--navy);
+    font-size: 0.68rem;
+  }
+
+  .compare-mock__table td.kura {
+    background: rgba(196,98,45,0.04);
+    color: var(--orange);
+    font-weight: 600;
+  }
+
+  .tick { color: #1A9955; font-weight: 700; }
+  .cross { color: #CC3333; }
+
+  /* ── ANNOTATIONS ── */
+  .annotation {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    padding: 16px 20px;
+    background: rgba(196,98,45,0.06);
+    border-left: 3px solid var(--orange);
+    border-radius: 0 6px 6px 0;
+    margin-top: 16px;
+  }
+
+  .annotation__num {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 900;
+    color: var(--orange);
+    min-width: 20px;
+    line-height: 1.3;
+  }
+
+  .annotation__text {
+    font-size: 0.82rem;
+    color: var(--navy);
+    line-height: 1.55;
+  }
+
+  .annotation__text strong {
+    font-weight: 600;
+    color: var(--navy);
+  }
+
+  /* ── DESIGN DECISIONS ── */
+  .decisions { padding: 120px 0; background: var(--navy); }
+
+  .decisions__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 72px;
+  }
+
+  .decision-card {
+    border: 1px solid rgba(244,236,216,0.08);
+    border-radius: 8px;
+    padding: 36px;
+    background: rgba(244,236,216,0.03);
+    transition: border-color 0.3s var(--ease-expo);
+  }
+
+  .decision-card:hover { border-color: rgba(196,98,45,0.4); }
+
+  .decision-card__num {
+    font-family: var(--font-display);
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: rgba(244,236,216,0.06);
+    letter-spacing: 0.05em;
+    line-height: 1;
+    margin-bottom: 20px;
+  }
+
+  .decision-card__title {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--cream);
+    margin-bottom: 12px;
+    letter-spacing: -0.01em;
+  }
+
+  .decision-card__body {
+    font-size: 0.825rem;
+    color: rgba(244,236,216,0.5);
+    line-height: 1.65;
+  }
+
+  .decision-card__tag {
+    display: inline-block;
+    margin-top: 20px;
+    font-size: 0.62rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--orange-lt);
+    padding: 5px 10px;
+    border: 1px solid rgba(196,98,45,0.3);
+    border-radius: 100px;
+  }
+
+  /* ── STEPS SECTION ── */
+  .steps-section { padding: 120px 0; background: var(--cream-lt); }
+
+  .steps-mock {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    background: white;
+  }
+
+  .steps-mock__header {
+    background: var(--cream);
+    padding: 24px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .steps-mock__title {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    font-weight: 900;
+    color: var(--navy);
+    letter-spacing: 0.025em;
+    line-height: 1.1;
+  }
+
+  .steps-mock__content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .steps-mock__steps { padding: 20px; }
+
+  .steps-mock__step {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 16px;
+    align-items: flex-start;
+  }
+
+  .steps-mock__step-num {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--orange);
+    color: white;
+    font-size: 0.62rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .steps-mock__step-body { }
+
+  .steps-mock__step-title {
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--navy);
+    margin-bottom: 4px;
+  }
+
+  .steps-mock__step-text {
+    font-size: 0.62rem;
+    color: var(--text-sec);
+    line-height: 1.5;
+  }
+
+  .steps-mock__img {
+    background: linear-gradient(160deg, #D4C9B0 0%, #B8AD96 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 160px;
+  }
+
+  .steps-mock__img-label {
+    font-size: 0.55rem;
+    color: rgba(26,26,44,0.3);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  /* ── REFLECTION ── */
+  .reflection { padding: 160px 0; background: var(--warm-wt); }
+
+  .reflection__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 120px;
+    align-items: start;
+  }
+
+  .reflection__quote {
+    font-family: var(--font-display);
+    font-size: clamp(28px, 2.8vw, 42px);
+    font-weight: 300;
+    font-style: italic;
+    color: var(--navy);
+    letter-spacing: 0.02em;
+    line-height: 1.3;
+    border-left: 3px solid var(--orange);
+    padding-left: 36px;
+  }
+
+  .reflection__list {
+    list-style: none;
+    margin-top: 32px;
+  }
+
+  .reflection__list li {
+    display: flex;
+    gap: 16px;
+    padding: 20px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.9rem;
+    color: rgba(26,26,44,0.7);
+    line-height: 1.55;
+    align-items: flex-start;
+  }
+
+  .reflection__list li::before {
+    content: '→';
+    color: var(--orange);
+    font-weight: 600;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .reflection__list li:first-child { border-top: 1px solid var(--border); }
+
+  /* ── FOOTER ── */
+  .cs-footer {
+    background: var(--navy);
+    padding: 64px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+
+  .cs-footer__left { }
+
+  .cs-footer__label {
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(244,236,216,0.3);
+    margin-bottom: 12px;
+  }
+
+  .cs-footer__title {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    font-weight: 900;
+    color: var(--cream);
+    letter-spacing: 0.03em;
+  }
+
+  .cs-footer__right {
+    text-align: right;
+  }
+
+  .cs-footer__credit {
+    font-size: 0.72rem;
+    color: rgba(244,236,216,0.25);
+    line-height: 1.8;
+  }
+
+  .cs-footer__credit strong {
+    color: rgba(244,236,216,0.5);
+    font-weight: 500;
+  }
+
+  /* ── DIVIDERS ── */
+  .divider {
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* ── STATS ROW ── */
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: rgba(244,236,216,0.08);
+    border: 1px solid rgba(244,236,216,0.08);
+    border-radius: 8px;
+    overflow: hidden;
+    margin-top: 72px;
+  }
+
+  .stats-row__item {
+    padding: 40px;
+    background: rgba(244,236,216,0.03);
+    text-align: center;
+  }
+
+  .stats-row__num {
+    font-family: var(--font-display);
+    font-size: 3rem;
+    font-weight: 900;
+    color: var(--cream);
+    letter-spacing: 0.04em;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  .stats-row__label {
+    font-size: 0.75rem;
+    color: rgba(244,236,216,0.4);
+    letter-spacing: 0.02em;
+  }
+
+  /* ── CRO BREAKDOWN ── */
+  .cro-breakdown {
+    padding: 120px 0;
+    background: var(--cream-lt);
+  }
+
+  .cro__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-top: 72px;
+  }
+
+  .cro-card {
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    background: white;
+  }
+
+  .cro-card--full { grid-column: span 2; }
+
+  .cro-card__header {
+    padding: 24px 28px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .cro-card__icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 6px;
+    background: rgba(196,98,45,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .cro-card__icon svg {
+    width: 16px;
+    height: 16px;
+    stroke: var(--orange);
+    fill: none;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .cro-card__title {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--navy);
+    letter-spacing: -0.01em;
+  }
+
+  .cro-card__body {
+    padding: 24px 28px;
+  }
+
+  .cro-card__body p {
+    font-size: 0.85rem;
+    margin-bottom: 16px;
+  }
+
+  .cro-card__list {
+    list-style: none;
+  }
+
+  .cro-card__list li {
+    font-size: 0.8rem;
+    color: rgba(26,26,44,0.65);
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    line-height: 1.45;
+  }
+
+  .cro-card__list li:last-child { border-bottom: none; }
+
+  .cro-card__list li::before {
+    content: '·';
+    color: var(--orange);
+    font-weight: 700;
+    font-size: 1.2rem;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+
+  /* ── PULLQUOTE ── */
+  .pullquote {
+    background: var(--orange);
+    padding: 72px;
+    text-align: center;
+  }
+
+  .pullquote__text {
+    font-family: var(--font-display);
+    font-size: clamp(24px, 3vw, 40px);
+    font-weight: 700;
+    color: white;
+    letter-spacing: 0.025em;
+    line-height: 1.15;
+    max-width: 700px;
+    margin: 0 auto 16px;
+  }
+
+  .pullquote__source {
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.6);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .dive__mockup-img { width: 100%; }
+
+  /* ── RESPONSIVE (basic) ── */
+  @media (max-width: 900px) {
+    .container, .container--wide { padding: 0 24px; }
+    .brief__inner, .dive__layout, .brand__grid, .reflection__grid,
+    .decisions__grid, .cro__grid { grid-template-columns: 1fr; gap: 48px; }
+    .cro-card--full { grid-column: auto; }
+    .overview__grid { grid-template-columns: 1fr 1fr; }
+    .cover__title { font-size: 56px; }
+    .cover__body, .cover__nav, .cover__footer { padding-left: 32px; padding-right: 32px; }
+    .cs-footer { flex-direction: column; gap: 32px; align-items: flex-start; }
+    .stats-row { grid-template-columns: 1fr; }
+    .dive__layout--reverse { direction: ltr; }
+    .pullquote { padding: 48px 32px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════
+     COVER
+═══════════════════════════════════════════════ -->
+<section class="cover">
+  <div class="cover__grain"></div>
+
+  <nav class="cover__nav">
+    <span class="cover__nav-logo">Ridwan, Design</span>
+    <span class="cover__nav-tag">Case Study · 2025</span>
+  </nav>
+
+  <div class="cover__body">
+    <div class="cover__body_right">
+      <div class="cover__eyebrow">E-commerce · Replo Build · CRO Design</div>
+      <h1 class="display cover__title">
+        Kura<br>
+        <span class="cover__title-italic">Board.</span>
+      </h1>
+      <p class="cover__subtitle">
+        Taking an ordinary dropship product and building an identity around it, then designing a conversion-optimised product page that turns browsers into buyers.
+      </p>
+    </div>
+    <div class="cover__body_left">
+      <img src="images/1-gemini-2.5-flash-image_Product_photography_of_a_brushed_stainless_steel_cutting_board_on_a_smooth_dark_-0.jpg" alt="" class="cover__img">
+
+    </div>
+    
+    <div class="cover__accent-line"></div>
+  </div>
+
+  <footer class="cover__footer">
+    <div class="cover__stat">
+      <div class="cover__stat-label">Deliverable</div>
+      <div class="cover__stat-value">Replo Landing Page</div>
+    </div>
+    <div class="cover__stat">
+      <div class="cover__stat-label">Focus</div>
+      <div class="cover__stat-value">CRO + Page Design</div>
+    </div>
+    <div class="cover__stat">
+      <div class="cover__stat-label">Tool</div>
+      <div class="cover__stat-value">Replo + Shopify</div>
+    </div>
+    <div class="cover__stat">
+      <div class="cover__stat-label">Category</div>
+      <div class="cover__stat-value">Kitchen / Homeware</div>
+    </div>
+    <div class="cover__scroll-hint">
+      <span class="cover__scroll-line"></span>
+      Scroll to explore
+    </div>
+  </footer>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════
+     OVERVIEW STRIP
+═══════════════════════════════════════════════ -->
+<section class="overview">
+  <div class="container">
+    <div class="overview__grid">
+      <div class="overview__cell">
+        <div class="overview__cell-label">My Role</div>
+        <div class="overview__cell-value">Brand + Page Designer</div>
+        <div class="overview__cell-sub">Strategy, visual identity, Replo build, CRO architecture</div>
+      </div>
+      <div class="overview__cell">
+        <div class="overview__cell-label">Deliverables</div>
+        <div class="overview__cell-value">Full Product Page</div>
+        <div class="overview__cell-sub">Replo-built Shopify PDP with full conversion journey</div>
+      </div>
+      <div class="overview__cell">
+        <div class="overview__cell-label">Design Tools</div>
+        <div class="overview__cell-value">Replo · Figma</div>
+        <div class="overview__cell-sub">Built natively in Replo, designed system-first</div>
+      </div>
+      <div class="overview__cell">
+        <div class="overview__cell-label">The Hook</div>
+        <div class="overview__cell-value">Generic → Premium</div>
+        <div class="overview__cell-sub">Repositioned a commodity dropship product as a lifestyle brand</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════
+     THE BRIEF
+═══════════════════════════════════════════════ -->
+<section class="brief">
+  <div class="container">
+    <div class="brief__inner">
+      <div>
+        <span class="label" style="display:block; margin-bottom:24px;">The Challenge</span>
+        <p class="brief__statement">
+          Take a <em>commodity cutting board</em>, the kind sold on every dropship store, and make it feel like it deserves to live on a premium kitchen shelf.
+        </p>
+        <p style="margin-top: 32px; font-size: 0.95rem; max-width: 460px;">
+          The product itself is undifferentiated. The opportunity is in perception. Build a brand identity, then a product page that answers every objection and removes every reason not to buy, all inside Replo.
+        </p>
+      </div>
+      <div class="brief__details">
+        <div class="brief__detail-row">
+          <span class="brief__detail-key">Brief</span>
+          <span class="brief__detail-val">Brand a dropship product, then build its conversion-optimised product page in Replo</span>
+        </div>
+        <div class="brief__detail-row">
+          <span class="brief__detail-key">Platform</span>
+          <span class="brief__detail-val">Shopify via Replo (no custom code)</span>
+        </div>
+        <div class="brief__detail-row">
+          <span class="brief__detail-key">Audience</span>
+          <span class="brief__detail-val">Home cooks who care about kitchen hygiene and presentation</span>
+        </div>
+        <div class="brief__detail-row">
+          <span class="brief__detail-key">Core Tension</span>
+          <span class="brief__detail-val">The product is ordinary, the brand must make it feel extraordinary</span>
+        </div>
+        <div class="brief__detail-row">
+          <span class="brief__detail-key">Success</span>
+          <span class="brief__detail-val">A page that could sell at $40+ with no paid-ad hesitation</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════
+     BRAND IDENTITY (≤ 20%)
+═══════════════════════════════════════════════ -->
+<section class="brand">
+  <div class="container">
+    <div class="section__header">
+      <span class="label">Brand Identity, 20%</span>
+      <h2 style="color: var(--cream);">The Visual System</h2>
+      <p style="color: rgba(244,236,216,0.55);">Warmth, authority, and cleanliness, three things a kitchen brand must own. The system is intentionally restrained: a warm cream base, a deep navy for authority, and a single burnt orange accent that carries urgency without aggression.</p>
+    </div>
+
+    <div class="brand__grid">
+      <div>
+        <h3 style="color: rgba(244,236,216,0.7); font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 20px; font-weight: 500;">Colour Palette</h3>
+        <div class="brand__colors-row">
+          <div class="brand__swatch">
+            <div class="brand__swatch-color" style="background: #F4ECD8;"></div>
+            <div class="brand__swatch-info">
+              <span class="brand__swatch-name">Warm Cream</span>
+              <span class="brand__swatch-hex">#F4ECD8</span>
+            </div>
+          </div>
+          <div class="brand__swatch">
+            <div class="brand__swatch-color" style="background: #1A1A2C;"></div>
+            <div class="brand__swatch-info">
+              <span class="brand__swatch-name">Deep Navy</span>
+              <span class="brand__swatch-hex">#1A1A2C</span>
+            </div>
+          </div>
+          <div class="brand__swatch">
+            <div class="brand__swatch-color" style="background: #C4622D;"></div>
+            <div class="brand__swatch-info">
+              <span class="brand__swatch-name">Kura Orange</span>
+              <span class="brand__swatch-hex">#C4622D</span>
+            </div>
+          </div>
+          <div class="brand__swatch">
+            <div class="brand__swatch-color" style="background: #FDFAF4;"></div>
+            <div class="brand__swatch-info">
+              <span class="brand__swatch-name">Off White</span>
+              <span class="brand__swatch-hex">#FDFAF4</span>
+            </div>
+          </div>
+        </div>
+
+        <h3 style="color: rgba(244,236,216,0.7); font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; margin-top: 32px; margin-bottom: 16px; font-weight: 500;">Design Rationale</h3>
+        <p style="color: rgba(244,236,216,0.45); font-size: 0.82rem; line-height: 1.65;">
+          The cream and navy palette positions Kura alongside premium kitchen brands, it reads as editorial and considered rather than cheap and dropshipped. The burnt orange CTA creates decisive moments of urgency without resorting to red alarm-bell tactics that cheapen a brand.
+        </p>
+      </div>
+
+      <div>
+        <h3 style="color: rgba(244,236,216,0.7); font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 16px; font-weight: 500;">Type System</h3>
+        <div class="brand__type-showcase">
+          <div class="brand__type-row">
+            <span class="brand__type-meta">Display · Fraunces</span>
+            <span class="brand__type-sample brand__type-display">Kura.</span>
+          </div>
+          <div class="brand__type-row">
+            <span class="brand__type-meta">Heading · Fraunces 700</span>
+            <span class="brand__type-sample brand__type-heading">Why the Kura Board?</span>
+          </div>
+          <div class="brand__type-row">
+            <span class="brand__type-meta">Body · DM Sans</span>
+            <span class="brand__type-sample brand__type-body">Clean, durable, and made to last a lifetime, built for the way you actually cook.</span>
+          </div>
+          <div class="brand__type-row">
+            <span class="brand__type-meta">CTA · DM Sans 700</span>
+            <span class="brand__type-cta">Add to Cart, Save 19%</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════
+     PAGE ARCHITECTURE
+═══════════════════════════════════════════════ -->
+<section class="architecture">
+  <div class="container">
+    <div class="section__header">
+      <span class="label">Design Architecture</span>
+      <h2>The Conversion Journey</h2>
+      <p>Every section of the page exists with a specific psychological job to do. The sequence mirrors a real sales conversation, intrigue, education, agitation, solution, proof, commitment.</p>
+    </div>
+
+    <div class="arch__flow">
+      <div class="arch__step">
+        <div class="arch__step-num">01</div>
+        <div class="arch__step-body">
+          <div class="arch__step-title">Hero / PDP, First Impression & Conversion Anchor</div>
+          <div class="arch__step-desc">Gallery-led hero with the price, social proof stars, trust badges, and a primary CTA above the fold. The most motivated buyers convert here without scrolling. The FAQ accordion immediately below handles the first wave of objections.</div>
+        </div>
+        <span class="arch__step-tag tag--convert">Convert Now</span>
+      </div>
+      <div class="arch__connector"></div>
+
+      <div class="arch__step">
+        <div class="arch__step-num">02</div>
+        <div class="arch__step-body">
+          <div class="arch__step-title">Why The Kura Board?, Rapid Value Proposition</div>
+          <div class="arch__step-desc">Four sharp benefit bullets with icons, lasts a lifetime, no residues, dishwasher safe, built as a gift. Positioned for the scanner who skipped the hero copy. Keeps the warm cream background to maintain flow.</div>
+        </div>
+        <span class="arch__step-tag tag--cro">Value Prop</span>
+      </div>
+      <div class="arch__connector"></div>
+
+      <div class="arch__step">
+        <div class="arch__step-num">03</div>
+        <div class="arch__step-body">
+          <div class="arch__step-title">Your Old Board Is Making You Sick, Problem Agitation</div>
+          <div class="arch__step-desc">A full-bleed photo of a cracked, stained wooden board does the heavy lifting. The copy leans into hygiene anxiety, a real, emotionally resonant fear for home cooks. This section manufactures urgency without a countdown timer.</div>
+        </div>
+        <span class="arch__step-tag tag--agitate">Agitate</span>
+      </div>
+      <div class="arch__connector"></div>
+
+      <div class="arch__step">
+        <div class="arch__step-num">04</div>
+        <div class="arch__step-body">
+          <div class="arch__step-title">Meet the Kura Board, Feature Deep Dive</div>
+          <div class="arch__step-desc">Icon grid plus lifestyle photography. Each feature (non-porous, antimicrobial, balanced weight, knife-friendly) is the direct answer to the anxiety introduced in step 03. The before/after visual logic is implicit in the layout.</div>
+        </div>
+        <span class="arch__step-tag tag--cro">Educate</span>
+      </div>
+      <div class="arch__connector"></div>
+
+      <div class="arch__step">
+        <div class="arch__step-num">05</div>
+        <div class="arch__step-body">
+          <div class="arch__step-title">3 Simple Steps, Reduce Friction</div>
+          <div class="arch__step-desc">Numbered steps (Place & Prep → Rinse & Go → Store & Enjoy) make the product feel effortless to adopt. This counters the hesitation of "will I actually use this?", a common objection for kitchen accessories.</div>
+        </div>
+        <span class="arch__step-tag tag--cro">Reduce Friction</span>
+      </div>
+      <div class="arch__connector"></div>
+
+      <div class="arch__step">
+        <div class="arch__step-num">06</div>
+        <div class="arch__step-body">
+          <div class="arch__step-title">Over 9,000+ Social Proof Block, Herd Behaviour</div>
+          <div class="arch__step-desc">Dark background section with the crowd-size number in bold, backed by a 4-column review grid. Dark backgrounds signal authority and break the page rhythm, they create a "chapter change" that re-engages skimmers.</div>
+        </div>
+        <span class="arch__step-tag tag--proof">Social Proof</span>
+      </div>
+      <div class="arch__connector"></div>
+
+      <div class="arch__step">
+        <div class="arch__step-num">07</div>
+        <div class="arch__step-body">
+          <div class="arch__step-title">Stats Row, Quantified Trust</div>
+          <div class="arch__step-desc">Three percentage stats (satisfaction rate, hygiene improvement, lifetime durability) give the skeptic data to rationalise the emotional purchase they've already made. Numbers do the work that copy cannot.</div>
+        </div>
+        <span class="arch__step-tag tag--trust">Data Trust</span>
+      </div>
+      <div class="arch__connector"></div>
+
+      <div class="arch__step">
+        <div class="arch__step-num">08</div>
+        <div class="arch__step-body">
+          <div class="arch__step-title">Kura vs. The Rest, Competitive Contrast</div>
+          <div class="arch__step-desc">Comparison table positioning Kura against wooden, plastic, and bamboo boards. Tick/cross format eliminates the need to compete on price, Kura wins on features. The orange column highlight draws the eye without text.</div>
+        </div>
+        <span class="arch__step-tag tag--cro">Reframe Price</span>
+      </div>
+      <div class="arch__connector"></div>
+
+      <div class="arch__step">
+        <div class="arch__step-num">09</div>
+        <div class="arch__step-body">
+          <div class="arch__step-title">FAQs + Final Trust Block, Last-Mile Objection Removal</div>
+          <div class="arch__step-desc">Accordion FAQs address shipping, material, sizing, and returns. The final trust section with three icons (30-day guarantee, free shipping, family-owned) closes the page on safety and warmth.</div>
+        </div>
+        <span class="arch__step-tag tag--convert">Close</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════
+     DEEP DIVE 1, HERO / PDP
+═══════════════════════════════════════════════ -->
+<section class="deep-dive">
+  <div class="container">
+    <div class="section__header">
+      <span class="label">Design Deep Dive, 01</span>
+      <h2>The Hero: Earning Attention in 3 Seconds</h2>
+      <p>The hero section is a microcosm of the entire page. It must earn trust, communicate value, and invite action, before a single scroll.</p>
+    </div>
+
+    <div class="dive__layout">
+      <div class="dive__visual">
+        <div class="dive__mockup">
+          <img src="images/1sr-slice.png" alt="" class="dive__mockup-img">
+        </div>
+      </div>
+
+      <div>
+        <div class="annotation">
+          <span class="annotation__num">①</span>
+          <span class="annotation__text"><strong>Gallery on the left, purchase on the right.</strong> This is the Shopify PDP convention that maximises conversion, users scan left-to-right, visuals first, decision second. Breaking this would cost conversions.</span>
+        </div>
+        <div class="annotation" style="margin-top: 12px;">
+          <span class="annotation__num">②</span>
+          <span class="annotation__text"><strong>Stars above the title, not below.</strong> Social proof placed at the very top of the copy column anchors all subsequent reading in a frame of credibility. The eye lands on stars before the product name.</span>
+        </div>
+        <div class="annotation" style="margin-top: 12px;">
+          <span class="annotation__num">③</span>
+          <span class="annotation__text"><strong>Price anchoring with crossed-out original.</strong> The $40 price reads as a deal because the $49.87 ghost price is present. The specific cents (not $50) make the original feel real, not manufactured.</span>
+        </div>
+        <div class="annotation" style="margin-top: 12px;">
+          <span class="annotation__num">④</span>
+          <span class="annotation__text"><strong>Badge row before CTA.</strong> "Award Winner · Lifetime Warranty · Eco-Friendly" addresses the three dominant purchase objections (quality, durability, ethics) in a single glanceable line, right before the CTA.</span>
+        </div>
+        <div class="annotation" style="margin-top: 12px;">
+          <span class="annotation__num">⑤</span>
+          <span class="annotation__text"><strong>CTA copy with embedded value.</strong> "Add to Cart, Save 19%" is stronger than "Add to Cart" alone. The discount is surfaced at the point of commitment, not buried in the price.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════
+     DEEP DIVE 2, AGITATION
+═══════════════════════════════════════════════ -->
+<section class="deep-dive deep-dive--alt">
+  <div class="container">
+    <div class="section__header">
+      <span class="label">Design Deep Dive, 02</span>
+      <h2>Agitation: Making the Problem Visible</h2>
+      <p>People don't buy products, they buy relief from problems. This section manufactures urgency by making the alternative viscerally uncomfortable.</p>
+    </div>
+
+    <div class="dive__layout dive__layout--reverse">
+      <div class="dive__visual">
+        <div class="dive__mockup">
+          <img src="images/2nd-slice.png" alt="" class="dive__mockup-img">
+        </div>
+      </div>
+
+      <div>
+        <div class="annotation">
+          <span class="annotation__num">①</span>
+          <span class="annotation__text"><strong>All-caps headline as an interruption device.</strong> The rest of the page uses mixed-case headings. This section breaks the rule deliberately, the typographic shift signals danger and urgency. Your eye stops.</span>
+        </div>
+        <div class="annotation" style="margin-top: 12px;">
+          <span class="annotation__num">②</span>
+          <span class="annotation__text"><strong>The photo does the heavy lifting.</strong> A descriptive passage about dirty boards is forgettable. A photograph of a cracked, blackened board is visceral and immediate. The image earns its full-bleed placement.</span>
+        </div>
+        <div class="annotation" style="margin-top: 12px;">
+          <span class="annotation__num">③</span>
+          <span class="annotation__text"><strong>Hygiene as the core fear.</strong> Price is rarely the actual objection, it's the stated one. The real objection is "do I need this?" This section answers that question by creating the felt sense that the current situation is unacceptable.</span>
+        </div>
+        <div class="annotation" style="margin-top: 12px;">
+          <span class="annotation__num">④</span>
+          <span class="annotation__text"><strong>No CTA in this section.</strong> A deliberate choice. Pushing for a sale mid-agitation feels manipulative. Instead, this section flows directly into the solution (Meet the Kura Board), making the relief feel earned.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════
+     DEEP DIVE 3, FEATURES
+═══════════════════════════════════════════════ -->
+<section class="deep-dive">
+  <div class="container">
+    <div class="section__header">
+      <span class="label">Design Deep Dive, 03</span>
+      <h2>Feature Layout: Answer Every Fear</h2>
+      <p>Each feature card directly answers an anxiety created in the agitation section. The grid layout allows comparison at a glance, no reading required.</p>
+    </div>
+
+    <div class="dive__layout">
+      <div class="dive__visual">
+        <div class="dive__mockup">
+          <img src="images/3rd-slice.png" alt="" class="dive__mockup-img">
+        </div>
+      </div>
+
+      <div>
+        <div class="annotation">
+          <span class="annotation__num">①</span>
+          <span class="annotation__text"><strong>Icon + Label, no body copy in the grid.</strong> Each feature tile strips to its most scannable form. The user's brain processes icon → label in under 200ms. Body copy is an optional depth layer, not required for comprehension.</span>
+        </div>
+        <div class="annotation" style="margin-top: 12px;">
+          <span class="annotation__num">②</span>
+          <span class="annotation__text"><strong>2×2 grid creates visual equivalence.</strong> All four features feel equally important, no hierarchy. This prevents users from dismissing features that don't resonate with them while gravitating toward the ones that do.</span>
+        </div>
+        <div class="annotation" style="margin-top: 12px;">
+          <span class="annotation__num">③</span>
+          <span class="annotation__text"><strong>Lifestyle image below the grid, not above.</strong> The features educate first. The lifestyle shot then gives the buyer a vision of themselves using the product, desire follows education, not the other way around.</span>
+        </div>
+        <div class="annotation" style="margin-top: 12px;">
+          <span class="annotation__num">④</span>
+          <span class="annotation__text"><strong>Cream background maintains warmth.</strong> After the dark agitation image, returning to cream signals safety and relief, an unconscious emotional cue that the solution has arrived.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════
+     DEEP DIVE 4, SOCIAL PROOF
+═══════════════════════════════════════════════ -->
+<section class="deep-dive deep-dive--alt">
+  <div class="container">
+    <div class="section__header">
+      <span class="label">Design Deep Dive, 04</span>
+      <h2>Social Proof: The Dark Section</h2>
+      <p>The navy background creates a deliberate chapter break. It signals: this is official, this is serious, these are real people. The psychological shift is intentional.</p>
+    </div>
+
+    <div class="dive__layout dive__layout--reverse">
+      <div class="dive__visual">
+        <div class="dive__mockup">
+          <img src="images/4th-slices.png" alt="" class="dive__mockup-img">
+        </div>
+      </div>
+
+      <div>
+        <div class="annotation">
+          <span class="annotation__num">①</span>
+          <span class="annotation__text"><strong>The crowd number anchors the section.</strong> "9,000+" is the first thing the eye sees. Before reading a single review, the user has already absorbed that thousands of others made this decision. Herd behaviour kicks in.</span>
+        </div>
+        <div class="annotation" style="margin-top: 12px;">
+          <span class="annotation__num">②</span>
+          <span class="annotation__text"><strong>Navy background = authority chapter.</strong> Every other section of the page is warm cream or white. The navy section feels like a distinct register, not marketing copy, but evidence. The tonal shift earns attention.</span>
+        </div>
+        <div class="annotation" style="margin-top: 12px;">
+          <span class="annotation__num">③</span>
+          <span class="annotation__text"><strong>Reviews address specific fears.</strong> Each card targets a different objection, hygiene, cross-contamination, gift-worthiness, aesthetics. A skeptical reader will find at least one that mirrors their own hesitation.</span>
+        </div>
+        <div class="annotation" style="margin-top: 12px;">
+          <span class="annotation__num">④</span>
+          <span class="annotation__text"><strong>"Verified" label on every review.</strong> A small but critical detail. It costs nothing visually and adds significant credibility. Without it, reviews feel invented. With it, they feel earned.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════
+     DEEP DIVE 5, COMPARISON TABLE
+═══════════════════════════════════════════════ -->
+<section class="deep-dive">
+  <div class="container">
+    <div class="section__header">
+      <span class="label">Design Deep Dive, 05</span>
+      <h2>Kura vs. The Rest: Reframing Price</h2>
+      <p>The comparison table isn't about winning a feature war, it's about making the $40 price feel like a no-brainer relative to the alternatives a customer already owns.</p>
+    </div>
+
+    <div class="dive__layout">
+      <div class="dive__visual">
+        <div class="dive__mockup">
+          <img src="images/5th-slice.png" alt="" class="dive__mockup-img">
+        </div>
+      </div>
+
+      <div>
+        <div class="annotation">
+          <span class="annotation__num">①</span>
+          <span class="annotation__text"><strong>Orange column highlight = visual winner.</strong> No CTA needed inside the table. The colour itself does the persuasion, the eye reads the orange column as "this one" before processing a single word.</span>
+        </div>
+        <div class="annotation" style="margin-top: 12px;">
+          <span class="annotation__num">②</span>
+          <span class="annotation__text"><strong>Comparing against existing owned items.</strong> The columns are "Wooden, Plastic, Bamboo", boards the customer already has. The table reframes the purchase from "should I buy this?" to "why am I still using that?"</span>
+        </div>
+        <div class="annotation" style="margin-top: 12px;">
+          <span class="annotation__num">③</span>
+          <span class="annotation__text"><strong>Kura wins outright on Lasts a Lifetime and Antimicrobial.</strong> These two rows are Kura's unique advantages, the areas where plastic (the closest competitor) still fails. The selective tick pattern keeps the comparison credible, not inflated.</span>
+        </div>
+        <div class="annotation" style="margin-top: 12px;">
+          <span class="annotation__num">④</span>
+          <span class="annotation__text"><strong>Placed after social proof, not before.</strong> The table closes the rational argument after the emotional case (agitation + reviews) is already made. Rational proof after emotional resonance converts. Rational proof first gets ignored.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════
+     CRO DECISIONS
+═══════════════════════════════════════════════ -->
+<section class="decisions">
+  <div class="container">
+    <div class="section__header">
+      <span class="label">Conversion Design Decisions</span>
+      <h2>The CRO Layer</h2>
+      <p style="color: rgba(244,236,216,0.55);">Beyond the visual design, a set of deliberate conversion mechanics were baked into every section of the page. These are the decisions that separate a pretty page from a profitable one.</p>
+    </div>
+
+    <div class="decisions__grid">
+      <div class="decision-card">
+        <div class="decision-card__num">01</div>
+        <div class="decision-card__title">Colour-Coded Urgency</div>
+        <div class="decision-card__body">Orange is used exclusively for two things: CTAs and the Kura column in the comparison table. This trains the user's eye to associate orange with "take action." When they reach the CTA button, the colour has already done the conditioning work.</div>
+        <span class="decision-card__tag">Colour Psychology</span>
+      </div>
+
+      <div class="decision-card">
+        <div class="decision-card__num">02</div>
+        <div class="decision-card__title">Sticky CTA Architecture</div>
+        <div class="decision-card__body">The hero CTA is the only explicit purchase prompt in the first half of the page. The second CTA appears after the full proof sequence, at the emotional peak of the page. This respects buyer psychology without being aggressive.</div>
+        <span class="decision-card__tag">Funnel Pacing</span>
+      </div>
+
+      <div class="decision-card">
+        <div class="decision-card__num">03</div>
+        <div class="decision-card__title">Section Background Rhythm</div>
+        <div class="decision-card__body">Cream → Cream → Dark → Cream → Dark → Cream. The alternating backgrounds prevent scroll fatigue, create visual chapters, and signal to the user that the content is structured, not one long undifferentiated dump of copy.</div>
+        <span class="decision-card__tag">Visual Pacing</span>
+      </div>
+
+      <div class="decision-card">
+        <div class="decision-card__num">04</div>
+        <div class="decision-card__title">Objection Sequencing</div>
+        <div class="decision-card__body">"Is it worth it?" → handled by price anchor + badge row in hero. "Do I need it?" → handled by agitation section. "Does it work?" → handled by features + stats. "Do others trust it?" → handled by reviews + crowd number.</div>
+        <span class="decision-card__tag">Objection Handling</span>
+      </div>
+
+      <div class="decision-card">
+        <div class="decision-card__num">05</div>
+        <div class="decision-card__title">Gift Framing</div>
+        <div class="decision-card__body">Multiple sections include gift positioning, a badge in the hero, mention in reviews, and a trust icon at the close. This expands the buyer pool from "buying for myself" to "buying for someone I care about", a high-intent segment with lower price sensitivity.</div>
+        <span class="decision-card__tag">Audience Expansion</span>
+      </div>
+
+      <div class="decision-card">
+        <div class="decision-card__num">06</div>
+        <div class="decision-card__title">Typography as Hierarchy Signal</div>
+        <div class="decision-card__body">Fraunces (serif) is used exclusively for section headlines and the brand itself. DM Sans handles all utility text, labels, and CTAs. The distinction ensures headlines are never confused with calls to action, the user always knows what to do next.</div>
+        <span class="decision-card__tag">Type System</span>
+      </div>
+    </div>
+
+    <div class="stats-row">
+      <div class="stats-row__item">
+        <div class="stats-row__num">9</div>
+        <div class="stats-row__label">Distinct page sections, each with a unique psychological job</div>
+      </div>
+      <div class="stats-row__item">
+        <div class="stats-row__num">5+</div>
+        <div class="stats-row__label">Objections addressed before the second CTA appears</div>
+      </div>
+      <div class="stats-row__item">
+        <div class="stats-row__num">2</div>
+        <div class="stats-row__label">CTA placements, above the fold and post-proof</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════
+     STEPS SECTION DEEP DIVE
+═══════════════════════════════════════════════ -->
+<section class="steps-section">
+  <div class="container">
+    <div class="section__header">
+      <span class="label">Design Deep Dive, 06</span>
+      <h2>3 Steps: Reducing Perceived Effort</h2>
+      <p>One of the most undervalued CRO sections on any product page. "Is this going to change my routine?" is a silent objection that kills conversions. Three numbered steps demolish it.</p>
+    </div>
+
+    <div class="dive__layout">
+      <div class="dive__visual">
+        <div class="dive__mockup">
+          <img src="images/6th-slice.png" alt="" class="dive__mockup-img">
+        </div>
+      </div>
+
+      <div>
+        <div class="annotation">
+          <span class="annotation__num">①</span>
+          <span class="annotation__text"><strong>Three steps, not five.</strong> Five steps would imply complexity. Three is the universally intuitive "this is easy" number. The limit is as much a design decision as the layout.</span>
+        </div>
+        <div class="annotation" style="margin-top: 12px;">
+          <span class="annotation__num">②</span>
+          <span class="annotation__text"><strong>Numbered circles in brand orange.</strong> The orange numbers create a visual through-line across the steps, directing the eye from 01 to 02 to 03. The reader follows the path without thinking.</span>
+        </div>
+        <div class="annotation" style="margin-top: 12px;">
+          <span class="annotation__num">③</span>
+          <span class="annotation__text"><strong>Steps + lifestyle image in a 2-col layout.</strong> The split layout makes the section feel more substantial than a simple list. The image grounds the steps in a real kitchen context, aspirational but attainable.</span>
+        </div>
+        <div class="annotation" style="margin-top: 12px;">
+          <span class="annotation__num">④</span>
+          <span class="annotation__text"><strong>Each step ends on a reassurance word.</strong> "No learning curve." "No worrying." "Built to live in your kitchen." The language is designed to deactivate hesitation at every micro-moment in the reading experience.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════
+     PULLQUOTE
+═══════════════════════════════════════════════ -->
+<div class="pullquote">
+  <p class="pullquote__text">&ldquo;The page's job is to remove every reason not to buy, and do it before the customer realises that's what's happening.&rdquo;</p>
+  <p class="pullquote__source">Design Philosophy, Kura Board Build</p>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════
+     CRO BREAKDOWN GRID
+═══════════════════════════════════════════════ -->
+<section class="cro-breakdown">
+  <div class="container">
+    <div class="section__header">
+      <span class="label">Replo Build Notes</span>
+      <h2>Building It in Replo</h2>
+      <p>The entire page was built without writing a single line of custom code. Replo's section-based editor maps directly to the conversion architecture, each psychological section is a discrete Replo section with shared design tokens.</p>
+    </div>
+
+    <div class="cro__grid">
+      <div class="cro-card">
+        <div class="cro-card__header">
+          <div class="cro-card__icon">
+            <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+          </div>
+          <span class="cro-card__title">Design System First</span>
+        </div>
+        <div class="cro-card__body">
+          <p>Before building any section, design tokens were established across the Replo project, brand colours, type sizes, spacing units. This ensured visual consistency across 9 distinct sections without hardcoding values.</p>
+          <ul class="cro-card__list">
+            <li>Cream, navy, orange as global colour variables</li>
+            <li>Two typeface roles: Fraunces (display) and DM Sans (body/UI)</li>
+            <li>Consistent section vertical padding across the build</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="cro-card">
+        <div class="cro-card__header">
+          <div class="cro-card__icon">
+            <svg viewBox="0 0 24 24"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+          </div>
+          <span class="cro-card__title">Section Psychology Mapped to Components</span>
+        </div>
+        <div class="cro-card__body">
+          <p>Each CRO section was mapped to a Replo component type before building, matching the psychological function to the most appropriate visual format.</p>
+          <ul class="cro-card__list">
+            <li>Hero → standard Shopify PDP layout with custom styling</li>
+            <li>Agitation → full-bleed image + overlaid text block</li>
+            <li>Reviews → 4-column card grid on dark background</li>
+            <li>Comparison → custom table with conditional column highlight</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="cro-card cro-card--full">
+        <div class="cro-card__header">
+          <div class="cro-card__icon">
+            <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          </div>
+          <span class="cro-card__title">Mobile Conversion Parity</span>
+        </div>
+        <div class="cro-card__body">
+          <p>With the majority of DTC traffic arriving on mobile, each section was designed desktop-first but pressure-tested for mobile conversion parity. Key decisions:</p>
+          <ul class="cro-card__list">
+            <li>Hero stacks to single column on mobile, gallery above, purchase details below, maintaining the proven scroll-to-CTA pattern</li>
+            <li>Feature grid collapses to 2×2 then 1-column, icons remain at full size to preserve visual hierarchy</li>
+            <li>Comparison table horizontally scrolls on mobile with a visual affordance, no data truncation</li>
+            <li>The dark social proof section is the most impactful on mobile because the colour contrast creates maximum thumb-scroll pause</li>
+            <li>CTA buttons are minimum 48px height on mobile, exceeding Apple's recommended touch target of 44px</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════
+     REFLECTION
+═══════════════════════════════════════════════ -->
+<section class="reflection">
+  <div class="container">
+    <div class="section__header">
+      <span class="label">Reflection</span>
+      <h2>What This Build Taught Me</h2>
+    </div>
+    <div class="reflection__grid">
+      <blockquote class="reflection__quote">
+        "The design problem was never the cutting board. The design problem was indifference, and how to turn it into urgency."
+      </blockquote>
+      <div>
+        <ul class="reflection__list">
+          <li>The brand work (colours, typefaces, logo) took the least time but created the most perceived value lift. A warm cream palette alone repositions a product from commodity to considered.</li>
+          <li>The agitation section outperformed every other section in qualitative feedback. Visceral problem-framing is more persuasive than any feature list.</li>
+          <li>Building in Replo forces good design habits, because you can't rely on custom CSS hacks, the design must communicate through layout, colour, and typography alone.</li>
+          <li>The comparison table is underused in DTC e-commerce. It converts passive consideration into active selection, and it works harder than reviews for analytical buyers.</li>
+          <li>If I rebuilt this page, I'd A/B test the CTA copy, specifically whether "Save 19%" outperforms a simple "Get the Kura Board" with no discount framing. Urgency vs. identity.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════
+     FOOTER
+═══════════════════════════════════════════════ -->
+<footer class="cs-footer">
+  <div class="cs-footer__left">
+    <div class="cs-footer__label">Case Study</div>
+    <div class="cs-footer__title">Kura Board</div>
+  </div>
+  <div class="cs-footer__right">
+    <div class="cs-footer__credit">
+      <strong>Ridwan</strong><br>
+      Brand + CRO Page Design<br>
+      Built in Replo · 2025<br>
+      <span style="color: rgba(244,236,216,0.15);">sirridwan721@gmail.com</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KURA — Brand Assets Kit</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --slate:    #2B3445;
+  --cream:    #F6EFE2;
+  --copper:   #C47A3A;
+  --silver:   #CDD3DC;
+  --offblack: #181820;
+  --muted:    #8B919E;
+  --white:    #FFFFFF;
+}
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--cream);
+  color: var(--offblack);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* ─── COVER ─────────────────────────────── */
+.cover {
+  background: var(--offblack);
+  color: var(--cream);
+  padding: 80px 60px 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+.cover-eyebrow {
+  font-size: 10px;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--copper);
+  margin-bottom: 24px;
+}
+.cover-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 64px;
+  letter-spacing: 0.1em;
+  line-height: 1;
+  color: var(--cream);
+}
+.cover-sub {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 18px;
+  color: var(--silver);
+  margin-top: 10px;
+}
+.cover-meta {
+  text-align: right;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+  line-height: 2;
+}
+
+/* ─── SECTION ────────────────────────────── */
+.section {
+  padding: 64px 60px;
+  border-bottom: 1px solid var(--silver);
+}
+.section.dark {
+  background: var(--slate);
+  border-bottom-color: rgba(205,211,220,0.15);
+}
+.section.white {
+  background: var(--white);
+}
+.section-label {
+  font-size: 9px;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--copper);
+  margin-bottom: 8px;
+}
+.section-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 42px;
+  font-weight: 600;
+  color: var(--slate);
+  margin-bottom: 40px;
+  line-height: 1.1;
+}
+.section.dark .section-title { color: var(--cream); }
+
+/* ─── LOGO DISPLAY ───────────────────────── */
+.logo-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+}
+.logo-cell {
+  padding: 48px 32px 36px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  min-height: 220px;
+}
+.logo-cell.on-cream  { background: var(--cream); border: 1px solid var(--silver); }
+.logo-cell.on-slate  { background: var(--slate); }
+.logo-cell.on-copper { background: var(--copper); }
+.logo-cell.on-black  { background: var(--offblack); }
+.logo-cell.on-white  { background: var(--white); border: 1px solid var(--silver); }
+
+.logo-cell-label {
+  font-size: 9px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-top: 4px;
+}
+.logo-cell.on-slate .logo-cell-label,
+.logo-cell.on-black .logo-cell-label,
+.logo-cell.on-copper .logo-cell-label { color: rgba(255,255,255,0.4); }
+
+/* ─── INLINE K-MARK SVG ──────────────────── */
+.k-mark { display: block; }
+.k-mark.sz-lg { width: 48px; }
+.k-mark.sz-md { width: 36px; }
+.k-mark.sz-sm { width: 24px; }
+.k-mark.sz-xs { width: 16px; }
+
+/* ─── LOGO LOCKUP ────────────────────────── */
+.logo-lockup {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.logo-lockup-v {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+.logo-wordmark {
+  font-family: 'Bebas Neue', sans-serif;
+  letter-spacing: 0.16em;
+  line-height: 1;
+}
+.logo-wordmark.sz-lg { font-size: 72px; }
+.logo-wordmark.sz-md { font-size: 54px; }
+.logo-wordmark.sz-sm { font-size: 40px; }
+.logo-wordmark.sz-xs { font-size: 28px; }
+
+.logo-wordmark.dark-text  { color: var(--slate); }
+.logo-wordmark.light-text { color: var(--cream); }
+
+.logo-tagline-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 13px;
+  letter-spacing: 0.06em;
+}
+.logo-tagline-text.dark-text  { color: var(--muted); }
+.logo-tagline-text.light-text { color: rgba(246,239,226,0.6); }
+
+.copper-rule {
+  height: 3px;
+  background: var(--copper);
+}
+.copper-rule.rule-full { width: 100%; }
+
+/* ─── ICON GRID ──────────────────────────── */
+.icon-row {
+  display: flex;
+  gap: 32px;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  padding: 32px 0;
+}
+.icon-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+.icon-bg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+}
+.icon-bg.cream-bg { background: var(--cream); padding: 16px; border: 1px solid var(--silver); }
+.icon-bg.slate-bg { background: var(--slate); padding: 16px; }
+.icon-bg.copper-bg { background: var(--copper); padding: 16px; }
+.icon-size-label {
+  font-size: 9px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* ─── COLORS ─────────────────────────────── */
+.color-row {
+  display: flex;
+  gap: 0;
+}
+.color-block {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.color-swatch-tall {
+  height: 120px;
+}
+.color-info {
+  padding: 16px 20px;
+  background: var(--white);
+  border: 1px solid var(--silver);
+  border-top: none;
+}
+.color-info-name { font-weight: 500; font-size: 13px; color: var(--slate); margin-bottom: 2px; }
+.color-info-role { font-size: 11px; color: var(--muted); margin-bottom: 6px; letter-spacing: 0.02em; }
+.color-info-codes { font-family: monospace; font-size: 11px; color: var(--muted); line-height: 1.8; }
+
+/* ─── TYPOGRAPHY ─────────────────────────── */
+.type-stack { display: flex; flex-direction: column; gap: 32px; }
+.type-item {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  gap: 32px;
+  align-items: start;
+  padding-bottom: 32px;
+  border-bottom: 1px solid var(--silver);
+}
+.type-item:last-child { border-bottom: none; padding-bottom: 0; }
+.type-meta h5 {
+  font-size: 9px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--copper);
+  margin-bottom: 8px;
+}
+.type-meta p { font-size: 12px; color: var(--muted); line-height: 1.7; }
+.type-sample-bebas {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 80px;
+  letter-spacing: 0.12em;
+  color: var(--slate);
+  line-height: 1;
+}
+.type-sample-cg {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 52px;
+  font-weight: 600;
+  color: var(--slate);
+  line-height: 1.1;
+}
+.type-sample-dm {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 16px;
+  font-weight: 300;
+  color: var(--offblack);
+  line-height: 1.75;
+  max-width: 440px;
+}
+.type-tag {
+  font-size: 9px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-top: 8px;
+}
+
+/* ─── USAGE RULES ────────────────────────── */
+.rules-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+.rule-card {
+  padding: 28px;
+  border-top: 3px solid transparent;
+}
+.rule-card.do-card { background: var(--white); border-top-color: var(--copper); }
+.rule-card.dont-card { background: #f5f5f5; border-top-color: #D0D0D0; }
+.rule-card h5 {
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+.rule-card.do-card h5 { color: var(--copper); }
+.rule-card.dont-card h5 { color: var(--muted); }
+.rule-card ul { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+.rule-card li { font-size: 13px; line-height: 1.55; padding-left: 18px; position: relative; color: #444; }
+.rule-card li::before { content:''; position:absolute; left:0; top:7px; width:8px; height:8px; border-radius:50%; }
+.rule-card.do-card li::before { background: var(--copper); }
+.rule-card.dont-card li::before { background: #ccc; }
+
+/* ─── SCALE DEMO ─────────────────────────── */
+.scale-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+.scale-item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+/* ─── FOOTER ─────────────────────────────── */
+.doc-footer {
+  background: var(--offblack);
+  color: var(--muted);
+  padding: 32px 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+.doc-footer span { color: var(--copper); }
+
+/* ─── DOWNLOAD BTN ───────────────────────── */
+.dl-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  border: 1px solid var(--copper);
+  color: var(--copper);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  padding: 8px 18px;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-decoration: none;
+}
+.dl-btn:hover { background: var(--copper); color: var(--cream); }
+.dl-btn.light {
+  border-color: rgba(196,122,58,0.5);
+}
+.dl-btn.light:hover { background: var(--copper); color: var(--cream); }
+
+.dl-row { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 32px; }
+</style>
+</head>
+<body>
+
+<!-- ═══ COVER ═══════════════════════════════ -->
+<div class="cover">
+  <div>
+    <p class="cover-eyebrow">Brand Assets Kit · 2026</p>
+    <div class="cover-title">KURA</div>
+    <div class="cover-sub">Clean Surface. Clear Mind.</div>
+  </div>
+  <div class="cover-meta">
+    Stainless Steel Kitchen Products<br>
+    Logos · Colors · Typography<br>
+    Usage Rules · Social Templates
+  </div>
+</div>
+
+
+<!-- ═══ 01 — PRIMARY LOGO ═══════════════════ -->
+<div class="section white">
+  <p class="section-label">01 — Primary Logo</p>
+  <h2 class="section-title">Logo System</h2>
+
+  <div class="logo-grid">
+
+    <!-- Cream background (default) -->
+    <div class="logo-cell on-cream" style="grid-column: 1 / 3;">
+      <div class="logo-lockup">
+        <!-- K-mark icon -->
+        <svg class="k-mark sz-lg" viewBox="0 0 160 220" xmlns="http://www.w3.org/2000/svg">
+          <rect x="20" y="20" width="22" height="162" fill="#2B3445"/>
+          <polygon points="42,74 42,101 142,40 142,20" fill="#2B3445"/>
+          <polygon points="42,101 42,128 142,182 142,162" fill="#2B3445"/>
+          <rect x="20" y="196" width="122" height="5" fill="#C47A3A"/>
+        </svg>
+        <!-- Wordmark -->
+        <div>
+          <div class="logo-wordmark sz-lg dark-text">KURA</div>
+          <div class="logo-tagline-text dark-text">Clean Surface. Clear Mind.</div>
+        </div>
+      </div>
+      <p class="logo-cell-label">Primary · On Cream · Default</p>
+    </div>
+
+    <!-- Slate background (reversed) -->
+    <div class="logo-cell on-slate">
+      <div class="logo-lockup">
+        <svg class="k-mark sz-lg" viewBox="0 0 160 220" xmlns="http://www.w3.org/2000/svg">
+          <rect x="20" y="20" width="22" height="162" fill="#F6EFE2"/>
+          <polygon points="42,74 42,101 142,40 142,20" fill="#F6EFE2"/>
+          <polygon points="42,101 42,128 142,182 142,162" fill="#F6EFE2"/>
+          <rect x="20" y="196" width="122" height="5" fill="#C47A3A"/>
+        </svg>
+        <div>
+          <div class="logo-wordmark sz-md light-text">KURA</div>
+          <div class="logo-tagline-text light-text">Clean Surface. Clear Mind.</div>
+        </div>
+      </div>
+      <p class="logo-cell-label">Reversed · On Slate</p>
+    </div>
+
+    <!-- Off-black background -->
+    <div class="logo-cell on-black">
+      <div class="logo-lockup">
+        <svg class="k-mark sz-lg" viewBox="0 0 160 220" xmlns="http://www.w3.org/2000/svg">
+          <rect x="20" y="20" width="22" height="162" fill="#F6EFE2"/>
+          <polygon points="42,74 42,101 142,40 142,20" fill="#F6EFE2"/>
+          <polygon points="42,101 42,128 142,182 142,162" fill="#F6EFE2"/>
+          <rect x="20" y="196" width="122" height="5" fill="#C47A3A"/>
+        </svg>
+        <div>
+          <div class="logo-wordmark sz-md light-text">KURA</div>
+          <div class="logo-tagline-text light-text">Clean Surface. Clear Mind.</div>
+        </div>
+      </div>
+      <p class="logo-cell-label">Reversed · On Black</p>
+    </div>
+
+  </div>
+
+  <!-- Stacked + Wordmark only row -->
+  <div class="logo-grid" style="margin-top:2px; grid-template-columns: repeat(3,1fr);">
+
+    <!-- Stacked variant -->
+    <div class="logo-cell on-cream" style="min-height:240px;">
+      <div class="logo-lockup-v">
+        <svg class="k-mark sz-md" viewBox="0 0 160 220" xmlns="http://www.w3.org/2000/svg">
+          <rect x="20" y="20" width="22" height="162" fill="#2B3445"/>
+          <polygon points="42,74 42,101 142,40 142,20" fill="#2B3445"/>
+          <polygon points="42,101 42,128 142,182 142,162" fill="#2B3445"/>
+          <rect x="20" y="196" width="122" height="5" fill="#C47A3A"/>
+        </svg>
+        <div style="text-align:center;">
+          <div class="logo-wordmark sz-sm dark-text">KURA</div>
+          <div class="logo-tagline-text dark-text" style="font-size:11px;">Clean Surface. Clear Mind.</div>
+        </div>
+      </div>
+      <p class="logo-cell-label">Stacked Variant</p>
+    </div>
+
+    <!-- Wordmark only -->
+    <div class="logo-cell on-cream" style="min-height:240px;">
+      <div>
+        <div class="logo-wordmark sz-lg dark-text">KURA</div>
+        <div style="height:3px; background:var(--copper); margin-top:6px;"></div>
+      </div>
+      <p class="logo-cell-label">Wordmark Only</p>
+    </div>
+
+    <!-- Icon only -->
+    <div class="logo-cell on-cream" style="min-height:240px;">
+      <svg class="k-mark" style="width:60px;" viewBox="0 0 160 220" xmlns="http://www.w3.org/2000/svg">
+        <rect x="20" y="20" width="22" height="162" fill="#2B3445"/>
+        <polygon points="42,74 42,101 142,40 142,20" fill="#2B3445"/>
+        <polygon points="42,101 42,128 142,182 142,162" fill="#2B3445"/>
+        <rect x="20" y="196" width="122" height="5" fill="#C47A3A"/>
+      </svg>
+      <p class="logo-cell-label">Icon Mark Only</p>
+    </div>
+
+  </div>
+
+  <div class="dl-row">
+    <button class="dl-btn" onclick="downloadSVG('primary-light')">↓ Download Primary SVG</button>
+    <button class="dl-btn" onclick="downloadSVG('primary-dark')">↓ Download Reversed SVG</button>
+    <button class="dl-btn" onclick="downloadIconSVG('slate')">↓ Download K-Mark (Slate)</button>
+    <button class="dl-btn" onclick="downloadIconSVG('cream')">↓ Download K-Mark (Cream)</button>
+  </div>
+</div>
+
+
+<!-- ═══ 02 — ICON MARK AT SCALE ══════════════ -->
+<div class="section">
+  <p class="section-label">02 — Icon Mark</p>
+  <h2 class="section-title">Scale & Usage</h2>
+
+  <!-- Three colorways -->
+  <div style="display:flex; gap:40px; flex-wrap:wrap; margin-bottom:48px;">
+
+    <div>
+      <p style="font-size:9px; letter-spacing:0.3em; text-transform:uppercase; color:var(--muted); margin-bottom:16px;">On Cream / White</p>
+      <div class="icon-row">
+        <div class="icon-item">
+          <div class="icon-bg cream-bg">
+            <svg style="width:64px;" viewBox="0 0 160 220" xmlns="http://www.w3.org/2000/svg">
+              <rect x="20" y="20" width="22" height="162" fill="#2B3445"/>
+              <polygon points="42,74 42,101 142,40 142,20" fill="#2B3445"/>
+              <polygon points="42,101 42,128 142,182 142,162" fill="#2B3445"/>
+              <rect x="20" y="196" width="122" height="5" fill="#C47A3A"/>
+            </svg>
+          </div>
+          <span class="icon-size-label">64px</span>
+        </div>
+        <div class="icon-item">
+          <div class="icon-bg cream-bg">
+            <svg style="width:48px;" viewBox="0 0 160 220" xmlns="http://www.w3.org/2000/svg">
+              <rect x="20" y="20" width="22" height="162" fill="#2B3445"/>
+              <polygon points="42,74 42,101 142,40 142,20" fill="#2B3445"/>
+              <polygon points="42,101 42,128 142,182 142,162" fill="#2B3445"/>
+              <rect x="20" y="196" width="122" height="5" fill="#C47A3A"/>
+            </svg>
+          </div>
+          <span class="icon-size-label">48px</span>
+        </div>
+        <div class="icon-item">
+          <div class="icon-bg cream-bg">
+            <svg style="width:32px;" viewBox="0 0 160 220" xmlns="http://www.w3.org/2000/svg">
+              <rect x="20" y="20" width="22" height="162" fill="#2B3445"/>
+              <polygon points="42,74 42,101 142,40 142,20" fill="#2B3445"/>
+              <polygon points="42,101 42,128 142,182 142,162" fill="#2B3445"/>
+              <rect x="20" y="196" width="122" height="5" fill="#C47A3A"/>
+            </svg>
+          </div>
+          <span class="icon-size-label">32px</span>
+        </div>
+        <div class="icon-item">
+          <div class="icon-bg cream-bg">
+            <svg style="width:24px;" viewBox="0 0 160 220" xmlns="http://www.w3.org/2000/svg">
+              <rect x="20" y="20" width="22" height="162" fill="#2B3445"/>
+              <polygon points="42,74 42,101 142,40 142,20" fill="#2B3445"/>
+              <polygon points="42,101 42,128 142,182 142,162" fill="#2B3445"/>
+              <rect x="20" y="196" width="122" height="5" fill="#C47A3A"/>
+            </svg>
+          </div>
+          <span class="icon-size-label">24px · min</span>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <p style="font-size:9px; letter-spacing:0.3em; text-transform:uppercase; color:var(--muted); margin-bottom:16px;">On Slate / Dark</p>
+      <div class="icon-row">
+        <div class="icon-item">
+          <div class="icon-bg slate-bg">
+            <svg style="width:64px;" viewBox="0 0 160 220" xmlns="http://www.w3.org/2000/svg">
+              <rect x="20" y="20" width="22" height="162" fill="#F6EFE2"/>
+              <polygon points="42,74 42,101 142,40 142,20" fill="#F6EFE2"/>
+              <polygon points="42,101 42,128 142,182 142,162" fill="#F6EFE2"/>
+              <rect x="20" y="196" width="122" height="5" fill="#C47A3A"/>
+            </svg>
+          </div>
+          <span class="icon-size-label" style="color:var(--slate);">Reversed</span>
+        </div>
+        <div class="icon-item">
+          <div class="icon-bg copper-bg">
+            <svg style="width:64px;" viewBox="0 0 160 220" xmlns="http://www.w3.org/2000/svg">
+              <rect x="20" y="20" width="22" height="162" fill="#F6EFE2"/>
+              <polygon points="42,74 42,101 142,40 142,20" fill="#F6EFE2"/>
+              <polygon points="42,101 42,128 142,182 142,162" fill="#F6EFE2"/>
+              <rect x="20" y="196" width="122" height="5" fill="rgba(246,239,226,0.4)"/>
+            </svg>
+          </div>
+          <span class="icon-size-label" style="color:var(--slate);">On Copper</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Clear space rule -->
+  <div style="background:var(--white); padding:32px; border:1px solid var(--silver); display:inline-flex; gap:40px; align-items:center;">
+    <div style="position:relative; padding:24px; border:1px dashed var(--copper); border-radius:2px;">
+      <svg style="width:48px; display:block;" viewBox="0 0 160 220" xmlns="http://www.w3.org/2000/svg">
+        <rect x="20" y="20" width="22" height="162" fill="#2B3445"/>
+        <polygon points="42,74 42,101 142,40 142,20" fill="#2B3445"/>
+        <polygon points="42,101 42,128 142,182 142,162" fill="#2B3445"/>
+        <rect x="20" y="196" width="122" height="5" fill="#C47A3A"/>
+      </svg>
+      <div style="position:absolute; top:4px; left:4px; font-size:8px; color:var(--copper); letter-spacing:0.15em; text-transform:uppercase;">X clear space</div>
+    </div>
+    <div>
+      <p style="font-size:10px; letter-spacing:0.3em; text-transform:uppercase; color:var(--copper); margin-bottom:10px;">Clear Space Rule</p>
+      <p style="font-size:13px; color:#555; line-height:1.7; max-width:280px;">Always maintain a clear space equal to half the icon width on all four sides. No other visual elements should enter this zone.</p>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══ 03 — COLOR SYSTEM ═════════════════════ -->
+<div class="section white">
+  <p class="section-label">03 — Color System</p>
+  <h2 class="section-title">Brand Palette</h2>
+
+  <div class="color-row">
+    <div class="color-block">
+      <div class="color-swatch-tall" style="background:#2B3445;"></div>
+      <div class="color-info">
+        <div class="color-info-name">Deep Slate</div>
+        <div class="color-info-role">Primary · Headlines · Backgrounds</div>
+        <div class="color-info-codes">
+          HEX #2B3445<br>
+          RGB 43, 52, 69<br>
+          HSL 219°, 23%, 22%
+        </div>
+      </div>
+    </div>
+    <div class="color-block">
+      <div class="color-swatch-tall" style="background:#F6EFE2; border-top:1px solid #ddd;"></div>
+      <div class="color-info">
+        <div class="color-info-name">Warm Cream</div>
+        <div class="color-info-role">Base Background · Reversed Text</div>
+        <div class="color-info-codes">
+          HEX #F6EFE2<br>
+          RGB 246, 239, 226<br>
+          HSL 38°, 58%, 92%
+        </div>
+      </div>
+    </div>
+    <div class="color-block">
+      <div class="color-swatch-tall" style="background:#C47A3A;"></div>
+      <div class="color-info">
+        <div class="color-info-name">Burnished Copper</div>
+        <div class="color-info-role">Accent · CTAs · Logo Rule</div>
+        <div class="color-info-codes">
+          HEX #C47A3A<br>
+          RGB 196, 122, 58<br>
+          HSL 30°, 54%, 50%
+        </div>
+      </div>
+    </div>
+    <div class="color-block">
+      <div class="color-swatch-tall" style="background:#CDD3DC;"></div>
+      <div class="color-info">
+        <div class="color-info-name">Cool Silver</div>
+        <div class="color-info-role">Borders · Subtext · Dividers</div>
+        <div class="color-info-codes">
+          HEX #CDD3DC<br>
+          RGB 205, 211, 220<br>
+          HSL 213°, 16%, 84%
+        </div>
+      </div>
+    </div>
+    <div class="color-block">
+      <div class="color-swatch-tall" style="background:#181820;"></div>
+      <div class="color-info">
+        <div class="color-info-name">Off-Black</div>
+        <div class="color-info-role">Body Text · Footers</div>
+        <div class="color-info-codes">
+          HEX #181820<br>
+          RGB 24, 24, 32<br>
+          HSL 240°, 14%, 11%
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Color usage combos -->
+  <div style="margin-top:32px; display:grid; grid-template-columns:repeat(4,1fr); gap:16px;">
+    <div style="background:var(--slate); color:var(--cream); padding:24px; text-align:center;">
+      <div style="font-family:'Bebas Neue',sans-serif; font-size:28px; letter-spacing:0.1em;">KURA</div>
+      <div style="font-size:10px; letter-spacing:0.2em; text-transform:uppercase; color:var(--silver); margin-top:6px;">Slate on Cream ✓</div>
+    </div>
+    <div style="background:var(--cream); color:var(--slate); padding:24px; text-align:center; border:1px solid var(--silver);">
+      <div style="font-family:'Bebas Neue',sans-serif; font-size:28px; letter-spacing:0.1em;">KURA</div>
+      <div style="font-size:10px; letter-spacing:0.2em; text-transform:uppercase; color:var(--muted); margin-top:6px;">Cream on Slate ✓</div>
+    </div>
+    <div style="background:var(--copper); color:var(--cream); padding:24px; text-align:center;">
+      <div style="font-family:'Bebas Neue',sans-serif; font-size:28px; letter-spacing:0.1em;">KURA</div>
+      <div style="font-size:10px; letter-spacing:0.2em; text-transform:uppercase; color:rgba(246,239,226,0.7); margin-top:6px;">Cream on Copper ✓</div>
+    </div>
+    <div style="background:var(--offblack); color:var(--cream); padding:24px; text-align:center;">
+      <div style="font-family:'Bebas Neue',sans-serif; font-size:28px; letter-spacing:0.1em;">KURA</div>
+      <div style="font-size:10px; letter-spacing:0.2em; text-transform:uppercase; color:var(--muted); margin-top:6px;">Cream on Black ✓</div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══ 04 — TYPOGRAPHY ════════════════════ -->
+<div class="section">
+  <p class="section-label">04 — Typography</p>
+  <h2 class="section-title">Type System</h2>
+
+  <div class="type-stack">
+
+    <div class="type-item">
+      <div class="type-meta">
+        <h5>Display / Logo</h5>
+        <p>Bebas Neue<br><br>Logo, hero badges, stat numbers, callouts. Always uppercase. Track wide (0.12–0.16em).</p>
+      </div>
+      <div>
+        <div class="type-sample-bebas">THE KURA BOARD</div>
+        <div class="type-tag">Bebas Neue · Regular · Letter-spacing 0.12em</div>
+      </div>
+    </div>
+
+    <div class="type-item">
+      <div class="type-meta">
+        <h5>Editorial / Headlines</h5>
+        <p>Cormorant Garamond<br><br>Section headings, pull quotes, testimonials. Mix 600 weight with 300 italic for contrast.</p>
+      </div>
+      <div>
+        <div class="type-sample-cg">Clean Surface.<br><em style="font-weight:300; color:var(--copper);">Clear Mind.</em></div>
+        <div class="type-tag">Cormorant Garamond · 600 + 300 Italic · Mixed weight</div>
+      </div>
+    </div>
+
+    <div class="type-item">
+      <div class="type-meta">
+        <h5>Body / UI</h5>
+        <p>DM Sans<br><br>Body copy, product specs, nav, buttons, FAQs. Clean and neutral — lets display fonts breathe.</p>
+      </div>
+      <div>
+        <div class="type-sample-dm">Our stainless steel cutting boards are engineered from food-grade 304 steel — non-porous, warp-proof, and dishwasher safe. Built for cooks who take their kitchen seriously.</div>
+        <div class="type-tag">DM Sans · 300 weight · Line-height 1.75 · 16px</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div style="margin-top:40px; padding:28px; border:1px solid var(--silver); background:var(--white);">
+    <p style="font-size:9px; letter-spacing:0.3em; text-transform:uppercase; color:var(--muted); margin-bottom:12px;">Google Fonts Import</p>
+    <code style="font-size:12px; color:var(--slate); line-height:2; display:block; font-family:monospace;">
+      @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&amp;family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300;1,400&amp;family=DM+Sans:wght@300;400;500&amp;display=swap');
+    </code>
+  </div>
+</div>
+
+
+<!-- ═══ 05 — USAGE RULES ════════════════════ -->
+<div class="section white">
+  <p class="section-label">05 — Logo Usage Rules</p>
+  <h2 class="section-title">Do's &amp; Don'ts</h2>
+
+  <div class="rules-grid">
+    <div class="rule-card do-card">
+      <h5>✓ Always Do</h5>
+      <ul>
+        <li>Use "KURA" in Bebas Neue with letter-spacing 0.14em for the wordmark</li>
+        <li>On light backgrounds: Deep Slate (#2B3445) fill</li>
+        <li>On dark backgrounds: Warm Cream (#F6EFE2) fill</li>
+        <li>Maintain minimum 24px width for the icon mark</li>
+        <li>Keep the copper accent rule as part of the K-mark icon</li>
+        <li>Use the provided SVG source — scale from vector, never upscale raster</li>
+        <li>Give the logo clear space equal to half its width on all sides</li>
+      </ul>
+    </div>
+    <div class="rule-card dont-card">
+      <h5>✗ Never Do</h5>
+      <ul>
+        <li>Don't stretch, rotate, or skew the logo in any direction</li>
+        <li>Don't recolor the logo in any color outside the brand palette</li>
+        <li>Don't add drop shadows, glows, gradients, or outlines</li>
+        <li>Don't place the logo on a busy photograph without sufficient contrast</li>
+        <li>Don't use the icon mark smaller than 24px — use wordmark only instead</li>
+        <li>Don't use any other font for the KURA wordmark</li>
+        <li>Don't place the copper K-mark on the copper background</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══ 06 — BUTTON & UI ELEMENTS ════════════ -->
+<div class="section dark">
+  <p class="section-label">06 — UI Elements</p>
+  <h2 class="section-title">Buttons &amp; Controls</h2>
+
+  <div style="display:flex; gap:20px; flex-wrap:wrap; align-items:flex-start;">
+
+    <!-- Primary CTA -->
+    <div>
+      <p style="font-size:9px; letter-spacing:0.3em; text-transform:uppercase; color:var(--silver); margin-bottom:16px;">Primary CTA</p>
+      <div style="display:flex; flex-direction:column; gap:12px;">
+        <button style="background:var(--copper); border:none; color:var(--cream); font-family:'DM Sans',sans-serif; font-size:12px; font-weight:500; letter-spacing:0.12em; text-transform:uppercase; padding:16px 32px; cursor:pointer; border-radius:3px;">Add to Cart</button>
+        <button style="background:rgba(196,122,58,0.15); border:1px solid var(--copper); color:var(--copper); font-family:'DM Sans',sans-serif; font-size:12px; font-weight:500; letter-spacing:0.12em; text-transform:uppercase; padding:16px 32px; cursor:pointer; border-radius:3px;">Hover State</button>
+      </div>
+    </div>
+
+    <!-- Secondary CTA -->
+    <div>
+      <p style="font-size:9px; letter-spacing:0.3em; text-transform:uppercase; color:var(--silver); margin-bottom:16px;">Secondary CTA</p>
+      <div style="display:flex; flex-direction:column; gap:12px;">
+        <button style="background:var(--slate); border:1px solid var(--silver); color:var(--cream); font-family:'DM Sans',sans-serif; font-size:12px; font-weight:500; letter-spacing:0.12em; text-transform:uppercase; padding:16px 32px; cursor:pointer; border-radius:3px;">Learn More</button>
+        <button style="background:transparent; border:1px solid var(--cream); color:var(--cream); font-family:'DM Sans',sans-serif; font-size:12px; font-weight:500; letter-spacing:0.12em; text-transform:uppercase; padding:16px 32px; cursor:pointer; border-radius:3px;">Ghost / Outline</button>
+      </div>
+    </div>
+
+    <!-- Badge / Tag -->
+    <div>
+      <p style="font-size:9px; letter-spacing:0.3em; text-transform:uppercase; color:var(--silver); margin-bottom:16px;">Badges &amp; Tags</p>
+      <div style="display:flex; flex-direction:column; gap:12px; align-items:flex-start;">
+        <span style="background:var(--copper); color:#fff; font-family:'DM Sans',sans-serif; font-size:9px; font-weight:500; letter-spacing:0.2em; text-transform:uppercase; padding:4px 10px; border-radius:2px;">Hero SKU</span>
+        <span style="background:transparent; border:1px solid var(--copper); color:var(--copper); font-family:'DM Sans',sans-serif; font-size:9px; font-weight:500; letter-spacing:0.2em; text-transform:uppercase; padding:4px 10px; border-radius:2px;">Save 15%</span>
+        <span style="background:var(--cream); color:var(--slate); font-family:'Bebas Neue',sans-serif; font-size:14px; letter-spacing:0.1em; padding:4px 10px; border-radius:2px;">THE UPGRADE</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══ FOOTER ════════════════════════════════ -->
+<div class="doc-footer">
+  <div><span>KURA</span> Brand Assets Kit · 2026 · Confidential</div>
+  <div>Stainless Steel Kitchen Products · Dropship Brand</div>
+</div>
+
+
+<script>
+/* ─── K-MARK SVG (Slate) ─── */
+const kMarkSlateSVG = `<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 160 220" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="KURA K-mark icon">
+  <rect x="20" y="20" width="22" height="162" fill="#2B3445"/>
+  <polygon points="42,74 42,101 142,40 142,20" fill="#2B3445"/>
+  <polygon points="42,101 42,128 142,182 142,162" fill="#2B3445"/>
+  <rect x="20" y="196" width="122" height="5" fill="#C47A3A"/>
+</svg>`;
+
+/* ─── K-MARK SVG (Cream) ─── */
+const kMarkCreamSVG = `<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 160 220" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="KURA K-mark icon reversed">
+  <rect width="160" height="220" fill="#2B3445"/>
+  <rect x="20" y="20" width="22" height="162" fill="#F6EFE2"/>
+  <polygon points="42,74 42,101 142,40 142,20" fill="#F6EFE2"/>
+  <polygon points="42,101 42,128 142,182 142,162" fill="#F6EFE2"/>
+  <rect x="20" y="196" width="122" height="5" fill="#C47A3A"/>
+</svg>`;
+
+/* ─── Primary logo (light) ─── */
+const primaryLightSVG = `<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 520 160" xmlns="http://www.w3.org/2000/svg">
+  <rect width="520" height="160" fill="#F6EFE2"/>
+  <!-- K-mark (scaled to height 120, original 160x220) -->
+  <g transform="translate(24, 20) scale(0.545)">
+    <rect x="20" y="20" width="22" height="162" fill="#2B3445"/>
+    <polygon points="42,74 42,101 142,40 142,20" fill="#2B3445"/>
+    <polygon points="42,101 42,128 142,182 142,162" fill="#2B3445"/>
+    <rect x="20" y="196" width="122" height="5" fill="#C47A3A"/>
+  </g>
+  <!-- KURA wordmark — note: Bebas Neue must be installed or rendered in browser -->
+  <text x="128" y="116"
+    font-family="'Bebas Neue', Impact, sans-serif"
+    font-size="100" letter-spacing="14"
+    fill="#2B3445">KURA</text>
+  <!-- Tagline -->
+  <text x="130" y="140"
+    font-family="Georgia, 'Times New Roman', serif"
+    font-style="italic" font-size="14" letter-spacing="1"
+    fill="#8B919E">Clean Surface. Clear Mind.</text>
+</svg>`;
+
+/* ─── Primary logo (dark) ─── */
+const primaryDarkSVG = `<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 520 160" xmlns="http://www.w3.org/2000/svg">
+  <rect width="520" height="160" fill="#2B3445"/>
+  <g transform="translate(24, 20) scale(0.545)">
+    <rect x="20" y="20" width="22" height="162" fill="#F6EFE2"/>
+    <polygon points="42,74 42,101 142,40 142,20" fill="#F6EFE2"/>
+    <polygon points="42,101 42,128 142,182 142,162" fill="#F6EFE2"/>
+    <rect x="20" y="196" width="122" height="5" fill="#C47A3A"/>
+  </g>
+  <text x="128" y="116"
+    font-family="'Bebas Neue', Impact, sans-serif"
+    font-size="100" letter-spacing="14"
+    fill="#F6EFE2">KURA</text>
+  <text x="130" y="140"
+    font-family="Georgia, 'Times New Roman', serif"
+    font-style="italic" font-size="14" letter-spacing="1"
+    fill="#CDD3DC">Clean Surface. Clear Mind.</text>
+</svg>`;
+
+function downloadSVG(variant) {
+  const svg = variant === 'primary-light' ? primaryLightSVG : primaryDarkSVG;
+  const blob = new Blob([svg], { type: 'image/svg+xml' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `kura-logo-${variant}.svg`;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+function downloadIconSVG(variant) {
+  const svg = variant === 'slate' ? kMarkSlateSVG : kMarkCreamSVG;
+  const blob = new Blob([svg], { type: 'image/svg+xml' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `kura-icon-${variant}.svg`;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+</script>
+
+</body>
+</html>

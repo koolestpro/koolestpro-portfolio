@@ -1,0 +1,19 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Browser automation artifacts
+.playwright-mcp/
+
+# Old/backup portfolio versions
+portfolio/index-old-copy.html
+portfolio/index-v1.html
+
+# Scratch files at root
+steelkind-sample-brand-identity.html
+
+# Editor
+.vscode/
+*.code-workspace

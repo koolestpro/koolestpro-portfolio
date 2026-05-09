@@ -1,0 +1,2650 @@
+<!--
+  BRAND:    [BRAND NAME]
+  PRODUCT:  [PRODUCT NAME]
+  PAGE:     Product Detail Page — pdp-01-story-arc
+  BUILT:    2026-04-26
+  EDIT:     See CLAUDE.md → Editing Guide for how to modify this file
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- EDIT: Page title — update with brand and product name -->
+  <title>[PRODUCT NAME] — [BRAND NAME]</title>
+
+  <!-- Google Fonts: preconnect then load -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <!-- EDIT: Fonts — replace with brand fonts from identity document -->
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet" />
+
+  <!-- Preload hero image (above-the-fold critical path) -->
+  <!-- IMAGE: Hero product shot — update path when image is placed -->
+  <link rel="preload" as="image" href="./images/hero.jpg" />
+
+  <style>
+
+    /* ══════════════════════════════════════════════════════════════
+       DESIGN TOKENS
+       All brand values live here. Change colors, fonts, and spacing
+       in this block only — never hardcode values in component styles.
+       ══════════════════════════════════════════════════════════════ */
+    :root {
+      /* ── BRAND COLORS — replace per brand identity ── */
+      --color-primary:      #1a1a1a;   /* [PRIMARY COLOR]   — dark bg / header */
+      --color-accent:       #e8611a;   /* [ACCENT COLOR]    — CTA / highlight   */
+      --color-accent-lt:    #f47b38;   /* [ACCENT LIGHT]    — hover state       */
+      --color-bg:           #ffffff;   /* [BACKGROUND]      — page default      */
+      --color-bg-alt:       #f8f7f4;   /* [ALT BACKGROUND]  — alternate section */
+      --color-bg-cream:     #fdf8f3;   /* [CREAM BACKGROUND]— warm sections     */
+      --color-text:         #1a1a1a;   /* [BODY TEXT]                           */
+      --color-muted:        #555555;   /* [MUTED TEXT]      — secondary copy    */
+      --color-border:       #e5e5e5;   /* [BORDER]                              */
+      --color-yes:          #22c55e;   /* [CHECK COLOR]     — comparison yes    */
+      --color-no:           #ef4444;   /* [CROSS COLOR]     — comparison no     */
+      --color-placeholder:  #e0dbd4;   /* [IMAGE PLACEHOLDER BG]                */
+      --shadow-card:        0 2px 12px rgba(0,0,0,.06);
+      --shadow-card-lg:     0 4px 24px rgba(0,0,0,.09);
+
+      /* ── BRAND FONTS — replace per brand identity ── */
+      --font-display:  'Bebas Neue', sans-serif;         /* [DISPLAY FONT]  — all headlines  */
+      --font-serif:    'Cormorant Garamond', serif;      /* [SERIF FONT]    — quotes / pull  */
+      --font-body:     'DM Sans', sans-serif;            /* [BODY FONT]     — body / UI      */
+
+      /* ── SPACING & SHAPE — adjust per brand feel ── */
+      --radius-sm:      6px;
+      --radius-md:      10px;
+      --radius-lg:      14px;
+      --radius-pill:    100px;
+      --max-width:      1280px;
+      --section-v:      80px;      /* section vertical padding — desktop */
+      --section-v-mob:  48px;      /* section vertical padding — mobile  */
+    }
+
+    /* ══════════════════════════════════════════════════════════════
+       RESET & BASE
+       ══════════════════════════════════════════════════════════════ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-body);
+      color: var(--color-text);
+      background: var(--color-bg);
+      font-size: 15px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+    button { cursor: pointer; border: none; background: none; font-family: inherit; }
+    input, button { font-family: inherit; }
+
+    /* Focus ring for keyboard navigation */
+    :focus-visible {
+      outline: 2px solid var(--color-accent);
+      outline-offset: 3px;
+    }
+
+    /* Screen-reader-only utility */
+    .sr-only {
+      position: absolute; width: 1px; height: 1px;
+      padding: 0; margin: -1px; overflow: hidden;
+      clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+    }
+
+    /* ══════════════════════════════════════════════════════════════
+       SCROLL FADE-IN ANIMATION
+       Applied to every <section> via IntersectionObserver in JS.
+       ══════════════════════════════════════════════════════════════ */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ══════════════════════════════════════════════════════════════
+       ANNOUNCEMENT BAR — desktop static · mobile slideshow
+       ══════════════════════════════════════════════════════════════ */
+    .ann-bar {
+      background: var(--color-primary);
+      color: #fff;
+      text-align: center;
+      padding: 10px 16px;
+      font-size: 13px;
+      letter-spacing: .04em;
+    }
+    .ann-bar span { color: var(--color-accent); }
+    .ann-desktop { display: block; }
+    .ann-mobile  { display: none; position: relative; height: 21px; overflow: hidden; }
+    .ann-slide {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+      white-space: nowrap;
+    }
+    .ann-slide.active { opacity: 1; }
+
+    /* ══════════════════════════════════════════════════════════════
+       STICKY HEADER
+       ══════════════════════════════════════════════════════════════ */
+    header {
+      background: #fff;
+      border-bottom: 1px solid var(--color-border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .header-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    /* EDIT: Logo text — replace [BRAND NAME] or swap for an <img> */
+    .logo {
+      font-family: var(--font-display);
+      font-size: 24px;
+      letter-spacing: .04em;
+      color: var(--color-text);
+    }
+
+    /* Nav hidden on mobile — shown at 768px+ */
+    .header-nav { display: none; }
+    .header-nav ul { list-style: none; display: flex; gap: 28px; }
+    .header-nav a {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--color-text);
+      transition: color .2s;
+    }
+    .header-nav a:hover { color: var(--color-accent); }
+
+    .header-icons { display: flex; gap: 8px; align-items: center; }
+    .icon-btn {
+      width: 38px; height: 38px;
+      display: flex; align-items: center; justify-content: center;
+      border-radius: 50%;
+      transition: background .2s;
+    }
+    .icon-btn:hover { background: var(--color-bg-alt); }
+    .icon-btn svg { width: 20px; height: 20px; }
+
+    /* Mobile nav toggle */
+    .nav-toggle { display: flex; }
+    .nav-toggle svg { width: 22px; height: 22px; }
+
+    .mobile-nav {
+      display: none;
+      background: #fff;
+      border-top: 1px solid var(--color-border);
+      padding: 16px 20px 20px;
+    }
+    .mobile-nav.open { display: block; }
+    .mobile-nav ul { list-style: none; display: flex; flex-direction: column; gap: 14px; }
+    .mobile-nav a { font-size: 15px; font-weight: 500; }
+
+    /* ══════════════════════════════════════════════════════════════
+       SECTION SHARED
+       ══════════════════════════════════════════════════════════════ */
+    .section-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: var(--section-v-mob) 20px;
+    }
+
+    .section-tag {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+      margin-bottom: 10px;
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: 36px;
+      line-height: 1.05;
+      margin-bottom: 14px;
+    }
+
+    .section-sub {
+      font-size: 15px;
+      color: var(--color-muted);
+      line-height: 1.7;
+    }
+
+    /* Shared CTA block (used in S4, S7) */
+    .cta-group {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 24px;
+    }
+
+    .cta-primary {
+      display: block;
+      background: var(--color-accent);
+      color: #fff;
+      font-family: var(--font-display);
+      font-size: 18px;
+      letter-spacing: .1em;
+      padding: 16px 32px;
+      border-radius: var(--radius-md);
+      text-align: center;
+      transition: background .2s;
+    }
+    .cta-primary:hover { background: var(--color-accent-lt); }
+
+    .secure-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      font-size: 12px;
+      color: var(--color-muted);
+    }
+    .secure-row svg { width: 14px; height: 14px; }
+
+    /* ══════════════════════════════════════════════════════════════
+       S1 — HERO PRODUCT BLOCK
+       ══════════════════════════════════════════════════════════════ */
+    .product-hero { background: var(--color-bg); }
+
+    .product-hero-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 28px 20px var(--section-v-mob);
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 28px;
+      align-items: start;
+    }
+
+    /* ── Gallery wrapper ── */
+    .gallery {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .mini-faq.mobile  { display: block; }
+    .mini-faq.desktop { display: none; }
+
+    /* ── Image Carousel ─────────────────────────────────────────── */
+    .img-carousel {
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+      border-radius: var(--radius-sm);
+      background: var(--color-bg-alt);
+    }
+    .img-track {
+      display: flex;
+      gap: 0;
+      transition: transform 0.38s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      will-change: transform;
+      cursor: grab;
+      user-select: none;
+    }
+    .img-track.dragging { transition: none; cursor: grabbing; }
+    .img-slide {
+      flex: 0 0 100%;
+      aspect-ratio: 4/3;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .img-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      pointer-events: none;
+      -webkit-user-drag: none;
+    }
+    .img-dots {
+      position: absolute;
+      bottom: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 6px;
+      align-items: center;
+      z-index: 2;
+    }
+    .img-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.5);
+      cursor: pointer;
+      transition: all 0.25s ease;
+      border: none;
+      padding: 0;
+    }
+    .img-dot.active {
+      width: 22px;
+      border-radius: 3px;
+      background: #fff;
+    }
+
+    /* ── Product info ── */
+    .product-info {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .stars {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .star-icons {
+      color: var(--color-accent);
+      font-size: 15px;
+      letter-spacing: 2px;
+    }
+    .review-count {
+      font-size: 13px;
+      color: var(--color-muted);
+      border-bottom: 1px solid currentColor;
+      line-height: 1.1;
+      padding-bottom: 1px;
+    }
+
+    .product-title {
+      font-family: var(--font-display);
+      font-size: 28px;
+      line-height: 1.05;
+    }
+
+    .product-desc {
+      font-size: 14px;
+      color: var(--color-muted);
+      line-height: 1.75;
+    }
+
+    /* ── Benefit subheadline ── */
+    .benefit-subheadline {
+      font-family: var(--font-serif);
+      font-size: 18px;
+      font-style: italic;
+      color: var(--color-muted);
+      line-height: 1.4;
+      font-weight: 400;
+    }
+
+    /* ── Price row with compare-at anchor ── */
+    .price-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 6px;
+    }
+    .price-compare {
+      font-size: 20px;
+      color: var(--color-muted);
+      text-decoration: line-through;
+      font-weight: 400;
+    }
+    .price-main {
+      font-family: var(--font-display);
+      font-size: 36px;
+      color: var(--color-accent);
+      letter-spacing: .04em;
+    }
+    .price-save {
+      background: var(--color-accent);
+      color: #fff;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 2px;
+    }
+
+    /* ── Shipping clarity note ── */
+    .shipping-note {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 12px;
+      color: var(--color-muted);
+      margin-bottom: 16px;
+      line-height: 1.5;
+    }
+    .shipping-note svg { flex-shrink: 0; stroke: var(--color-muted); }
+
+    /* ── Benefit bullets (3 key reasons) ── */
+    .bullets { display: flex; flex-wrap: wrap; gap: 8px 24px; margin-bottom: 16px; }
+    .bullet-item {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 13px;
+    }
+    .bullet-item .check {
+      width: 18px; height: 18px;
+      background: var(--color-accent);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      color: #fff; font-size: 10px;
+    }
+
+    /* ── Variant selector ── */
+    .variant-label {
+      font-size: 13px;
+      color: var(--color-muted);
+      margin-bottom: 8px;
+    }
+    .variant-label strong { color: var(--color-text); }
+
+    .variant-btns { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 8px; align-items: center; }
+    .variant-btn {
+      border: 2px solid var(--color-border);
+      padding: 8px 20px;
+      border-radius: var(--radius-md);
+      font-size: 14px;
+      font-weight: 500;
+      transition: border-color .2s, color .2s;
+      background: none;
+      cursor: pointer;
+    }
+    .variant-btn.active, .variant-btn:hover {
+      border-color: var(--color-accent);
+      color: var(--color-accent);
+    }
+
+    /* ── Size guide link ── */
+    .size-guide-link {
+      font-size: 12px;
+      color: var(--color-accent);
+      cursor: pointer;
+      transition: opacity .2s;
+    }
+    .size-guide-link:hover { opacity: .75; text-decoration: underline; }
+
+    /* ── Urgency signal ── */
+    .urgency-signal {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 12px;
+      color: var(--color-accent);
+      font-weight: 500;
+      background: rgba(0, 0, 0, .04);
+      padding: 9px 12px;
+      border-radius: var(--radius-sm);
+      margin-bottom: 12px;
+      border: 1px solid rgba(0, 0, 0, .08);
+    }
+    .urgency-signal svg { flex-shrink: 0; }
+
+    /* ── ATC button ── */
+    .atc-btn {
+      background: var(--color-accent);
+      color: #fff;
+      font-family: var(--font-display);
+      font-size: 18px;
+      letter-spacing: .1em;
+      padding: 16px 32px;
+      border-radius: var(--radius-md);
+      width: 100%;
+      text-align: center;
+      transition: background .2s, transform .1s;
+      min-height: 52px;
+      border: none;
+      cursor: pointer;
+    }
+    .atc-btn:hover { background: var(--color-accent-lt); }
+    .atc-btn:active { transform: scale(.99); }
+
+    /* ── Returns + secure trust lines ── */
+    .returns-line {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      color: var(--color-muted);
+      margin-bottom: 8px;
+    }
+    .returns-line svg { flex-shrink: 0; }
+    .secure-line {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      color: var(--color-muted);
+      margin-bottom: 16px;
+    }
+
+    /* ── Specs — always visible block ── */
+    .specs-visible {
+      border-top: 1px solid var(--color-border);
+      padding-top: 14px;
+      margin-top: 8px;
+    }
+    .specs-visible-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--color-text);
+      margin-bottom: 10px;
+    }
+    .specs-visible-content {
+      font-size: 12px;
+      line-height: 2;
+      color: var(--color-muted);
+    }
+    .specs-visible-content strong { font-weight: 500; }
+
+    .payment-icons {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      flex-wrap: wrap;
+    }
+    .payment-icons svg {
+      height: 28px;
+      width: auto;
+      display: block;
+      flex-shrink: 0;
+    }
+
+    /* ── Mini FAQ (in buy box) ── */
+    .mini-faq {
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+    .mini-faq details { border-bottom: 1px solid var(--color-border); }
+    .mini-faq details:last-child { border-bottom: none; }
+    .mini-faq summary {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 13px 16px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      list-style: none;
+    }
+    .mini-faq summary::-webkit-details-marker { display: none; }
+    .mini-faq summary::after {
+      content: '+';
+      font-size: 20px;
+      color: var(--color-accent);
+      line-height: 1;
+      flex-shrink: 0;
+      transition: transform .2s;
+    }
+    .mini-faq details[open] summary::after { transform: rotate(45deg); }
+    .mini-faq .faq-body {
+      padding: 0 16px 13px;
+      font-size: 13px;
+      color: var(--color-muted);
+      line-height: 1.7;
+    }
+
+    /* ══════════════════════════════════════════════════════════════
+       S2 — WHY [BRAND]
+       ══════════════════════════════════════════════════════════════ */
+    .why-us { background: var(--color-bg-alt); }
+
+    .why-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 32px;
+      margin-top: 32px;
+    }
+
+    .feature-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .feature-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 15px;
+      font-weight: 500;
+    }
+    .feature-icon {
+      width: 36px; height: 36px;
+      background: var(--color-accent);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .feature-icon svg {
+      width: 18px; height: 18px;
+      stroke: #fff; fill: none; stroke-width: 2.5;
+    }
+
+    .testimonial-card {
+      background: #fff;
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      box-shadow: var(--shadow-card-lg);
+    }
+    .testimonial-stars {
+      color: var(--color-accent);
+      font-size: 18px;
+      margin-bottom: 12px;
+    }
+    .testimonial-title { font-size: 16px; font-weight: 700; margin-bottom: 10px; }
+    .testimonial-body {
+      font-size: 14px;
+      color: var(--color-muted);
+      line-height: 1.7;
+      margin-bottom: 14px;
+    }
+    .testimonial-author { font-size: 13px; font-weight: 600; }
+
+    /* ══════════════════════════════════════════════════════════════
+       S3 — THE PROBLEM (VILLAIN)
+       ══════════════════════════════════════════════════════════════ */
+    .villain { background: var(--color-bg-cream); }
+
+    .villain-inner {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+
+    .villain-left {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+    }
+    .villain-icon-wrap {
+      width: 64px; height: 64px;
+      background: var(--color-accent);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .villain-icon-wrap svg {
+      width: 30px; height: 30px;
+      stroke: #fff; fill: none; stroke-width: 2;
+    }
+
+    .villain-cta {
+      margin-top: 20px;
+      font-size: 15px;
+      color: var(--color-muted);
+    }
+    .villain-cta a {
+      color: var(--color-accent);
+      font-weight: 700;
+      text-decoration: underline;
+    }
+
+    .villain-img {
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      aspect-ratio: 4 / 3;
+      background: var(--color-placeholder);
+    }
+    .villain-img img { width: 100%; height: 100%; object-fit: cover; }
+
+    /* ══════════════════════════════════════════════════════════════
+       S4 — THE UPGRADE (HERO SOLUTION)
+       ══════════════════════════════════════════════════════════════ */
+    .hero-prod { background: var(--color-bg); }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 32px;
+      margin-top: 28px;
+    }
+    .hero-grid-left  { order: 2; }
+    .hero-grid-right { order: 1; }
+
+    .benefits-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .benefit-card {
+      background: var(--color-bg-alt);
+      border-radius: var(--radius-md);
+      padding: 18px 14px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+    .benefit-icon {
+      width: 44px; height: 44px;
+      background: var(--color-accent);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .benefit-icon svg {
+      width: 22px; height: 22px;
+      stroke: #fff; fill: none; stroke-width: 2;
+    }
+    .benefit-label {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      line-height: 1.3;
+    }
+
+    .hero-prod-img {
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      aspect-ratio: 3 / 4;
+      background: var(--color-placeholder);
+    }
+    .hero-prod-img img { width: 100%; height: 100%; object-fit: cover; }
+
+    .hero-prod-stars { margin-top: 16px; }
+
+    /* ══════════════════════════════════════════════════════════════
+       S5 — BEFORE / AFTER
+       ══════════════════════════════════════════════════════════════
+    */
+    .before-after { background: var(--color-bg-alt); }
+    .ba-inner { text-align: center; }
+
+    .ba-quote {
+      font-family: var(--font-serif);
+      font-size: 22px;
+      font-style: italic;
+      font-weight: 600;
+      line-height: 1.4;
+      max-width: 640px;
+      margin: 0 auto 36px;
+      color: var(--color-text);
+    }
+    .ba-quote::before { content: '\201C'; }
+    .ba-quote::after  { content: '\201D'; }
+
+    .ba-imgs {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .ba-img-wrap {
+      position: relative;
+      width: 100%;
+      max-width: 240px;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      background: var(--color-placeholder);
+      aspect-ratio: 1 / 1;
+    }
+    .ba-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
+
+    .ba-label {
+      position: absolute;
+      bottom: 10px; left: 10px;
+      background: rgba(0,0,0,.62);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: var(--radius-pill);
+      text-transform: uppercase;
+      letter-spacing: .08em;
+    }
+
+    .ba-divider {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-accent);
+    }
+    .ba-divider svg {
+      width: 36px; height: 36px;
+      stroke: var(--color-accent); fill: none; stroke-width: 2.5;
+    }
+
+    /* ══════════════════════════════════════════════════════════════
+       S6 — HOW IT WORKS
+       ══════════════════════════════════════════════════════════════ */
+    .steps { background: var(--color-bg); }
+    .steps-inner { text-align: center; }
+
+    .steps-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+      margin-top: 40px;
+    }
+
+    .step-card { text-align: center; }
+
+    .step-icon {
+      width: 72px; height: 72px;
+      background: var(--color-accent);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 16px;
+    }
+    .step-icon svg {
+      width: 30px; height: 30px;
+      stroke: #fff; fill: none; stroke-width: 2;
+    }
+
+    .step-num {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+      margin-bottom: 6px;
+    }
+
+    .step-title {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .step-body {
+      font-size: 14px;
+      color: var(--color-muted);
+      line-height: 1.7;
+      max-width: 260px;
+      margin: 0 auto;
+    }
+
+    .steps-lifestyle {
+      margin-top: 40px;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      aspect-ratio: 16 / 7;
+      background: var(--color-placeholder);
+    }
+    .steps-lifestyle img { width: 100%; height: 100%; object-fit: cover; }
+
+    /* ══════════════════════════════════════════════════════════════
+       S7 — SOCIAL PROOF
+       ══════════════════════════════════════════════════════════════ */
+    .social-proof { background: var(--color-bg-cream); }
+
+    .sp-top {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      margin-bottom: 32px;
+    }
+
+    .sp-banner-img {
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      background: var(--color-placeholder);
+      width: 100%;
+      aspect-ratio: 16 / 9;
+    }
+    .sp-banner-img img { width: 100%; height: 100%; object-fit: cover; }
+
+    .sp-text {}
+    .sp-stars { margin-bottom: 10px; }
+    .sp-star-count { font-size: 13px; color: var(--color-muted); }
+
+    .sp-headline {
+      font-family: var(--font-display);
+      font-size: 30px;
+      line-height: 1.1;
+      margin-top: 8px;
+    }
+
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+      margin-bottom: 32px;
+    }
+
+    .review-card {
+      background: #fff;
+      border-radius: var(--radius-lg);
+      padding: 22px;
+      box-shadow: var(--shadow-card);
+    }
+    .rv-stars { color: var(--color-accent); font-size: 14px; margin-bottom: 8px; }
+    .rv-title  { font-size: 15px; font-weight: 700; margin-bottom: 8px; }
+    .rv-body   { font-size: 13px; color: var(--color-muted); line-height: 1.65; margin-bottom: 10px; }
+    .rv-author { font-size: 12px; color: var(--color-muted); font-weight: 600; }
+
+    /* ══════════════════════════════════════════════════════════════
+       S8 — MID-PAGE CTA
+       ══════════════════════════════════════════════════════════════ */
+    .mid-cta { background: var(--color-bg); }
+    .mid-cta-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: var(--section-v-mob) 20px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+    .mid-cta .cta-primary { width: auto; padding: 16px 52px; }
+
+    /* ══════════════════════════════════════════════════════════════
+       S9 — TRUST STATS
+       ══════════════════════════════════════════════════════════════ */
+    .stats-section { background: var(--color-primary); color: #fff; }
+    .stats-section .section-tag   { color: var(--color-accent-lt); }
+    .stats-section .section-title { color: #fff; }
+    .stats-section .section-sub   { color: rgba(255,255,255,.65); max-width: 560px; }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+      margin-top: 36px;
+    }
+
+    .stat-item {
+      text-align: center;
+      padding: 28px 20px;
+      background: rgba(255,255,255,.06);
+      border-radius: var(--radius-lg);
+    }
+
+    .stat-circle {
+      width: 90px; height: 90px;
+      border: 5px solid var(--color-accent);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 16px;
+      font-family: var(--font-display);
+      font-size: 26px;
+      color: var(--color-accent);
+    }
+
+    .stat-desc {
+      font-size: 14px;
+      color: rgba(255,255,255,.7);
+      line-height: 1.65;
+    }
+
+    /* ══════════════════════════════════════════════════════════════
+       S10 — COMPARISON
+       ══════════════════════════════════════════════════════════════ */
+    .comparison { background: var(--color-bg-alt); }
+    .comp-stars { margin-bottom: 16px; }
+    .comp-star-count { font-size: 13px; color: var(--color-muted); }
+
+    /* Wrap in a scrollable container for narrow screens */
+    .comp-table-scroll { overflow-x: auto; }
+
+    .comp-table {
+      background: #fff;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      border: 1px solid var(--color-border);
+      margin-top: 32px;
+      min-width: 480px; /* table scrolls on very small screens */
+    }
+
+    .comp-head {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      background: var(--color-primary);
+      color: #fff;
+    }
+    .comp-head div {
+      padding: 16px 20px;
+      font-size: 14px;
+      font-weight: 700;
+      text-align: center;
+    }
+    .comp-head div:first-child { text-align: left; }
+    .comp-head .us { color: var(--color-accent); }
+
+    .comp-row {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      border-bottom: 1px solid var(--color-border);
+    }
+    .comp-row:last-child { border-bottom: none; }
+    .comp-row div {
+      padding: 14px 20px;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .comp-row div:first-child {
+      justify-content: flex-start;
+      font-weight: 500;
+    }
+    .comp-row svg { width: 20px; height: 20px; stroke-width: 2.5; }
+
+    .comp-reviews {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+      margin-top: 28px;
+    }
+
+    .comp-cta {
+      text-align: center;
+      margin-top: 32px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+    .comp-cta .cta-primary { width: auto; padding: 16px 52px; }
+
+    /* ══════════════════════════════════════════════════════════════
+       S11 — FAQs
+       ══════════════════════════════════════════════════════════════ */
+    .faq { background: var(--color-bg); }
+    .faq-inner { text-align: center; }
+
+    .faq-list {
+      margin-top: 36px;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      text-align: left;
+    }
+    .faq-list details { border-bottom: 1px solid var(--color-border); }
+    .faq-list details:last-child { border-bottom: none; }
+    .faq-list summary {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 22px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      list-style: none;
+      gap: 12px;
+    }
+    .faq-list summary::-webkit-details-marker { display: none; }
+    .faq-list summary::after {
+      content: '+';
+      font-size: 24px;
+      color: var(--color-accent);
+      line-height: 1;
+      transition: transform .2s;
+      flex-shrink: 0;
+    }
+    .faq-list details[open] summary::after { transform: rotate(45deg); }
+    .faq-list .faq-answer {
+      padding: 0 22px 18px;
+      font-size: 14px;
+      color: var(--color-muted);
+      line-height: 1.7;
+    }
+
+    /* ══════════════════════════════════════════════════════════════
+       S12 — TRUST PILLARS
+       ══════════════════════════════════════════════════════════════ */
+    .trust { background: var(--color-bg-cream); }
+
+    .trust-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+      margin-top: 36px;
+    }
+
+    .trust-card { text-align: center; }
+
+    .trust-icon {
+      width: 64px; height: 64px;
+      background: var(--color-accent);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 14px;
+    }
+    .trust-icon svg {
+      width: 28px; height: 28px;
+      stroke: #fff; fill: none; stroke-width: 2;
+    }
+
+    .trust-label {
+      font-family: var(--font-display);
+      font-size: 20px;
+      letter-spacing: .04em;
+      margin-bottom: 8px;
+    }
+    .trust-desc { font-size: 14px; color: var(--color-muted); line-height: 1.6; }
+
+    /* ══════════════════════════════════════════════════════════════
+       S13 — EMAIL SIGNUP
+       ══════════════════════════════════════════════════════════════ */
+    .email-signup { background: var(--color-primary); color: #fff; }
+
+    .email-signup-inner {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: var(--section-v-mob) 20px;
+      text-align: center;
+    }
+    .email-signup .section-title { color: #fff; }
+    .email-signup .section-sub {
+      color: rgba(255,255,255,.7);
+      margin: 0 auto 28px;
+    }
+
+    .email-form {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      max-width: 420px;
+      margin: 0 auto;
+    }
+    .email-form input {
+      flex: 1;
+      padding: 14px 16px;
+      border: 1px solid rgba(255,255,255,.2);
+      background: rgba(255,255,255,.08);
+      color: #fff;
+      border-radius: var(--radius-md) var(--radius-md) 0 0;
+      font-size: 14px;
+      outline: none;
+      transition: border-color .2s;
+    }
+    .email-form input::placeholder { color: rgba(255,255,255,.4); }
+    .email-form input:focus { border-color: var(--color-accent); }
+    .email-form .email-submit {
+      background: var(--color-accent);
+      color: #fff;
+      padding: 14px 20px;
+      border-radius: 0 0 var(--radius-md) var(--radius-md);
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: .04em;
+      transition: background .2s;
+      cursor: pointer;
+      border: none;
+    }
+    .email-form .email-submit:hover { background: var(--color-accent-lt); }
+
+    /* ══════════════════════════════════════════════════════════════
+       FOOTER
+       ══════════════════════════════════════════════════════════════ */
+    footer {
+      background: var(--color-primary);
+      color: #fff;
+      border-top: 1px solid rgba(255,255,255,.1);
+    }
+    .footer-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 20px 20px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+    .footer-copy {
+      font-size: 13px;
+      color: rgba(255,255,255,.5);
+    }
+    .footer-copy a { color: rgba(255,255,255,.6); transition: color .2s; }
+    .footer-copy a:hover { color: #fff; }
+    .footer-links {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .footer-links a {
+      font-size: 13px;
+      color: rgba(255,255,255,.55);
+      transition: color .2s;
+    }
+    .footer-links a:hover { color: #fff; }
+
+    /* ══════════════════════════════════════════════════════════════
+       STICKY ATC BAR
+       Fixed at bottom — visible only when buy-box is off-screen.
+       ══════════════════════════════════════════════════════════════ */
+    .sticky-atc {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      background: #fff;
+      border-top: 2px solid var(--color-border);
+      padding: 12px 20px;
+      display: none;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      z-index: 300;
+      box-shadow: 0 -4px 24px rgba(0,0,0,.10);
+    }
+    .sticky-atc.visible { display: flex; }
+    .sticky-atc-product {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .sticky-atc-img {
+      width: 44px; height: 44px;
+      border-radius: var(--radius-sm);
+      object-fit: cover;
+      background: var(--color-bg-alt);
+      flex-shrink: 0;
+    }
+    .sticky-atc-name {
+      font-family: var(--font-display);
+      font-size: 16px;
+      letter-spacing: .08em;
+      line-height: 1;
+      margin-bottom: 3px;
+    }
+    .sticky-atc-price {
+      font-size: 13px;
+      color: var(--color-accent);
+      font-weight: 500;
+    }
+    .sticky-atc-price .s-compare {
+      font-size: 12px;
+      color: var(--color-muted);
+      text-decoration: line-through;
+      margin-right: 4px;
+      font-weight: 400;
+    }
+    .sticky-atc-btn {
+      padding: 13px 32px;
+      background: var(--color-accent);
+      color: #fff;
+      font-family: var(--font-body);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      border: none;
+      border-radius: var(--radius-md);
+      transition: background .2s;
+      white-space: nowrap;
+      flex-shrink: 0;
+      min-height: 48px;
+      cursor: pointer;
+    }
+    .sticky-atc-btn:hover { background: var(--color-accent-lt); }
+
+    /* ══════════════════════════════════════════════════════════════
+       MOBILE OVERRIDES — max-width: 767px
+       (Base CSS is already mobile-first; these are specific overrides)
+       ══════════════════════════════════════════════════════════════ */
+    @media (max-width: 767px) {
+      /* Announcement bar: hide desktop line, show mobile slideshow */
+      .ann-desktop { display: none; }
+      .ann-mobile  { display: block; }
+
+      /* Carousel peek — ~12% of next slide visible */
+      .img-carousel { overflow: visible; }
+      .img-slide    { flex: 0 0 calc(88% - 4px); }
+      .img-track    { gap: 8px; }
+
+      /* Sticky ATC compact */
+      .sticky-atc     { padding: 10px 16px; gap: 12px; }
+      .sticky-atc-img { display: none; }
+      .sticky-atc-btn { padding: 13px 20px; font-size: 11px; }
+
+      /* Buy box spacing */
+      .product-info { gap: 10px; }
+    }
+
+    /* ══════════════════════════════════════════════════════════════
+       TABLET — 768px+
+       ══════════════════════════════════════════════════════════════ */
+    @media (min-width: 768px) {
+
+      .section-inner { padding: var(--section-v) 32px; }
+      .section-title { font-size: 46px; }
+
+      /* Header */
+      .header-inner  { padding: 14px 32px; }
+      .header-nav    { display: block; }
+      .nav-toggle    { display: none; }
+
+      /* S1 Hero */
+      .product-hero-inner {
+        grid-template-columns: 1fr 1fr;
+        gap: 44px;
+        padding: 40px 32px var(--section-v);
+      }
+      .gallery { flex-direction: column; }
+      .mini-faq.desktop { display: block; }
+      .mini-faq.mobile  { display: none; }
+      .product-title { font-size: 32px; }
+
+      /* Buy box sticky on desktop */
+      .product-info {
+        position: sticky;
+        top: 80px;
+      }
+
+      /* S2 Why */
+      .why-grid { grid-template-columns: 1fr 1fr; }
+
+      /* S3 Villain */
+      .villain-inner { grid-template-columns: 1fr 1fr; }
+
+      /* S4 Upgrade */
+      .hero-grid            { grid-template-columns: 1fr 1fr; }
+      .hero-grid-left       { order: 1; }
+      .hero-grid-right      { order: 2; }
+      .benefits-grid        { grid-template-columns: repeat(3, 1fr); }
+
+      /* S6 Steps */
+      .steps-grid { grid-template-columns: repeat(3, 1fr); }
+
+      /* S7 Social Proof */
+      .sp-top {
+        flex-direction: row;
+        align-items: center;
+      }
+      .sp-banner-img {
+        width: 260px;
+        height: 180px;
+        aspect-ratio: auto;
+        flex-shrink: 0;
+      }
+      .reviews-grid { grid-template-columns: repeat(2, 1fr); }
+
+      /* S8 Mid CTA */
+      .mid-cta-inner { padding: var(--section-v) 32px; }
+
+      /* S9 Stats */
+      .stats-grid { grid-template-columns: repeat(3, 1fr); }
+
+      /* S10 Comparison */
+      .comp-reviews { grid-template-columns: repeat(3, 1fr); }
+
+      /* S12 Trust */
+      .trust-grid { grid-template-columns: repeat(3, 1fr); }
+
+      /* S13 Email */
+      .email-signup-inner { padding: var(--section-v) 32px; }
+      .email-form { flex-direction: row; }
+      .email-form input       { border-radius: var(--radius-md) 0 0 var(--radius-md); }
+      .email-form .email-submit { border-radius: 0 var(--radius-md) var(--radius-md) 0; }
+
+      /* Footer */
+      .footer-inner { padding: 20px 32px 24px; }
+    }
+
+    /* ══════════════════════════════════════════════════════════════
+       DESKTOP — 1280px+
+       ══════════════════════════════════════════════════════════════ */
+    @media (min-width: 1280px) {
+
+      .section-inner { padding: var(--section-v) 48px; }
+      .section-title { font-size: 54px; }
+
+      /* Header */
+      .header-inner { padding: 14px 48px; }
+
+      /* S1 Hero */
+      .product-hero-inner {
+        grid-template-columns: 1fr 440px;
+        padding: 48px 48px var(--section-v);
+      }
+      .product-title { font-size: 40px; }
+
+      /* S8 Mid CTA */
+      .mid-cta-inner { padding: var(--section-v) 48px; }
+
+      /* S13 Email */
+      .email-signup-inner { padding: var(--section-v) 48px; }
+
+      /* Footer */
+      .footer-inner { padding: 20px 48px 24px; }
+    }
+
+  </style>
+</head>
+<body>
+
+<!-- ═══ ANNOUNCEMENT BAR ══════════════════════════════════════════════════ -->
+<!-- EDIT: Update all 3 announcement messages per brand/campaign -->
+<div class="ann-bar" id="ann-bar">
+  <!-- Desktop: shows all 3 messages in a single line -->
+  <div class="ann-desktop">[ANN MESSAGE 1] &nbsp;·&nbsp; <span>[ANN MESSAGE 2]</span> &nbsp;·&nbsp; [ANN MESSAGE 3]</div>
+  <!-- Mobile: auto-rotates through messages every 3 seconds -->
+  <div class="ann-mobile" id="ann-mobile">
+    <div class="ann-slide active">[ANN MESSAGE 1]</div>
+    <div class="ann-slide"><span>[ANN MESSAGE 2]</span></div>
+    <div class="ann-slide">[ANN MESSAGE 3]</div>
+  </div>
+</div>
+
+
+<!-- ═══ STICKY HEADER ════════════════════════════════════════════════════ -->
+<header>
+  <div class="header-inner">
+
+    <!-- EDIT: Brand name in logo -->
+    <a href="/" class="logo" aria-label="[BRAND NAME] home">[BRAND NAME]</a>
+
+    <!-- Desktop nav (hidden on mobile) -->
+    <nav class="header-nav" aria-label="Main navigation">
+      <ul>
+        <!-- EDIT: Nav links — update href and label -->
+        <li><a href="/">Home</a></li>
+        <li><a href="/collections/all">Shop</a></li>
+        <li><a href="/pages/about">About</a></li>
+        <li><a href="/pages/contact">Contact</a></li>
+      </ul>
+    </nav>
+
+    <div class="header-icons">
+      <!-- Search icon -->
+      <button class="icon-btn" aria-label="Search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <circle cx="11" cy="11" r="8"/>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+        </svg>
+      </button>
+
+      <!-- Cart icon -->
+      <button class="icon-btn" aria-label="Cart">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <path d="M16 10a4 4 0 01-8 0"/>
+        </svg>
+      </button>
+
+      <!-- Mobile nav toggle (hidden at 768px+) -->
+      <button class="icon-btn nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <line x1="3" y1="6"  x2="21" y2="6"/>
+          <line x1="3" y1="12" x2="21" y2="12"/>
+          <line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
+      </button>
+    </div>
+
+  </div>
+
+  <!-- Mobile nav (toggled by JS) -->
+  <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation">
+    <ul>
+      <!-- EDIT: Mobile nav links — keep in sync with desktop nav -->
+      <li><a href="/">Home</a></li>
+      <li><a href="/collections/all">Shop</a></li>
+      <li><a href="/pages/about">About</a></li>
+      <li><a href="/pages/contact">Contact</a></li>
+    </ul>
+  </nav>
+</header>
+
+
+<!-- ═══ SECTION 1: HERO PRODUCT BLOCK ══════════════════════════════════ -->
+<section class="product-hero" id="main-content">
+  <div class="product-hero-inner">
+
+    <!-- Gallery: swipeable carousel (no thumbnails) -->
+    <!-- On desktop: static overflow:hidden — all slides fill the column. On mobile: ~12% peek of next slide. -->
+    <div class="gallery" role="region" aria-label="Product gallery">
+
+      <!-- IMAGE: Add/remove img-slide divs to match product image count — update src + alt per brand -->
+      <div class="img-carousel" id="img-carousel">
+        <div class="img-track" id="img-track">
+          <div class="img-slide"><img src="./images/gallery-1.jpg" alt="[PRODUCT NAME] — front view" loading="eager"></div>
+          <div class="img-slide"><img src="./images/gallery-2.jpg" alt="[PRODUCT NAME] — angle view" loading="lazy"></div>
+          <div class="img-slide"><img src="./images/gallery-3.jpg" alt="[PRODUCT NAME] — lifestyle view" loading="lazy"></div>
+          <div class="img-slide"><img src="./images/gallery-4.jpg" alt="[PRODUCT NAME] — detail view" loading="lazy"></div>
+        </div>
+        <!-- EDIT: Add/remove img-dot buttons to match slide count above — keep data-idx in sync -->
+        <div class="img-dots" id="img-dots">
+          <button class="img-dot active" data-idx="0" aria-label="Image 1"></button>
+          <button class="img-dot" data-idx="1" aria-label="Image 2"></button>
+          <button class="img-dot" data-idx="2" aria-label="Image 3"></button>
+          <button class="img-dot" data-idx="3" aria-label="Image 4"></button>
+        </div>
+      </div>
+
+      <!-- Mini FAQ below carousel (desktop only — shown at 768px+) -->
+      <div class="mini-faq desktop">
+        <!-- EDIT: Mini FAQ Q1 / A1 — common buyer objection or question -->
+        <details>
+          <summary>[MINI FAQ Q1]</summary>
+          <div class="faq-body">[MINI FAQ A1]</div>
+        </details>
+        <!-- EDIT: Mini FAQ Q2 / A2 -->
+        <details>
+          <summary>[MINI FAQ Q2]</summary>
+          <div class="faq-body">[MINI FAQ A2]</div>
+        </details>
+        <!-- EDIT: Mini FAQ Q3 / A3 -->
+        <details>
+          <summary>[MINI FAQ Q3]</summary>
+          <div class="faq-body">[MINI FAQ A3]</div>
+        </details>
+      </div>
+
+    </div><!-- /gallery -->
+
+    <!-- Buy box — CRO order: stars → H1 → subheadline → price → shipping → bullets → variant → urgency → ATC → returns → secure → payment → specs -->
+    <div class="product-info" id="buy-box">
+
+      <!-- 1. Stars + review count -->
+      <div class="stars">
+        <!-- EDIT: Rating — update aria-label and review count -->
+        <span class="star-icons" aria-label="[RATING] out of 5 stars" role="img">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+        <span class="review-count">([RATING]) [REVIEW COUNT] Reviews</span>
+      </div>
+
+      <!-- 2. Product H1 title -->
+      <!-- EDIT: Product title -->
+      <h1 class="product-title">[PRODUCT NAME]</h1>
+
+      <!-- 3. Benefit subheadline — one-line italic value clarity -->
+      <!-- EDIT: Benefit subheadline — the single most compelling reason to buy -->
+      <p class="benefit-subheadline">[PRODUCT BENEFIT SUBHEADLINE]</p>
+
+      <!-- 4. Price row with compare-at anchor -->
+      <!-- EDIT: Price — update compare-at, sale price, and save % -->
+      <div class="price-row">
+        <span class="price-compare">$[COMPARE PRICE]</span>
+        <span class="price-main">$[SALE PRICE]</span>
+        <span class="price-save">SAVE [SAVE %]</span>
+      </div>
+
+      <!-- 5. Shipping clarity note -->
+      <!-- EDIT: Shipping copy — state threshold and cost clearly -->
+      <p class="shipping-note">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 5v4h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/>
+        </svg>
+        [SHIPPING COPY — e.g. "Standard shipping $4.99 · Add any item over $2 for free shipping"]
+      </p>
+
+      <!-- 6. Benefit bullets — 3 key reasons, placed before ATC for conviction -->
+      <!-- EDIT: Update each bullet with a top product benefit -->
+      <div class="bullets">
+        <div class="bullet-item"><span class="check" aria-hidden="true">✓</span> [BULLET 1]</div>
+        <div class="bullet-item"><span class="check" aria-hidden="true">✓</span> [BULLET 2]</div>
+        <div class="bullet-item"><span class="check" aria-hidden="true">✓</span> [BULLET 3]</div>
+      </div>
+
+      <!-- 7. Variant selector + size guide -->
+      <!-- EDIT: Update variant type label, button text, and data-variant values -->
+      <p class="variant-label"><strong>Choose [VARIANT TYPE]:</strong> <span id="variant-selected">[VARIANT 1 LABEL]</span></p>
+      <div class="variant-btns">
+        <button class="variant-btn active" data-variant="[VARIANT 1]">[VARIANT 1]</button>
+        <button class="variant-btn" data-variant="[VARIANT 2]">[VARIANT 2]</button>
+        <button class="variant-btn" data-variant="[VARIANT 3]">[VARIANT 3]</button>
+        <!-- EDIT: Size guide link — update href to size FAQ anchor -->
+        <a href="#faq" class="size-guide-link">Not sure which [VARIANT TYPE]? See the guide →</a>
+      </div>
+
+      <!-- 8. Urgency signal -->
+      <!-- EDIT: Urgency copy — shipping timing, low stock, or limited offer -->
+      <div class="urgency-signal">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+        </svg>
+        [URGENCY COPY — e.g. "Ships within 24 hours — order before 3pm for same-day dispatch"]
+      </div>
+
+      <!-- 9. ATC button -->
+      <!-- EDIT: ATC button text — use discount/urgency angle, include save % if applicable -->
+      <button class="atc-btn" id="atc-btn">[ATC BUTTON TEXT — e.g. "ADD TO CART — SAVE 15% TODAY"]</button>
+
+      <!-- 10. Returns guarantee -->
+      <!-- EDIT: Returns copy — state days and key assurance -->
+      <p class="returns-line">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.51"/>
+        </svg>
+        [RETURNS COPY — e.g. "30-day no-hassle returns · Satisfaction guaranteed"]
+      </p>
+
+      <!-- 11. Secure checkout -->
+      <div class="secure-line">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+        </svg>
+        Secure Checkout Guaranteed
+      </div>
+
+      <!-- 12. Payment icons -->
+      <!-- IMAGE: Replace pay-option.png with brand-specific payment badge image -->
+      <div class="payment-icons" aria-label="Accepted payment methods">
+        <img src="pay-option.png" alt="Accepted payment methods" />
+      </div>
+
+      <!-- 13. Specs — always visible, no accordion -->
+      <!-- EDIT: Update each spec line for the brand's product -->
+      <div class="specs-visible">
+        <p class="specs-visible-label">Specifications</p>
+        <div class="specs-visible-content">
+          <strong>Product:</strong> [PRODUCT NAME]<br>
+          <strong>Material:</strong> [MATERIAL]<br>
+          <strong>Variants:</strong> [VARIANT DETAILS]<br>
+          <strong>Package:</strong> [PACKAGE CONTENTS]
+        </div>
+      </div>
+
+    </div><!-- /product-info / buy-box -->
+
+    <!-- Mini FAQ (mobile only — shown below buy box on mobile) -->
+    <div class="mini-faq mobile">
+      <!-- EDIT: Mini FAQ Q1 / A1 — common buyer objection or question -->
+      <details>
+        <summary>[MINI FAQ Q1]</summary>
+        <div class="faq-body">[MINI FAQ A1]</div>
+      </details>
+      <!-- EDIT: Mini FAQ Q2 / A2 -->
+      <details>
+        <summary>[MINI FAQ Q2]</summary>
+        <div class="faq-body">[MINI FAQ A2]</div>
+      </details>
+      <!-- EDIT: Mini FAQ Q3 / A3 -->
+      <details>
+        <summary>[MINI FAQ Q3]</summary>
+        <div class="faq-body">[MINI FAQ A3]</div>
+      </details>
+    </div>
+
+  </div><!-- /product-hero-inner -->
+</section>
+
+
+<!-- ═══ SECTION 2: WHY [BRAND] ══════════════════════════════════════════ -->
+<section class="why-us fade-up">
+  <div class="section-inner">
+    <!-- EDIT: Section tag label -->
+    <p class="section-tag">Why choose us</p>
+    <!-- EDIT: Section headline — "WHY [BRAND NAME]?" -->
+    <h2 class="section-title">WHY [BRAND NAME]?</h2>
+
+    <div class="why-grid">
+
+      <!-- Feature list -->
+      <ul class="feature-list" role="list">
+        <!-- EDIT: Feature 1 — key differentiator -->
+        <li class="feature-item">
+          <div class="feature-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          [WHY FEATURE 1]
+        </li>
+        <!-- EDIT: Feature 2 -->
+        <li class="feature-item">
+          <div class="feature-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          [WHY FEATURE 2]
+        </li>
+        <!-- EDIT: Feature 3 -->
+        <li class="feature-item">
+          <div class="feature-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          [WHY FEATURE 3]
+        </li>
+        <!-- EDIT: Feature 4 -->
+        <li class="feature-item">
+          <div class="feature-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          [WHY FEATURE 4]
+        </li>
+        <!-- EDIT: Feature 5 -->
+        <li class="feature-item">
+          <div class="feature-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          [WHY FEATURE 5]
+        </li>
+      </ul>
+
+      <!-- Featured testimonial card -->
+      <div class="testimonial-card">
+        <!-- EDIT: Testimonial star rating -->
+        <div class="testimonial-stars" aria-label="5 out of 5 stars" role="img">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <!-- EDIT: Testimonial title -->
+        <p class="testimonial-title">[REVIEW TITLE]</p>
+        <!-- EDIT: Testimonial body copy -->
+        <p class="testimonial-body">[REVIEW BODY]</p>
+        <!-- EDIT: Reviewer name and location -->
+        <p class="testimonial-author">— [REVIEWER NAME]</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══ SECTION 3: THE PROBLEM (VILLAIN) ════════════════════════════════ -->
+<section class="villain fade-up">
+  <div class="section-inner">
+    <div class="villain-inner">
+
+      <!-- Left: copy -->
+      <div>
+        <div class="villain-left">
+          <!-- Villain icon — warning / alert -->
+          <div class="villain-icon-wrap" aria-hidden="true">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
+              <line x1="12" y1="9" x2="12" y2="13"/>
+              <line x1="12" y1="17" x2="12.01" y2="17"/>
+            </svg>
+          </div>
+          <div>
+            <!-- EDIT: Villain section tag -->
+            <p class="section-tag">[VILLAIN TAG]</p>
+            <!-- EDIT: Villain headline — the problem in caps -->
+            <h2 class="section-title">[VILLAIN HEADLINE]</h2>
+            <!-- EDIT: Villain body — describe the pain vividly -->
+            <p class="section-sub">[VILLAIN BODY]</p>
+          </div>
+        </div>
+        <!-- EDIT: Villain CTA copy and link href -->
+        <p class="villain-cta">
+          [VILLAIN CTA SETUP TEXT] — <a href="#">[VILLAIN CTA LINK TEXT]</a>
+        </p>
+      </div>
+
+      <!-- Right: villain image -->
+      <!-- IMAGE: Villain / problem image — use villain.jpg from brand assets -->
+      <div class="villain-img">
+        <img
+          src="./images/villain.jpg"
+          alt="[VILLAIN IMAGE ALT TEXT]"
+          loading="lazy"
+        />
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══ SECTION 4: THE UPGRADE (HERO SOLUTION) ══════════════════════════ -->
+<section class="hero-prod fade-up">
+  <div class="section-inner">
+    <!-- EDIT: Hero section tag -->
+    <p class="section-tag">[HERO TAG]</p>
+    <!-- EDIT: Hero solution headline — brand + product name -->
+    <h2 class="section-title">[HERO HEADLINE]</h2>
+    <!-- EDIT: Hero solution one-liner -->
+    <p class="section-sub">[HERO SUBHEADLINE]</p>
+
+    <div class="hero-grid">
+
+      <!-- Left: benefits + CTA -->
+      <div class="hero-grid-left">
+        <div class="benefits-grid">
+
+          <!-- EDIT: Benefit 1 — label + icon -->
+          <div class="benefit-card">
+            <div class="benefit-icon" aria-hidden="true">
+              <!-- Icon: shield — quality / protection -->
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              </svg>
+            </div>
+            <p class="benefit-label">[BENEFIT 1]</p>
+          </div>
+
+          <!-- EDIT: Benefit 2 -->
+          <div class="benefit-card">
+            <div class="benefit-icon" aria-hidden="true">
+              <!-- Icon: zap — instant / fast results -->
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <polyline points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+              </svg>
+            </div>
+            <p class="benefit-label">[BENEFIT 2]</p>
+          </div>
+
+          <!-- EDIT: Benefit 3 -->
+          <div class="benefit-card">
+            <div class="benefit-icon" aria-hidden="true">
+              <!-- Icon: star — premium quality -->
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+              </svg>
+            </div>
+            <p class="benefit-label">[BENEFIT 3]</p>
+          </div>
+
+          <!-- EDIT: Benefit 4 -->
+          <div class="benefit-card">
+            <div class="benefit-icon" aria-hidden="true">
+              <!-- Icon: droplet — clean / pure -->
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/>
+              </svg>
+            </div>
+            <p class="benefit-label">[BENEFIT 4]</p>
+          </div>
+
+          <!-- EDIT: Benefit 5 -->
+          <div class="benefit-card">
+            <div class="benefit-icon" aria-hidden="true">
+              <!-- Icon: leaf — natural / organic -->
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M17 8C8 10 5.9 16.17 3.82 19.22A10 10 0 0 0 14 21C17 17 18 13 17 8z"/>
+                <path d="M17 8C10 8 6 12 3.82 19.22"/>
+              </svg>
+            </div>
+            <p class="benefit-label">[BENEFIT 5]</p>
+          </div>
+
+          <!-- EDIT: Benefit 6 -->
+          <div class="benefit-card">
+            <div class="benefit-icon" aria-hidden="true">
+              <!-- Icon: award — best-in-class -->
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="12" cy="8" r="6"/>
+                <path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/>
+              </svg>
+            </div>
+            <p class="benefit-label">[BENEFIT 6]</p>
+          </div>
+
+        </div><!-- /benefits-grid -->
+
+        <!-- EDIT: Upgrade section CTA — button text and link -->
+        <div class="cta-group">
+          <a href="#" class="cta-primary">[CTA TEXT]</a>
+          <div class="secure-row">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            </svg>
+            Secure Checkout Guaranteed
+          </div>
+        </div>
+
+        <!-- Star rating under CTA -->
+        <div class="hero-prod-stars">
+          <div class="stars">
+            <span class="star-icons" aria-label="[RATING] out of 5 stars" role="img">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+            <span class="review-count">([RATING]) [REVIEW COUNT] Reviews</span>
+          </div>
+        </div>
+
+      </div><!-- /hero-grid-left -->
+
+      <!-- Right: upgrade product image -->
+      <div class="hero-grid-right">
+        <!-- IMAGE: Hero / upgrade product image — use upgrade.jpg from brand assets -->
+        <div class="hero-prod-img">
+          <img
+            src="./images/upgrade.jpg"
+            alt="[PRODUCT NAME] — product hero shot"
+            loading="lazy"
+          />
+        </div>
+      </div>
+
+    </div><!-- /hero-grid -->
+  </div>
+</section>
+
+
+<!-- ═══ SECTION 5: BEFORE / AFTER ═══════════════════════════════════════ -->
+<section class="before-after fade-up">
+  <div class="section-inner">
+    <div class="ba-inner">
+
+      <!-- EDIT: Pull quote — customer transformation statement -->
+      <p class="ba-quote">[BA PULL QUOTE]</p>
+
+      <div class="ba-imgs">
+
+        <!-- IMAGE: Before image — use before.jpg from brand assets -->
+        <div class="ba-img-wrap">
+          <img
+            src="./images/before.jpg"
+            alt="[PRODUCT NAME] — before use"
+            loading="lazy"
+          />
+          <span class="ba-label">Before</span>
+        </div>
+
+        <!-- Arrow divider between before / after -->
+        <div class="ba-divider" aria-hidden="true">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <line x1="5" y1="12" x2="19" y2="12"/>
+            <polyline points="12 5 19 12 12 19"/>
+          </svg>
+        </div>
+
+        <!-- IMAGE: After image — use after.jpg from brand assets -->
+        <div class="ba-img-wrap">
+          <img
+            src="./images/after.jpg"
+            alt="[PRODUCT NAME] — after use"
+            loading="lazy"
+          />
+          <span class="ba-label">After</span>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══ SECTION 6: HOW IT WORKS ═════════════════════════════════════════ -->
+<section class="steps fade-up">
+  <div class="section-inner">
+    <div class="steps-inner">
+
+      <!-- EDIT: Section headline -->
+      <h2 class="section-title">[STEPS HEADLINE]</h2>
+
+      <div class="steps-grid">
+
+        <!-- EDIT: Step 1 -->
+        <div class="step-card">
+          <div class="step-icon" aria-hidden="true">
+            <!-- Icon: clipboard / prepare -->
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/>
+              <rect x="9" y="3" width="6" height="4" rx="2"/>
+              <line x1="9" y1="12" x2="15" y2="12"/>
+              <line x1="9" y1="16" x2="12" y2="16"/>
+            </svg>
+          </div>
+          <p class="step-num">Step 1</p>
+          <!-- EDIT: Step 1 title -->
+          <h3 class="step-title">[STEP 1 TITLE]</h3>
+          <!-- EDIT: Step 1 description -->
+          <p class="step-body">[STEP 1 BODY]</p>
+        </div>
+
+        <!-- EDIT: Step 2 -->
+        <div class="step-card">
+          <div class="step-icon" aria-hidden="true">
+            <!-- Icon: activity / apply -->
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+            </svg>
+          </div>
+          <p class="step-num">Step 2</p>
+          <!-- EDIT: Step 2 title -->
+          <h3 class="step-title">[STEP 2 TITLE]</h3>
+          <!-- EDIT: Step 2 description -->
+          <p class="step-body">[STEP 2 BODY]</p>
+        </div>
+
+        <!-- EDIT: Step 3 -->
+        <div class="step-card">
+          <div class="step-icon" aria-hidden="true">
+            <!-- Icon: thumbs-up / enjoy -->
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3H14z"/>
+              <path d="M7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/>
+            </svg>
+          </div>
+          <p class="step-num">Step 3</p>
+          <!-- EDIT: Step 3 title -->
+          <h3 class="step-title">[STEP 3 TITLE]</h3>
+          <!-- EDIT: Step 3 description -->
+          <p class="step-body">[STEP 3 BODY]</p>
+        </div>
+
+      </div><!-- /steps-grid -->
+
+      <!-- IMAGE: Lifestyle image below steps — use lifestyle.jpg from brand assets -->
+      <div class="steps-lifestyle">
+        <img
+          src="./images/lifestyle.jpg"
+          alt="[PRODUCT NAME] in use — lifestyle"
+          loading="lazy"
+        />
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══ SECTION 7: SOCIAL PROOF ═════════════════════════════════════════ -->
+<section class="social-proof fade-up">
+  <div class="section-inner">
+
+    <div class="sp-top">
+      <!-- IMAGE: Social proof banner image — group / happy customers -->
+      <div class="sp-banner-img">
+        <img
+          src="./images/social-banner.jpg"
+          alt="Happy [BRAND NAME] customers"
+          loading="lazy"
+        />
+      </div>
+
+      <div class="sp-text">
+        <div class="sp-stars">
+          <!-- EDIT: Social proof aggregate rating -->
+          <span class="star-icons" aria-label="[RATING] out of 5 stars" role="img">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+          <span class="sp-star-count">([RATING]) [REVIEW COUNT] Reviews</span>
+        </div>
+        <!-- EDIT: Social proof headline — "X+ customers trust us" -->
+        <h2 class="sp-headline">[SP HEADLINE]</h2>
+      </div>
+    </div>
+
+    <!-- Review cards -->
+    <div class="reviews-grid">
+
+      <!-- EDIT: Review 1 -->
+      <div class="review-card">
+        <div class="rv-stars" aria-label="5 out of 5 stars" role="img">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="rv-title">[REVIEW TITLE 1]</p>
+        <p class="rv-body">[REVIEW BODY 1]</p>
+        <p class="rv-author">— [REVIEWER NAME 1]</p>
+      </div>
+
+      <!-- EDIT: Review 2 -->
+      <div class="review-card">
+        <div class="rv-stars" aria-label="5 out of 5 stars" role="img">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="rv-title">[REVIEW TITLE 2]</p>
+        <p class="rv-body">[REVIEW BODY 2]</p>
+        <p class="rv-author">— [REVIEWER NAME 2]</p>
+      </div>
+
+      <!-- EDIT: Review 3 -->
+      <div class="review-card">
+        <div class="rv-stars" aria-label="5 out of 5 stars" role="img">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="rv-title">[REVIEW TITLE 3]</p>
+        <p class="rv-body">[REVIEW BODY 3]</p>
+        <p class="rv-author">— [REVIEWER NAME 3]</p>
+      </div>
+
+      <!-- EDIT: Review 4 -->
+      <div class="review-card">
+        <div class="rv-stars" aria-label="5 out of 5 stars" role="img">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="rv-title">[REVIEW TITLE 4]</p>
+        <p class="rv-body">[REVIEW BODY 4]</p>
+        <p class="rv-author">— [REVIEWER NAME 4]</p>
+      </div>
+
+    </div><!-- /reviews-grid -->
+  </div>
+</section>
+
+
+<!-- ═══ SECTION 8: MID-PAGE CTA ═════════════════════════════════════════ -->
+<section class="mid-cta fade-up">
+  <div class="mid-cta-inner">
+    <!-- EDIT: Mid-page CTA button text — use discount angle or urgency -->
+    <a href="#" class="cta-primary">[CTA TEXT]</a>
+    <div class="secure-row">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+      </svg>
+      Secure Checkout — 30-Day Money-Back Guarantee
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══ SECTION 9: TRUST STATS ══════════════════════════════════════════ -->
+<section class="stats-section fade-up">
+  <div class="section-inner">
+    <!-- EDIT: Stats section tag -->
+    <p class="section-tag">Our results</p>
+    <!-- EDIT: Stats section headline -->
+    <h2 class="section-title">[STATS HEADLINE]</h2>
+
+    <div class="stats-grid">
+
+      <!-- EDIT: Stat 1 — percentage + description -->
+      <div class="stat-item">
+        <div class="stat-circle" aria-label="[STAT 1 %]">[STAT 1 %]</div>
+        <p class="stat-desc">[STAT 1 DESC]</p>
+      </div>
+
+      <!-- EDIT: Stat 2 -->
+      <div class="stat-item">
+        <div class="stat-circle" aria-label="[STAT 2 %]">[STAT 2 %]</div>
+        <p class="stat-desc">[STAT 2 DESC]</p>
+      </div>
+
+      <!-- EDIT: Stat 3 -->
+      <div class="stat-item">
+        <div class="stat-circle" aria-label="[STAT 3 %]">[STAT 3 %]</div>
+        <p class="stat-desc">[STAT 3 DESC]</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══ SECTION 10: COMPARISON ══════════════════════════════════════════ -->
+<section class="comparison fade-up">
+  <div class="section-inner">
+
+    <!-- Aggregate rating above comparison -->
+    <div class="comp-stars">
+      <span class="star-icons" aria-label="[RATING] out of 5 stars" role="img">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+      <span class="comp-star-count">([RATING]) [REVIEW COUNT] Reviews</span>
+    </div>
+
+    <!-- EDIT: Comparison headline — "WHY CHOOSE US OVER OTHERS?" -->
+    <h2 class="section-title">[COMP HEADLINE]</h2>
+
+    <!-- Comparison table — scrolls horizontally on very small screens -->
+    <div class="comp-table-scroll">
+      <div class="comp-table">
+
+        <!-- Table header -->
+        <div class="comp-head">
+          <div>Feature</div>
+          <!-- EDIT: Update "[BRAND NAME]" in comparison header -->
+          <div class="us">[BRAND NAME]</div>
+          <div>Others</div>
+        </div>
+
+        <!-- EDIT: Comparison row 1 — feature name -->
+        <div class="comp-row">
+          <div>[COMPARISON FEATURE 1]</div>
+          <div>
+            <svg viewBox="0 0 24 24" fill="none" stroke="var(--color-yes)" aria-label="Yes" role="img">
+              <polyline points="20 6 9 17 4 12"/>
+            </svg>
+          </div>
+          <div>
+            <svg viewBox="0 0 24 24" fill="none" stroke="var(--color-no)" aria-label="No" role="img">
+              <line x1="18" y1="6" x2="6" y2="18"/>
+              <line x1="6" y1="6" x2="18" y2="18"/>
+            </svg>
+          </div>
+        </div>
+
+        <!-- EDIT: Comparison row 2 -->
+        <div class="comp-row">
+          <div>[COMPARISON FEATURE 2]</div>
+          <div>
+            <svg viewBox="0 0 24 24" fill="none" stroke="var(--color-yes)" aria-label="Yes" role="img">
+              <polyline points="20 6 9 17 4 12"/>
+            </svg>
+          </div>
+          <div>
+            <svg viewBox="0 0 24 24" fill="none" stroke="var(--color-no)" aria-label="No" role="img">
+              <line x1="18" y1="6" x2="6" y2="18"/>
+              <line x1="6" y1="6" x2="18" y2="18"/>
+            </svg>
+          </div>
+        </div>
+
+        <!-- EDIT: Comparison row 3 -->
+        <div class="comp-row">
+          <div>[COMPARISON FEATURE 3]</div>
+          <div>
+            <svg viewBox="0 0 24 24" fill="none" stroke="var(--color-yes)" aria-label="Yes" role="img">
+              <polyline points="20 6 9 17 4 12"/>
+            </svg>
+          </div>
+          <div>
+            <svg viewBox="0 0 24 24" fill="none" stroke="var(--color-no)" aria-label="No" role="img">
+              <line x1="18" y1="6" x2="6" y2="18"/>
+              <line x1="6" y1="6" x2="18" y2="18"/>
+            </svg>
+          </div>
+        </div>
+
+        <!-- EDIT: Comparison row 4 -->
+        <div class="comp-row">
+          <div>[COMPARISON FEATURE 4]</div>
+          <div>
+            <svg viewBox="0 0 24 24" fill="none" stroke="var(--color-yes)" aria-label="Yes" role="img">
+              <polyline points="20 6 9 17 4 12"/>
+            </svg>
+          </div>
+          <div>
+            <svg viewBox="0 0 24 24" fill="none" stroke="var(--color-no)" aria-label="No" role="img">
+              <line x1="18" y1="6" x2="6" y2="18"/>
+              <line x1="6" y1="6" x2="18" y2="18"/>
+            </svg>
+          </div>
+        </div>
+
+        <!-- EDIT: Comparison row 5 -->
+        <div class="comp-row">
+          <div>[COMPARISON FEATURE 5]</div>
+          <div>
+            <svg viewBox="0 0 24 24" fill="none" stroke="var(--color-yes)" aria-label="Yes" role="img">
+              <polyline points="20 6 9 17 4 12"/>
+            </svg>
+          </div>
+          <div>
+            <svg viewBox="0 0 24 24" fill="none" stroke="var(--color-no)" aria-label="No" role="img">
+              <line x1="18" y1="6" x2="6" y2="18"/>
+              <line x1="6" y1="6" x2="18" y2="18"/>
+            </svg>
+          </div>
+        </div>
+
+      </div><!-- /comp-table -->
+    </div><!-- /comp-table-scroll -->
+
+    <!-- 3 review cards below comparison table -->
+    <div class="comp-reviews">
+
+      <!-- EDIT: Comparison review 1 -->
+      <div class="review-card">
+        <div class="rv-stars" aria-label="5 out of 5 stars" role="img">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="rv-title">[COMP REVIEW TITLE 1]</p>
+        <p class="rv-body">[COMP REVIEW BODY 1]</p>
+        <p class="rv-author">— [COMP REVIEWER 1]</p>
+      </div>
+
+      <!-- EDIT: Comparison review 2 -->
+      <div class="review-card">
+        <div class="rv-stars" aria-label="5 out of 5 stars" role="img">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="rv-title">[COMP REVIEW TITLE 2]</p>
+        <p class="rv-body">[COMP REVIEW BODY 2]</p>
+        <p class="rv-author">— [COMP REVIEWER 2]</p>
+      </div>
+
+      <!-- EDIT: Comparison review 3 -->
+      <div class="review-card">
+        <div class="rv-stars" aria-label="5 out of 5 stars" role="img">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="rv-title">[COMP REVIEW TITLE 3]</p>
+        <p class="rv-body">[COMP REVIEW BODY 3]</p>
+        <p class="rv-author">— [COMP REVIEWER 3]</p>
+      </div>
+
+    </div>
+
+    <!-- CTA below comparison -->
+    <div class="comp-cta">
+      <!-- EDIT: Comparison section CTA button text -->
+      <a href="#" class="cta-primary">[CTA TEXT]</a>
+      <div class="secure-row">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+        </svg>
+        Secure Checkout Guaranteed
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ═══ SECTION 11: FAQs ═════════════════════════════════════════════════ -->
+<section class="faq fade-up">
+  <div class="section-inner">
+    <div class="faq-inner">
+
+      <!-- EDIT: FAQ section headline -->
+      <h2 class="section-title">FREQUENTLY ASKED QUESTIONS</h2>
+
+      <div class="faq-list">
+
+        <!-- EDIT: FAQ 1 — Q and A -->
+        <details>
+          <summary class="faq-q">[FAQ Q1]</summary>
+          <div class="faq-answer">[FAQ A1]</div>
+        </details>
+
+        <!-- EDIT: FAQ 2 -->
+        <details>
+          <summary class="faq-q">[FAQ Q2]</summary>
+          <div class="faq-answer">[FAQ A2]</div>
+        </details>
+
+        <!-- EDIT: FAQ 3 -->
+        <details>
+          <summary class="faq-q">[FAQ Q3]</summary>
+          <div class="faq-answer">[FAQ A3]</div>
+        </details>
+
+        <!-- EDIT: FAQ 4 -->
+        <details>
+          <summary class="faq-q">[FAQ Q4]</summary>
+          <div class="faq-answer">[FAQ A4]</div>
+        </details>
+
+        <!-- EDIT: FAQ 5 -->
+        <details>
+          <summary class="faq-q">[FAQ Q5]</summary>
+          <div class="faq-answer">[FAQ A5]</div>
+        </details>
+
+        <!-- EDIT: FAQ 6 -->
+        <details>
+          <summary class="faq-q">[FAQ Q6]</summary>
+          <div class="faq-answer">[FAQ A6]</div>
+        </details>
+
+        <!-- EDIT: FAQ 7 -->
+        <details>
+          <summary class="faq-q">[FAQ Q7]</summary>
+          <div class="faq-answer">[FAQ A7]</div>
+        </details>
+
+        <!-- EDIT: FAQ 8 -->
+        <details>
+          <summary class="faq-q">[FAQ Q8]</summary>
+          <div class="faq-answer">[FAQ A8]</div>
+        </details>
+
+      </div><!-- /faq-list -->
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══ SECTION 12: TRUST PILLARS ═══════════════════════════════════════ -->
+<section class="trust fade-up">
+  <div class="section-inner">
+
+    <!-- EDIT: Trust section headline -->
+    <h2 class="section-title">[TRUST HEADLINE]</h2>
+
+    <div class="trust-grid">
+
+      <!-- EDIT: Trust pillar 1 — title + description -->
+      <div class="trust-card">
+        <div class="trust-icon" aria-hidden="true">
+          <!-- Icon: leaf — natural / ingredients -->
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M17 8C8 10 5.9 16.17 3.82 19.22A10 10 0 0 0 14 21C17 17 18 13 17 8z"/>
+            <path d="M17 8C10 8 6 12 3.82 19.22"/>
+          </svg>
+        </div>
+        <h3 class="trust-label">[TRUST 1 TITLE]</h3>
+        <p class="trust-desc">[TRUST 1 DESC]</p>
+      </div>
+
+      <!-- EDIT: Trust pillar 2 -->
+      <div class="trust-card">
+        <div class="trust-icon" aria-hidden="true">
+          <!-- Icon: message-circle — customer support -->
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+          </svg>
+        </div>
+        <h3 class="trust-label">[TRUST 2 TITLE]</h3>
+        <p class="trust-desc">[TRUST 2 DESC]</p>
+      </div>
+
+      <!-- EDIT: Trust pillar 3 -->
+      <div class="trust-card">
+        <div class="trust-icon" aria-hidden="true">
+          <!-- Icon: shield — guarantee -->
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          </svg>
+        </div>
+        <h3 class="trust-label">[TRUST 3 TITLE]</h3>
+        <p class="trust-desc">[TRUST 3 DESC]</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══ SECTION 13: EMAIL SIGNUP ════════════════════════════════════════ -->
+<section class="email-signup fade-up">
+  <div class="email-signup-inner">
+
+    <!-- EDIT: Email section heading -->
+    <h2 class="section-title">[EMAIL HEADING]</h2>
+    <!-- EDIT: Email section subtext -->
+    <p class="section-sub">[EMAIL SUBTEXT]</p>
+
+    <form class="email-form" action="#" method="post" novalidate>
+      <label class="sr-only" for="email-input">Email address</label>
+      <input
+        type="email"
+        id="email-input"
+        name="email"
+        placeholder="Enter your email address"
+        autocomplete="email"
+        required
+      />
+      <button type="submit" class="email-submit">Sign Up</button>
+    </form>
+
+  </div>
+</section>
+
+
+<!-- ═══ FOOTER ═══════════════════════════════════════════════════════════ -->
+<footer>
+  <div class="footer-inner">
+    <!-- EDIT: Copyright year and brand name -->
+    <p class="footer-copy">
+      &copy; 2026 <a href="/">[BRAND NAME]</a>. All rights reserved.
+    </p>
+    <!-- EDIT: Footer links — update hrefs -->
+    <ul class="footer-links">
+      <li><a href="/">Home</a></li>
+      <li><a href="/collections/all">Shop</a></li>
+      <li><a href="/pages/about">About</a></li>
+      <li><a href="/pages/privacy">Privacy</a></li>
+      <li><a href="/pages/contact">Contact</a></li>
+    </ul>
+  </div>
+</footer>
+
+
+<!-- ═══ STICKY ATC BAR ════════════════════════════════════════════════════ -->
+<!-- Appears when the buy-box (#buy-box) scrolls out of view — never above the fold -->
+<div class="sticky-atc" id="sticky-atc">
+  <!-- IMAGE: Replace gallery-1.jpg with brand hero image path -->
+  <div class="sticky-atc-product">
+    <img class="sticky-atc-img" src="./images/gallery-1.jpg" alt="[PRODUCT NAME]" />
+    <div>
+      <!-- EDIT: Product name and price — keep in sync with buy box -->
+      <div class="sticky-atc-name">[PRODUCT NAME]</div>
+      <div class="sticky-atc-price">
+        <span class="s-compare">$[COMPARE PRICE]</span>$[SALE PRICE]
+      </div>
+    </div>
+  </div>
+  <!-- EDIT: Sticky button text — keep consistent with main ATC button -->
+  <button class="sticky-atc-btn" id="sticky-atc-btn">[ATC BUTTON TEXT]</button>
+</div>
+
+
+<!-- ═══ JAVASCRIPT ═══════════════════════════════════════════════════════ -->
+<script>
+(function () {
+  'use strict';
+
+  /* ── Image Carousel — swipe/drag + dot navigation ── */
+  (function() {
+    var track  = document.getElementById('img-track');
+    if (!track) return;
+    var dots   = document.querySelectorAll('.img-dot');
+    var slides = track.querySelectorAll('.img-slide');
+    var total  = slides.length;
+    var current = 0, startX = 0, isDragging = false;
+
+    function slideW() {
+      // Gap is 8px on mobile, 0 on desktop
+      var gap = window.innerWidth <= 767 ? 8 : 0;
+      return slides[0].offsetWidth + gap;
+    }
+
+    function goTo(idx) {
+      current = Math.max(0, Math.min(idx, total - 1));
+      track.style.transform = 'translateX(-' + (current * slideW()) + 'px)';
+      dots.forEach(function(d, i) { d.classList.toggle('active', i === current); });
+    }
+
+    dots.forEach(function(d) {
+      d.addEventListener('click', function() { goTo(+d.dataset.idx); });
+    });
+
+    function onStart(x) { isDragging = true; startX = x; track.classList.add('dragging'); }
+    function onMove(x)  {
+      if (!isDragging) return;
+      track.style.transform = 'translateX(-' + (current * slideW() + (startX - x)) + 'px)';
+    }
+    function onEnd(x) {
+      if (!isDragging) return;
+      isDragging = false;
+      track.classList.remove('dragging');
+      var diff = startX - x;
+      if (Math.abs(diff) > 40) goTo(diff > 0 ? current + 1 : current - 1);
+      else goTo(current);
+    }
+
+    track.addEventListener('mousedown',  function(e) { onStart(e.clientX); });
+    track.addEventListener('mousemove',  function(e) { if (isDragging) { e.preventDefault(); onMove(e.clientX); } });
+    track.addEventListener('mouseup',    function(e) { onEnd(e.clientX); });
+    track.addEventListener('mouseleave', function(e) { if (isDragging) onEnd(e.clientX); });
+    track.addEventListener('touchstart', function(e) { onStart(e.touches[0].clientX); }, { passive: true });
+    track.addEventListener('touchmove',  function(e) { onMove(e.touches[0].clientX); },  { passive: true });
+    track.addEventListener('touchend',   function(e) { onEnd(e.changedTouches[0].clientX); });
+
+    window.addEventListener('resize', function() { goTo(current); });
+  })();
+
+  /* ── Announcement bar slideshow (mobile only) ── */
+  (function() {
+    var mobileBar = document.getElementById('ann-mobile');
+    if (!mobileBar) return;
+    var slides = mobileBar.querySelectorAll('.ann-slide');
+    if (slides.length < 2) return;
+    var idx = 0;
+    setInterval(function() {
+      slides[idx].classList.remove('active');
+      idx = (idx + 1) % slides.length;
+      slides[idx].classList.add('active');
+    }, 3000);
+  })();
+
+  /* ── Variant selector: active state + label update ── */
+  var variantBtns     = document.querySelectorAll('.variant-btn');
+  var variantSelected = document.getElementById('variant-selected');
+
+  variantBtns.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      variantBtns.forEach(function (b) { b.classList.remove('active'); });
+      btn.classList.add('active');
+      if (variantSelected) {
+        variantSelected.textContent = btn.dataset.variant;
+      }
+    });
+  });
+
+  /* ── ATC button: click feedback ── */
+  var atcBtn = document.getElementById('atc-btn');
+  if (atcBtn) {
+    atcBtn.addEventListener('click', function () {
+      var original = atcBtn.textContent;
+      atcBtn.textContent = 'Added to Cart ✓';
+      atcBtn.style.background = '#2a9d3c';
+      setTimeout(function () {
+        atcBtn.textContent = original;
+        atcBtn.style.background = '';
+      }, 2000);
+    });
+  }
+
+  /* ── Mobile nav toggle ── */
+  var navToggle = document.querySelector('.nav-toggle');
+  var mobileNav = document.getElementById('mobile-nav');
+
+  if (navToggle && mobileNav) {
+    navToggle.addEventListener('click', function () {
+      var isOpen = mobileNav.classList.toggle('open');
+      navToggle.setAttribute('aria-expanded', isOpen);
+    });
+  }
+
+  /* ── Scroll fade-in via IntersectionObserver ── */
+  var fadeEls = document.querySelectorAll('.fade-up');
+
+  if ('IntersectionObserver' in window) {
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    fadeEls.forEach(function (el) { observer.observe(el); });
+  } else {
+    // Fallback: show all immediately on older browsers
+    fadeEls.forEach(function (el) { el.classList.add('visible'); });
+  }
+
+  /* ── Sticky ATC — appears when buy-box (#buy-box) leaves viewport ── */
+  var buyBoxEl = document.getElementById('buy-box');
+  var stickyEl = document.getElementById('sticky-atc');
+
+  if (buyBoxEl && stickyEl && 'IntersectionObserver' in window) {
+    var stickyObs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (!entry.isIntersecting) {
+          stickyEl.classList.add('visible');
+        } else {
+          stickyEl.classList.remove('visible');
+        }
+      });
+    }, { rootMargin: '0px', threshold: 0 });
+    stickyObs.observe(buyBoxEl);
+  }
+
+  /* ── Sticky ATC button feedback ── */
+  var stickyBtn = document.getElementById('sticky-atc-btn');
+  if (stickyBtn) {
+    stickyBtn.addEventListener('click', function() {
+      var orig = stickyBtn.textContent;
+      stickyBtn.textContent = 'Added ✓';
+      stickyBtn.style.background = '#2a9d3c';
+      setTimeout(function() { stickyBtn.textContent = orig; stickyBtn.style.background = ''; }, 2000);
+    });
+  }
+
+}());
+</script>
+
+</body>
+</html>

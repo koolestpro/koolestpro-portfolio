@@ -1,0 +1,1706 @@
+<!--
+  BRAND:    [BRAND NAME]
+  PRODUCT:  [PRODUCT NAME]
+  PAGE:     Advertorial — ad-01-editorial-story
+  BUILT:    2026-05-04
+  EDIT:     See CLAUDE.md → Editing Guide for how to modify this file
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- EDIT: Page title — update with publication name and article headline -->
+  <title>[ARTICLE HEADLINE] — [PUBLICATION NAME]</title>
+
+  <!-- Google Fonts: preconnect then load -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <!-- EDIT: Fonts — Bebas Neue (headlines), Cormorant Garamond (pull quotes/subheads), DM Sans (body) -->
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet" />
+
+  <!-- Preload primary hero image (above-the-fold critical path) -->
+  <!-- IMAGE: Article hero — replace with ./images/hero.jpg when image is placed -->
+  <link rel="preload" as="image" href="./images/hero.jpg" />
+
+  <style>
+
+    /* ══════════════════════════════════════════════════════════════
+       DESIGN TOKENS
+       All brand values live here. Change colors, fonts, and spacing
+       in this block only — never hardcode values in component styles.
+       ══════════════════════════════════════════════════════════════ */
+    :root {
+      /* ── BRAND COLORS — replace per brand identity ── */
+      --color-masthead:     #0d1a26;   /* [MASTHEAD BG]      — dark publication header  */
+      --color-masthead-txt: #f0ede8;   /* [MASTHEAD TEXT]    — light text on dark        */
+      --color-primary:      #1a1a1a;   /* [PRIMARY]          — main text / dark surfaces */
+      --color-accent:       #1a6eb5;   /* [ACCENT]           — links / CTA / highlights  */
+      --color-accent-hover: #155fa0;   /* [ACCENT HOVER]     — link hover state          */
+      --color-cta:          #d94f1e;   /* [CTA COLOR]        — primary CTA button        */
+      --color-cta-hover:    #bf4319;   /* [CTA HOVER]        — CTA hover state           */
+      --color-bg:           #ffffff;   /* [BG]               — article page background   */
+      --color-bg-alt:       #f7f5f1;   /* [BG ALT]           — warm off-white sections   */
+      --color-bg-dark:      #0d1a26;   /* [BG DARK]          — final offer / masthead    */
+      --color-text:         #1a1a1a;   /* [BODY TEXT]        — article body copy         */
+      --color-muted:        #555555;   /* [MUTED TEXT]       — byline / caption / meta   */
+      --color-border:       #e0dcd6;   /* [BORDER]           — dividers / card borders   */
+      --color-rail-bg:      #f7f5f1;   /* [RAIL BG]          — sticky offer rail         */
+      --color-quote-accent: #d94f1e;   /* [QUOTE ACCENT]     — pullquote bar / emphasis  */
+      --color-white:        #ffffff;   /* [WHITE]            — inverted text / SVG fills   */
+      --color-star:         #f5a623;   /* [STAR COLOR]       — review star rating           */
+      --color-verified:     #22a060;   /* [VERIFIED COLOR]   — verified purchase badge      */
+      --shadow-card:        0 2px 12px rgba(0,0,0,.07);
+      --shadow-card-lg:     0 6px 28px rgba(0,0,0,.11);
+
+      /* ── BRAND FONTS — replace per brand identity ── */
+      --font-display: 'Bebas Neue', sans-serif;          /* [DISPLAY FONT]  — page titles      */
+      --font-serif:   'Cormorant Garamond', serif;       /* [SERIF FONT]    — pull quotes       */
+      --font-body:    'DM Sans', sans-serif;             /* [BODY FONT]     — article body/UI   */
+
+      /* ── EDITORIAL MEASURES ── */
+      --article-max:     680px;   /* comfortable editorial column measure            */
+      --article-wide:    960px;   /* wider sections: images, mechanism grid          */
+      --rail-width:      300px;   /* sticky CTA rail width on desktop                */
+      --layout-gap:       40px;   /* gap between article column and sticky rail      */
+
+      /* ── SPACING & SHAPE ── */
+      --radius-sm:      4px;
+      --radius-md:      8px;
+      --radius-lg:      14px;
+      --radius-pill:    100px;
+      --max-width:      1280px;
+      --section-v:      72px;
+      --section-v-mob:  48px;
+    }
+
+    /* ══════════════════════════════════════════════════════════════
+       RESET & BASE
+       ══════════════════════════════════════════════════════════════ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-body);
+      color: var(--color-text);
+      background: var(--color-bg);
+      font-size: 16px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+      height: auto;
+    }
+
+    a {
+      color: var(--color-accent);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    a:hover { color: var(--color-accent-hover); }
+
+    /* ══════════════════════════════════════════════════════════════
+       SCROLL FADE-IN — applied by IntersectionObserver
+       ══════════════════════════════════════════════════════════════ */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ══════════════════════════════════════════════════════════════
+       FOCUS VISIBLE
+       ══════════════════════════════════════════════════════════════ */
+    :focus-visible {
+      outline: 2px solid var(--color-accent);
+      outline-offset: 3px;
+      border-radius: var(--radius-sm);
+    }
+
+    /* ══════════════════════════════════════════════════════════════
+       CTA BUTTON
+       ══════════════════════════════════════════════════════════════ */
+    .cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--color-cta);
+      color: var(--color-white);
+      font-family: var(--font-body);
+      font-weight: 700;
+      font-size: 14px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 14px 28px;
+      border-radius: var(--radius-md);
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.15s ease;
+      line-height: 1;
+    }
+
+    .cta-btn:hover {
+      background: var(--color-cta-hover);
+      color: var(--color-white);
+      transform: translateY(-1px);
+      text-decoration: none;
+    }
+
+    .cta-btn:active { transform: translateY(0); }
+
+    .cta-btn--full { width: 100%; justify-content: center; }
+
+    .cta-btn--sm {
+      font-size: 13px;
+      padding: 10px 20px;
+    }
+
+    /* ══════════════════════════════════════════════════════════════
+       S1 — MASTHEAD / OFFER BAR
+       ══════════════════════════════════════════════════════════════ */
+    .masthead {
+      background: var(--color-masthead);
+      color: var(--color-masthead-txt);
+    }
+
+    .masthead__top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 14px 20px;
+      gap: 16px;
+    }
+
+    .masthead__pub {
+      font-family: var(--font-display);
+      font-size: 22px;
+      letter-spacing: 0.05em;
+      color: var(--color-masthead-txt);
+      text-decoration: none;
+    }
+
+    .masthead__pub:hover { color: var(--color-masthead-txt); text-decoration: none; }
+
+    .masthead__disclosure {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(240,237,232,.55);
+      border: 1px solid rgba(240,237,232,.25);
+      padding: 3px 8px;
+      border-radius: var(--radius-sm);
+    }
+
+    .masthead__offer {
+      background: var(--color-cta);
+      text-align: center;
+      padding: 8px 20px;
+    }
+
+    /* EDIT: Offer bar copy */
+    .masthead__offer a {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--color-white);
+      text-decoration: none;
+      letter-spacing: 0.03em;
+    }
+
+    .masthead__offer a:hover { color: var(--color-white); text-decoration: underline; }
+
+    /* ══════════════════════════════════════════════════════════════
+       S2 — ARTICLE HEADER
+       ══════════════════════════════════════════════════════════════ */
+    .article-header {
+      background: var(--color-bg);
+      padding: 40px 20px 0;
+    }
+
+    .article-header__inner {
+      max-width: var(--article-max);
+      margin: 0 auto;
+    }
+
+    .article-header__category {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+      margin-bottom: 16px;
+    }
+
+    .article-header__headline {
+      font-family: var(--font-display);
+      font-size: 34px;
+      line-height: 1.1;
+      letter-spacing: 0.01em;
+      color: var(--color-primary);
+      margin-bottom: 16px;
+    }
+
+    .article-header__subheadline {
+      font-family: var(--font-serif);
+      font-size: 19px;
+      line-height: 1.5;
+      color: var(--color-muted);
+      font-style: italic;
+      margin-bottom: 24px;
+    }
+
+    .article-header__byline {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--color-border);
+      margin-bottom: 32px;
+    }
+
+    .article-header__author-img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+      flex-shrink: 0;
+      background: var(--color-border);
+    }
+
+    .article-header__meta {
+      font-size: 13px;
+      color: var(--color-muted);
+      line-height: 1.4;
+    }
+
+    .article-header__meta strong {
+      display: block;
+      color: var(--color-primary);
+      font-weight: 600;
+    }
+
+    .article-header__hero {
+      max-width: var(--article-wide);
+      margin: 0 auto;
+      padding: 0 20px 40px;
+    }
+
+    .article-header__hero figure {
+      position: relative;
+    }
+
+    .article-header__hero-img {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+      border-radius: var(--radius-md);
+      background: var(--color-border);
+    }
+
+    .article-header__caption {
+      font-size: 12px;
+      color: var(--color-muted);
+      margin-top: 8px;
+      font-style: italic;
+    }
+
+    /* ══════════════════════════════════════════════════════════════
+       S3 — SOCIAL AUTHORITY STRIP
+       ══════════════════════════════════════════════════════════════ */
+    .authority-strip {
+      background: var(--color-bg-alt);
+      padding: 32px 20px;
+      border-top: 1px solid var(--color-border);
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .authority-strip__inner {
+      max-width: var(--article-wide);
+      margin: 0 auto;
+    }
+
+    .authority-strip__counters {
+      display: flex;
+      flex-wrap: wrap;
+      /* gap: 24px; */
+      justify-content: center;
+      margin-bottom: 24px;
+    }
+
+    .authority-counter {
+      text-align: center;
+      flex: 1;
+      min-width: 120px;
+    }
+
+    .authority-counter__number {
+      font-family: var(--font-display);
+      font-size: 32px;
+      letter-spacing: 0.02em;
+      color: var(--color-primary);
+      line-height: 1;
+    }
+
+    .authority-counter__label {
+      font-size: 12px;
+      color: var(--color-muted);
+      margin-top: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .authority-strip__featured {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .authority-strip__featured-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-muted);
+      white-space: nowrap;
+    }
+
+    .pub-logos {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .pub-logo {
+      font-family: var(--font-display);
+      font-size: 15px;
+      letter-spacing: 0.08em;
+      color: var(--color-muted);
+      text-transform: uppercase;
+      opacity: 0.6;
+    }
+
+    /* ══════════════════════════════════════════════════════════════
+       ARTICLE LAYOUT — S4 through S13
+       Desktop: article column (left) + sticky CTA rail (right)
+       ══════════════════════════════════════════════════════════════ */
+    .article-layout {
+      max-width: calc(var(--article-max) + var(--rail-width) + var(--layout-gap) + 40px);
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .article-layout__grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0;
+      align-items: start;
+    }
+
+    .article-col {
+      min-width: 0;
+      padding: var(--section-v-mob) 0;
+    }
+
+    /* Sticky right rail — hidden on mobile, shown on desktop */
+    .sticky-offer {
+      display: none;
+    }
+
+    @media (min-width: 1280px) {
+      .article-layout__grid {
+        grid-template-columns: 1fr var(--rail-width);
+        gap: var(--layout-gap);
+      }
+
+      .sticky-offer {
+        display: block;
+        position: sticky;
+        top: 96px;
+        align-self: start;
+        padding-top: var(--section-v);
+      }
+    }
+
+    /* ── Article body typography ── */
+    .article-body {
+      max-width: var(--article-max);
+    }
+
+    .article-body p {
+      font-size: 17px;
+      line-height: 1.8;
+      color: var(--color-text);
+      margin-bottom: 22px;
+    }
+
+    .article-body p:last-child { margin-bottom: 0; }
+
+    .article-body h2 {
+      font-family: var(--font-display);
+      font-size: 28px;
+      letter-spacing: 0.02em;
+      color: var(--color-primary);
+      margin: 40px 0 16px;
+      line-height: 1.1;
+    }
+
+    .article-body h3 {
+      font-family: var(--font-body);
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--color-primary);
+      margin: 32px 0 12px;
+    }
+
+    .article-body .source-note {
+      font-size: 12px;
+      color: var(--color-muted);
+      font-style: italic;
+      border-left: 2px solid var(--color-border);
+      padding-left: 12px;
+      margin-top: -12px;
+      margin-bottom: 24px;
+    }
+
+    .article-divider {
+      border: none;
+      border-top: 1px solid var(--color-border);
+      margin: 40px 0;
+    }
+
+    /* ══════════════════════════════════════════════════════════════
+       S4 — OPENING HOOK
+       ══════════════════════════════════════════════════════════════ */
+    .opening-hook__thesis {
+      font-family: var(--font-display);
+      font-size: 32px;
+      line-height: 1.1;
+      letter-spacing: 0.02em;
+      color: var(--color-primary);
+      margin-bottom: 28px;
+    }
+
+    /* ══════════════════════════════════════════════════════════════
+       S5 — PROBLEM DEEP DIVE
+       ══════════════════════════════════════════════════════════════ */
+    .problem-section__image {
+      width: 100%;
+      aspect-ratio: 3 / 2;
+      object-fit: cover;
+      border-radius: var(--radius-md);
+      margin: 32px 0 24px;
+      background: var(--color-border);
+    }
+
+    /* ══════════════════════════════════════════════════════════════
+       S6 — INLINE CTA 1
+       ══════════════════════════════════════════════════════════════ */
+    .inline-cta {
+      background: var(--color-bg-alt);
+      border-left: 4px solid var(--color-cta);
+      border-radius: 0 var(--radius-md) var(--radius-md) 0;
+      padding: 24px 24px 24px 28px;
+      margin: 40px 0;
+      max-width: var(--article-max);
+    }
+
+    .inline-cta__claim {
+      font-family: var(--font-serif);
+      font-size: 18px;
+      line-height: 1.5;
+      font-style: italic;
+      color: var(--color-primary);
+      margin-bottom: 16px;
+    }
+
+    /* ══════════════════════════════════════════════════════════════
+       S7 — SOLUTION INTRODUCTION
+       ══════════════════════════════════════════════════════════════ */
+    .solution-section__label {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--color-cta);
+      margin-bottom: 14px;
+    }
+
+    .solution-section__product-img {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+      border-radius: var(--radius-md);
+      margin: 28px 0;
+      background: var(--color-border);
+    }
+
+    /* ══════════════════════════════════════════════════════════════
+       S8 — EXPERT QUOTE CARD
+       ══════════════════════════════════════════════════════════════ */
+    .quote-card {
+      background: var(--color-bg-alt);
+      border-radius: var(--radius-lg);
+      padding: 32px 28px;
+      margin: 40px 0;
+      position: relative;
+      max-width: var(--article-max);
+    }
+
+    .quote-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: var(--color-quote-accent);
+      border-radius: var(--radius-sm) 0 0 var(--radius-sm);
+    }
+
+    .quote-card__mark {
+      font-family: var(--font-serif);
+      font-size: 64px;
+      line-height: 0.6;
+      color: var(--color-quote-accent);
+      margin-bottom: 16px;
+      display: block;
+    }
+
+    .quote-card__text {
+      font-family: var(--font-serif);
+      font-size: 20px;
+      line-height: 1.6;
+      font-style: italic;
+      color: var(--color-primary);
+      margin-bottom: 20px;
+    }
+
+    .quote-card__author {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .quote-card__author-img {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      object-fit: cover;
+      background: var(--color-border);
+      flex-shrink: 0;
+    }
+
+    .quote-card__author-name {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--color-primary);
+    }
+
+    .quote-card__author-role {
+      font-size: 12px;
+      color: var(--color-muted);
+    }
+
+    /* ══════════════════════════════════════════════════════════════
+       S9 — MECHANISM SECTION
+       ══════════════════════════════════════════════════════════════ */
+    .mechanism-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+      margin: 28px 0 32px;
+    }
+
+    .mechanism-card {
+      background: var(--color-bg);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: 20px 20px 20px 24px;
+      border-left: 3px solid var(--color-accent);
+      box-shadow: var(--shadow-card);
+    }
+
+    .mechanism-card__number {
+      font-family: var(--font-display);
+      font-size: 13px;
+      letter-spacing: 0.1em;
+      color: var(--color-accent);
+      margin-bottom: 6px;
+    }
+
+    .mechanism-card__title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--color-primary);
+      margin-bottom: 6px;
+    }
+
+    .mechanism-card__body {
+      font-size: 14px;
+      color: var(--color-muted);
+      line-height: 1.6;
+    }
+
+    @media (min-width: 768px) {
+      .mechanism-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    /* ══════════════════════════════════════════════════════════════
+       S10 — TRUST / SAFETY / COMPLIANCE
+       ══════════════════════════════════════════════════════════════ */
+    .trust-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      padding: 20px 0;
+      border-top: 1px solid var(--color-border);
+      border-bottom: 1px solid var(--color-border);
+      margin: 32px 0;
+    }
+
+    .trust-bar__item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: var(--color-muted);
+    }
+
+    .trust-bar__icon {
+      color: var(--color-accent);
+      flex-shrink: 0;
+    }
+
+    /* ══════════════════════════════════════════════════════════════
+       S11 — USE CASE STORY
+       ══════════════════════════════════════════════════════════════ */
+    .story-section__img {
+      width: 100%;
+      aspect-ratio: 3 / 2;
+      object-fit: cover;
+      border-radius: var(--radius-md);
+      margin: 28px 0;
+      background: var(--color-border);
+    }
+
+    /* ══════════════════════════════════════════════════════════════
+       S13 — INGREDIENT / FEATURE GRID
+       ══════════════════════════════════════════════════════════════ */
+    .ingredient-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin: 28px 0 32px;
+    }
+
+    .ingredient-card {
+      background: var(--color-bg-alt);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: 18px;
+    }
+
+    .ingredient-card__icon {
+      width: 32px;
+      height: 32px;
+      background: var(--color-accent);
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 12px;
+      color: var(--color-white);
+    }
+
+    .ingredient-card__title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--color-primary);
+      margin-bottom: 4px;
+    }
+
+    .ingredient-card__body {
+      font-size: 13px;
+      color: var(--color-muted);
+      line-height: 1.5;
+    }
+
+    @media (min-width: 768px) {
+      .ingredient-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    /* ══════════════════════════════════════════════════════════════
+       S14 — FINAL OFFER BLOCK
+       ══════════════════════════════════════════════════════════════ */
+    .final-offer {
+      background: var(--color-bg-dark);
+      padding: var(--section-v-mob) 20px;
+    }
+
+    .final-offer__inner {
+      max-width: 700px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .final-offer__label {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--color-cta);
+      margin-bottom: 14px;
+    }
+
+    .final-offer__headline {
+      font-family: var(--font-display);
+      font-size: 36px;
+      letter-spacing: 0.02em;
+      color: var(--color-white);
+      margin-bottom: 14px;
+      line-height: 1.1;
+    }
+
+    .final-offer__body {
+      font-size: 15px;
+      color: rgba(240,237,232,.75);
+      margin-bottom: 28px;
+      line-height: 1.7;
+    }
+
+    .final-offer__product-img {
+      width: 100%;
+      max-width: 300px;
+      aspect-ratio: 1 / 1;
+      object-fit: contain;
+      margin: 0 auto 28px;
+      background: transparent;
+    }
+
+    .final-offer__price {
+      font-family: var(--font-display);
+      font-size: 44px;
+      color: var(--color-white);
+      letter-spacing: 0.02em;
+      margin-bottom: 6px;
+    }
+
+    .final-offer__price-original {
+      font-size: 14px;
+      color: rgba(240,237,232,.45);
+      text-decoration: line-through;
+      margin-bottom: 24px;
+    }
+
+    .final-offer__trust {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 16px;
+      font-size: 12px;
+      color: rgba(240,237,232,.5);
+    }
+
+    /* ══════════════════════════════════════════════════════════════
+       S15 — CUSTOMER PROOF
+       ══════════════════════════════════════════════════════════════ */
+    .customer-proof {
+      background: var(--color-bg-alt);
+      padding: var(--section-v-mob) 20px;
+    }
+
+    .customer-proof__inner {
+      max-width: var(--article-wide);
+      margin: 0 auto;
+    }
+
+    .customer-proof__heading {
+      font-family: var(--font-display);
+      font-size: 28px;
+      letter-spacing: 0.02em;
+      color: var(--color-primary);
+      margin-bottom: 8px;
+    }
+
+    .customer-proof__subtext {
+      font-size: 14px;
+      color: var(--color-muted);
+      margin-bottom: 32px;
+    }
+
+    .review-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+      margin-bottom: 36px;
+    }
+
+    .review-card {
+      background: var(--color-bg);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      box-shadow: var(--shadow-card);
+    }
+
+    .review-card__stars {
+      display: flex;
+      gap: 3px;
+      margin-bottom: 12px;
+      color: var(--color-star);
+    }
+
+    .review-card__title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--color-primary);
+      margin-bottom: 8px;
+    }
+
+    .review-card__body {
+      font-size: 14px;
+      color: var(--color-muted);
+      line-height: 1.65;
+      margin-bottom: 14px;
+    }
+
+    .review-card__author {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--color-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .review-card__verified {
+      font-size: 11px;
+      color: var(--color-verified);
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      margin-top: 4px;
+    }
+
+    @media (min-width: 768px) {
+      .review-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .customer-proof__cta {
+      text-align: center;
+    }
+
+    /* ══════════════════════════════════════════════════════════════
+       STICKY OFFER RAIL CARD
+       ══════════════════════════════════════════════════════════════ */
+    .sticky-offer__card {
+      background: var(--color-rail-bg);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-card-lg);
+    }
+
+    .sticky-offer__img {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+      background: var(--color-border);
+    }
+
+    .sticky-offer__body {
+      padding: 20px;
+    }
+
+    .sticky-offer__label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-cta);
+      margin-bottom: 8px;
+    }
+
+    .sticky-offer__product {
+      font-family: var(--font-display);
+      font-size: 20px;
+      letter-spacing: 0.02em;
+      color: var(--color-primary);
+      margin-bottom: 8px;
+      line-height: 1.2;
+    }
+
+    .sticky-offer__pitch {
+      font-size: 13px;
+      color: var(--color-muted);
+      line-height: 1.55;
+      margin-bottom: 16px;
+    }
+
+    .sticky-offer__price-row {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .sticky-offer__price {
+      font-family: var(--font-display);
+      font-size: 28px;
+      color: var(--color-primary);
+      letter-spacing: 0.02em;
+    }
+
+    .sticky-offer__price-orig {
+      font-size: 13px;
+      color: var(--color-muted);
+      text-decoration: line-through;
+    }
+
+    .sticky-offer__trust {
+      font-size: 11px;
+      color: var(--color-muted);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      margin-top: 10px;
+      justify-content: center;
+    }
+
+    /* Mobile inline CTA (shown below S3 on small screens, rail hidden) */
+    .mobile-offer-cta {
+      background: var(--color-rail-bg);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      margin: 0 0 32px;
+      box-shadow: var(--shadow-card);
+    }
+
+    .mobile-offer-cta__product {
+      font-family: var(--font-display);
+      font-size: 18px;
+      letter-spacing: 0.02em;
+      color: var(--color-primary);
+      margin-bottom: 6px;
+    }
+
+    .mobile-offer-cta__pitch {
+      font-size: 13px;
+      color: var(--color-muted);
+      margin-bottom: 14px;
+    }
+
+    @media (min-width: 1280px) {
+      .mobile-offer-cta {
+        display: none;
+      }
+    }
+
+    /* ══════════════════════════════════════════════════════════════
+       RESPONSIVE UPGRADES — TABLET 768px+
+       ══════════════════════════════════════════════════════════════ */
+    @media (min-width: 768px) {
+      .article-header__headline { font-size: 44px; }
+      .article-header__subheadline { font-size: 21px; }
+
+      .opening-hook__thesis { font-size: 38px; }
+
+      .article-body p { font-size: 18px; }
+
+      .final-offer { padding: var(--section-v) 20px; }
+      .final-offer__headline { font-size: 48px; }
+
+      .customer-proof { padding: var(--section-v) 20px; }
+    }
+
+    /* ══════════════════════════════════════════════════════════════
+       RESPONSIVE UPGRADES — DESKTOP 1280px+
+       ══════════════════════════════════════════════════════════════ */
+    @media (min-width: 1280px) {
+      .article-header {
+        padding: 52px 20px 0;
+      }
+
+      .article-header__headline { font-size: 52px; }
+
+      .article-layout {
+        padding: 0 48px;
+      }
+
+      .article-col {
+        padding: var(--section-v) 0;
+      }
+    }
+
+  </style>
+</head>
+<body>
+
+<!-- ═══ SECTION 1: MASTHEAD / OFFER BAR ══════════════════════════ -->
+<header class="masthead" role="banner">
+  <div class="masthead__top">
+    <!-- EDIT: Publication name -->
+    <a href="#" class="masthead__pub">[PUBLICATION NAME]</a>
+    <!-- EDIT: Disclosure label — e.g. "Sponsored Content" or "Advertorial" -->
+    <span class="masthead__disclosure" aria-label="[ADVERTORIAL DISCLOSURE]">[ADVERTORIAL DISCLOSURE]</span>
+  </div>
+  <!-- EDIT: Offer bar copy and link -->
+  <div class="masthead__offer" role="complementary" aria-label="Special offer">
+    <a href="[CTA URL]">Limited Time: Save on [PRODUCT NAME] — Check Availability &rarr;</a>
+  </div>
+</header>
+
+<!-- ═══ SECTION 2: ARTICLE HEADER ════════════════════════════════ -->
+<article>
+  <header class="article-header fade-in">
+    <div class="article-header__inner">
+      <!-- EDIT: Article category label -->
+      <span class="article-header__category">[ARTICLE CATEGORY]</span>
+
+      <!-- EDIT: Article headline -->
+      <h1 class="article-header__headline">[ARTICLE HEADLINE]</h1>
+
+      <!-- EDIT: Article subheadline -->
+      <p class="article-header__subheadline">[ARTICLE SUBHEADLINE]</p>
+
+      <div class="article-header__byline">
+        <!-- IMAGE: Author photo — replace with ./images/author.jpg -->
+        <img
+          src="./images/author.jpg"
+          alt="[AUTHOR NAME]"
+          class="article-header__author-img"
+          width="40"
+          height="40"
+          loading="lazy"
+        />
+        <div class="article-header__meta">
+          <!-- EDIT: Author name -->
+          <strong>[AUTHOR NAME]</strong>
+          <!-- EDIT: Publish date and read time -->
+          <time datetime="[PUBLISH DATE ISO]">[PUBLISH DATE]</time> &middot; [READ TIME] read
+        </div>
+      </div>
+    </div>
+
+    <!-- Hero image — full width up to article-wide measure -->
+    <div class="article-header__hero">
+      <figure>
+        <!-- IMAGE: Article hero — replace with ./images/hero.jpg -->
+        <img
+          src="./images/hero.jpg"
+          alt="[ARTICLE HERO IMAGE ALT TEXT]"
+          class="article-header__hero-img"
+          width="960"
+          height="540"
+          loading="eager"
+        />
+        <!-- EDIT: Image caption -->
+        <figcaption class="article-header__caption">[HERO IMAGE CAPTION]</figcaption>
+      </figure>
+    </div>
+  </header>
+
+  <!-- ═══ SECTION 3: SOCIAL AUTHORITY STRIP ═══════════════════════ -->
+  <section class="authority-strip fade-in" aria-label="Social proof">
+    <div class="authority-strip__inner">
+      <div class="authority-strip__counters">
+        <!-- EDIT: Counter 1 — e.g. social followers, subscribers, readers -->
+        <div class="authority-counter">
+          <div class="authority-counter__number">[COUNTER 1 NUMBER]</div>
+          <div class="authority-counter__label">[COUNTER 1 LABEL]</div>
+        </div>
+        <!-- EDIT: Counter 2 -->
+        <div class="authority-counter">
+          <div class="authority-counter__number">[COUNTER 2 NUMBER]</div>
+          <div class="authority-counter__label">[COUNTER 2 LABEL]</div>
+        </div>
+        <!-- EDIT: Counter 3 -->
+        <div class="authority-counter">
+          <div class="authority-counter__number">[COUNTER 3 NUMBER]</div>
+          <div class="authority-counter__label">[COUNTER 3 LABEL]</div>
+        </div>
+      </div>
+
+      <div class="authority-strip__featured">
+        <span class="authority-strip__featured-label">As featured in</span>
+        <div class="pub-logos" aria-label="Featured publications">
+          <!-- EDIT: Publication logo placeholders — replace with real names or SVG logos -->
+          <span class="pub-logo">[PUBLICATION 1]</span>
+          <span class="pub-logo">[PUBLICATION 2]</span>
+          <span class="pub-logo">[PUBLICATION 3]</span>
+          <span class="pub-logo">[PUBLICATION 4]</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ ARTICLE LAYOUT: S4–S13 ══════════════════════════════════ -->
+  <!-- Desktop: article column (left) + sticky CTA rail (right)      -->
+  <div class="article-layout">
+    <div class="article-layout__grid">
+
+      <!-- ── ARTICLE COLUMN ── -->
+      <div class="article-col">
+
+        <!-- Mobile-only inline offer (rail is hidden on mobile) -->
+        <div class="mobile-offer-cta" aria-label="Product offer">
+          <!-- EDIT: Mobile offer product name -->
+          <div class="mobile-offer-cta__product">[PRODUCT NAME]</div>
+          <!-- EDIT: Mobile offer pitch -->
+          <p class="mobile-offer-cta__pitch">[SHORT PRODUCT PITCH — 1-2 sentences]</p>
+          <!-- EDIT: Mobile CTA button text and destination -->
+          <a href="[CTA URL]" class="cta-btn cta-btn--full cta-btn--sm">Check Availability</a>
+        </div>
+
+        <!-- ═══ SECTION 4: OPENING HOOK ══════════════════════════ -->
+        <section class="article-body fade-in" aria-labelledby="opening-thesis">
+
+          <!-- EDIT: Opening thesis / section heading -->
+          <h2 class="opening-hook__thesis" id="opening-thesis">[PROBLEM THESIS]</h2>
+
+          <!-- EDIT: Pain paragraph 1 -->
+          <p>[PAIN PARAGRAPH 1]</p>
+
+          <!-- EDIT: Pain paragraph 2 -->
+          <p>[PAIN PARAGRAPH 2]</p>
+
+          <!-- EDIT: Pain paragraph 3 -->
+          <p>[PAIN PARAGRAPH 3]</p>
+
+          <!-- EDIT: Pain paragraph 4 -->
+          <p>[PAIN PARAGRAPH 4]</p>
+
+        </section>
+
+        <!-- ═══ SECTION 5: PROBLEM DEEP DIVE ═════════════════════ -->
+        <section class="article-body fade-in" aria-labelledby="problem-heading">
+
+          <!-- IMAGE: Problem image — replace with ./images/problem.jpg -->
+          <img
+            src="./images/problem.jpg"
+            alt="[PROBLEM IMAGE ALT TEXT]"
+            class="problem-section__image"
+            width="680"
+            height="453"
+            loading="lazy"
+          />
+
+          <!-- EDIT: Problem section sub-heading -->
+          <h2 id="problem-heading">[PROBLEM SUB-HEADING]</h2>
+
+          <!-- EDIT: Context paragraph 1 — science/research context around the problem -->
+          <p>[PROBLEM CONTEXT PARAGRAPH 1]</p>
+
+          <!-- EDIT: Context paragraph 2 -->
+          <p>[PROBLEM CONTEXT PARAGRAPH 2]</p>
+
+          <!-- EDIT: Source note — cite a study, article, or expert reference if available -->
+          <p class="source-note">[SOURCE NOTE 1]</p>
+
+          <!-- EDIT: Context paragraph 3 — why existing solutions fail -->
+          <p>[OLD-WAY FAILURE PARAGRAPH]</p>
+
+        </section>
+
+        <!-- ═══ SECTION 6: INLINE CTA 1 ══════════════════════════ -->
+        <div class="inline-cta fade-in" role="complementary" aria-label="Product offer callout">
+          <!-- EDIT: Short urgency/disadvantage claim -->
+          <p class="inline-cta__claim">"[INLINE CTA CLAIM — problem cost or urgency statement]"</p>
+          <!-- EDIT: CTA button text and destination -->
+          <a href="[CTA URL]" class="cta-btn cta-btn--sm">See Today's Offer &rarr;</a>
+        </div>
+
+        <!-- ═══ SECTION 7: SOLUTION INTRODUCTION ═════════════════ -->
+        <section class="article-body fade-in" aria-labelledby="solution-heading">
+
+          <!-- EDIT: Solution label badge -->
+          <span class="solution-section__label">[SOLUTION LABEL — e.g. "The Upgrade"]</span>
+
+          <!-- EDIT: Solution section heading -->
+          <h2 id="solution-heading">[SOLUTION HEADING]</h2>
+
+          <!-- EDIT: Product category context paragraph -->
+          <p>[PRODUCT CATEGORY CONTEXT PARAGRAPH]</p>
+
+          <!-- IMAGE: Product image — replace with ./images/product.png -->
+          <img
+            src="./images/product.png"
+            alt="[PRODUCT IMAGE ALT TEXT]"
+            class="solution-section__product-img"
+            width="680"
+            height="510"
+            loading="lazy"
+          />
+
+          <!-- EDIT: Product differentiation paragraph 1 -->
+          <p>[PRODUCT DIFFERENTIATION PARAGRAPH 1]</p>
+
+          <!-- EDIT: Product differentiation paragraph 2 -->
+          <p>[PRODUCT DIFFERENTIATION PARAGRAPH 2]</p>
+
+        </section>
+
+        <!-- ═══ SECTION 8: EXPERT QUOTE CARD ═════════════════════ -->
+        <figure class="quote-card fade-in" role="blockquote">
+          <span class="quote-card__mark" aria-hidden="true">&ldquo;</span>
+          <!-- EDIT: Expert quote text -->
+          <blockquote class="quote-card__text">[EXPERT QUOTE]</blockquote>
+          <figcaption class="quote-card__author">
+            <!-- IMAGE: Expert photo — replace with ./images/person.jpg -->
+            <img
+              src="./images/person.jpg"
+              alt="[EXPERT NAME]"
+              class="quote-card__author-img"
+              width="44"
+              height="44"
+              loading="lazy"
+            />
+            <div>
+              <!-- EDIT: Expert / creator name -->
+              <div class="quote-card__author-name">[EXPERT NAME]</div>
+              <!-- EDIT: Expert role / title -->
+              <div class="quote-card__author-role">[EXPERT ROLE]</div>
+            </div>
+          </figcaption>
+        </figure>
+
+        <!-- ═══ SECTION 9: MECHANISM ══════════════════════════════ -->
+        <section class="article-body fade-in" aria-labelledby="mechanism-heading">
+
+          <!-- EDIT: Mechanism section heading -->
+          <h2 id="mechanism-heading">How [PRODUCT NAME] Works</h2>
+
+          <!-- EDIT: Mechanism intro paragraph -->
+          <p>[MECHANISM INTRO PARAGRAPH]</p>
+
+          <div class="mechanism-grid" role="list">
+
+            <!-- EDIT: Mechanism card 1 -->
+            <div class="mechanism-card" role="listitem">
+              <div class="mechanism-card__number">01</div>
+              <div class="mechanism-card__title">[MECHANISM 1 TITLE]</div>
+              <p class="mechanism-card__body">[MECHANISM 1 BODY]</p>
+            </div>
+
+            <!-- EDIT: Mechanism card 2 -->
+            <div class="mechanism-card" role="listitem">
+              <div class="mechanism-card__number">02</div>
+              <div class="mechanism-card__title">[MECHANISM 2 TITLE]</div>
+              <p class="mechanism-card__body">[MECHANISM 2 BODY]</p>
+            </div>
+
+            <!-- EDIT: Mechanism card 3 -->
+            <div class="mechanism-card" role="listitem">
+              <div class="mechanism-card__number">03</div>
+              <div class="mechanism-card__title">[MECHANISM 3 TITLE]</div>
+              <p class="mechanism-card__body">[MECHANISM 3 BODY]</p>
+            </div>
+
+          </div>
+
+        </section>
+
+        <!-- ═══ SECTION 10: TRUST / SAFETY / COMPLIANCE ══════════ -->
+        <section class="article-body fade-in" aria-label="Trust and compliance signals">
+
+          <hr class="article-divider" />
+
+          <div class="trust-bar" role="list">
+
+            <!-- EDIT: Trust signal 1 -->
+            <div class="trust-bar__item" role="listitem">
+              <!-- Inline SVG: check circle icon -->
+              <svg class="trust-bar__icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.5"/>
+                <path d="M5 8.5l2 2 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <!-- EDIT: Trust signal label -->
+              [TRUST SIGNAL 1]
+            </div>
+
+            <!-- EDIT: Trust signal 2 -->
+            <div class="trust-bar__item" role="listitem">
+              <svg class="trust-bar__icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.5"/>
+                <path d="M5 8.5l2 2 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              [TRUST SIGNAL 2]
+            </div>
+
+            <!-- EDIT: Trust signal 3 -->
+            <div class="trust-bar__item" role="listitem">
+              <svg class="trust-bar__icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.5"/>
+                <path d="M5 8.5l2 2 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              [TRUST SIGNAL 3]
+            </div>
+
+            <!-- EDIT: Trust signal 4 -->
+            <div class="trust-bar__item" role="listitem">
+              <svg class="trust-bar__icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.5"/>
+                <path d="M5 8.5l2 2 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              [TRUST SIGNAL 4]
+            </div>
+
+          </div>
+
+          <!-- EDIT: Compliance/trust paragraph -->
+          <p>[TRUST / COMPLIANCE PARAGRAPH]</p>
+
+          <hr class="article-divider" />
+
+        </section>
+
+        <!-- ═══ SECTION 11: USE CASE STORY ═══════════════════════ -->
+        <section class="article-body fade-in" aria-labelledby="story-heading">
+
+          <!-- EDIT: Use case story heading -->
+          <h2 id="story-heading">[USE CASE STORY HEADING]</h2>
+
+          <!-- IMAGE: Lifestyle / person image — replace with ./images/lifestyle.jpg -->
+          <img
+            src="./images/lifestyle.jpg"
+            alt="[LIFESTYLE IMAGE ALT TEXT]"
+            class="story-section__img"
+            width="680"
+            height="453"
+            loading="lazy"
+          />
+
+          <!-- EDIT: Story paragraph 1 — second authority/customer narrative -->
+          <p>[STORY PARAGRAPH 1]</p>
+
+          <!-- EDIT: Story paragraph 2 -->
+          <p>[STORY PARAGRAPH 2]</p>
+
+        </section>
+
+        <!-- ═══ SECTION 12: INLINE CTA 2 ════════════════════════ -->
+        <div class="inline-cta fade-in" role="complementary" aria-label="Product offer callout 2">
+          <!-- EDIT: Second inline CTA claim — after proof section -->
+          <p class="inline-cta__claim">"[INLINE CTA 2 CLAIM — post-proof urgency or transformation statement]"</p>
+          <!-- EDIT: CTA button text and destination -->
+          <a href="[CTA URL]" class="cta-btn cta-btn--sm">Claim The Bundle &rarr;</a>
+        </div>
+
+        <!-- ═══ SECTION 13: INGREDIENT / FEATURE GRID ═══════════ -->
+        <section class="article-body fade-in" aria-labelledby="ingredients-heading">
+
+          <!-- EDIT: Grid section heading -->
+          <h2 id="ingredients-heading">[INGREDIENT / FEATURE GRID HEADING]</h2>
+
+          <!-- EDIT: Grid intro paragraph -->
+          <p>[INGREDIENT GRID INTRO PARAGRAPH]</p>
+
+          <div class="ingredient-grid" role="list">
+
+            <!-- EDIT: Ingredient/feature card 1 -->
+            <div class="ingredient-card" role="listitem">
+              <div class="ingredient-card__icon" aria-hidden="true">
+                <!-- Inline SVG: leaf/feature icon -->
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                  <path d="M8 2C4 2 2 6 2 9c0 3 2 5 6 5s6-2 6-5c0-3-2-7-6-7z" stroke="#fff" stroke-width="1.5" stroke-linejoin="round"/>
+                  <path d="M8 14V8" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+              </div>
+              <!-- EDIT: Ingredient/feature title -->
+              <div class="ingredient-card__title">[INGREDIENT 1 TITLE]</div>
+              <!-- EDIT: Ingredient/feature description -->
+              <p class="ingredient-card__body">[INGREDIENT 1 BODY]</p>
+            </div>
+
+            <!-- EDIT: Ingredient/feature card 2 -->
+            <div class="ingredient-card" role="listitem">
+              <div class="ingredient-card__icon" aria-hidden="true">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                  <circle cx="8" cy="8" r="5" stroke="#fff" stroke-width="1.5"/>
+                  <path d="M8 5v3l2 2" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+              </div>
+              <div class="ingredient-card__title">[INGREDIENT 2 TITLE]</div>
+              <p class="ingredient-card__body">[INGREDIENT 2 BODY]</p>
+            </div>
+
+            <!-- EDIT: Ingredient/feature card 3 -->
+            <div class="ingredient-card" role="listitem">
+              <div class="ingredient-card__icon" aria-hidden="true">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                  <path d="M3 13L8 3l5 10" stroke="#fff" stroke-width="1.5" stroke-linejoin="round"/>
+                  <path d="M5 10h6" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+              </div>
+              <div class="ingredient-card__title">[INGREDIENT 3 TITLE]</div>
+              <p class="ingredient-card__body">[INGREDIENT 3 BODY]</p>
+            </div>
+
+            <!-- EDIT: Ingredient/feature card 4 -->
+            <div class="ingredient-card" role="listitem">
+              <div class="ingredient-card__icon" aria-hidden="true">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                  <rect x="3" y="3" width="10" height="10" rx="2" stroke="#fff" stroke-width="1.5"/>
+                  <path d="M6 8h4M8 6v4" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+              </div>
+              <div class="ingredient-card__title">[INGREDIENT 4 TITLE]</div>
+              <p class="ingredient-card__body">[INGREDIENT 4 BODY]</p>
+            </div>
+
+            <!-- EDIT: Ingredient/feature card 5 -->
+            <div class="ingredient-card" role="listitem">
+              <div class="ingredient-card__icon" aria-hidden="true">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                  <path d="M8 2l1.5 4h4l-3.2 2.4 1.2 4L8 10l-3.5 2.4 1.2-4L2.5 6h4z" stroke="#fff" stroke-width="1.2" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <div class="ingredient-card__title">[INGREDIENT 5 TITLE]</div>
+              <p class="ingredient-card__body">[INGREDIENT 5 BODY]</p>
+            </div>
+
+          </div>
+
+        </section>
+
+      </div><!-- /.article-col -->
+
+      <!-- ── STICKY OFFER RAIL (desktop only) ── -->
+      <aside class="sticky-offer" aria-label="Product offer">
+        <div class="sticky-offer__card">
+          <!-- IMAGE: Rail product image — replace with ./images/product.png -->
+          <img
+            src="./images/product.png"
+            alt="[PRODUCT NAME]"
+            class="sticky-offer__img"
+            width="300"
+            height="225"
+            loading="lazy"
+          />
+          <div class="sticky-offer__body">
+            <!-- EDIT: Rail label badge -->
+            <div class="sticky-offer__label">[OFFER LABEL — e.g. "Today's Offer"]</div>
+            <!-- EDIT: Rail product name -->
+            <div class="sticky-offer__product">[PRODUCT NAME]</div>
+            <!-- EDIT: Rail short pitch — 1-2 sentences -->
+            <p class="sticky-offer__pitch">[SHORT PRODUCT PITCH — 1-2 sentences]</p>
+            <div class="sticky-offer__price-row">
+              <!-- EDIT: Rail price -->
+              <span class="sticky-offer__price">[PRICE]</span>
+              <!-- EDIT: Rail original price (strikethrough) -->
+              <span class="sticky-offer__price-orig">[ORIGINAL PRICE]</span>
+            </div>
+            <!-- EDIT: Rail CTA button text and destination -->
+            <a href="[CTA URL]" class="cta-btn cta-btn--full">Check Availability</a>
+            <div class="sticky-offer__trust">
+              <!-- Inline SVG: lock icon -->
+              <svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <rect x="3" y="8" width="10" height="7" rx="1.5" stroke="currentColor" stroke-width="1.5"/>
+                <path d="M5.5 8V6a2.5 2.5 0 015 0v2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+              Secure checkout
+            </div>
+          </div>
+        </div>
+      </aside><!-- /.sticky-offer -->
+
+    </div><!-- /.article-layout__grid -->
+  </div><!-- /.article-layout -->
+
+</article>
+
+<!-- ═══ SECTION 14: FINAL OFFER BLOCK ═══════════════════════════ -->
+<section class="final-offer fade-in" aria-labelledby="offer-heading">
+  <div class="final-offer__inner">
+    <!-- EDIT: Final offer label badge -->
+    <div class="final-offer__label">[OFFER URGENCY LABEL — e.g. "Limited Time Offer"]</div>
+
+    <!-- EDIT: Final offer headline -->
+    <h2 class="final-offer__headline" id="offer-heading">[OFFER HEADLINE]</h2>
+
+    <!-- EDIT: Final offer body copy -->
+    <p class="final-offer__body">[OFFER BODY]</p>
+
+    <!-- IMAGE: Final offer product packshot — replace with ./images/offer.png -->
+    <img
+      src="./images/offer.png"
+      alt="[PRODUCT NAME] — [OFFER HEADLINE]"
+      class="final-offer__product-img"
+      width="300"
+      height="300"
+      loading="lazy"
+    />
+
+    <!-- EDIT: Final price -->
+    <div class="final-offer__price">[PRICE]</div>
+    <!-- EDIT: Original price (struck through) -->
+    <p class="final-offer__price-original">Regular price: [ORIGINAL PRICE]</p>
+
+    <!-- EDIT: Final CTA button text and destination -->
+    <a href="[CTA URL]" class="cta-btn" style="font-size:16px;padding:18px 40px;">Get [PRODUCT NAME] Now</a>
+
+    <div class="final-offer__trust">
+      <!-- Inline SVG: lock icon -->
+      <svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+        <rect x="3" y="8" width="10" height="7" rx="1.5" stroke="currentColor" stroke-width="1.5"/>
+        <path d="M5.5 8V6a2.5 2.5 0 015 0v2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+      <!-- EDIT: Trust note below final CTA -->
+      [TRUST NOTE — e.g. "Secure transaction &middot; 30-day guarantee &middot; Free shipping"]
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SECTION 15: CUSTOMER PROOF ══════════════════════════════ -->
+<section class="customer-proof fade-in" aria-labelledby="proof-heading">
+  <div class="customer-proof__inner">
+    <!-- EDIT: Customer proof heading -->
+    <h2 class="customer-proof__heading" id="proof-heading">What [BRAND NAME] Customers Are Saying</h2>
+    <!-- EDIT: Customer proof subtext -->
+    <p class="customer-proof__subtext">[PROOF SUBTEXT — e.g. "Over [X] verified reviews" or aggregate star rating]</p>
+
+    <div class="review-grid" role="list">
+
+      <!-- EDIT: Review card 1 -->
+      <article class="review-card" role="listitem">
+        <div class="review-card__stars" role="img" aria-label="5 out of 5 stars">
+          <!-- Inline SVG: 5 star icons -->
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 1l1.8 5h5.2l-4.2 3 1.6 5L8 11l-4.4 3 1.6-5L1 6h5.2z"/></svg>
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 1l1.8 5h5.2l-4.2 3 1.6 5L8 11l-4.4 3 1.6-5L1 6h5.2z"/></svg>
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 1l1.8 5h5.2l-4.2 3 1.6 5L8 11l-4.4 3 1.6-5L1 6h5.2z"/></svg>
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 1l1.8 5h5.2l-4.2 3 1.6 5L8 11l-4.4 3 1.6-5L1 6h5.2z"/></svg>
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 1l1.8 5h5.2l-4.2 3 1.6 5L8 11l-4.4 3 1.6-5L1 6h5.2z"/></svg>
+        </div>
+        <!-- EDIT: Review title -->
+        <h3 class="review-card__title">[REVIEW 1 TITLE]</h3>
+        <!-- EDIT: Review body -->
+        <p class="review-card__body">[REVIEW 1 BODY]</p>
+        <!-- EDIT: Reviewer name -->
+        <div class="review-card__author">[REVIEWER 1 NAME]</div>
+        <div class="review-card__verified">
+          <svg width="11" height="11" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <circle cx="8" cy="8" r="7" fill="#22a060"/>
+            <path d="M5 8.5l2 2 4-4" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Verified Purchase
+        </div>
+      </article>
+
+      <!-- EDIT: Review card 2 -->
+      <article class="review-card" role="listitem">
+        <div class="review-card__stars" role="img" aria-label="5 out of 5 stars">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 1l1.8 5h5.2l-4.2 3 1.6 5L8 11l-4.4 3 1.6-5L1 6h5.2z"/></svg>
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 1l1.8 5h5.2l-4.2 3 1.6 5L8 11l-4.4 3 1.6-5L1 6h5.2z"/></svg>
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 1l1.8 5h5.2l-4.2 3 1.6 5L8 11l-4.4 3 1.6-5L1 6h5.2z"/></svg>
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 1l1.8 5h5.2l-4.2 3 1.6 5L8 11l-4.4 3 1.6-5L1 6h5.2z"/></svg>
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 1l1.8 5h5.2l-4.2 3 1.6 5L8 11l-4.4 3 1.6-5L1 6h5.2z"/></svg>
+        </div>
+        <!-- EDIT: Review title -->
+        <h3 class="review-card__title">[REVIEW 2 TITLE]</h3>
+        <!-- EDIT: Review body -->
+        <p class="review-card__body">[REVIEW 2 BODY]</p>
+        <!-- EDIT: Reviewer name -->
+        <div class="review-card__author">[REVIEWER 2 NAME]</div>
+        <div class="review-card__verified">
+          <svg width="11" height="11" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <circle cx="8" cy="8" r="7" fill="#22a060"/>
+            <path d="M5 8.5l2 2 4-4" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Verified Purchase
+        </div>
+      </article>
+
+      <!-- EDIT: Review card 3 -->
+      <article class="review-card" role="listitem">
+        <div class="review-card__stars" role="img" aria-label="5 out of 5 stars">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 1l1.8 5h5.2l-4.2 3 1.6 5L8 11l-4.4 3 1.6-5L1 6h5.2z"/></svg>
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 1l1.8 5h5.2l-4.2 3 1.6 5L8 11l-4.4 3 1.6-5L1 6h5.2z"/></svg>
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 1l1.8 5h5.2l-4.2 3 1.6 5L8 11l-4.4 3 1.6-5L1 6h5.2z"/></svg>
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 1l1.8 5h5.2l-4.2 3 1.6 5L8 11l-4.4 3 1.6-5L1 6h5.2z"/></svg>
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 1l1.8 5h5.2l-4.2 3 1.6 5L8 11l-4.4 3 1.6-5L1 6h5.2z"/></svg>
+        </div>
+        <!-- EDIT: Review title -->
+        <h3 class="review-card__title">[REVIEW 3 TITLE]</h3>
+        <!-- EDIT: Review body -->
+        <p class="review-card__body">[REVIEW 3 BODY]</p>
+        <!-- EDIT: Reviewer name -->
+        <div class="review-card__author">[REVIEWER 3 NAME]</div>
+        <div class="review-card__verified">
+          <svg width="11" height="11" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <circle cx="8" cy="8" r="7" fill="#22a060"/>
+            <path d="M5 8.5l2 2 4-4" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Verified Purchase
+        </div>
+      </article>
+
+    </div><!-- /.review-grid -->
+
+    <!-- EDIT: Closing CTA -->
+    <div class="customer-proof__cta">
+      <a href="[CTA URL]" class="cta-btn">Get [PRODUCT NAME] Today</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══ JAVASCRIPT ════════════════════════════════════════════════ -->
+<script>
+  /* ── IntersectionObserver: scroll fade-in on all .fade-in elements ── */
+  (function () {
+    var els = document.querySelectorAll('.fade-in');
+    if (!('IntersectionObserver' in window)) {
+      els.forEach(function (el) {
+        el.classList.add('visible');
+      });
+      return;
+    }
+    var observer = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+    els.forEach(function (el) {
+      observer.observe(el);
+    });
+  })();
+</script>
+
+</body>
+</html>
