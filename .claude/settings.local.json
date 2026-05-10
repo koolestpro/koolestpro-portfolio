@@ -14,7 +14,11 @@
       "Bash(git update-index *)",
       "Bash(xxd)",
       "Bash(git read-tree *)",
-      "Bash(git commit -m ' *)"
+      "Bash(git commit -m ' *)",
+      "Bash(rm /Users/mac/Downloads/replo-rebuilds/.git/index.lock && git add .gitignore portfolio/ && git status --short | grep \"^A\\\\|^M\\\\|^R\" | wc -l)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" \"https://koolestpro.github.io/koolestpro-portfolio/\")",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" \"https://koolestpro.github.io/koolestpro-portfolio/portfolio/\")",
+      "Bash(git push *)"
     ]
   }
 }
