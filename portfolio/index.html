@@ -14,12 +14,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ridwan Adekunle — Shopify CRO &amp; UX Designer</title>
   <meta name="description" content="I design and build high-converting Shopify pages — PDPs, landing pages, and full store redesigns — for brands that need results.">
-  <link rel="icon" type="image/png" sizes="32x32" href="images/avatar-smile.png">
-  <link rel="apple-touch-icon" href="images/avatar-smile.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="images/avatar-smile-small.png">
+  <link rel="apple-touch-icon" href="images/avatar-smile-small.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Mono:wght@400&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
   <style>
     :root {
       --bg:        #0a0a0a;
@@ -207,29 +206,38 @@
     @media(min-width:900px){.funnel-head{grid-template-columns:minmax(0,1fr) 360px}}
     .funnel-flow{position:relative;margin-bottom:20px;padding:18px;border:1px solid var(--border);border-radius:16px;background:radial-gradient(circle at 18% 12%,rgba(255,149,0,.08),transparent 28%),radial-gradient(circle at 78% 72%,rgba(123,47,190,.12),transparent 30%),var(--bg);overflow:hidden;text-align:left}
     .funnel-flow::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(240,237,232,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(240,237,232,.025) 1px,transparent 1px);background-size:38px 38px;pointer-events:none}
-    .flow-kicker{position:relative;z-index:1;display:block;font-family:var(--fm);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--subtle);margin-bottom:16px}
-    .flow-grid{position:relative;z-index:1;display:grid;grid-template-columns:1fr;gap:12px}
-    .flow-node{position:relative;display:grid;grid-template-columns:38px 1fr;gap:12px;align-items:center;padding:14px;border:1px solid var(--border);border-radius:12px;background:rgba(20,20,20,.9);transition:border-color .22s var(--ease),background .22s var(--ease),transform .22s var(--ease)}
-    .flow-node:hover{border-color:rgba(255,149,0,.36);background:rgba(255,149,0,.045);transform:translateY(-2px)}
-    .flow-node::after{content:'';position:absolute;left:32px;bottom:-13px;width:1px;height:13px;background:var(--border-h)}
-    .flow-node:last-child::after{display:none}
-    .flow-icon{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:1px solid var(--border-h);color:var(--orange);background:rgba(255,255,255,.025)}
-    .flow-node strong{display:block;font-family:var(--fd);font-size:15px;letter-spacing:-.01em;line-height:1.05;margin-bottom:3px}
-    .flow-node span{display:block;font-size:12px;color:var(--muted);line-height:1.45}
-    .flow-node.core{border-color:rgba(224,64,160,.38);background:linear-gradient(135deg,rgba(255,149,0,.065),rgba(123,47,190,.09))}
-    .flow-loop{position:relative;z-index:1;margin-top:12px;padding:12px 14px;border:1px dashed rgba(255,149,0,.26);border-radius:12px;background:rgba(255,149,0,.035);display:flex;align-items:flex-start;gap:10px}
-    .flow-loop svg{color:var(--orange);flex-shrink:0;margin-top:2px}
-    .flow-loop strong{display:block;font-family:var(--fm);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--orange);margin-bottom:4px}
-    .flow-loop span{display:block;font-size:12px;color:var(--muted);line-height:1.5}
-    @media(min-width:760px){
-      .funnel-flow{padding:22px}
-      .flow-grid{grid-template-columns:repeat(6,minmax(0,1fr));gap:10px;align-items:stretch}
-      .flow-node{grid-template-columns:1fr;align-content:start;min-height:150px;padding:14px 12px}
-      .flow-node::after{left:auto;right:-11px;top:37px;width:11px;height:1px}
-      .flow-node:last-child::after{display:none}
-      .flow-icon{width:36px;height:36px;margin-bottom:4px}
-      .flow-loop{max-width:480px;margin:14px auto 0;align-items:center}
-    }
+    .flow-top{position:relative;z-index:1;display:flex;justify-content:space-between;gap:18px;align-items:flex-start;margin-bottom:16px}
+    .flow-kicker{display:block;font-family:var(--fm);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--subtle);margin-bottom:7px}
+    .flow-title{font-family:var(--fd);font-size:22px;line-height:1.02;letter-spacing:-.035em}
+    .flow-note{max-width:360px;font-size:12px;color:var(--muted);line-height:1.55}
+    .flow-scroll{position:relative;z-index:1;overflow-x:auto;overflow-y:hidden;padding-bottom:10px;scrollbar-color:rgba(255,149,0,.55) rgba(240,237,232,.08)}
+    .flow-canvas{position:relative;width:1180px;height:520px;border:1px solid var(--border);border-radius:14px;background:rgba(10,10,10,.62);overflow:hidden}
+    .flow-canvas::before{content:'';position:absolute;inset:0;background-image:radial-gradient(rgba(240,237,232,.08) 1px,transparent 1px);background-size:22px 22px;opacity:.42}
+    .flow-lines{position:absolute;inset:0;z-index:1;pointer-events:none}
+    .flow-lines path{fill:none;stroke:rgba(139,160,176,.72);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+    .flow-lines .flow-accent{stroke:rgba(255,149,0,.74);stroke-dasharray:6 8;animation:flow-dash 18s linear infinite}
+    @keyframes flow-dash{to{stroke-dashoffset:-180}}
+    .flow-map-node{position:absolute;z-index:2;width:132px;min-height:76px;padding:12px;border:1px solid rgba(105,166,224,.62);border-radius:8px;background:rgba(16,28,40,.94);box-shadow:0 12px 30px rgba(0,0,0,.22);text-align:left;transition:border-color .22s var(--ease),background .22s var(--ease),transform .22s var(--ease),box-shadow .22s var(--ease)}
+    .flow-map-node:hover,.flow-map-node.active{border-color:rgba(255,149,0,.72);background:linear-gradient(135deg,rgba(255,149,0,.14),rgba(123,47,190,.12));transform:translateY(-2px);box-shadow:0 18px 44px rgba(0,0,0,.34)}
+    .flow-map-node strong{display:block;font-family:var(--fd);font-size:15px;line-height:1.05;letter-spacing:-.015em;margin-bottom:4px}
+    .flow-map-node span{display:block;font-size:10px;color:var(--muted);line-height:1.35}
+    .flow-map-node.pill{border-radius:100px;text-align:center;display:flex;align-items:center;justify-content:center;min-height:58px;background:rgba(255,92,125,.14);border-color:rgba(255,112,141,.72)}
+    .flow-map-node.note{width:160px;background:rgba(104,128,145,.18);border-color:rgba(142,164,181,.36)}
+    .flow-map-node.wide{width:170px}
+    .flow-map-node.core{background:rgba(33,20,43,.94);border-color:rgba(224,64,160,.58)}
+    .flow-decision{position:absolute;z-index:2;width:82px;height:82px;display:flex;align-items:center;justify-content:center;text-align:center;transform:rotate(45deg);border:1px solid rgba(255,197,92,.74);background:rgba(43,31,11,.95);transition:border-color .22s var(--ease),background .22s var(--ease),box-shadow .22s var(--ease)}
+    .flow-decision span{display:block;transform:rotate(-45deg);font-family:var(--fm);font-size:10px;line-height:1.25;color:var(--text)}
+    .flow-decision:hover,.flow-decision.active{border-color:rgba(255,149,0,.9);background:rgba(255,149,0,.16);box-shadow:0 16px 38px rgba(0,0,0,.3)}
+    .flow-map-label{position:absolute;z-index:2;font-family:var(--fm);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:rgba(240,237,232,.32)}
+    .flow-branch-label{position:absolute;z-index:2;font-family:var(--fm);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--orange);padding:3px 7px;border:1px solid rgba(255,149,0,.25);border-radius:100px;background:rgba(10,10,10,.82)}
+    .flow-detail{position:relative;z-index:1;margin-top:14px;display:grid;grid-template-columns:1fr;gap:10px;border:1px solid var(--border);border-radius:12px;background:rgba(255,255,255,.025);padding:16px}
+    .flow-detail span{font-family:var(--fm);font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:var(--orange)}
+    .flow-detail h3{font-family:var(--fd);font-size:22px;line-height:1.05;letter-spacing:-.03em}
+    .flow-detail p{font-size:13px;color:var(--muted);line-height:1.6}
+    .flow-detail-metric{font-family:var(--fm);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--text)}
+    @media(min-width:900px){.flow-detail{grid-template-columns:220px 1fr 220px;align-items:center}.flow-detail h3{margin-top:4px}}
+    @media(min-width:1024px){.flow-scroll{overflow-x:hidden}.flow-canvas{transform:scale(.92);transform-origin:top left;margin-bottom:-42px}}
+    @media(max-width:759px){.flow-top{flex-direction:column}.flow-note{max-width:none}.flow-scroll{overflow:hidden}.flow-canvas{width:1180px;height:520px;transform:scale(.285);transform-origin:top left;margin-bottom:-372px}.flow-map-node{width:132px}.flow-map-node.wide{width:170px}.flow-scroll::after{content:'Full map view';position:sticky;left:0;bottom:0;display:inline-block;margin-top:8px;font-family:var(--fm);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--orange);background:rgba(10,10,10,.86);border:1px solid var(--border);border-radius:100px;padding:6px 10px}}
     .funnel-shell{display:grid;grid-template-columns:1fr;gap:18px;text-align:left}
     @media(min-width:1024px){.funnel-shell{grid-template-columns:300px minmax(0,1fr) 340px;align-items:stretch}}
     .funnel-panel,.funnel-map,.funnel-output{border:1px solid var(--border);background:var(--bg);border-radius:16px;overflow:hidden}
@@ -506,8 +514,8 @@
 <nav class="nav" id="site-nav" role="navigation" aria-label="Main navigation">
   <div class="container nav-inner">
     <a href="#hero" class="nav-brand" aria-label="Back to top">
-      <!-- IMAGE: Avatar logo — images/avatar-smile.png -->
-      <img src="images/avatar-smile.png" alt="Ridwan Adekunle" class="nav-avatar">
+      <!-- IMAGE: Avatar logo — images/avatar-smile-small.png -->
+      <img src="images/avatar-smile-small.png" alt="Ridwan Adekunle" class="nav-avatar" width="32" height="32">
       <!-- EDIT: Nav brand name -->
       <span class="nav-logo">KOOLESTPRO</span>
     </a>
@@ -729,69 +737,65 @@
       </div>
     </div>
     <div class="funnel-flow reveal" data-d="1" aria-label="Shopify DTC funnel flowchart">
-      <span class="flow-kicker">How the system connects</span>
-      <div class="flow-grid">
-        <div class="flow-node">
-          <div class="flow-icon" aria-hidden="true">
-            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2"/></svg>
-          </div>
-          <div>
-            <strong>Traffic angle</strong>
-            <span>Ad hook, audience promise, and click intent.</span>
-          </div>
+      <div class="flow-top">
+        <div>
+          <span class="flow-kicker">Full-funnel CRO map</span>
+          <h3 class="flow-title">How I connect the sale from first click to repeat order.</h3>
         </div>
-        <div class="flow-node core">
-          <div class="flow-icon" aria-hidden="true">
-            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 5h16v14H4z"/><path d="M4 10h16M9 19v-9"/></svg>
-          </div>
-          <div>
-            <strong>Landing / PDP</strong>
-            <span>Above-fold clarity, offer frame, and buy path.</span>
-          </div>
-        </div>
-        <div class="flow-node">
-          <div class="flow-icon" aria-hidden="true">
-            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M20 7 9 18l-5-5"/><path d="M14 7h6v6"/></svg>
-          </div>
-          <div>
-            <strong>Proof stack</strong>
-            <span>Reviews, UGC, comparison, and objections.</span>
-          </div>
-        </div>
-        <div class="flow-node core">
-          <div class="flow-icon" aria-hidden="true">
-            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="9" cy="20" r="1"/><circle cx="18" cy="20" r="1"/><path d="M3 4h2l2.4 11.5a2 2 0 0 0 2 1.5h7.8a2 2 0 0 0 1.9-1.4L21 8H7"/></svg>
-          </div>
-          <div>
-            <strong>Cart confidence</strong>
-            <span>Shipping, payment, returns, and order value logic.</span>
-          </div>
-        </div>
-        <div class="flow-node">
-          <div class="flow-icon" aria-hidden="true">
-            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 4h16v16H4z"/><path d="m4 7 8 6 8-6"/></svg>
-          </div>
-          <div>
-            <strong>Post-purchase</strong>
-            <span>Email flows, education, upsell, and review capture.</span>
-          </div>
-        </div>
-        <div class="flow-node">
-          <div class="flow-icon" aria-hidden="true">
-            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M3 3v18h18"/><path d="m7 15 4-4 3 3 5-7"/></svg>
-          </div>
-          <div>
-            <strong>Testing loop</strong>
-            <span>Data decides what gets rebuilt, refined, or scaled.</span>
-          </div>
+        <p class="flow-note">No page screenshots here. This is the strategy layer: what happens next, where buyers leak, and how each touchpoint pulls them back toward purchase.</p>
+      </div>
+      <div class="flow-scroll" aria-label="Scrollable Shopify funnel diagram">
+        <div class="flow-canvas">
+          <svg class="flow-lines" width="1180" height="520" viewBox="0 0 1180 520" aria-hidden="true">
+            <defs>
+              <marker id="flowArrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+                <path d="M0,0 L8,4 L0,8 Z" fill="rgba(139,160,176,.72)"></path>
+              </marker>
+              <marker id="flowArrowAccent" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+                <path d="M0,0 L8,4 L0,8 Z" fill="rgba(255,149,0,.74)"></path>
+              </marker>
+            </defs>
+            <path marker-end="url(#flowArrow)" d="M140 204 H210"></path>
+            <path marker-end="url(#flowArrow)" d="M292 204 H350"></path>
+            <path marker-end="url(#flowArrow)" d="M482 204 H530"></path>
+            <path marker-end="url(#flowArrow)" d="M700 204 H750"></path>
+            <path marker-end="url(#flowArrow)" d="M832 204 H880"></path>
+            <path marker-end="url(#flowArrow)" d="M251 246 V318 H204"></path>
+            <path marker-end="url(#flowArrowAccent)" class="flow-accent" d="M204 344 C282 384 382 352 398 248"></path>
+            <path marker-end="url(#flowArrow)" d="M791 246 V318"></path>
+            <path marker-end="url(#flowArrowAccent)" class="flow-accent" d="M790 402 C742 462 610 430 610 280"></path>
+            <path marker-end="url(#flowArrow)" d="M946 246 V318"></path>
+            <path marker-end="url(#flowArrowAccent)" class="flow-accent" d="M946 402 C860 492 560 486 590 280"></path>
+          </svg>
+
+          <span class="flow-map-label" style="left:44px;top:118px">Acquisition</span>
+          <button class="flow-map-node pill active" type="button" data-flow-node="prospecting" style="left:36px;top:176px"><strong>Prospecting Ad</strong></button>
+          <button class="flow-decision" type="button" data-flow-node="clicked" style="left:210px;top:164px"><span>Clicked?</span></button>
+          <button class="flow-map-node" type="button" data-flow-node="presell" style="left:350px;top:166px"><strong>Pre-sell</strong><span>Advertorial or landing story</span></button>
+          <button class="flow-map-node note" type="button" data-flow-node="retargeting" style="left:44px;top:318px"><strong>Retargeting Ad</strong><span>New angle back to pre-sell</span></button>
+          <span class="flow-branch-label" style="left:306px;top:182px">Yes</span>
+          <span class="flow-branch-label" style="left:228px;top:278px">No</span>
+
+          <span class="flow-map-label" style="left:512px;top:118px">Conversion</span>
+          <button class="flow-map-node core wide" type="button" data-flow-node="offer" style="left:530px;top:166px"><strong>PDP / Offer Page</strong><span>Value stack, product options, proof, CTA</span></button>
+          <button class="flow-decision" type="button" data-flow-node="purchase" style="left:750px;top:164px"><span>Purchased?</span></button>
+          <button class="flow-map-node core note" type="button" data-flow-node="checkout-retargeting" style="left:690px;top:318px"><strong>Checkout Retargeting</strong><span>Bring back near-buyers who dropped off</span></button>
+          <span class="flow-branch-label" style="left:846px;top:182px">Yes</span>
+          <span class="flow-branch-label" style="left:772px;top:278px">No</span>
+
+          <span class="flow-map-label" style="left:1012px;top:118px">Retention</span>
+          <button class="flow-map-node" type="button" data-flow-node="confirmation" style="left:880px;top:166px"><strong>Order Confirmed</strong><span>Trust, next step, delivery clarity</span></button>
+          <button class="flow-map-node note" type="button" data-flow-node="postpurchase" style="left:880px;top:318px"><strong>Post-purchase Flow</strong><span>Upsell, replenish, review, return</span></button>
+          <button class="flow-map-node note" type="button" data-flow-node="testing" style="left:470px;top:420px"><strong>Testing Loop</strong><span>Analytics, heatmaps, questions</span></button>
         </div>
       </div>
-      <div class="flow-loop">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M3 12a9 9 0 0 1 15.5-6.2"/><path d="M18 2v4h-4"/><path d="M21 12a9 9 0 0 1-15.5 6.2"/><path d="M6 22v-4h4"/></svg>
+      <div class="flow-detail" id="flow-detail" aria-live="polite">
         <div>
-          <strong>Feedback loop</strong>
-          <span>Analytics, heatmaps, customer questions, and checkout drop-offs feed the next page iteration.</span>
+          <span id="flow-detail-kicker">Selected node</span>
+          <h3 id="flow-detail-title">Prospecting Ad</h3>
         </div>
+        <p id="flow-detail-body">The first job is not to explain everything. It is to match one buyer problem to one clear promise, then send that traffic into the right selling path.</p>
+        <div class="flow-detail-metric" id="flow-detail-metric">Affects: CTR, traffic quality, CPA</div>
       </div>
     </div>
     <div class="funnel-shell reveal" data-d="2">
@@ -920,7 +924,7 @@
       <div class="about-photo reveal from-right">
         <div class="photo-frame">
           <!-- IMAGE: About photo — images/exports/ridwan-crop.png -->
-          <img src="images/exports/ridwan-crop.png" alt="Ridwan Adekunle" loading="lazy">
+          <img src="images/exports/ridwan-crop.png" alt="Ridwan Adekunle" loading="lazy" width="2731" height="3002">
         </div>
       </div>
     </div>
@@ -1063,24 +1067,38 @@
   const pl  = document.getElementById('preloader');
   const bar = document.getElementById('pl-bar');
   const site= document.getElementById('site');
-  let w = 0;
-  const iv = setInterval(function(){
-    w += Math.random() * 18 + 4;
-    if(w >= 100){ w = 100; clearInterval(iv); }
-    bar.style.width = w + '%';
-    if(w >= 100){
-      setTimeout(function(){
-        pl.classList.add('exit');
-        site.classList.add('visible');
-        setTimeout(function(){ pl.style.display='none'; },600);
-        /* Trigger hero entry animations after preloader slides out */
-        setTimeout(function(){
-          var hero = document.getElementById('hero');
-          if(hero) hero.classList.add('hero-enter');
-        }, 120);
-      },200);
-    }
-  },80);
+  const started = performance.now();
+  const minTime = 520;
+  const maxTime = 1200;
+  let done = false;
+  function finish(){
+    if(done) return;
+    done = true;
+    if(bar) bar.style.width = '100%';
+    const elapsed = performance.now() - started;
+    setTimeout(function(){
+      if(pl) pl.classList.add('exit');
+      if(site) site.classList.add('visible');
+      requestAnimationFrame(function(){
+        var hero = document.getElementById('hero');
+        if(hero) hero.classList.add('hero-enter');
+      });
+      setTimeout(function(){ if(pl) pl.style.display='none'; }, 600);
+    }, Math.max(0, minTime - elapsed));
+  }
+  (function tick(){
+    if(done || !bar) return;
+    const elapsed = performance.now() - started;
+    const progress = Math.min(92, 18 + (elapsed / maxTime) * 74);
+    bar.style.width = progress.toFixed(1) + '%';
+    requestAnimationFrame(tick);
+  })();
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', finish, {once:true});
+  } else {
+    finish();
+  }
+  setTimeout(finish, maxTime);
 })();
 
 /* ─── PROJECTS DATA ─────────────────────────────────────────── */
@@ -1115,7 +1133,7 @@ const PROJECTS = [
     media:{
       cover:'images/exports/tapandrate-landing-cover.png',
       video:'https://res.cloudinary.com/drl0rscuf/video/upload/v1778795906/portfolio/videos/tapandrate-landing-mobile-mp4.mov',
-      experience:{ image:'images/exports/tapandrate.co.uk_pages_review-management-1_pb=0(Laptop).png', scrollEnd:'-70%' },
+      experience:{ image:'images/exports/tapandrate-laptop-optimized.jpg', scrollEnd:'-70%' },
       mobileShots:[
         {src:'images/exports/tapandrate-landing-mobile-1.png', position:'top'},
         {src:'images/exports/tapandrate-landing-mobile-2.png', position:'center'},
@@ -1204,9 +1222,9 @@ const PROJECTS = [
     gradient:'linear-gradient(135deg,#2d0928 0%,#d3469b 100%)',
     url:'#',
     media:{
-      cover:'images/exports/jelys-glamour-cover.png',
+      cover:'images/exports/jellys-glamour-cover-optimized.jpg',
       video:'https://res.cloudinary.com/drl0rscuf/video/upload/v1778793495/portfolio/videos/jellys-glamour-laptop-mobile-mp4.mov',
-      experience:{ image:'images/exports/jellys-glarmour-full-laptop.png', scrollEnd:'-58%' },
+      experience:{ image:'images/exports/jellys-glamour-full-laptop-optimized.jpg', scrollEnd:'-58%' },
       mobileShots:[
         {src:'https://res.cloudinary.com/drl0rscuf/video/upload/v1778793457/portfolio/videos/jellys-glamor-mobile-mp4.mov'},
         {src:'https://res.cloudinary.com/drl0rscuf/video/upload/v1778793457/portfolio/videos/jellys-glamor-mobile-mp4.mov'},
@@ -1226,9 +1244,9 @@ const PROJECTS = [
     gradient:'linear-gradient(135deg,#004b75 0%,#34b8ee 100%)',
     url:'#',
     media:{
-      cover:'images/exports/captain-skippers-cover.png',
+      cover:'images/exports/captain-skippers-cover-optimized.jpg',
       video:'https://res.cloudinary.com/drl0rscuf/video/upload/v1778794628/portfolio/videos/captain-and-skipper-copy-page-1-mp4.mp4',
-      experience:{ image:'images/exports/captain-skippers-laptop.png', scrollEnd:'-34%' },
+      experience:{ image:'images/exports/captain-skippers-laptop-optimized.jpg', scrollEnd:'-34%' },
       mobileShots:[
         {src:'images/exports/captain-skippers-mobile-1.png', position:'top', fit:'cover'},
         {src:'images/exports/captain-skippers-mobile-2.png', position:'center', fit:'cover'},
@@ -1248,9 +1266,9 @@ const PROJECTS = [
     gradient:'linear-gradient(135deg,#151515 0%,#9f9f9f 100%)',
     url:'#',
     media:{
-      cover:'images/exports/titanium-laptop-above-fold.png',
+      cover:'images/exports/titanium-laptop-above-fold-optimized.jpg',
       video:'https://res.cloudinary.com/drl0rscuf/video/upload/v1778795945/portfolio/videos/titanium-video-laptop-mp4.mov',
-      experience:{ image:'images/exports/titanium-laptop-full-page.png', scrollEnd:'-68%' }
+      experience:{ image:'images/exports/titanium-laptop-full-page-optimized.jpg', scrollEnd:'-68%' }
     },
     caseStudy:{
       headline:'A full-page landing experience with strong visual hierarchy',
@@ -1265,7 +1283,7 @@ const PROJECTS = [
     gradient:'linear-gradient(135deg,#1a1400 0%,#d4a017 100%)',
     url:'../brands/kura/pages/kura-ad-01/index.html',
     media:{
-      cover:'images/exports/Kura advertorial cover.png',
+      cover:'images/exports/kura-advertorial-cover-optimized.jpg',
       preview:'https://res.cloudinary.com/drl0rscuf/video/upload/v1778793959/portfolio/videos/kura-advertorial-cover-mp4.mov',
       video:'https://res.cloudinary.com/drl0rscuf/video/upload/v1778794002/portfolio/videos/kura-advertorial-laptop-mp4.mov',
       experience:{ type:'embed', embed:'../brands/kura/pages/kura-ad-01/index.html', image:'images/exports/kura-ad-preview.png' },
@@ -1288,10 +1306,10 @@ const PROJECTS = [
     gradient:'linear-gradient(135deg,#0d0d20 0%,#6b2fbe 100%)',
     url:'../brands/kura/pages/kura-hp-01/index.html',
     media:{
-      cover:'images/exports/kura homepage cover.png',
+      cover:'images/exports/kura-homepage-cover-optimized.jpg',
       preview:'https://res.cloudinary.com/drl0rscuf/video/upload/v1778794078/portfolio/videos/kura-homepage-cover-mp4.mov',
       video:'https://res.cloudinary.com/drl0rscuf/video/upload/v1778794110/portfolio/videos/kura-homepage-laptop-mp4.mov',
-      experience:{ type:'embed', embed:'../brands/kura/pages/kura-hp-01/index.html', image:'images/exports/kura-home-preview.png' },
+      experience:{ type:'embed', embed:'../brands/kura/pages/kura-hp-01/index.html', image:'images/exports/kura-home-preview-optimized.jpg' },
       mobileShots:[
         {src:'images/exports/kura-hp-mobile-1.png'},
         {src:'https://res.cloudinary.com/drl0rscuf/video/upload/v1778794173/portfolio/videos/kura-homepage-mobile-mp4.mov', focus:true},
@@ -1311,7 +1329,7 @@ const PROJECTS = [
     gradient:'linear-gradient(135deg,#001a12 0%,#ff6b35 100%)',
     url:'../brands/kura/pages/kura-listicle-li03/index.html',
     media:{
-      cover:'images/exports/Kura listicle cover.png',
+      cover:'images/exports/kura-listicle-cover-optimized.jpg',
       preview:'https://res.cloudinary.com/drl0rscuf/video/upload/v1778794527/portfolio/videos/kura-listicle-cover-mp4.mov',
       video:'https://res.cloudinary.com/drl0rscuf/video/upload/v1778795178/portfolio/videos/kura-listicle-laptop-mp4.mov',
       experience:{ type:'embed', embed:'../brands/kura/pages/kura-listicle-li03/index.html', image:'images/exports/kura-listicle-preview.png' },
@@ -1335,169 +1353,169 @@ const PROJECTS = [
 const FUNNEL_SCENARIOS = [
   {
     id:'cold-traffic',
-    title:'Cold traffic product push',
-    desc:'Paid traffic is landing, but buyers do not trust the offer yet.',
-    mini:{traffic:'Meta / TikTok ads', page:'PDP or advertorial', goal:'First purchase'},
+    title:'Cold traffic to PDP',
+    desc:'A prospect clicks the ad and needs the PDP to carry the full sales argument.',
+    mini:{traffic:'Prospecting ads', page:'PDP / Offer Page', goal:'First purchase'},
     stages:[
       {
-        title:'Traffic Hook',
-        desc:'Stop the scroll before the page has to sell.',
+        title:'Prospecting Hook',
+        desc:'Stop the scroll and create the first reason to care.',
         goal:'Make the ad and landing page feel like one continuous argument.',
         build:'Angle-matched ad creative, UGC opener, above-fold message hierarchy, and a landing promise that repeats the click trigger.',
         removes:'The disconnect between what buyers clicked and what they see after the click.',
         metric:'Improves click quality, bounce rate, and first-screen engagement.'
       },
       {
-        title:'Offer Frame',
-        desc:'Make the product feel like the obvious next step.',
-        goal:'Turn product features into a clear buying reason.',
-        build:'Outcome-first headline, short benefit stack, bundle logic, price anchoring, guarantee, and deadline or stock context when real.',
-        removes:'Price hesitation caused by weak value framing.',
-        metric:'Improves add-to-cart rate and offer comprehension.'
+        title:'Pre-sell Bridge',
+        desc:'Warm the buyer before they evaluate the product.',
+        goal:'Use education or advertorial-style framing to make the PDP feel obvious.',
+        build:'Problem framing, mechanism explanation, story-led proof, and a clear handoff into the PDP.',
+        removes:'Cold-traffic skepticism and low-intent browsing.',
+        metric:'Improves scroll depth and PDP readiness.'
       },
       {
-        title:'PDP Decision Zone',
-        desc:'Keep the buy decision visible and easy.',
-        goal:'Make the product title, proof, variants, price, and CTA readable without friction.',
-        build:'Sticky buy box, visible star rating, variant clarity, benefit bullets, delivery note, payment trust, and mobile-first gallery.',
-        removes:'Decision fatigue, hidden CTA friction, and mobile scrolling fatigue.',
-        metric:'Improves ATC rate, variant selection, and checkout starts.'
+        title:'PDP / Offer Page',
+        desc:'Combine the offer and product options into one clean decision page.',
+        goal:'Let the buyer understand the outcome, choose the right option, and add to cart without friction.',
+        build:'Outcome-first hero, value stack, product options, bundles, proof, objections, sticky CTA, and mobile-first buy box.',
+        removes:'Confusion between offer, product, and checkout intent.',
+        metric:'Improves ATC rate, conversion rate, and AOV.'
       },
       {
-        title:'Proof System',
-        desc:'Answer the buyer question: will this work for me?',
-        goal:'Sequence proof before skepticism gets expensive.',
-        build:'Review clusters, UGC, before-after, press or expert proof, comparison table, customer objections, and real-use images.',
-        removes:'Trust gap, product doubt, and fear of wasting money.',
-        metric:'Improves scroll depth, review engagement, and purchase intent.'
+        title:'Click No Branch',
+        desc:'If they do not click through, they need a new angle.',
+        goal:'Bring non-clickers back with a better reason to care.',
+        build:'Retargeting ad angles based on proof, mechanism, urgency, objection, or stronger offer clarity.',
+        removes:'Dead-end traffic from first-touch ads.',
+        metric:'Improves second-touch revenue and blended CPA.'
       },
       {
-        title:'Checkout Confidence',
-        desc:'Protect the sale after intent is created.',
-        goal:'Remove every last-moment reason to abandon cart.',
-        build:'Cart drawer reassurance, shipping threshold, payment icons, return policy, bundle reminder, and checkout microcopy.',
-        removes:'Surprise costs, delivery uncertainty, and weak payment confidence.',
-        metric:'Improves checkout conversion and reduces cart abandonment.'
+        title:'Purchased? Branch',
+        desc:'A Yes goes to confirmation. A No goes into recovery.',
+        goal:'Make the next step obvious whether the buyer completes checkout or drops off.',
+        build:'Clear checkout confidence path plus abandoned checkout retargeting for near-buyers.',
+        removes:'Unexplained drop-offs after product intent is created.',
+        metric:'Improves checkout starts and completed orders.'
       },
       {
-        title:'Retention Loop',
-        desc:'Make the first order create the next one.',
-        goal:'Turn a paid acquisition into a repeatable customer path.',
-        build:'Post-purchase upsell, replenishment email, education flow, review request, loyalty hook, and second-order offer.',
-        removes:'One-time buyer leakage after the first sale.',
-        metric:'Improves repeat purchase rate, LTV, and blended ROAS.'
-      }
-    ]
-  },
-  {
-    id:'hero-product',
-    title:'Hero product scale-up',
-    desc:'One SKU is working, but the funnel needs stronger proof and order value.',
-    mini:{traffic:'Warm + cold traffic', page:'PDP system', goal:'Scale profitably'},
-    stages:[
-      {
-        title:'Angle Sorting',
-        desc:'Find the strongest buyer reason and lead with it.',
-        goal:'Stop treating every visitor like they came for the same reason.',
-        build:'Audience angle map, headline variants, product use-case modules, and ad-to-page message matching.',
-        removes:'Generic positioning that makes a good product feel average.',
-        metric:'Improves landing relevance and paid traffic efficiency.'
-      },
-      {
-        title:'Value Stack',
-        desc:'Raise perceived value before showing the price.',
-        goal:'Make the product feel more valuable than the checkout total.',
-        build:'Benefit hierarchy, bundle builder, savings logic, comparison blocks, free-shipping threshold, and bonus framing.',
-        removes:'Price resistance and low AOV behavior.',
-        metric:'Improves AOV, bundle adoption, and revenue per session.'
-      },
-      {
-        title:'Conversion PDP',
-        desc:'Build the page around repeated buying signals.',
-        goal:'Let shoppers say yes from multiple points on the page.',
-        build:'ATC above fold, sticky CTA, benefit tiles, specs, FAQs near friction points, and quick variant switching.',
-        removes:'Long-page drop-off and uncertainty around product fit.',
-        metric:'Improves ATC rate and product-page conversion.'
-      },
-      {
-        title:'Authority Proof',
-        desc:'Make the winner feel established and safe.',
-        goal:'Show that the product has already worked for people like the buyer.',
-        build:'Review filters, UGC strips, quantified outcomes, founder note, third-party validation, and objection-led testimonials.',
-        removes:'Scale-stage skepticism from colder audiences.',
-        metric:'Improves trust signals, review clicks, and purchase confidence.'
-      },
-      {
-        title:'Cart Economics',
-        desc:'Use the cart to lift order value without adding pressure.',
-        goal:'Increase basket size while keeping checkout simple.',
-        build:'Cart upsell, bundle reminder, progress bar, free shipping message, payment reassurance, and return policy copy.',
-        removes:'Missed AOV opportunities and late-stage uncertainty.',
-        metric:'Improves AOV, checkout starts, and completed orders.'
-      },
-      {
-        title:'Lifecycle Engine',
-        desc:'Turn the hero SKU into a customer system.',
-        goal:'Build the next purchase before the customer forgets the brand.',
-        build:'Klaviyo flows, review capture, replenishment reminders, education content, cross-sell sequence, and VIP offer.',
-        removes:'Dependence on paid traffic for every sale.',
-        metric:'Improves LTV, repeat rate, and payback period.'
-      }
-    ]
-  },
-  {
-    id:'leaking-store',
-    title:'Leaking store rebuild',
-    desc:'Traffic exists, but the store is losing buyers between product interest and checkout.',
-    mini:{traffic:'Existing traffic', page:'Store rebuild', goal:'Recover lost buyers'},
-    stages:[
-      {
-        title:'Journey Audit',
-        desc:'Find where intent is dropping before redesigning anything.',
-        goal:'Separate opinion problems from actual buyer friction.',
-        build:'Mobile walkthrough, analytics review, heatmap read, page-speed check, and funnel drop-off map.',
-        removes:'Random redesign decisions that do not target the leak.',
-        metric:'Improves prioritization and speed to impact.'
-      },
-      {
-        title:'Message Repair',
-        desc:'Make the store explain itself faster.',
-        goal:'Clarify who the product is for, why it matters, and why now.',
-        build:'Homepage hero rewrite, collection hierarchy, PDP intro copy, trust bar, and offer positioning.',
-        removes:'Confusion, weak first impression, and low perceived relevance.',
-        metric:'Improves bounce rate and session depth.'
-      },
-      {
-        title:'UX Rebuild',
-        desc:'Make shopping feel obvious on mobile.',
-        goal:'Remove layout friction from browsing, selecting, and buying.',
-        build:'Navigation cleanup, product-card system, mobile gallery, sticky ATC, variant UX, and fast-loading sections.',
-        removes:'Navigation dead ends, hidden actions, and layout drag.',
-        metric:'Improves product views, ATC rate, and mobile conversion.'
-      },
-      {
-        title:'Trust Repair',
-        desc:'Put proof where objections appear.',
-        goal:'Stop hiding the reasons buyers should believe the brand.',
-        build:'Review placement, FAQs, shipping and returns clarity, founder proof, guarantee block, and comparison section.',
-        removes:'Risk, uncertainty, and the need to leave the page to research.',
-        metric:'Improves checkout confidence and purchase intent.'
-      },
-      {
-        title:'Cart Recovery',
-        desc:'Make the cart finish the argument.',
-        goal:'Keep momentum from product page to checkout.',
-        build:'Cart drawer, policy microcopy, discount clarity, payment badges, threshold messaging, and abandoned-cart flow alignment.',
-        removes:'Last-mile hesitation and surprise friction.',
-        metric:'Improves cart-to-checkout and checkout completion.'
-      },
-      {
-        title:'Test Roadmap',
-        desc:'Turn the rebuild into a system for learning.',
-        goal:'Know what to test next after the first version ships.',
-        build:'Prioritized test backlog, event tracking notes, copy variants, section experiments, and post-launch review plan.',
+        title:'Test Loop',
+        desc:'Use the leaks to decide what gets improved next.',
+        goal:'Feed ad, PDP, checkout, and retention data back into the next iteration.',
+        build:'Analytics review, heatmap notes, customer questions, checkout drop-off review, and test roadmap.',
         removes:'Guesswork after launch.',
-        metric:'Improves iteration speed and long-term conversion rate.'
+        metric:'Improves test velocity and long-term CVR.'
+      }
+    ]
+  },
+  {
+    id:'checkout-recovery',
+    title:'Checkout recovery path',
+    desc:'A buyer almost finishes checkout, drops off, and needs a reason to return.',
+    mini:{traffic:'Near-buyers', page:'Cart / checkout', goal:'Recover orders'},
+    stages:[
+      {
+        title:'Drop-off Signal',
+        desc:'Identify where the buyer abandoned the purchase.',
+        goal:'Know whether the problem was trust, price, shipping, payment, or distraction.',
+        build:'Checkout event review, cart analysis, abandoned checkout segment, and friction notes.',
+        removes:'Treating all abandoned carts the same.',
+        metric:'Improves recovery message relevance.'
+      },
+      {
+        title:'Retargeting Ad',
+        desc:'Bring the near-buyer back to the exact decision point.',
+        goal:'Use paid retargeting to recover people who already showed high purchase intent.',
+        build:'Checkout-drop-off ad creative, reassurance angle, product reminder, proof snippet, and return-to-cart link.',
+        removes:'Lost high-intent visitors after they leave checkout.',
+        metric:'Improves recovered revenue and checkout completion.'
+      },
+      {
+        title:'Abandoned Email',
+        desc:'Give them a second path back without relying only on ads.',
+        goal:'Recover buyers through email while the product is still fresh.',
+        build:'Abandoned checkout email sequence, subject line angles, product reminder, proof, and checkout CTA.',
+        removes:'Silent cart abandonment.',
+        metric:'Improves email-assisted revenue.'
+      },
+      {
+        title:'Cart Reassurance',
+        desc:'Answer the reason they hesitated.',
+        goal:'Make shipping, returns, payment, and product confidence impossible to miss.',
+        build:'Cart microcopy, delivery clarity, returns note, payment badges, guarantee, and review snippet.',
+        removes:'Last-mile doubt.',
+        metric:'Improves cart-to-checkout completion.'
+      },
+      {
+        title:'Return Path',
+        desc:'Send the buyer back to the best place to finish.',
+        goal:'Avoid sending recovered traffic to a generic page.',
+        build:'Return-to-cart link, saved cart state, PDP fallback, and matching message on landing.',
+        removes:'Friction after a recovery click.',
+        metric:'Improves recovery click-to-purchase rate.'
+      },
+      {
+        title:'Recovery Test',
+        desc:'Use the outcome to refine the next recovery loop.',
+        goal:'Learn which objection or incentive actually brings buyers back.',
+        build:'Angle testing, email timing test, offer test, and recovered-order tracking.',
+        removes:'Repeated recovery messages that stop working.',
+        metric:'Improves recovery rate over time.'
+      }
+    ]
+  },
+  {
+    id:'post-purchase',
+    title:'Post-purchase retention',
+    desc:'The buyer has paid. Now the funnel should create the next purchase.',
+    mini:{traffic:'Confirmed buyers', page:'Post-purchase flow', goal:'Increase LTV'},
+    stages:[
+      {
+        title:'Confirmation Moment',
+        desc:'Reduce regret and set up the next action.',
+        goal:'Make the customer feel confident immediately after buying.',
+        build:'Order confirmation messaging, delivery clarity, support expectation, and next-step prompt.',
+        removes:'Buyer remorse and support anxiety.',
+        metric:'Improves customer confidence and support load.'
+      },
+      {
+        title:'Immediate Upsell',
+        desc:'Use the open-wallet moment carefully.',
+        goal:'Offer a relevant add-on without making the buyer regret the first purchase.',
+        build:'One-click post-purchase upsell, bundle add-on, complementary product, or upgrade offer.',
+        removes:'Missed AOV after purchase intent is highest.',
+        metric:'Improves post-purchase AOV.'
+      },
+      {
+        title:'Education Flow',
+        desc:'Make the customer use and value the product.',
+        goal:'Increase satisfaction before asking for another purchase.',
+        build:'How-to emails, usage tips, expectation-setting, care instructions, and product education.',
+        removes:'Confusion after delivery.',
+        metric:'Improves review quality and repeat intent.'
+      },
+      {
+        title:'Replenishment Cue',
+        desc:'Bring them back when the product is relevant again.',
+        goal:'Time the second purchase around usage, depletion, or seasonality.',
+        build:'Replenishment reminders, reorder CTA, subscription offer, or timed cross-sell.',
+        removes:'Waiting until the customer forgets the brand.',
+        metric:'Improves repeat purchase rate.'
+      },
+      {
+        title:'Review + Proof Loop',
+        desc:'Turn buyers into proof for the next buyer.',
+        goal:'Collect proof that feeds the PDP and ads.',
+        build:'Review request, UGC prompt, customer survey, testimonial capture, and proof tagging.',
+        removes:'Depending only on old or generic proof.',
+        metric:'Improves proof volume and ad credibility.'
+      },
+      {
+        title:'Retention Test',
+        desc:'Find the offer that earns the next order.',
+        goal:'Use buyer behavior to improve the retention path.',
+        build:'Timing tests, upsell tests, cross-sell tests, content tests, and LTV tracking.',
+        removes:'Random follow-up campaigns.',
+        metric:'Improves LTV and repeat revenue.'
       }
     ]
   }
@@ -1510,6 +1528,97 @@ const funnelStageList = document.getElementById('funnel-stage-list');
 const funnelOutput = document.getElementById('funnel-output');
 let activeFunnelId = FUNNEL_SCENARIOS[0].id;
 let activeFunnelStage = 0;
+
+const FLOW_DETAILS = {
+  prospecting:{
+    kicker:'Acquisition',
+    title:'Prospecting Ad',
+    body:'The first job is not to explain everything. It is to match one buyer problem to one clear promise, then send that traffic into the right selling path.',
+    metric:'Affects: CTR, traffic quality, CPA'
+  },
+  clicked:{
+    kicker:'Decision point',
+    title:'Clicked?',
+    body:'If the hook earns the click, the page must continue the same argument. If it does not, the angle needs retargeting, not a random redesign.',
+    metric:'Affects: click-to-page match, bounce rate'
+  },
+  presell:{
+    kicker:'Education layer',
+    title:'Pre-sell / Advertorial',
+    body:'This warms cold traffic before the offer. It frames the problem, builds belief, and makes the product feel like the natural next step.',
+    metric:'Affects: scroll depth, PDP readiness'
+  },
+  retargeting:{
+    kicker:'Recovery path',
+    title:'Retargeting Ad',
+    body:'Non-clickers usually need a different angle, then they should return to the pre-sell page so the story can warm them up before the PDP.',
+    metric:'Affects: blended CPA, second-touch revenue'
+  },
+  offer:{
+    kicker:'Conversion center',
+    title:'PDP / Offer Page',
+    body:'The offer and product options live on the same PDP: outcome-first headline, product proof, variant clarity, bundles, CTA visibility, and believable urgency.',
+    metric:'Affects: ATC rate, conversion rate, AOV'
+  },
+  purchase:{
+    kicker:'Decision point',
+    title:'Purchased?',
+    body:'A buyer who hesitates here is not lost yet. The funnel needs a recovery branch with reassurance, not just another discount.',
+    metric:'Affects: checkout completion, abandonment'
+  },
+  'checkout-retargeting':{
+    kicker:'Leak repair',
+    title:'Checkout Retargeting',
+    body:'This targets buyers who were almost done but dropped off. The ad or message brings them back with reassurance, urgency, proof, or a clearer reason to finish.',
+    metric:'Affects: cart recovery, checkout conversion'
+  },
+  confirmation:{
+    kicker:'Trust after purchase',
+    title:'Order Confirmed',
+    body:'The confirmation moment should reduce regret, explain what happens next, and prepare the customer for the second purchase.',
+    metric:'Affects: support load, review rate, repeat purchase'
+  },
+  postpurchase:{
+    kicker:'Buy again path',
+    title:'Post-purchase Flow',
+    body:'After the order is confirmed, the funnel should keep selling: one-click upsells, replenishment reminders, review requests, education, and cross-sell offers.',
+    metric:'Affects: repeat purchase, LTV, post-purchase AOV'
+  },
+  testing:{
+    kicker:'Feedback loop',
+    title:'Testing Loop',
+    body:'Analytics, heatmaps, customer questions, reviews, and checkout drop-offs feed the next rebuild. The map gets smarter after launch.',
+    metric:'Affects: test velocity, long-term CVR'
+  }
+};
+
+const flowDetail = document.getElementById('flow-detail');
+const flowDetailKicker = document.getElementById('flow-detail-kicker');
+const flowDetailTitle = document.getElementById('flow-detail-title');
+const flowDetailBody = document.getElementById('flow-detail-body');
+const flowDetailMetric = document.getElementById('flow-detail-metric');
+
+function setFlowDetail(id){
+  const detail = FLOW_DETAILS[id] || FLOW_DETAILS.prospecting;
+  document.querySelectorAll('[data-flow-node]').forEach(function(node){
+    node.classList.toggle('active', node.dataset.flowNode === id);
+  });
+  flowDetailKicker.textContent = detail.kicker;
+  flowDetailTitle.textContent = detail.title;
+  flowDetailBody.textContent = detail.body;
+  flowDetailMetric.textContent = detail.metric;
+}
+
+if(flowDetail){
+  document.querySelectorAll('[data-flow-node]').forEach(function(node){
+    node.addEventListener('click', function(){ setFlowDetail(node.dataset.flowNode); });
+    node.addEventListener('keydown', function(e){
+      if(e.key !== 'Enter' && e.key !== ' ') return;
+      e.preventDefault();
+      setFlowDetail(node.dataset.flowNode);
+    });
+  });
+}
 
 function getActiveFunnel(){
   return FUNNEL_SCENARIOS.find(function(f){ return f.id === activeFunnelId; }) || FUNNEL_SCENARIOS[0];
@@ -1836,9 +1945,11 @@ serviceGrid.addEventListener('keydown', function(e){
   if(service) openServiceModal(service);
 });
 
-/* ─── LENIS ─────────────────────────────────────────────────── */
+/* ─── SCROLL STATE ──────────────────────────────────────────── */
 let lenis;
-if(typeof Lenis !== 'undefined'){
+function initSmoothScroll(){
+  if(lenis || typeof Lenis === 'undefined' || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  document.documentElement.style.scrollBehavior = 'auto';
   lenis = new Lenis({
     duration:1.05,
     smoothWheel:true,
@@ -1847,7 +1958,17 @@ if(typeof Lenis !== 'undefined'){
     prevent:function(node){ return !!node.closest('[data-lenis-prevent]'); }
   });
   (function lenisLoop(t){ lenis.raf(t); requestAnimationFrame(lenisLoop); })();
+  window.dispatchEvent(new CustomEvent('lenis:ready'));
 }
+function loadSmoothScroll(){
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const script = document.createElement('script');
+  script.src = 'https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js';
+  script.async = true;
+  script.onload = initSmoothScroll;
+  document.head.appendChild(script);
+}
+loadSmoothScroll();
 
 /* ─── NAV SCROLL STATE ──────────────────────────────────────── */
 const nav = document.getElementById('site-nav');
@@ -1866,13 +1987,19 @@ document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
   const canvas = document.getElementById('hero-canvas');
   const glow   = document.getElementById('hero-glow');
   if(!canvas) return;
+  if(window.matchMedia('(max-width: 767px), (prefers-reduced-motion: reduce)').matches){
+    canvas.remove();
+    if(glow) glow.remove();
+    return;
+  }
   const ctx = canvas.getContext('2d');
-  const SPACING = 28;
+  const SPACING = 34;
   let dots=[], mouseX=-9999, mouseY=-9999, W=0, H=0, DPR=1;
+  let active = true;
 
   function resize(){
     const rect = canvas.parentElement.getBoundingClientRect();
-    DPR = Math.min(window.devicePixelRatio || 1, 2);
+    DPR = Math.min(window.devicePixelRatio || 1, 1.25);
     W = rect.width;
     H = rect.height;
     canvas.width = Math.round(W * DPR);
@@ -1901,12 +2028,16 @@ document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
       ctx.fillStyle='rgba(240,237,232,'+alpha+')';
       ctx.fill();
     });
-    requestAnimationFrame(draw);
+    if(active) requestAnimationFrame(draw);
   }
 
   window.addEventListener('resize', resize);
   resize();
   draw();
+  new IntersectionObserver(function(entries){
+    active = entries[0] && entries[0].isIntersecting;
+    if(active) requestAnimationFrame(draw);
+  }, {threshold:0}).observe(canvas);
 
   const hero = document.getElementById('hero');
   hero.addEventListener('mousemove', function(e){
@@ -1931,13 +2062,21 @@ const wpBrand = document.getElementById('wp-brand');
 const wpType  = document.getElementById('wp-type');
 let tx=-500,ty=-500,cx=-500,cy=-500;
 function lerp(a,b,t){ return a+(b-a)*t; }
-(function previewLoop(){
-  cx=lerp(cx,tx,.1); cy=lerp(cy,ty,.1);
-  preview.style.left=cx+'px'; preview.style.top=cy+'px';
-  requestAnimationFrame(previewLoop);
-})();
-document.addEventListener('mousemove',function(e){ tx=e.clientX+22; ty=e.clientY-100; });
+const canHoverPreview = window.matchMedia('(hover:hover) and (pointer:fine)').matches;
+if(canHoverPreview){
+  (function previewLoop(){
+    cx=lerp(cx,tx,.1); cy=lerp(cy,ty,.1);
+    preview.style.left=cx+'px'; preview.style.top=cy+'px';
+    requestAnimationFrame(previewLoop);
+  })();
+  document.addEventListener('mousemove',function(e){ tx=e.clientX+22; ty=e.clientY-100; });
+}
 function isVideoSrc(src){ return src && /\.(mp4|mov|webm)$/i.test(src); }
+function optimizedVideoSrc(src){
+  if(!src || src.indexOf('res.cloudinary.com') === -1 || src.indexOf('/video/upload/') === -1) return src;
+  if(src.indexOf('/video/upload/f_auto,q_auto/') !== -1) return src;
+  return src.replace('/video/upload/', '/video/upload/f_auto,q_auto/');
+}
 function getPreviewSrc(p){
   const media = p.media || {};
   const experience = media.experience || {};
@@ -1949,7 +2088,7 @@ function showPreview(p){
   wpBg.style.background = p.gradient;
   if(src){
     wpBg.innerHTML = isVideoSrc(src)
-      ? '<video src="'+src+'" autoplay muted loop playsinline></video>'
+      ? '<video src="'+optimizedVideoSrc(src)+'" autoplay muted loop playsinline></video>'
       : '<img src="'+src+'" alt="" loading="eager">';
   }
   wpNum.textContent=p.num;
@@ -1958,8 +2097,10 @@ function showPreview(p){
   preview.classList.add('show');
 }
 function hidePreview(){ preview.classList.remove('show'); }
-workList.addEventListener('mouseover',function(e){ const item=e.target.closest('.work-item'); if(!item) return; const p=PROJECTS.find(function(p){ return p.id===item.dataset.projectId; }); if(p) showPreview(p); });
-workList.addEventListener('mouseleave',hidePreview);
+if(canHoverPreview){
+  workList.addEventListener('mouseover',function(e){ const item=e.target.closest('.work-item'); if(!item) return; const p=PROJECTS.find(function(p){ return p.id===item.dataset.projectId; }); if(p) showPreview(p); });
+  workList.addEventListener('mouseleave',hidePreview);
+}
 
 /* ─── DRAWER ────────────────────────────────────────────────── */
 const drawerOverlay = document.getElementById('drawer-overlay');
@@ -2005,17 +2146,17 @@ function buildDrawer(p){
   };
   const mediaVisual = function(src, alt, className, extraStyle){
     if(!src) return '<div class="d-placeholder">Add screenshot</div>';
-    if(isVideo(src)) return '<video class="'+(className||'')+'" src="'+src+'" controls playsinline preload="metadata"></video>';
+    if(isVideo(src)) return '<video class="'+(className||'')+'" src="'+optimizedVideoSrc(src)+'" controls playsinline preload="metadata"></video>';
     return '<img class="'+(className||'')+'" src="'+src+'" alt="'+alt+'" loading="lazy" style="'+(extraStyle||'')+'">';
   };
   const coverSrc = media.cover || media.video || experience.image;
   const cover = coverSrc
     ? (isVideo(coverSrc)
-      ? '<video src="'+coverSrc+'" autoplay muted loop playsinline preload="metadata"></video>'
+      ? '<video src="'+optimizedVideoSrc(coverSrc)+'" autoplay muted loop playsinline preload="metadata"></video>'
       : '<img src="'+coverSrc+'" alt="'+p.title+' cover" loading="lazy">')
     : '<div style="width:100%;height:100%;background:'+p.gradient+';display:flex;align-items:center;justify-content:center;"><span style="font-family:\'Syne\',sans-serif;font-weight:800;font-size:72px;letter-spacing:-.04em;color:rgba(255,255,255,.1);">'+p.num+'</span></div>';
   const video = media.video
-    ? '<video src="'+media.video+'" controls playsinline preload="metadata"></video>'
+    ? '<video src="'+optimizedVideoSrc(media.video)+'" controls playsinline preload="metadata"></video>'
     : '<div class="d-placeholder">Add project video</div>';
   const isEmbedExperience = experience.type === 'embed' && experience.embed;
   const experienceToggle = isEmbedExperience
@@ -2027,7 +2168,7 @@ function buildDrawer(p){
   const mobileShotData = media.mobileShots || [];
   const mobileShots = mobileShotData.slice(0,3).map(function(shot, idx){
     const visual = isVideo(shot.src)
-      ? '<video src="'+shot.src+'" autoplay muted loop playsinline preload="metadata"></video>'
+      ? '<video src="'+optimizedVideoSrc(shot.src)+'" autoplay muted loop playsinline preload="metadata"></video>'
       : mediaVisual(shot.src, p.title+' mobile screenshot '+(idx+1), '', 'object-position:'+imgPosition(shot.position));
     const cropClass = shot.fit === 'cover' ? ' crop' : '';
     const focusClass = shot.focus ? ' video-focus' : '';
@@ -2243,8 +2384,11 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a){
   var hero = document.getElementById('hero');
   var SCALE_OUT = 0.94;   /* how small a section gets as it exits */
   var HERO_SCALE = 0.96;  /* hero scales to this as you scroll off */
+  var ticking = false;
+  var usingWindowScroll = false;
 
   function cardUpdate(){
+    ticking = false;
     var scrollY = window.scrollY || window.pageYOffset;
     var vh = window.innerHeight;
 
@@ -2294,12 +2438,27 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a){
     });
   }
 
-  /* Hook into Lenis scroll event for buttery smoothness */
-  if(typeof lenis !== 'undefined' && lenis){
-    lenis.on('scroll', cardUpdate);
-  } else {
-    window.addEventListener('scroll', cardUpdate, {passive:true});
+  function requestCardUpdate(){
+    if(ticking) return;
+    ticking = true;
+    requestAnimationFrame(cardUpdate);
   }
+  function bindNativeCardScroll(){
+    if(usingWindowScroll || lenis) return;
+    usingWindowScroll = true;
+    window.addEventListener('scroll', requestCardUpdate, {passive:true});
+  }
+  function bindLenisCardScroll(){
+    if(!lenis) return;
+    if(usingWindowScroll){
+      window.removeEventListener('scroll', requestCardUpdate);
+      usingWindowScroll = false;
+    }
+    lenis.on('scroll', requestCardUpdate);
+  }
+  window.addEventListener('lenis:ready', bindLenisCardScroll, {once:true});
+  bindNativeCardScroll();
+  if(lenis) bindLenisCardScroll();
   cardUpdate();
 })();
 </script>
