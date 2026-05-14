@@ -196,6 +196,80 @@
     .service-tool{display:inline-flex;align-items:center;gap:7px;font-family:var(--fm);font-size:11px;color:var(--muted);padding:6px 10px 6px 7px;border:1px solid var(--border);border-radius:100px}
     .service-tool img{width:16px;height:16px;border-radius:4px}
 
+    /* FUNNEL ARCHITECT */
+    #funnel{background:var(--surface)}
+    .funnel-head{display:grid;grid-template-columns:1fr;gap:24px;align-items:end;text-align:left;margin-bottom:40px}
+    .funnel-head-copy{max-width:640px}
+    .funnel-lede{font-size:15px;color:var(--muted);line-height:1.75;margin-top:16px;max-width:560px}
+    .funnel-context{border:1px solid var(--border);border-radius:12px;background:rgba(255,255,255,.018);padding:18px;text-align:left}
+    .funnel-context span{display:block;font-family:var(--fm);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--subtle);margin-bottom:8px}
+    .funnel-context p{font-size:14px;color:var(--muted);line-height:1.65}
+    @media(min-width:900px){.funnel-head{grid-template-columns:minmax(0,1fr) 360px}}
+    .funnel-flow{position:relative;margin-bottom:20px;padding:18px;border:1px solid var(--border);border-radius:16px;background:radial-gradient(circle at 18% 12%,rgba(255,149,0,.08),transparent 28%),radial-gradient(circle at 78% 72%,rgba(123,47,190,.12),transparent 30%),var(--bg);overflow:hidden;text-align:left}
+    .funnel-flow::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(240,237,232,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(240,237,232,.025) 1px,transparent 1px);background-size:38px 38px;pointer-events:none}
+    .flow-kicker{position:relative;z-index:1;display:block;font-family:var(--fm);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--subtle);margin-bottom:16px}
+    .flow-grid{position:relative;z-index:1;display:grid;grid-template-columns:1fr;gap:12px}
+    .flow-node{position:relative;display:grid;grid-template-columns:38px 1fr;gap:12px;align-items:center;padding:14px;border:1px solid var(--border);border-radius:12px;background:rgba(20,20,20,.9);transition:border-color .22s var(--ease),background .22s var(--ease),transform .22s var(--ease)}
+    .flow-node:hover{border-color:rgba(255,149,0,.36);background:rgba(255,149,0,.045);transform:translateY(-2px)}
+    .flow-node::after{content:'';position:absolute;left:32px;bottom:-13px;width:1px;height:13px;background:var(--border-h)}
+    .flow-node:last-child::after{display:none}
+    .flow-icon{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:1px solid var(--border-h);color:var(--orange);background:rgba(255,255,255,.025)}
+    .flow-node strong{display:block;font-family:var(--fd);font-size:15px;letter-spacing:-.01em;line-height:1.05;margin-bottom:3px}
+    .flow-node span{display:block;font-size:12px;color:var(--muted);line-height:1.45}
+    .flow-node.core{border-color:rgba(224,64,160,.38);background:linear-gradient(135deg,rgba(255,149,0,.065),rgba(123,47,190,.09))}
+    .flow-loop{position:relative;z-index:1;margin-top:12px;padding:12px 14px;border:1px dashed rgba(255,149,0,.26);border-radius:12px;background:rgba(255,149,0,.035);display:flex;align-items:flex-start;gap:10px}
+    .flow-loop svg{color:var(--orange);flex-shrink:0;margin-top:2px}
+    .flow-loop strong{display:block;font-family:var(--fm);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--orange);margin-bottom:4px}
+    .flow-loop span{display:block;font-size:12px;color:var(--muted);line-height:1.5}
+    @media(min-width:760px){
+      .funnel-flow{padding:22px}
+      .flow-grid{grid-template-columns:repeat(6,minmax(0,1fr));gap:10px;align-items:stretch}
+      .flow-node{grid-template-columns:1fr;align-content:start;min-height:150px;padding:14px 12px}
+      .flow-node::after{left:auto;right:-11px;top:37px;width:11px;height:1px}
+      .flow-node:last-child::after{display:none}
+      .flow-icon{width:36px;height:36px;margin-bottom:4px}
+      .flow-loop{max-width:480px;margin:14px auto 0;align-items:center}
+    }
+    .funnel-shell{display:grid;grid-template-columns:1fr;gap:18px;text-align:left}
+    @media(min-width:1024px){.funnel-shell{grid-template-columns:300px minmax(0,1fr) 340px;align-items:stretch}}
+    .funnel-panel,.funnel-map,.funnel-output{border:1px solid var(--border);background:var(--bg);border-radius:16px;overflow:hidden}
+    .funnel-panel{padding:18px}
+    .funnel-panel-title,.funnel-output-kicker{font-family:var(--fm);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--subtle);display:block;margin-bottom:14px}
+    .funnel-scenarios{display:flex;flex-direction:column;gap:10px}
+    .funnel-scenario{width:100%;padding:14px;border:1px solid var(--border);border-radius:10px;background:var(--surface);text-align:left;transition:border-color .22s var(--ease),background .22s var(--ease),transform .22s var(--ease)}
+    .funnel-scenario:hover{border-color:var(--border-h);transform:translateY(-1px)}
+    .funnel-scenario.active{border-color:rgba(255,149,0,.42);background:rgba(255,149,0,.07)}
+    .funnel-scenario strong{display:block;font-family:var(--fd);font-size:15px;letter-spacing:-.01em;margin-bottom:3px}
+    .funnel-scenario span{display:block;font-size:12px;color:var(--muted);line-height:1.45}
+    .funnel-mini{margin-top:18px;padding-top:16px;border-top:1px solid var(--border)}
+    .funnel-mini-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px 0;border-bottom:1px solid rgba(240,237,232,.045)}
+    .funnel-mini-row:last-child{border-bottom:0}
+    .funnel-mini-row span:first-child{font-family:var(--fm);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--subtle)}
+    .funnel-mini-row span:last-child{font-size:13px;color:var(--text);text-align:right}
+    .funnel-map{position:relative;padding:18px;min-height:480px;background:radial-gradient(circle at 50% 25%,rgba(255,149,0,.1),transparent 34%),var(--bg)}
+    .funnel-map::before{content:'';position:absolute;left:50%;top:42px;bottom:42px;width:1px;background:linear-gradient(to bottom,transparent,var(--border-h),transparent);transform:translateX(-50%);opacity:.7}
+    .funnel-stage-list{position:relative;display:grid;grid-template-columns:1fr;gap:12px;z-index:1}
+    .funnel-stage{display:grid;grid-template-columns:44px 1fr auto;gap:12px;align-items:center;width:100%;padding:14px;border:1px solid var(--border);border-radius:12px;background:rgba(20,20,20,.94);text-align:left;transition:border-color .22s var(--ease),background .22s var(--ease),transform .22s var(--ease),box-shadow .22s var(--ease)}
+    .funnel-stage:hover{border-color:var(--border-h);transform:translateY(-2px)}
+    .funnel-stage.active{border-color:rgba(224,64,160,.5);background:linear-gradient(135deg,rgba(255,149,0,.08),rgba(123,47,190,.1));box-shadow:0 16px 44px rgba(0,0,0,.26)}
+    .funnel-stage-num{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:1px solid var(--border-h);font-family:var(--fm);font-size:11px;color:var(--muted);background:var(--surface)}
+    .funnel-stage.active .funnel-stage-num{color:var(--orange);border-color:rgba(255,149,0,.45)}
+    .funnel-stage-title{display:block;font-family:var(--fd);font-size:16px;font-weight:800;letter-spacing:-.01em;margin-bottom:2px}
+    .funnel-stage-desc{display:block;font-size:12px;color:var(--muted);line-height:1.45}
+    .funnel-stage svg{color:var(--subtle);transition:transform .22s var(--ease),color .22s var(--ease)}
+    .funnel-stage.active svg,.funnel-stage:hover svg{color:var(--orange);transform:translateX(3px)}
+    @media(min-width:680px){.funnel-stage-list{grid-template-columns:repeat(2,1fr)}.funnel-map::before{left:18px;right:18px;top:50%;bottom:auto;width:auto;height:1px;transform:translateY(-50%)}}
+    @media(min-width:1024px){.funnel-stage-list{grid-template-columns:1fr}.funnel-map::before{left:50%;right:auto;top:42px;bottom:42px;width:1px;height:auto;transform:translateX(-50%)}}
+    .funnel-output{padding:22px;display:flex;flex-direction:column}
+    .funnel-output h3{font-family:var(--fd);font-size:24px;line-height:1.05;letter-spacing:-.03em;margin-bottom:10px}
+    .funnel-output p{font-size:14px;color:var(--muted);line-height:1.65}
+    .funnel-output-grid{display:grid;grid-template-columns:1fr;gap:12px;margin-top:20px}
+    .funnel-output-card{border-top:1px solid var(--border);padding-top:14px}
+    .funnel-output-card span{display:block;font-family:var(--fm);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--subtle);margin-bottom:6px}
+    .funnel-output-card strong{display:block;font-size:14px;color:var(--text);font-weight:500;line-height:1.5}
+    .funnel-cta{margin-top:auto;padding-top:20px}
+    .funnel-cta a{width:100%;justify-content:center}
+
     /* WORK */
     #work{background:var(--bg)}
     .work-head{margin-bottom:48px}
@@ -440,6 +514,7 @@
     <div class="nav-links" role="list">
       <a href="#work" role="listitem">Work</a>
       <a href="#services" role="listitem">Services</a>
+      <a href="#funnel" role="listitem">Funnel</a>
       <a href="#process" role="listitem">Process</a>
       <a href="#hire" role="listitem">Contact</a>
     </div>
@@ -637,7 +712,103 @@
   </div>
 </section>
 
-<!-- ═══ SECTION 5: CRO CONCEPTS ═══════════════════════════════ -->
+<!-- ═══ SECTION 5: FUNNEL ARCHITECT ═══════════════════════════ -->
+<section id="funnel" class="tex-lines">
+  <div class="container">
+    <div class="funnel-head reveal">
+      <div class="funnel-head-copy">
+        <span class="lbl">Funnel strategy</span>
+        <!-- EDIT: Funnel strategy headline -->
+        <h2 class="sec-h2">I structure Shopify stores<br>so buyers know what to do next.</h2>
+        <!-- EDIT: Funnel strategy intro -->
+        <p class="funnel-lede">A good DTC funnel is not just a page. It is the order of attention, desire, proof, objection handling, checkout confidence, and post-purchase momentum.</p>
+      </div>
+      <div class="funnel-context reveal from-right" data-d="1">
+        <span>Interactive blueprint</span>
+        <p>Pick a Shopify growth situation, then click each funnel stage to see how I would structure the sale.</p>
+      </div>
+    </div>
+    <div class="funnel-flow reveal" data-d="1" aria-label="Shopify DTC funnel flowchart">
+      <span class="flow-kicker">How the system connects</span>
+      <div class="flow-grid">
+        <div class="flow-node">
+          <div class="flow-icon" aria-hidden="true">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2"/></svg>
+          </div>
+          <div>
+            <strong>Traffic angle</strong>
+            <span>Ad hook, audience promise, and click intent.</span>
+          </div>
+        </div>
+        <div class="flow-node core">
+          <div class="flow-icon" aria-hidden="true">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 5h16v14H4z"/><path d="M4 10h16M9 19v-9"/></svg>
+          </div>
+          <div>
+            <strong>Landing / PDP</strong>
+            <span>Above-fold clarity, offer frame, and buy path.</span>
+          </div>
+        </div>
+        <div class="flow-node">
+          <div class="flow-icon" aria-hidden="true">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M20 7 9 18l-5-5"/><path d="M14 7h6v6"/></svg>
+          </div>
+          <div>
+            <strong>Proof stack</strong>
+            <span>Reviews, UGC, comparison, and objections.</span>
+          </div>
+        </div>
+        <div class="flow-node core">
+          <div class="flow-icon" aria-hidden="true">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="9" cy="20" r="1"/><circle cx="18" cy="20" r="1"/><path d="M3 4h2l2.4 11.5a2 2 0 0 0 2 1.5h7.8a2 2 0 0 0 1.9-1.4L21 8H7"/></svg>
+          </div>
+          <div>
+            <strong>Cart confidence</strong>
+            <span>Shipping, payment, returns, and order value logic.</span>
+          </div>
+        </div>
+        <div class="flow-node">
+          <div class="flow-icon" aria-hidden="true">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 4h16v16H4z"/><path d="m4 7 8 6 8-6"/></svg>
+          </div>
+          <div>
+            <strong>Post-purchase</strong>
+            <span>Email flows, education, upsell, and review capture.</span>
+          </div>
+        </div>
+        <div class="flow-node">
+          <div class="flow-icon" aria-hidden="true">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M3 3v18h18"/><path d="m7 15 4-4 3 3 5-7"/></svg>
+          </div>
+          <div>
+            <strong>Testing loop</strong>
+            <span>Data decides what gets rebuilt, refined, or scaled.</span>
+          </div>
+        </div>
+      </div>
+      <div class="flow-loop">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M3 12a9 9 0 0 1 15.5-6.2"/><path d="M18 2v4h-4"/><path d="M21 12a9 9 0 0 1-15.5 6.2"/><path d="M6 22v-4h4"/></svg>
+        <div>
+          <strong>Feedback loop</strong>
+          <span>Analytics, heatmaps, customer questions, and checkout drop-offs feed the next page iteration.</span>
+        </div>
+      </div>
+    </div>
+    <div class="funnel-shell reveal" data-d="2">
+      <aside class="funnel-panel" aria-label="Shopify DTC funnel scenarios">
+        <span class="funnel-panel-title">Choose the brief</span>
+        <div class="funnel-scenarios" id="funnel-scenarios"></div>
+        <div class="funnel-mini" id="funnel-mini"></div>
+      </aside>
+      <div class="funnel-map" aria-label="Interactive funnel stage map">
+        <div class="funnel-stage-list" id="funnel-stage-list"></div>
+      </div>
+      <aside class="funnel-output" id="funnel-output" aria-live="polite"></aside>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SECTION 6: CRO CONCEPTS ═══════════════════════════════ -->
 <section id="cro" class="tex-dots">
   <div class="container">
     <div class="cro-head reveal">
@@ -650,7 +821,7 @@
   </div>
 </section>
 
-<!-- ═══ SECTION 6: PROCESS ════════════════════════════════════ -->
+<!-- ═══ SECTION 7: PROCESS ════════════════════════════════════ -->
 <section id="process">
   <div class="container">
     <div class="reveal">
@@ -698,7 +869,7 @@
   </div>
 </section>
 
-<!-- ═══ SECTION 7: STACK ══════════════════════════════════════ -->
+<!-- ═══ SECTION 8: STACK ══════════════════════════════════════ -->
 <section id="stack">
   <div class="container" style="padding-bottom:0">
     <div class="reveal" style="margin-bottom:48px">
@@ -730,7 +901,7 @@
   </div>
 </section>
 
-<!-- ═══ SECTION 8: ABOUT ══════════════════════════════════════ -->
+<!-- ═══ SECTION 9: ABOUT ══════════════════════════════════════ -->
 <section id="about" class="tex-lines">
   <div class="container">
     <div class="about-inner">
@@ -756,7 +927,7 @@
   </div>
 </section>
 
-<!-- ═══ SECTION 9: HIRE ═══════════════════════════════════════ -->
+<!-- ═══ SECTION 10: HIRE ══════════════════════════════════════ -->
 <section id="hire">
   <div class="container">
     <div class="hire-inner reveal">
@@ -920,12 +1091,12 @@ const PROJECTS = [
     url:'../brands/kura/pages/kuda-pdp-01/index_1_cro.html',
     media:{
       cover:'images/exports/kura pdp cover.jpg',
-      preview:'images/exports/kura pdp cover.mp4',
-      video:'images/exports/kura desktop.mp4',
+      preview:'https://res.cloudinary.com/drl0rscuf/video/upload/v1778795747/portfolio/videos/kura-pdp-cover-mp4.mov',
+      video:'https://res.cloudinary.com/drl0rscuf/video/upload/v1778794790/portfolio/videos/kura-desktop-mp4.mov',
       experience:{ type:'embed', embed:'../brands/kura/pages/kuda-pdp-01/index_1_cro.html', image:'images/exports/kura-pdp-full-mockup.png', scrollEnd:'-64%' },
       mobileShots:[
         {src:'images/exports/kura-pdp-mobile-1.png'},
-        {src:'images/exports/kura mobile.mp4', focus:true},
+        {src:'https://res.cloudinary.com/drl0rscuf/video/upload/v1778795259/portfolio/videos/kura-mobile-mp4.mov', focus:true},
         {src:'images/exports/kura-pdp-mobile-3.png'}
       ]
     },
@@ -943,7 +1114,7 @@ const PROJECTS = [
     url:'https://tapandrate.co.uk',
     media:{
       cover:'images/exports/tapandrate-landing-cover.png',
-      video:'images/exports/tapandrate-landing-mobile.mp4',
+      video:'https://res.cloudinary.com/drl0rscuf/video/upload/v1778795906/portfolio/videos/tapandrate-landing-mobile-mp4.mov',
       experience:{ image:'images/exports/tapandrate.co.uk_pages_review-management-1_pb=0(Laptop).png', scrollEnd:'-70%' },
       mobileShots:[
         {src:'images/exports/tapandrate-landing-mobile-1.png', position:'top'},
@@ -964,10 +1135,10 @@ const PROJECTS = [
     gradient:'linear-gradient(135deg,#0a2918 0%,#3a8c5c 100%)',
     url:'https://championbiotics.com',
     media:{
-      cover:'images/exports/champion-biotics-pdp-desktop.mp4',
-      preview:'images/exports/champion-biotics-pdp-desktop.mp4',
-      video:'images/exports/champion-biotics-pdp-desktop.mp4',
-      experience:{ image:'images/exports/champion-biotics-pdp-desktop.mp4' },
+      cover:'https://res.cloudinary.com/drl0rscuf/video/upload/v1778794687/portfolio/videos/champion-biotics-pdp-desktop-mp4.mp4',
+      preview:'https://res.cloudinary.com/drl0rscuf/video/upload/v1778794687/portfolio/videos/champion-biotics-pdp-desktop-mp4.mp4',
+      video:'https://res.cloudinary.com/drl0rscuf/video/upload/v1778794687/portfolio/videos/champion-biotics-pdp-desktop-mp4.mp4',
+      experience:{ image:'https://res.cloudinary.com/drl0rscuf/video/upload/v1778794687/portfolio/videos/champion-biotics-pdp-desktop-mp4.mp4' },
       mobileShots:[
         {src:'images/exports/champion-biotics-pdp-mobile-1.png'},
         {src:'images/exports/champion-biotics-pdp-mobile-2.png'},
@@ -988,8 +1159,8 @@ const PROJECTS = [
     url:'https://motherofmacros.com',
     media:{
       cover:'images/exports/motherofmacros-cover.png',
-      video: 'images/exports/motherofmacros-vid.mp4',
-      experience:{ image:'images/exports/motherofmacros-vid.mp4' },
+      video: 'https://res.cloudinary.com/drl0rscuf/video/upload/v1778795834/portfolio/videos/motherofmacros-vid-mp4.mp4',
+      experience:{ image:'https://res.cloudinary.com/drl0rscuf/video/upload/v1778795834/portfolio/videos/motherofmacros-vid-mp4.mp4' },
       mobileShots:[
         {src:'images/exports/motherofmacros-mobile-1.png'},
         {src:'images/exports/motherofmacros-mobile-1.png'},
@@ -1012,8 +1183,8 @@ const PROJECTS = [
     url:'#',
     media:{
       cover:'images/exports/ishu-cover.webp',
-      video:'images/exports/ishu-experience.mp4',
-      experience:{ image:'images/exports/ishu-experience.mp4' },
+      video:'https://res.cloudinary.com/drl0rscuf/video/upload/v1778794721/portfolio/videos/ishu-experience-mp4.mp4',
+      experience:{ image:'https://res.cloudinary.com/drl0rscuf/video/upload/v1778794721/portfolio/videos/ishu-experience-mp4.mp4' },
       mobileShots:[
         {src:'images/exports/ishu-mobile-1.png'},
         {src:'images/exports/ishu-mobile-1.png'},
@@ -1034,12 +1205,12 @@ const PROJECTS = [
     url:'#',
     media:{
       cover:'images/exports/jelys-glamour-cover.png',
-      video:'images/exports/Jellys-glamour-laptop-mobile.mp4',
+      video:'https://res.cloudinary.com/drl0rscuf/video/upload/v1778793495/portfolio/videos/jellys-glamour-laptop-mobile-mp4.mov',
       experience:{ image:'images/exports/jellys-glarmour-full-laptop.png', scrollEnd:'-58%' },
       mobileShots:[
-        {src:'images/exports/Jellys-glamor-mobile.mp4'},
-        {src:'images/exports/Jellys-glamor-mobile.mp4'},
-        {src:'images/exports/Jellys-glamor-mobile.mp4'}
+        {src:'https://res.cloudinary.com/drl0rscuf/video/upload/v1778793457/portfolio/videos/jellys-glamor-mobile-mp4.mov'},
+        {src:'https://res.cloudinary.com/drl0rscuf/video/upload/v1778793457/portfolio/videos/jellys-glamor-mobile-mp4.mov'},
+        {src:'https://res.cloudinary.com/drl0rscuf/video/upload/v1778793457/portfolio/videos/jellys-glamor-mobile-mp4.mov'}
       ]
     },
     caseStudy:{
@@ -1056,7 +1227,7 @@ const PROJECTS = [
     url:'#',
     media:{
       cover:'images/exports/captain-skippers-cover.png',
-      video:'images/exports/captain & skipper (Copy) - Page 1.mp4',
+      video:'https://res.cloudinary.com/drl0rscuf/video/upload/v1778794628/portfolio/videos/captain-and-skipper-copy-page-1-mp4.mp4',
       experience:{ image:'images/exports/captain-skippers-laptop.png', scrollEnd:'-34%' },
       mobileShots:[
         {src:'images/exports/captain-skippers-mobile-1.png', position:'top', fit:'cover'},
@@ -1078,7 +1249,7 @@ const PROJECTS = [
     url:'#',
     media:{
       cover:'images/exports/titanium-laptop-above-fold.png',
-      video:'images/exports/titanium-video-laptop.mp4',
+      video:'https://res.cloudinary.com/drl0rscuf/video/upload/v1778795945/portfolio/videos/titanium-video-laptop-mp4.mov',
       experience:{ image:'images/exports/titanium-laptop-full-page.png', scrollEnd:'-68%' }
     },
     caseStudy:{
@@ -1095,12 +1266,12 @@ const PROJECTS = [
     url:'../brands/kura/pages/kura-ad-01/index.html',
     media:{
       cover:'images/exports/Kura advertorial cover.png',
-      preview:'images/exports/Kura advertorial cover.mp4',
-      video:'images/exports/Kura advertorial laptop.mp4',
+      preview:'https://res.cloudinary.com/drl0rscuf/video/upload/v1778793959/portfolio/videos/kura-advertorial-cover-mp4.mov',
+      video:'https://res.cloudinary.com/drl0rscuf/video/upload/v1778794002/portfolio/videos/kura-advertorial-laptop-mp4.mov',
       experience:{ type:'embed', embed:'../brands/kura/pages/kura-ad-01/index.html', image:'images/exports/kura-ad-preview.png' },
       mobileShots:[
         {src:'images/exports/kura-ad-mobile-1.png'},
-        {src:'images/exports/Kura advertorial mobile.mp4', focus:true},
+        {src:'https://res.cloudinary.com/drl0rscuf/video/upload/v1778794045/portfolio/videos/kura-advertorial-mobile-mp4.mov', focus:true},
         {src:'images/exports/kura-ad-mobile-3.png'}
       ]
     },
@@ -1118,12 +1289,12 @@ const PROJECTS = [
     url:'../brands/kura/pages/kura-hp-01/index.html',
     media:{
       cover:'images/exports/kura homepage cover.png',
-      preview:'images/exports/Kura homepage cover.mp4',
-      video:'images/exports/Kura homepage laptop.mp4',
+      preview:'https://res.cloudinary.com/drl0rscuf/video/upload/v1778794078/portfolio/videos/kura-homepage-cover-mp4.mov',
+      video:'https://res.cloudinary.com/drl0rscuf/video/upload/v1778794110/portfolio/videos/kura-homepage-laptop-mp4.mov',
       experience:{ type:'embed', embed:'../brands/kura/pages/kura-hp-01/index.html', image:'images/exports/kura-home-preview.png' },
       mobileShots:[
         {src:'images/exports/kura-hp-mobile-1.png'},
-        {src:'images/exports/Kura homepage mobile.mp4', focus:true},
+        {src:'https://res.cloudinary.com/drl0rscuf/video/upload/v1778794173/portfolio/videos/kura-homepage-mobile-mp4.mov', focus:true},
         {src:'images/exports/kura-hp-mobile-3.png'}
       ]
     },
@@ -1141,12 +1312,12 @@ const PROJECTS = [
     url:'../brands/kura/pages/kura-listicle-li03/index.html',
     media:{
       cover:'images/exports/Kura listicle cover.png',
-      preview:'images/exports/Kura listicle cover.mp4',
-      video:'images/exports/kura listicle laptop.mp4',
+      preview:'https://res.cloudinary.com/drl0rscuf/video/upload/v1778794527/portfolio/videos/kura-listicle-cover-mp4.mov',
+      video:'https://res.cloudinary.com/drl0rscuf/video/upload/v1778795178/portfolio/videos/kura-listicle-laptop-mp4.mov',
       experience:{ type:'embed', embed:'../brands/kura/pages/kura-listicle-li03/index.html', image:'images/exports/kura-listicle-preview.png' },
       mobileShots:[
         {src:'images/exports/kura-lis-03-mobile-1.png'},
-        {src:'images/exports/kura listicle mobile.mp4', focus:true},
+        {src:'https://res.cloudinary.com/drl0rscuf/video/upload/v1778795217/portfolio/videos/kura-listicle-mobile-mp4.mov', focus:true},
         {src:'images/exports/kura-lis-03-mobile-3.png'}
       ]
     },
@@ -1159,6 +1330,257 @@ const PROJECTS = [
     }
   }
 ];
+
+/* ─── FUNNEL ARCHITECT DATA ────────────────────────────────── */
+const FUNNEL_SCENARIOS = [
+  {
+    id:'cold-traffic',
+    title:'Cold traffic product push',
+    desc:'Paid traffic is landing, but buyers do not trust the offer yet.',
+    mini:{traffic:'Meta / TikTok ads', page:'PDP or advertorial', goal:'First purchase'},
+    stages:[
+      {
+        title:'Traffic Hook',
+        desc:'Stop the scroll before the page has to sell.',
+        goal:'Make the ad and landing page feel like one continuous argument.',
+        build:'Angle-matched ad creative, UGC opener, above-fold message hierarchy, and a landing promise that repeats the click trigger.',
+        removes:'The disconnect between what buyers clicked and what they see after the click.',
+        metric:'Improves click quality, bounce rate, and first-screen engagement.'
+      },
+      {
+        title:'Offer Frame',
+        desc:'Make the product feel like the obvious next step.',
+        goal:'Turn product features into a clear buying reason.',
+        build:'Outcome-first headline, short benefit stack, bundle logic, price anchoring, guarantee, and deadline or stock context when real.',
+        removes:'Price hesitation caused by weak value framing.',
+        metric:'Improves add-to-cart rate and offer comprehension.'
+      },
+      {
+        title:'PDP Decision Zone',
+        desc:'Keep the buy decision visible and easy.',
+        goal:'Make the product title, proof, variants, price, and CTA readable without friction.',
+        build:'Sticky buy box, visible star rating, variant clarity, benefit bullets, delivery note, payment trust, and mobile-first gallery.',
+        removes:'Decision fatigue, hidden CTA friction, and mobile scrolling fatigue.',
+        metric:'Improves ATC rate, variant selection, and checkout starts.'
+      },
+      {
+        title:'Proof System',
+        desc:'Answer the buyer question: will this work for me?',
+        goal:'Sequence proof before skepticism gets expensive.',
+        build:'Review clusters, UGC, before-after, press or expert proof, comparison table, customer objections, and real-use images.',
+        removes:'Trust gap, product doubt, and fear of wasting money.',
+        metric:'Improves scroll depth, review engagement, and purchase intent.'
+      },
+      {
+        title:'Checkout Confidence',
+        desc:'Protect the sale after intent is created.',
+        goal:'Remove every last-moment reason to abandon cart.',
+        build:'Cart drawer reassurance, shipping threshold, payment icons, return policy, bundle reminder, and checkout microcopy.',
+        removes:'Surprise costs, delivery uncertainty, and weak payment confidence.',
+        metric:'Improves checkout conversion and reduces cart abandonment.'
+      },
+      {
+        title:'Retention Loop',
+        desc:'Make the first order create the next one.',
+        goal:'Turn a paid acquisition into a repeatable customer path.',
+        build:'Post-purchase upsell, replenishment email, education flow, review request, loyalty hook, and second-order offer.',
+        removes:'One-time buyer leakage after the first sale.',
+        metric:'Improves repeat purchase rate, LTV, and blended ROAS.'
+      }
+    ]
+  },
+  {
+    id:'hero-product',
+    title:'Hero product scale-up',
+    desc:'One SKU is working, but the funnel needs stronger proof and order value.',
+    mini:{traffic:'Warm + cold traffic', page:'PDP system', goal:'Scale profitably'},
+    stages:[
+      {
+        title:'Angle Sorting',
+        desc:'Find the strongest buyer reason and lead with it.',
+        goal:'Stop treating every visitor like they came for the same reason.',
+        build:'Audience angle map, headline variants, product use-case modules, and ad-to-page message matching.',
+        removes:'Generic positioning that makes a good product feel average.',
+        metric:'Improves landing relevance and paid traffic efficiency.'
+      },
+      {
+        title:'Value Stack',
+        desc:'Raise perceived value before showing the price.',
+        goal:'Make the product feel more valuable than the checkout total.',
+        build:'Benefit hierarchy, bundle builder, savings logic, comparison blocks, free-shipping threshold, and bonus framing.',
+        removes:'Price resistance and low AOV behavior.',
+        metric:'Improves AOV, bundle adoption, and revenue per session.'
+      },
+      {
+        title:'Conversion PDP',
+        desc:'Build the page around repeated buying signals.',
+        goal:'Let shoppers say yes from multiple points on the page.',
+        build:'ATC above fold, sticky CTA, benefit tiles, specs, FAQs near friction points, and quick variant switching.',
+        removes:'Long-page drop-off and uncertainty around product fit.',
+        metric:'Improves ATC rate and product-page conversion.'
+      },
+      {
+        title:'Authority Proof',
+        desc:'Make the winner feel established and safe.',
+        goal:'Show that the product has already worked for people like the buyer.',
+        build:'Review filters, UGC strips, quantified outcomes, founder note, third-party validation, and objection-led testimonials.',
+        removes:'Scale-stage skepticism from colder audiences.',
+        metric:'Improves trust signals, review clicks, and purchase confidence.'
+      },
+      {
+        title:'Cart Economics',
+        desc:'Use the cart to lift order value without adding pressure.',
+        goal:'Increase basket size while keeping checkout simple.',
+        build:'Cart upsell, bundle reminder, progress bar, free shipping message, payment reassurance, and return policy copy.',
+        removes:'Missed AOV opportunities and late-stage uncertainty.',
+        metric:'Improves AOV, checkout starts, and completed orders.'
+      },
+      {
+        title:'Lifecycle Engine',
+        desc:'Turn the hero SKU into a customer system.',
+        goal:'Build the next purchase before the customer forgets the brand.',
+        build:'Klaviyo flows, review capture, replenishment reminders, education content, cross-sell sequence, and VIP offer.',
+        removes:'Dependence on paid traffic for every sale.',
+        metric:'Improves LTV, repeat rate, and payback period.'
+      }
+    ]
+  },
+  {
+    id:'leaking-store',
+    title:'Leaking store rebuild',
+    desc:'Traffic exists, but the store is losing buyers between product interest and checkout.',
+    mini:{traffic:'Existing traffic', page:'Store rebuild', goal:'Recover lost buyers'},
+    stages:[
+      {
+        title:'Journey Audit',
+        desc:'Find where intent is dropping before redesigning anything.',
+        goal:'Separate opinion problems from actual buyer friction.',
+        build:'Mobile walkthrough, analytics review, heatmap read, page-speed check, and funnel drop-off map.',
+        removes:'Random redesign decisions that do not target the leak.',
+        metric:'Improves prioritization and speed to impact.'
+      },
+      {
+        title:'Message Repair',
+        desc:'Make the store explain itself faster.',
+        goal:'Clarify who the product is for, why it matters, and why now.',
+        build:'Homepage hero rewrite, collection hierarchy, PDP intro copy, trust bar, and offer positioning.',
+        removes:'Confusion, weak first impression, and low perceived relevance.',
+        metric:'Improves bounce rate and session depth.'
+      },
+      {
+        title:'UX Rebuild',
+        desc:'Make shopping feel obvious on mobile.',
+        goal:'Remove layout friction from browsing, selecting, and buying.',
+        build:'Navigation cleanup, product-card system, mobile gallery, sticky ATC, variant UX, and fast-loading sections.',
+        removes:'Navigation dead ends, hidden actions, and layout drag.',
+        metric:'Improves product views, ATC rate, and mobile conversion.'
+      },
+      {
+        title:'Trust Repair',
+        desc:'Put proof where objections appear.',
+        goal:'Stop hiding the reasons buyers should believe the brand.',
+        build:'Review placement, FAQs, shipping and returns clarity, founder proof, guarantee block, and comparison section.',
+        removes:'Risk, uncertainty, and the need to leave the page to research.',
+        metric:'Improves checkout confidence and purchase intent.'
+      },
+      {
+        title:'Cart Recovery',
+        desc:'Make the cart finish the argument.',
+        goal:'Keep momentum from product page to checkout.',
+        build:'Cart drawer, policy microcopy, discount clarity, payment badges, threshold messaging, and abandoned-cart flow alignment.',
+        removes:'Last-mile hesitation and surprise friction.',
+        metric:'Improves cart-to-checkout and checkout completion.'
+      },
+      {
+        title:'Test Roadmap',
+        desc:'Turn the rebuild into a system for learning.',
+        goal:'Know what to test next after the first version ships.',
+        build:'Prioritized test backlog, event tracking notes, copy variants, section experiments, and post-launch review plan.',
+        removes:'Guesswork after launch.',
+        metric:'Improves iteration speed and long-term conversion rate.'
+      }
+    ]
+  }
+];
+
+/* ─── BUILD FUNNEL ARCHITECT ───────────────────────────────── */
+const funnelScenarios = document.getElementById('funnel-scenarios');
+const funnelMini = document.getElementById('funnel-mini');
+const funnelStageList = document.getElementById('funnel-stage-list');
+const funnelOutput = document.getElementById('funnel-output');
+let activeFunnelId = FUNNEL_SCENARIOS[0].id;
+let activeFunnelStage = 0;
+
+function getActiveFunnel(){
+  return FUNNEL_SCENARIOS.find(function(f){ return f.id === activeFunnelId; }) || FUNNEL_SCENARIOS[0];
+}
+
+function renderFunnelScenarios(){
+  funnelScenarios.innerHTML = FUNNEL_SCENARIOS.map(function(f){
+    return '<button class="funnel-scenario' + (f.id === activeFunnelId ? ' active' : '') + '" type="button" data-funnel-id="' + f.id + '" aria-pressed="' + (f.id === activeFunnelId ? 'true' : 'false') + '">' +
+      '<strong>' + f.title + '</strong>' +
+      '<span>' + f.desc + '</span>' +
+    '</button>';
+  }).join('');
+}
+
+function renderFunnelMini(funnel){
+  funnelMini.innerHTML =
+    '<div class="funnel-mini-row"><span>Traffic</span><span>' + funnel.mini.traffic + '</span></div>' +
+    '<div class="funnel-mini-row"><span>Primary page</span><span>' + funnel.mini.page + '</span></div>' +
+    '<div class="funnel-mini-row"><span>Commercial goal</span><span>' + funnel.mini.goal + '</span></div>';
+}
+
+function renderFunnelStages(funnel){
+  funnelStageList.innerHTML = funnel.stages.map(function(stage, i){
+    const num = String(i + 1).padStart(2, '0');
+    return '<button class="funnel-stage' + (i === activeFunnelStage ? ' active' : '') + '" type="button" data-stage-index="' + i + '" aria-pressed="' + (i === activeFunnelStage ? 'true' : 'false') + '">' +
+      '<span class="funnel-stage-num">' + num + '</span>' +
+      '<span><span class="funnel-stage-title">' + stage.title + '</span><span class="funnel-stage-desc">' + stage.desc + '</span></span>' +
+      '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>' +
+    '</button>';
+  }).join('');
+}
+
+function renderFunnelOutput(funnel){
+  const stage = funnel.stages[activeFunnelStage];
+  funnelOutput.innerHTML =
+    '<span class="funnel-output-kicker">Stage ' + String(activeFunnelStage + 1).padStart(2, '0') + ' strategy</span>' +
+    '<h3>' + stage.title + '</h3>' +
+    '<p>' + stage.desc + '</p>' +
+    '<div class="funnel-output-grid">' +
+      '<div class="funnel-output-card"><span>Goal</span><strong>' + stage.goal + '</strong></div>' +
+      '<div class="funnel-output-card"><span>What I build</span><strong>' + stage.build + '</strong></div>' +
+      '<div class="funnel-output-card"><span>Friction removed</span><strong>' + stage.removes + '</strong></div>' +
+      '<div class="funnel-output-card"><span>Metric affected</span><strong>' + stage.metric + '</strong></div>' +
+    '</div>' +
+    '<div class="funnel-cta"><a href="#hire" class="btn-outline">Map my funnel <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a></div>';
+}
+
+function renderFunnel(){
+  const funnel = getActiveFunnel();
+  renderFunnelScenarios();
+  renderFunnelMini(funnel);
+  renderFunnelStages(funnel);
+  renderFunnelOutput(funnel);
+}
+
+renderFunnel();
+
+funnelScenarios.addEventListener('click', function(e){
+  const btn = e.target.closest('.funnel-scenario');
+  if(!btn) return;
+  activeFunnelId = btn.dataset.funnelId;
+  activeFunnelStage = 0;
+  renderFunnel();
+});
+
+funnelStageList.addEventListener('click', function(e){
+  const btn = e.target.closest('.funnel-stage');
+  if(!btn) return;
+  activeFunnelStage = Number(btn.dataset.stageIndex);
+  renderFunnel();
+});
 
 /* ─── CRO CONCEPTS DATA ─────────────────────────────────────── */
 const CRO_CONCEPTS = [
@@ -1678,6 +2100,7 @@ const SECTIONS = [
   {id:'work',     label:'Work'},
   {id:'results',  label:'Results'},
   {id:'services', label:'Services'},
+  {id:'funnel',   label:'Funnel'},
   {id:'cro',      label:'CRO'},
   {id:'process',  label:'Process'},
   {id:'stack',    label:'Stack'},
