@@ -371,11 +371,14 @@
     .d-thumb img,.d-thumb video,.d-video video{width:100%;height:100%;object-fit:cover}
     .d-video{width:100%;aspect-ratio:16/9;border-radius:10px;overflow:hidden;background:var(--surface-2);border:1px solid var(--border)}
     .d-experience{position:relative;width:100%;aspect-ratio:16/10;border:1px solid rgba(240,237,232,.12);border-radius:14px;overflow:hidden;background:#060606;overscroll-behavior:contain;padding:16px 16px 24px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.04)}
+    .d-experience.mobile-preview{width:min(100%,430px);height:60vh;min-height:460px;aspect-ratio:9/16;margin-left:auto;margin-right:auto;padding:14px 14px 22px}
+    @media(min-width:480px){.d-experience.mobile-preview{height:min(72vh,760px);min-height:560px}}
     .d-experience::after{content:'';position:absolute;left:50%;bottom:6px;width:34%;height:6px;transform:translateX(-50%);border-radius:0 0 12px 12px;background:linear-gradient(90deg,rgba(240,237,232,.08),rgba(240,237,232,.22),rgba(240,237,232,.08))}
     .d-view-toggle{display:inline-flex;gap:4px;margin-bottom:10px;padding:3px;border:1px solid var(--border);border-radius:100px;background:rgba(255,255,255,.03)}
     .d-view-toggle button{font-family:var(--fm);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);padding:5px 10px;border-radius:100px;transition:background .2s var(--ease),color .2s var(--ease)}
     .d-view-toggle button.active{background:var(--text);color:var(--bg)}
     .d-laptop-screen{position:relative;width:100%;height:100%;overflow:hidden;border-radius:8px;background:#fff}
+    .d-laptop-screen[data-mode="mobile"]{border-radius:22px}
     .d-iframe-stage{position:absolute;left:50%;top:50%;width:var(--stage-w,1440px);height:var(--stage-h,900px);transform:translate(-50%,-50%) scale(var(--stage-scale,.42));transform-origin:center center}
     .d-iframe-stage iframe{width:100%;height:100%;border:0;background:#fff}
     .d-scroll-shot{position:absolute;inset:0;overflow:hidden;background:#111}
@@ -388,6 +391,7 @@
     .d-mobile-shot{aspect-ratio:9/16;border:1px solid var(--border);border-radius:10px;overflow:hidden;background:#0b0b0b;display:flex;align-items:center;justify-content:center}
     .d-mobile-shot img,.d-mobile-shot video{width:100%;height:100%;object-fit:contain}
     .d-mobile-shot.crop img,.d-mobile-shot.crop video{object-fit:cover}
+    .d-mobile-shot.video-focus video{object-fit:cover;transform:scale(1.08)}
     .d-mobile-strip.count-1{grid-template-columns:minmax(0,1fr);max-width:220px}
     .d-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;padding:18px;text-align:center;font-family:var(--fm);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--subtle);background:linear-gradient(135deg,#171717,#242424)}
     .d-sec-lbl{font-family:var(--fm);font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:10px;border-top:1px solid var(--border);padding-top:20px;margin-top:20px}
@@ -915,12 +919,13 @@ const PROJECTS = [
     gradient:'linear-gradient(135deg,#1e1a2e 0%,#c47a3a 100%)',
     url:'../brands/kura/pages/kuda-pdp-01/index_1_cro.html',
     media:{
-      cover:'images/exports/kura-pdp-cover.jpg',
-      video:'images/exports/kura-laptop-mobile.mp4',
+      cover:'images/exports/kura pdp cover.jpg',
+      preview:'images/exports/kura pdp cover.mp4',
+      video:'images/exports/kura desktop.mp4',
       experience:{ type:'embed', embed:'../brands/kura/pages/kuda-pdp-01/index_1_cro.html', image:'images/exports/kura-pdp-full-mockup.png', scrollEnd:'-64%' },
       mobileShots:[
         {src:'images/exports/kura-pdp-mobile-1.png'},
-        {src:'images/exports/kura-pdp-mobile-2.png'},
+        {src:'images/exports/kura mobile.mp4', focus:true},
         {src:'images/exports/kura-pdp-mobile-3.png'}
       ]
     },
@@ -937,7 +942,7 @@ const PROJECTS = [
     gradient:'linear-gradient(135deg,#071e3d 0%,#1a7abf 100%)',
     url:'https://tapandrate.co.uk',
     media:{
-      cover:'images/exports/tapandrate-landing-cover.avif',
+      cover:'images/exports/tapandrate-landing-cover.png',
       video:'images/exports/tapandrate-landing-mobile.mp4',
       experience:{ image:'images/exports/tapandrate.co.uk_pages_review-management-1_pb=0(Laptop).png', scrollEnd:'-70%' },
       mobileShots:[
@@ -982,7 +987,7 @@ const PROJECTS = [
     gradient:'linear-gradient(135deg,#2d0033 0%,#c2185b 100%)',
     url:'https://motherofmacros.com',
     media:{
-      cover:'images/exports/motherofmacros-cover.avif',
+      cover:'images/exports/motherofmacros-cover.png',
       video: 'images/exports/motherofmacros-vid.mp4',
       experience:{ image:'images/exports/motherofmacros-vid.mp4' },
       mobileShots:[
@@ -1089,11 +1094,13 @@ const PROJECTS = [
     gradient:'linear-gradient(135deg,#1a1400 0%,#d4a017 100%)',
     url:'../brands/kura/pages/kura-ad-01/index.html',
     media:{
-      cover:'images/exports/kura-ad-preview.png',
+      cover:'images/exports/Kura advertorial cover.png',
+      preview:'images/exports/Kura advertorial cover.mp4',
+      video:'images/exports/Kura advertorial laptop.mp4',
       experience:{ type:'embed', embed:'../brands/kura/pages/kura-ad-01/index.html', image:'images/exports/kura-ad-preview.png' },
       mobileShots:[
         {src:'images/exports/kura-ad-mobile-1.png'},
-        {src:'images/exports/kura-ad-mobile-2.png'},
+        {src:'images/exports/Kura advertorial mobile.mp4', focus:true},
         {src:'images/exports/kura-ad-mobile-3.png'}
       ]
     },
@@ -1110,11 +1117,13 @@ const PROJECTS = [
     gradient:'linear-gradient(135deg,#0d0d20 0%,#6b2fbe 100%)',
     url:'../brands/kura/pages/kura-hp-01/index.html',
     media:{
-      cover:'images/exports/kura-home-preview.png',
+      cover:'images/exports/kura homepage cover.png',
+      preview:'images/exports/Kura homepage cover.mp4',
+      video:'images/exports/Kura homepage laptop.mp4',
       experience:{ type:'embed', embed:'../brands/kura/pages/kura-hp-01/index.html', image:'images/exports/kura-home-preview.png' },
       mobileShots:[
         {src:'images/exports/kura-hp-mobile-1.png'},
-        {src:'images/exports/kura-hp-mobile-2.png'},
+        {src:'images/exports/Kura homepage mobile.mp4', focus:true},
         {src:'images/exports/kura-hp-mobile-3.png'}
       ]
     },
@@ -1131,11 +1140,13 @@ const PROJECTS = [
     gradient:'linear-gradient(135deg,#001a12 0%,#ff6b35 100%)',
     url:'../brands/kura/pages/kura-listicle-li03/index.html',
     media:{
-      cover:'images/exports/kura-listicle-preview.png',
+      cover:'images/exports/Kura listicle cover.png',
+      preview:'images/exports/Kura listicle cover.mp4',
+      video:'images/exports/kura listicle laptop.mp4',
       experience:{ type:'embed', embed:'../brands/kura/pages/kura-listicle-li03/index.html', image:'images/exports/kura-listicle-preview.png' },
       mobileShots:[
         {src:'images/exports/kura-lis-03-mobile-1.png'},
-        {src:'images/exports/kura-lis-03-mobile-2.png'},
+        {src:'images/exports/kura listicle mobile.mp4', focus:true},
         {src:'images/exports/kura-lis-03-mobile-3.png'}
       ]
     },
@@ -1593,9 +1604,12 @@ function buildDrawer(p){
     : '<div class="d-laptop-screen"><div class="d-scroll-shot">'+mediaVisual(experience.image || media.video || media.cover, p.title+' full page preview', '', '--scroll-end:'+(experience.scrollEnd || '-58%'))+'</div></div><span class="d-experience-note">Auto-scrolls. Hover to pause.</span>';
   const mobileShotData = media.mobileShots || [];
   const mobileShots = mobileShotData.slice(0,3).map(function(shot, idx){
-    const visual = mediaVisual(shot.src, p.title+' mobile screenshot '+(idx+1), '', 'object-position:'+imgPosition(shot.position));
+    const visual = isVideo(shot.src)
+      ? '<video src="'+shot.src+'" autoplay muted loop playsinline preload="metadata"></video>'
+      : mediaVisual(shot.src, p.title+' mobile screenshot '+(idx+1), '', 'object-position:'+imgPosition(shot.position));
     const cropClass = shot.fit === 'cover' ? ' crop' : '';
-    return '<div class="d-mobile-shot'+cropClass+'">'+visual+'</div>';
+    const focusClass = shot.focus ? ' video-focus' : '';
+    return '<div class="d-mobile-shot'+cropClass+focusClass+'">'+visual+'</div>';
   }).join('');
   const mediaSections = media.hideMediaDetails ? '' :
     (media.video ? '<span class="d-sec-lbl">Project video</span><div class="d-video">'+video+'</div>' : '') +
@@ -1648,6 +1662,7 @@ drawerBody.addEventListener('click', function(e){
   if(!screen) return;
   const mode = btn.dataset.previewMode;
   screen.dataset.mode = mode;
+  wrap.classList.toggle('mobile-preview', mode === 'mobile');
   wrap.querySelectorAll('[data-preview-mode]').forEach(function(control){
     control.classList.toggle('active', control === btn);
   });
