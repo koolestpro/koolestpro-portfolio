@@ -1346,6 +1346,29 @@ const PROJECTS = [
       decisions:['Summary comparison table at the top — readers who skip to the verdict can get it immediately','#1 entry gets 3x the content of others, justified by the editorial "expanded review" convention','Two inline CTAs appear at peak reader intent moments within the list flow'],
       result:'Concept build showing the complete listicle architecture for a DTC product. Demonstrates how organic-looking editorial content can function as a high-intent conversion page.'
     }
+  },
+  {
+    id:'kura-post-purchase', num:'12', brand:'KURA Post Purchase', title:'KURA Board — Post-Purchase Flow', type:'Post Purchase',
+    gradient:'linear-gradient(135deg,#151515 0%,#c47a3a 100%)',
+    url:'../brands/kura/pages/kura-pp-01/index.html',
+    media:{
+      cover:'images/exports/kura-post-purchase-cover-optimized.jpg',
+      preview:'https://res.cloudinary.com/drl0rscuf/video/upload/v1778848326/portfolio/videos/kura-post-purchase-cover-mp4.mov',
+      video:'https://res.cloudinary.com/drl0rscuf/video/upload/v1778848338/portfolio/videos/kura-post-purchase-laptop-mp4.mov',
+      experience:{ type:'embed', embed:'../brands/kura/pages/kura-pp-01/index.html', image:'images/exports/kura post purchase full.png' },
+      mobileShots:[
+        {src:'images/exports/kura-post-mobile-1.png'},
+        {src:'https://res.cloudinary.com/drl0rscuf/video/upload/v1778848352/portfolio/videos/kura-post-purchase-mobile-mp4.mov', focus:true},
+        {src:'images/exports/kura-post-mobile-3.png'}
+      ]
+    },
+    caseStudy:{
+      headline:'A post-purchase flow that keeps the sale moving after checkout',
+      tools:['HTML/CSS','Figma','Custom JS'],
+      description:'The KURA post-purchase page extends the customer journey after checkout. Instead of treating confirmation as the end, it uses reassurance, product education, and next-step offers to turn purchase momentum into deeper brand engagement.',
+      decisions:['Post-purchase messaging starts with reassurance so the customer feels confident before seeing any next action','Education blocks are sequenced before upsell moments, making the page feel helpful rather than purely transactional','Mobile preview gets the center video treatment to show the page flow clearly without relying on three static screenshots'],
+      result:'Concept build demonstrating how KURA can use the post-purchase moment for retention, education, review capture, and second-order intent.'
+    }
   }
 ];
 
@@ -1747,7 +1770,7 @@ const CRO_CONCEPTS = [
 
 /* ─── BUILD WORK LIST ───────────────────────────────────────── */
 const workList = document.getElementById('work-list');
-const VISIBLE_LIMIT = 8;
+const VISIBLE_LIMIT = 20;
 PROJECTS.forEach(function(p, i){
   const li = document.createElement('li');
   li.className = 'work-item reveal' + (i >= VISIBLE_LIMIT ? ' hidden-project' : '');
