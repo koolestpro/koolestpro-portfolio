@@ -1,10 +1,10 @@
-# KOOLESTPRO Portfolio — Project Brief
+# KOOLESTPRO Portfolio - Project Brief
 > Paste this into any new chat to instantly pick up the project.
 
 ---
 
 ## What We're Building
-A dark-themed, single-page portfolio for **Ridwan Adekunle (@koolestpro)** — Shopify CRO & UX Designer based in Ibadan, Nigeria. The page is designed to be shared as a cold outreach link and answers 7 recruiter/client questions in order: **Who → What → Work → Process → Results → Tools → Hire**.
+A dark-themed, single-page portfolio for **Ridwan Adekunle (@koolestpro)** - Shopify CRO & UX Designer based in Ibadan, Nigeria. The page is designed to be shared as a cold outreach link and answers 7 recruiter/client questions in order: **Who → What → Work → Process → Results → Tools → Hire**.
 
 **Primary file:** `/Users/mac/Downloads/replo-rebuilds/portfolio/index.html`
 
@@ -28,17 +28,17 @@ A dark-themed, single-page portfolio for **Ridwan Adekunle (@koolestpro)** — S
 - **Body/labels font:** DM Mono 400 (Google Fonts)
 - **Body text font:** DM Sans 400/500 (Google Fonts)
 - **Colors:**
-  - `--bg: #0a0a0a` — page background
-  - `--surface: #141414` — card/section backgrounds
-  - `--surface-2: #1b1f23` — elevated surfaces
-  - `--text: #f0ede8` — primary text
+  - `--bg: #0a0a0a` - page background
+  - `--surface: #141414` - card/section backgrounds
+  - `--surface-2: #1b1f23` - elevated surfaces
+  - `--text: #f0ede8` - primary text
   - `--orange: #FF9500`
   - `--pink: #E040A0`
   - `--purple: #7B2FBE`
-  - `--gradient: linear-gradient(90deg, #FF9500, #E040A0, #7B2FBE)` — brand gradient
+  - `--gradient: linear-gradient(90deg, #FF9500, #E040A0, #7B2FBE)` - brand gradient
 - **Custom easing:** `cubic-bezier(0.16, 1, 0.3, 1)` on ALL transitions (expo-out)
 - **Gradient text rule:** Use CSS `background-clip: text` for HTML headings; SVG `<linearGradient>` for exported/print graphics
-- **No emoji — ever.** Every icon = inline SVG
+- **No emoji - ever.** Every icon = inline SVG
 
 ---
 
@@ -105,7 +105,7 @@ const PROJECTS = [
     id: 'kura-pdp',
     num: '01',
     brand: 'KURA',
-    title: 'KURA Board — Product Page',
+    title: 'KURA Board - Product Page',
     type: 'PDP',
     gradient: 'linear-gradient(135deg, #1a1a2e 0%, #c47a3a 100%)',
     url: '../brands/kura/pages/kura-pdp-01/index.html',
@@ -134,11 +134,11 @@ const PROJECTS = [
 ---
 
 ## 5 Process Steps
-1. **Request** — You send a brief or we hop on a 15-min call
-2. **Estimate** — I scope the build and send a clear quote
-3. **Assets** — You share brand files, copy, and references
-4. **Build** — I build and send previews for your feedback
-5. **Launch** — Final files delivered, ready to ship
+1. **Request** - You send a brief or we hop on a 15-min call
+2. **Estimate** - I scope the build and send a clear quote
+3. **Assets** - You share brand files, copy, and references
+4. **Build** - I build and send previews for your feedback
+5. **Launch** - Final files delivered, ready to ship
 
 ---
 
@@ -151,10 +151,10 @@ NOT a plain dark background. Uses:
 ---
 
 ## Rules (from CLAUDE.md)
-- Mobile-first CSS only — `min-width` queries, never `max-width`
-- No emoji anywhere — inline SVG for every icon
+- Mobile-first CSS only - `min-width` queries, never `max-width`
+- No emoji anywhere - inline SVG for every icon
 - No external JS except Lenis CDN
-- All colors in `:root` — never hardcode hex in components
+- All colors in `:root` - never hardcode hex in components
 - Custom ease `cubic-bezier(0.16, 1, 0.3, 1)` on all transitions
 - Section separator comments: `<!-- ═══ SECTION N: NAME ═══ -->`
 - Edit comments: `<!-- EDIT: ... -->` on every editable text node
@@ -178,6 +178,6 @@ NOT a plain dark background. Uses:
 ```
 portfolio/
 ├── index.html          ← Single-page portfolio (main deliverable)
-├── PROJECT-BRIEF.md    ← This file — context for any chat
+├── PROJECT-BRIEF.md    ← This file - context for any chat
 └── images/             ← Add real screenshots/thumbnails here
 ```
